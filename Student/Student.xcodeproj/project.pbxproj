@@ -15,6 +15,8 @@
 		98101BD91C0A5945001E9555 /* PDFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98101BD61C0A5945001E9555 /* PDFView.swift */; };
 		98101BDB1C0A597E001E9555 /* PagesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98101BDA1C0A597E001E9555 /* PagesTableViewController.swift */; };
 		98101BDD1C0A5BB0001E9555 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98101BDC1C0A5BB0001E9555 /* Document.swift */; };
+		98101BDF1C0A6436001E9555 /* DrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98101BDE1C0A6436001E9555 /* DrawingView.swift */; };
+		98101BE11C0A6C98001E9555 /* DrawingSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98101BE01C0A6C98001E9555 /* DrawingSettingsViewController.swift */; };
 		9874DD721C079C2E00909A89 /* test.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9874DD711C079C2E00909A89 /* test.pdf */; };
 		98DBAA0A1C0799CB007EFFE5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DBAA091C0799CB007EFFE5 /* AppDelegate.swift */; };
 		98DBAA121C0799CB007EFFE5 /* Student.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 98DBAA101C0799CB007EFFE5 /* Student.xcdatamodeld */; };
@@ -50,6 +52,8 @@
 		98101BD61C0A5945001E9555 /* PDFView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PDFView.swift; path = Document/PDFView.swift; sourceTree = "<group>"; };
 		98101BDA1C0A597E001E9555 /* PagesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PagesTableViewController.swift; path = ../PagesTableViewController.swift; sourceTree = "<group>"; };
 		98101BDC1C0A5BB0001E9555 /* Document.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
+		98101BDE1C0A6436001E9555 /* DrawingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawingView.swift; sourceTree = "<group>"; };
+		98101BE01C0A6C98001E9555 /* DrawingSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawingSettingsViewController.swift; sourceTree = "<group>"; };
 		9874DD711C079C2E00909A89 /* test.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = test.pdf; sourceTree = "<group>"; };
 		98DBAA061C0799CB007EFFE5 /* Student.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Student.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98DBAA091C0799CB007EFFE5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -101,6 +105,8 @@
 				98101BCE1C0A58AA001E9555 /* PagesOverviewTableViewCell.swift */,
 				98101BCF1C0A58AA001E9555 /* PagesOverviewTableViewController.swift */,
 				98101BDC1C0A5BB0001E9555 /* Document.swift */,
+				98101BDE1C0A6436001E9555 /* DrawingView.swift */,
+				98101BE01C0A6C98001E9555 /* DrawingSettingsViewController.swift */,
 			);
 			name = Document;
 			sourceTree = "<group>";
@@ -296,6 +302,8 @@
 				98DBAA121C0799CB007EFFE5 /* Student.xcdatamodeld in Sources */,
 				98101BDD1C0A5BB0001E9555 /* Document.swift in Sources */,
 				98101BD21C0A58AA001E9555 /* PagesOverviewTableViewCell.swift in Sources */,
+				98101BDF1C0A6436001E9555 /* DrawingView.swift in Sources */,
+				98101BE11C0A6C98001E9555 /* DrawingSettingsViewController.swift in Sources */,
 				98101BD91C0A5945001E9555 /* PDFView.swift in Sources */,
 				98101BD31C0A58AA001E9555 /* PagesOverviewTableViewController.swift in Sources */,
 			);

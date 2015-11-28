@@ -37,7 +37,7 @@ class PDFView: UIView {
                 height)
             CGContextTranslateCTM(context, -mediaRect.origin.x, -mediaRect.origin.y)
 
-            delegate?.updateHeight(height)
+            delegate?.updateHeight(mediaRect.height)
             CGContextDrawPDFPage(context, page);
 
         }

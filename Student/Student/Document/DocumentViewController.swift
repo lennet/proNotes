@@ -18,8 +18,8 @@ class DocumentViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let url = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("test", ofType: "pdf")!) as CFURLRef
-        document.addPDF(url)
+//        let url = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("test", ofType: "pdf")!) as CFURLRef
+//        document.addPDF(url)
         pagesOverviewController?.pages = document.numberOfPages
         pagesTableViewController?.document = document
     }

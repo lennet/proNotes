@@ -10,7 +10,7 @@ import UIKit
 
 class Document: NSObject {
     var name = ""
-    var numberOfPages = 0
+    var numberOfPages = 1
     var pdf: CGPDFDocumentRef?
     
     
