@@ -8,21 +8,24 @@
 
 import UIKit
 
-class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelegate {
+class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelegate, DocumentSynchronizerDelegate {
 
     var pagesOverviewController: PagesOverviewTableViewController?
     var pagesTableViewController: PagesTableViewController?
 
-    var document: Document?
+    var document: Document? = DocumentSynchronizer.sharedInstance.document
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        let url = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("test", ofType: "pdf")!) as CFURLRef
-//        document.addPDF(url)
-        pagesOverviewController?.pages = document!.getNumberOfPages()
+        DocumentSynchronizer.sharedInstance.addDelegate(self)
+        document = DocumentSynchronizer.sharedInstance.document
         pagesTableViewController?.document = document
     }
 
+    deinit {
+        DocumentSynchronizer.sharedInstance.removeDelegate(self)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -30,8 +33,7 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
     
     @IBAction func handleAddPageButtonPressed(sender: AnyObject) {
         document?.addEmptyPage()
-        pagesTableViewController?.document = document
-        pagesOverviewController?.addNewPage()
+        DocumentSynchronizer.sharedInstance.document = document
     }
 
     @IBAction func handleDrawButtonPressed(sender: AnyObject) {
@@ -51,11 +53,15 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
         }
     }
     
-    // MARK; - PagesOverViewDelegate 
+    // MARK: - PagesOverViewDelegate
     
     func showPage(index: Int){
         pagesTableViewController?.showPage(index)
     }
     
-
+    // MARK: - DocumentSynchronizerDelegate
+    func updateDocument(document: Document){
+        self.document = document
+    }
+    
 }

@@ -15,6 +15,7 @@
 		98101BD91C0A5945001E9555 /* PDFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98101BD61C0A5945001E9555 /* PDFView.swift */; };
 		98101BDB1C0A597E001E9555 /* PagesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98101BDA1C0A597E001E9555 /* PagesTableViewController.swift */; };
 		98312D661C0B65E500F3B1CB /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98312D651C0B65E500F3B1CB /* PageView.swift */; };
+		98312D691C0B79F200F3B1CB /* DocumentSynchronizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98312D681C0B79F200F3B1CB /* DocumentSynchronizer.swift */; };
 		9874DD721C079C2E00909A89 /* test.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9874DD711C079C2E00909A89 /* test.pdf */; };
 		98D8C0B71C0B116F0026EECE /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D8C0B61C0B116F0026EECE /* Document.swift */; };
 		98D8C0BA1C0B11750026EECE /* DrawingSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D8C0B81C0B11750026EECE /* DrawingSettingsViewController.swift */; };
@@ -55,6 +56,7 @@
 		98101BD61C0A5945001E9555 /* PDFView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PDFView.swift; path = Document/PDFView.swift; sourceTree = "<group>"; };
 		98101BDA1C0A597E001E9555 /* PagesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PagesTableViewController.swift; path = ../PagesTableViewController.swift; sourceTree = "<group>"; };
 		98312D651C0B65E500F3B1CB /* PageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageView.swift; path = Document/PageView.swift; sourceTree = "<group>"; };
+		98312D681C0B79F200F3B1CB /* DocumentSynchronizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DocumentSynchronizer.swift; path = Document/DocumentSynchronizer.swift; sourceTree = "<group>"; };
 		9874DD711C079C2E00909A89 /* test.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = test.pdf; sourceTree = "<group>"; };
 		98D8C0B61C0B116F0026EECE /* Document.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Document.swift; path = Document/Document.swift; sourceTree = "<group>"; };
 		98D8C0B81C0B11750026EECE /* DrawingSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DrawingSettingsViewController.swift; path = Document/DrawingSettingsViewController.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 				98D8C0B81C0B11750026EECE /* DrawingSettingsViewController.swift */,
 				98D8C0BC1C0B12DA0026EECE /* DocumentOverviewTableViewController.swift */,
 				98312D671C0B65F500F3B1CB /* PageView */,
+				98312D681C0B79F200F3B1CB /* DocumentSynchronizer.swift */,
 			);
 			name = Document;
 			sourceTree = "<group>";
@@ -327,6 +330,7 @@
 				98101BD11C0A58AA001E9555 /* DocumentViewController.swift in Sources */,
 				98312D661C0B65E500F3B1CB /* PageView.swift in Sources */,
 				98DBAA121C0799CB007EFFE5 /* Student.xcdatamodeld in Sources */,
+				98312D691C0B79F200F3B1CB /* DocumentSynchronizer.swift in Sources */,
 				98D8C0B71C0B116F0026EECE /* Document.swift in Sources */,
 				98D8C0BA1C0B11750026EECE /* DrawingSettingsViewController.swift in Sources */,
 				98101BD21C0A58AA001E9555 /* PagesOverviewTableViewCell.swift in Sources */,

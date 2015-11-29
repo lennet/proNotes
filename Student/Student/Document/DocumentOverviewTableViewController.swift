@@ -94,21 +94,22 @@ class DocumentOverviewTableViewController: UITableViewController, UIDocumentPick
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let viewcontroller = segue.destinationViewController as? DocumentViewController {
-            let document = Document()
-            document.addPDF(sender as! NSURL)
-            viewcontroller.document = document
-        }
-        
-    }
+//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//        if let viewcontroller = segue.destinationViewController as? DocumentViewController {
+//
+//        }
+//        
+//    }
 
     
     //  MARK: - UIDocumenPicker
     
 
     func documentPicker(controller: UIDocumentPickerViewController, didPickDocumentAtURL url: NSURL) {
-        performSegueWithIdentifier("test", sender: url)
+        let document = Document()
+        document.addPDF(url)
+        DocumentSynchronizer.sharedInstance.document = document
+                performSegueWithIdentifier("test", sender: nil)
     }
 
 }

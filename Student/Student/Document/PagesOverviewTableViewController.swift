@@ -8,29 +8,32 @@
 
 import UIKit
 
-class PagesOverviewTableViewController: UITableViewController {
+class PagesOverviewTableViewController: UITableViewController, DocumentSynchronizerDelegate {
     
-    var pages = 4
+    var document: Document? = DocumentSynchronizer.sharedInstance.document {
+        didSet{
+            tableView.reloadData()
+        }
+    }
     var pagesOverViewDelegate: PagesOverviewTableViewCellDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        DocumentSynchronizer.sharedInstance.addDelegate(self)
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
+    
+    deinit {
+        DocumentSynchronizer.sharedInstance.removeDelegate(self)
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-
-    func addNewPage() {
-        pages++
-        tableView.reloadData()
     }
     
     // MARK: - Table view data source
@@ -40,7 +43,7 @@ class PagesOverviewTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return pages
+        return document?.getNumberOfPages() ?? 0
     }
 
     
@@ -100,5 +103,9 @@ class PagesOverviewTableViewController: UITableViewController {
     }
     */
     
+    // MARK: - DocumentSynchronizerDelegate
+    func updateDocument(document: Document){
+        self.document = document
+    }
 
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PagesTableViewController: UITableViewController {
+class PagesTableViewController: UITableViewController, DocumentSynchronizerDelegate {
 
    
     var document: Document? {
@@ -22,11 +22,17 @@ class PagesTableViewController: UITableViewController {
         tableView.estimatedRowHeight = 500.0
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.panGestureRecognizer.minimumNumberOfTouches = 1
+        DocumentSynchronizer.sharedInstance.addDelegate(self)
+        document = DocumentSynchronizer.sharedInstance.document
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         loadTableView()
+    }
+    
+    deinit {
+        DocumentSynchronizer.sharedInstance.removeDelegate(self)
     }
     
     func loadTableView() {
@@ -113,5 +119,9 @@ class PagesTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    // MARK: - DocumentSynchronizerDelegate
+    func updateDocument(document: Document){
+        self.document = document
+    }
 
 }

@@ -86,4 +86,5 @@ class Document {
     func getNumberOfPages() -> Int {
         return pages.count;
     }
+    
 }
