@@ -31,13 +31,25 @@ class PDFView: UIView {
             let mediaRect = CGPDFPageGetBoxRect(page, CGPDFBox.CropBox)
             delegate?.updateHeight(mediaRect.height)
             
-            let height = rect.size.height / mediaRect.size.height
-            let width = rect.size.width / mediaRect.size.width
-            CGContextScaleCTM(context, width,
-                height)
+            let heightRatio = rect.size.height / mediaRect.size.height
+            let widthRatio = rect.size.width / mediaRect.size.width
+
+            var height: CGFloat = 0
+            
+            if heightRatio > widthRatio {
+                height = mediaRect.height * heightRatio
+                CGContextScaleCTM(context, heightRatio,
+                    heightRatio)
+            } else {
+                height = mediaRect.height * widthRatio
+                CGContextScaleCTM(context, widthRatio,
+                    widthRatio)
+            }
+            
+            
             CGContextTranslateCTM(context, -mediaRect.origin.x, -mediaRect.origin.y)
 
-            delegate?.updateHeight(mediaRect.height)
+            delegate?.updateHeight(height)
             CGContextDrawPDFPage(context, page);
 
         }

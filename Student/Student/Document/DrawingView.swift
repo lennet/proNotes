@@ -28,7 +28,7 @@ class DrawingView: UIView {
     
     func commonInit() {
         multipleTouchEnabled = false
-        backgroundColor = UIColor.whiteColor()
+        backgroundColor = UIColor.clearColor()
         path.lineWidth = 2.0
     }
     
@@ -81,8 +81,8 @@ class DrawingView: UIView {
     }
     
     func drawBitmap() {
-        UIGraphicsBeginImageContextWithOptions(self.bounds.size, true, 0.0);
-        
+        UIGraphicsBeginImageContextWithOptions(self.bounds.size, false, 0.0);
+
         if incrementalImage == nil {
             let rectPath = UIBezierPath(rect: self.bounds)
             backgroundColor?.setFill()

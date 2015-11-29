@@ -8,19 +8,19 @@
 
 import UIKit
 
-class DocumentViewController: UIViewController {
+class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelegate {
 
     var pagesOverviewController: PagesOverviewTableViewController?
     var pagesTableViewController: PagesTableViewController?
 
-    let document = Document()
+    var document: Document?
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
 //        let url = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("test", ofType: "pdf")!) as CFURLRef
 //        document.addPDF(url)
-        pagesOverviewController?.pages = document.numberOfPages
+        pagesOverviewController?.pages = document!.numberOfPages
         pagesTableViewController?.document = document
     }
 
@@ -40,10 +40,17 @@ class DocumentViewController: UIViewController {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let viewController = segue.destinationViewController as? PagesOverviewTableViewController {
+            viewController.pagesOverViewDelegate = self
             pagesOverviewController = viewController
         } else if let viewController = segue.destinationViewController as? PagesTableViewController {
             pagesTableViewController = viewController
         }
+    }
+    
+    // MARK; - PagesOverViewDelegate 
+    
+    func showPage(index: Int){
+        pagesTableViewController?.showPage(index)
     }
     
 

@@ -11,6 +11,7 @@ import UIKit
 class PagesOverviewTableViewController: UITableViewController {
     
     var pages = 4
+    var pagesOverViewDelegate: PagesOverviewTableViewCellDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,7 +49,9 @@ class PagesOverviewTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier(PagesOverviewTableViewCell.identifier, forIndexPath: indexPath) as! PagesOverviewTableViewCell
 
         cell.numberLabel.text = String(indexPath.row+1)
-
+        cell.index = indexPath.row
+        cell.delegate = pagesOverViewDelegate
+        
         return cell
     }
 
@@ -97,5 +100,6 @@ class PagesOverviewTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
 
 }

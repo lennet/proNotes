@@ -29,6 +29,7 @@ class PageTableViewCell: UITableViewCell, PDFViewDelegate {
         print(height)
         if height != heightConstraint.constant {
             heightConstraint.constant = height
+            setNeedsLayout()
             layoutIfNeeded()
             paperView.setNeedsDisplay()
         }
