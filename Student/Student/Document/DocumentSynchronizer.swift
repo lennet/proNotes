@@ -53,6 +53,19 @@ class DocumentSynchronizer: NSObject {
         }
     }
     
+    func updateDrawLayer(drawLayer: DocumentDrawLayer){
+        if document != nil {
+            let page = drawLayer.docPage
+            page.layer[drawLayer.index] = drawLayer
+            document?.pages[page.index] = page
+            dispatch_async(dispatch_get_main_queue(),{
+                self.informDelegateToUpdateDocument(self.document!)
+            })
+
+            print("update draw layer"+String(page.index)+String(drawLayer.index))
+        }
+    }
+    
     // MARK: - Delegate Handling
     
     func addDelegate(delegate  :DocumentSynchronizerDelegate) {

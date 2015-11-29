@@ -11,7 +11,6 @@ import UIKit
 class PageView: UIView {
     
     var pdfViewDelegate: PDFViewDelegate?
-    
     var page : DocumentPage? {
         didSet{
             setUpLayer()
@@ -48,6 +47,16 @@ class PageView: UIView {
         let view = DrawingView(drawLayer: drawLayer, frame: bounds)
         view.backgroundColor = UIColor.clearColor()
         addSubview(view)
+    }
+    
+    func getDrawingViews() -> [DrawingView]{
+        var result = [DrawingView]()
+        for view in subviews {
+            if let drawingView = view as? DrawingView {
+                result.append(drawingView)
+            }
+        }
+        return result
     }
     
     /*

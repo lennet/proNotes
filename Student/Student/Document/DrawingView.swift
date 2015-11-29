@@ -14,23 +14,32 @@ class DrawingView: UIView {
     var incrementalImage: UIImage?
     var points  = [CGPoint?](count:5, repeatedValue: nil)
   
+    var didChange = false
+    
     var counter = 0
     var drawLayer: DocumentDrawLayer?{
         didSet{
             incrementalImage = drawLayer?.image
-            setNeedsDisplay()
         }
     }
-  
+
     init(drawLayer: DocumentDrawLayer, frame: CGRect) {
         self.drawLayer = drawLayer
+        incrementalImage = self.drawLayer?.image
         super.init(frame: frame)
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-
+    
+    deinit{
+        if incrementalImage != nil && drawLayer != nil && didChange{
+            drawLayer?.image = incrementalImage
+            DocumentSynchronizer.sharedInstance.updateDrawLayer(drawLayer!)
+            didChange = false
+        }
+    }
     
     func commonInit() {
         multipleTouchEnabled = false
@@ -46,7 +55,6 @@ class DrawingView: UIView {
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-
         let touch = touches.first
         points[0] = (touch?.locationInView(self))!
     }
@@ -69,6 +77,7 @@ class DrawingView: UIView {
             points[1] = points[4];
             counter = 1;
         }
+        didChange = true
     }
 
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
