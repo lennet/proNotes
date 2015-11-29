@@ -18,8 +18,16 @@ class PDFView: UIView {
     
     var page: CGPDFPage?
 
+    init(page: CGPDFPage, frame: CGRect) {
+        self.page = page
+        super.init(frame: frame)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+
     override func drawRect(rect: CGRect) {
-        
         if page != nil {
             
             let context = UIGraphicsGetCurrentContext()
@@ -51,7 +59,6 @@ class PDFView: UIView {
 
             delegate?.updateHeight(height)
             CGContextDrawPDFPage(context, page);
-
         }
        
     }

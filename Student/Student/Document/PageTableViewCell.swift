@@ -10,13 +10,12 @@ import UIKit
 
 class PageTableViewCell: UITableViewCell, PDFViewDelegate {
 
-    @IBOutlet weak var paperView: PDFView!
+    @IBOutlet weak var pageView: PageView!
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
     static let identifier = "PageTableViewCellIdentifier"
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        paperView.delegate = self
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
@@ -31,7 +30,7 @@ class PageTableViewCell: UITableViewCell, PDFViewDelegate {
             heightConstraint.constant = height
             setNeedsLayout()
             layoutIfNeeded()
-            paperView.setNeedsDisplay()
+            pageView.setNeedsDisplay()
         }
     }
 

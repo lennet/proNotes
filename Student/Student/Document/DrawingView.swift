@@ -15,16 +15,22 @@ class DrawingView: UIView {
     var points  = [CGPoint?](count:5, repeatedValue: nil)
   
     var counter = 0
+    var drawLayer: DocumentDrawLayer?{
+        didSet{
+            incrementalImage = drawLayer?.image
+            setNeedsDisplay()
+        }
+    }
   
-  
+    init(drawLayer: DocumentDrawLayer, frame: CGRect) {
+        self.drawLayer = drawLayer
+        super.init(frame: frame)
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        commonInit()
-    }
+
     
     func commonInit() {
         multipleTouchEnabled = false

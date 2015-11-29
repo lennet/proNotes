@@ -15,12 +15,11 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
 
     var document: Document?
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 //        let url = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("test", ofType: "pdf")!) as CFURLRef
 //        document.addPDF(url)
-        pagesOverviewController?.pages = document!.numberOfPages
+        pagesOverviewController?.pages = document!.getNumberOfPages()
         pagesTableViewController?.document = document
     }
 
@@ -30,9 +29,14 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
     }
     
     @IBAction func handleAddPageButtonPressed(sender: AnyObject) {
+        document?.addEmptyPage()
+        pagesTableViewController?.document = document
         pagesOverviewController?.addNewPage()
     }
 
+    @IBAction func handleDrawButtonPressed(sender: AnyObject) {
+    
+    }
 
     
     // MARK: - Navigation

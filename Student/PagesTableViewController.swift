@@ -21,7 +21,7 @@ class PagesTableViewController: UITableViewController {
         super.viewDidLoad()
         tableView.estimatedRowHeight = 500.0
         tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.panGestureRecognizer.minimumNumberOfTouches = 2
+        tableView.panGestureRecognizer.minimumNumberOfTouches = 1
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -54,21 +54,16 @@ class PagesTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return document?.numberOfPages ?? 0
+        return document?.getNumberOfPages() ?? 0
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(PageTableViewCell.identifier, forIndexPath: indexPath) as! PageTableViewCell
         
-        if let page = CGPDFDocumentGetPage(document!.pdf, indexPath.row+1){
-            cell.paperView.page = page
-            cell.paperView.delegate = cell
-        } else {
-            cell.paperView.delegate = nil
-            cell.paperView.page = nil
-            cell.heightConstraint.constant = tableView.frame.height
+        if let currentPage = document?.pages[indexPath.row] {
+            cell.pageView.page = currentPage
+            cell.pageView.pdfViewDelegate = cell
         }
-        
         cell.layoutIfNeeded()
         
         return cell
