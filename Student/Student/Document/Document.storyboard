@@ -124,6 +124,11 @@
                                     <action selector="handleDrawButtonPressed:" destination="mNn-FC-EJF" id="6lJ-3O-gW8"/>
                                 </connections>
                             </barButtonItem>
+                            <barButtonItem title="Image" id="oTW-FH-JM0">
+                                <connections>
+                                    <action selector="handleImageButtonPressed:" destination="mNn-FC-EJF" id="feJ-Zh-2jR"/>
+                                </connections>
+                            </barButtonItem>
                         </leftBarButtonItems>
                     </navigationItem>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -227,7 +232,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="180" height="144"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="v7W-h9-KIX" customClass="PageView" customModule="Student" customModuleProvider="target">
+                                        <view clipsSubviews="YES" contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="v7W-h9-KIX" customClass="PageView" customModule="Student" customModuleProvider="target">
                                             <rect key="frame" x="10" y="10" width="160" height="124"/>
                                             <animations/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

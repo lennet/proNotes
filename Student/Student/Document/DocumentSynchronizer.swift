@@ -61,8 +61,6 @@ class DocumentSynchronizer: NSObject {
             dispatch_async(dispatch_get_main_queue(),{
                 self.informDelegateToUpdateDocument(self.document!, forceReload: forceReloead)
             })
-
-            print("update draw layer"+String(page.index)+String(drawLayer.index))
         }
     }
     

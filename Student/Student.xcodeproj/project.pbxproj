@@ -17,6 +17,10 @@
 		98312D661C0B65E500F3B1CB /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98312D651C0B65E500F3B1CB /* PageView.swift */; };
 		98312D691C0B79F200F3B1CB /* DocumentSynchronizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98312D681C0B79F200F3B1CB /* DocumentSynchronizer.swift */; };
 		9874DD721C079C2E00909A89 /* test.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9874DD711C079C2E00909A89 /* test.pdf */; };
+		98AFFE6F1C14A6B0003A4A79 /* MovableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98AFFE6E1C14A6B0003A4A79 /* MovableView.swift */; };
+		98AFFE711C14A6C0003A4A79 /* MovableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98AFFE701C14A6C0003A4A79 /* MovableImageView.swift */; };
+		98AFFE741C14AEDB003A4A79 /* CGSizeExtenstion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98AFFE731C14AEDB003A4A79 /* CGSizeExtenstion.swift */; };
+		98AFFE781C14BF05003A4A79 /* CGPointExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98AFFE771C14BF05003A4A79 /* CGPointExtension.swift */; };
 		98D8C0B71C0B116F0026EECE /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D8C0B61C0B116F0026EECE /* Document.swift */; };
 		98D8C0BA1C0B11750026EECE /* DrawingSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D8C0B81C0B11750026EECE /* DrawingSettingsViewController.swift */; };
 		98D8C0BB1C0B11750026EECE /* DrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D8C0B91C0B11750026EECE /* DrawingView.swift */; };
@@ -58,6 +62,10 @@
 		98312D651C0B65E500F3B1CB /* PageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageView.swift; path = Document/PageView.swift; sourceTree = "<group>"; };
 		98312D681C0B79F200F3B1CB /* DocumentSynchronizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DocumentSynchronizer.swift; path = Document/DocumentSynchronizer.swift; sourceTree = "<group>"; };
 		9874DD711C079C2E00909A89 /* test.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = test.pdf; sourceTree = "<group>"; };
+		98AFFE6E1C14A6B0003A4A79 /* MovableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovableView.swift; sourceTree = "<group>"; };
+		98AFFE701C14A6C0003A4A79 /* MovableImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovableImageView.swift; sourceTree = "<group>"; };
+		98AFFE731C14AEDB003A4A79 /* CGSizeExtenstion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGSizeExtenstion.swift; sourceTree = "<group>"; };
+		98AFFE771C14BF05003A4A79 /* CGPointExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGPointExtension.swift; sourceTree = "<group>"; };
 		98D8C0B61C0B116F0026EECE /* Document.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Document.swift; path = Document/Document.swift; sourceTree = "<group>"; };
 		98D8C0B81C0B11750026EECE /* DrawingSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DrawingSettingsViewController.swift; path = Document/DrawingSettingsViewController.swift; sourceTree = "<group>"; };
 		98D8C0B91C0B11750026EECE /* DrawingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DrawingView.swift; path = Document/DrawingView.swift; sourceTree = "<group>"; };
@@ -125,11 +133,30 @@
 		98312D671C0B65F500F3B1CB /* PageView */ = {
 			isa = PBXGroup;
 			children = (
+				98AFFE6D1C14A685003A4A79 /* Movable */,
 				98101BD61C0A5945001E9555 /* PDFView.swift */,
 				98D8C0B91C0B11750026EECE /* DrawingView.swift */,
 				98312D651C0B65E500F3B1CB /* PageView.swift */,
 			);
 			name = PageView;
+			sourceTree = "<group>";
+		};
+		98AFFE6D1C14A685003A4A79 /* Movable */ = {
+			isa = PBXGroup;
+			children = (
+				98AFFE6E1C14A6B0003A4A79 /* MovableView.swift */,
+				98AFFE701C14A6C0003A4A79 /* MovableImageView.swift */,
+			);
+			name = Movable;
+			sourceTree = "<group>";
+		};
+		98AFFE721C14AEC9003A4A79 /* Extenstions */ = {
+			isa = PBXGroup;
+			children = (
+				98AFFE731C14AEDB003A4A79 /* CGSizeExtenstion.swift */,
+				98AFFE771C14BF05003A4A79 /* CGPointExtension.swift */,
+			);
+			name = Extenstions;
 			sourceTree = "<group>";
 		};
 		98DBA9FD1C0799CB007EFFE5 = {
@@ -156,6 +183,7 @@
 		98DBAA081C0799CB007EFFE5 /* Student */ = {
 			isa = PBXGroup;
 			children = (
+				98AFFE721C14AEC9003A4A79 /* Extenstions */,
 				98D8C0BE1C0B16610026EECE /* Student.entitlements */,
 				98DBAA091C0799CB007EFFE5 /* AppDelegate.swift */,
 				98101BCB1C0A5873001E9555 /* Document */,
@@ -329,8 +357,12 @@
 				98DBAA0A1C0799CB007EFFE5 /* AppDelegate.swift in Sources */,
 				98101BD11C0A58AA001E9555 /* DocumentViewController.swift in Sources */,
 				98312D661C0B65E500F3B1CB /* PageView.swift in Sources */,
+				98AFFE711C14A6C0003A4A79 /* MovableImageView.swift in Sources */,
 				98DBAA121C0799CB007EFFE5 /* Student.xcdatamodeld in Sources */,
 				98312D691C0B79F200F3B1CB /* DocumentSynchronizer.swift in Sources */,
+				98AFFE781C14BF05003A4A79 /* CGPointExtension.swift in Sources */,
+				98AFFE741C14AEDB003A4A79 /* CGSizeExtenstion.swift in Sources */,
+				98AFFE6F1C14A6B0003A4A79 /* MovableView.swift in Sources */,
 				98D8C0B71C0B116F0026EECE /* Document.swift in Sources */,
 				98D8C0BA1C0B11750026EECE /* DrawingSettingsViewController.swift in Sources */,
 				98101BD21C0A58AA001E9555 /* PagesOverviewTableViewCell.swift in Sources */,

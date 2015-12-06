@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelegate, DocumentSynchronizerDelegate {
+class DocumentViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, PagesOverviewTableViewCellDelegate, DocumentSynchronizerDelegate {
 
     var pagesOverviewController: PagesOverviewTableViewController?
     var pagesTableViewController: PagesTableViewController?
@@ -40,6 +40,13 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
     
     }
 
+    @IBAction func handleImageButtonPressed(sender: AnyObject) {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = .PhotoLibrary
+        imagePicker.allowsEditing = false
+        presentViewController(imagePicker, animated: true, completion: nil)
+    }
     
     // MARK: - Navigation
 
@@ -64,4 +71,16 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
         self.document = document
     }
     
+    // MARK: - UIImagePickerControllerDelegate
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]){
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            document?.addImageToPage(image, pageIndex: 0)
+        }
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(picker: UIImagePickerController){
+        dismissViewControllerAnimated(true, completion: nil)
+    }
 }

@@ -31,6 +31,9 @@ class PageView: UIView {
             case .Drawing:
                 addDrawingView(layer as! DocumentDrawLayer)
                 break
+            case .Image:
+                addImageLayer(layer as! ImageLayer)
+                break
             }
         }
         setNeedsDisplay()
@@ -47,6 +50,14 @@ class PageView: UIView {
         let view = DrawingView(drawLayer: drawLayer, frame: bounds)
         view.backgroundColor = UIColor.clearColor()
         addSubview(view)
+    }
+    
+    func addImageLayer(imageLayer :ImageLayer){
+        var imageSize = imageLayer.image.size
+        let frame = CGRect(origin: imageLayer.origin, size: imageSize.increaseSize(MovableView.touchSize))
+        let view = MovableImageView(image: imageLayer.image, frame: frame)
+        addSubview(view)
+        view.setUpImageView()
     }
     
     func getDrawingViews() -> [DrawingView]{

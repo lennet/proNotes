@@ -25,7 +25,6 @@ class PageTableViewCell: UITableViewCell, PDFViewDelegate {
     }
     
     func updateHeight(height: CGFloat){
-        print(height)
         if height != heightConstraint.constant {
             heightConstraint.constant = height
             setNeedsLayout()

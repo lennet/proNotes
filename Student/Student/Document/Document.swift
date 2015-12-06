@@ -11,6 +11,7 @@ import UIKit
 enum DocumentLayerType {
     case PDF
     case Drawing
+    case Image
 }
 
 
@@ -25,6 +26,28 @@ class DocumentLayer {
         self.docPage = docPage
     }
     
+}
+
+class MovableLayer: DocumentLayer {
+    var origin: CGPoint
+    var size: CGSize
+    
+    init(index: Int, type: DocumentLayerType, docPage: DocumentPage, origin: CGPoint, size: CGSize) {
+        self.origin = origin
+        self.size = size
+        
+        super.init(index: index, type: type, docPage: docPage)
+    }
+}
+
+class ImageLayer: MovableLayer {
+    var image: UIImage
+    
+    init(index: Int, docPage: DocumentPage, origin: CGPoint, size: CGSize, image: UIImage) {
+        self.image = image
+        
+        super.init(index: index, type: .Image, docPage: docPage, origin: origin, size: size)
+    }
 }
 
 class DocumentPDFLayer: DocumentLayer {
@@ -66,6 +89,11 @@ class DocumentPage {
         let pdfLayer = DocumentPDFLayer(index: layer.count, page: PDF, docPage: self)
         layer.append(pdfLayer)
     }
+    
+    func addImageLayer(image: UIImage){
+        let imageLayer = ImageLayer(index: layer.count, docPage: self, origin: CGPointZero, size: image.size, image: image)
+        layer.append(imageLayer)
+    }
 }
 
 class Document {
@@ -86,6 +114,13 @@ class Document {
     func addEmptyPage() {
         let page = DocumentPage(index: pages.count)
         pages.append(page)
+    }
+    
+    func addImageToPage(image: UIImage, pageIndex: Int){
+        if pages.count > pageIndex{
+            pages[pageIndex].addImageLayer(image)
+            DocumentSynchronizer.sharedInstance.document = self
+        }
     }
     
     func getNumberOfPages() -> Int {
