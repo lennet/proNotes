@@ -36,7 +36,7 @@ class DrawingView: UIView {
     deinit{
         if incrementalImage != nil && drawLayer != nil && didChange{
             drawLayer?.image = incrementalImage
-            DocumentSynchronizer.sharedInstance.updateDrawLayer(drawLayer!)
+            DocumentSynchronizer.sharedInstance.updateDrawLayer(drawLayer!, forceReloead: false)
             didChange = false
         }
     }
@@ -112,7 +112,11 @@ class DrawingView: UIView {
     func stroke() {
         DrawingSettings.sharedInstance.color.setStroke()
         path.lineWidth = DrawingSettings.sharedInstance.lineWidth
-        path.stroke()
+        if DrawingSettings.sharedInstance.color == UIColor.clearColor() {
+            path.strokeWithBlendMode(.Clear, alpha: 1.0)
+        } else {
+            path.stroke()
+        }
     }
     
 

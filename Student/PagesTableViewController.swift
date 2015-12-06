@@ -10,10 +10,15 @@ import UIKit
 
 class PagesTableViewController: UITableViewController, DocumentSynchronizerDelegate {
 
-   
+   var shouldReload = true
+    
     var document: Document? {
         didSet {
-            loadTableView()
+            if shouldReload {
+                loadTableView()
+            } else {
+                shouldReload = true
+            }
         }
     }
 
@@ -87,7 +92,8 @@ class PagesTableViewController: UITableViewController, DocumentSynchronizerDeleg
     
     // MARK: - DocumentSynchronizerDelegate
     
-    func updateDocument(document: Document){
+    func updateDocument(document: Document, forceReload: Bool){
+        shouldReload = forceReload
         self.document = document
     }
 

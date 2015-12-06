@@ -11,17 +11,13 @@ import UIKit
 class DrawingSettings: NSObject {
 
     static let sharedInstance = DrawingSettings()
-    
     var lineWidth:CGFloat = 2
     var color = UIColor.blackColor()
     // todo add delegate!
 }
 
 class DrawingSettingsViewController: UIViewController {
-
     
-    
-
     @IBOutlet weak var lineWidthSlider: UISlider!
     override func viewDidLoad() {
 
@@ -41,7 +37,7 @@ class DrawingSettingsViewController: UIViewController {
     }
     
     @IBAction func handleGreenButtonPressed(sender: AnyObject) {
-        DrawingSettings.sharedInstance.color = UIColor.greenColor()
+        DrawingSettings.sharedInstance.color = UIColor.greenColor().colorWithAlphaComponent(0.2)
     }
     
     @IBAction func handleBlackButtonPressed(sender: AnyObject) {
@@ -54,6 +50,10 @@ class DrawingSettingsViewController: UIViewController {
     
     @IBAction func handleBlueButtonPressed(sender: AnyObject) {
         DrawingSettings.sharedInstance.color = UIColor.blueColor()
+    }
+    
+    @IBAction func handleEraseButtonPressed(sender: AnyObject) {
+        DrawingSettings.sharedInstance.color = UIColor.clearColor()
     }
     /*
     // MARK: - Navigation

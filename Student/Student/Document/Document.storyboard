@@ -190,6 +190,14 @@
                                     <action selector="handleBlueButtonPressed:" destination="gSi-pd-1tu" eventType="touchUpInside" id="gbP-tX-mvY"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ho4-WM-T1S">
+                                <rect key="frame" x="12" y="126" width="46" height="30"/>
+                                <animations/>
+                                <state key="normal" title="Erase"/>
+                                <connections>
+                                    <action selector="handleEraseButtonPressed:" destination="gSi-pd-1tu" eventType="touchUpInside" id="EBg-n4-JRh"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>

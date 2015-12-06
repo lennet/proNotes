@@ -60,7 +60,7 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
     }
     
     // MARK: - DocumentSynchronizerDelegate
-    func updateDocument(document: Document){
+    func updateDocument(document: Document, forceReload: Bool){
         self.document = document
     }
     

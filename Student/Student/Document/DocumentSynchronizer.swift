@@ -37,7 +37,7 @@ extension Array {
 }
 
 protocol DocumentSynchronizerDelegate {
-    func updateDocument(document: Document)
+    func updateDocument(document: Document, forceReload: Bool)
 }
 
 class DocumentSynchronizer: NSObject {
@@ -48,18 +48,18 @@ class DocumentSynchronizer: NSObject {
     var document: Document?{
         didSet{
             if document != nil {
-                informDelegateToUpdateDocument(document!)
+                informDelegateToUpdateDocument(document!, forceReload: true)
             }
         }
     }
     
-    func updateDrawLayer(drawLayer: DocumentDrawLayer){
+    func updateDrawLayer(drawLayer: DocumentDrawLayer, forceReloead: Bool){
         if document != nil {
             let page = drawLayer.docPage
             page.layer[drawLayer.index] = drawLayer
             document?.pages[page.index] = page
             dispatch_async(dispatch_get_main_queue(),{
-                self.informDelegateToUpdateDocument(self.document!)
+                self.informDelegateToUpdateDocument(self.document!, forceReload: forceReloead)
             })
 
             print("update draw layer"+String(page.index)+String(drawLayer.index))
@@ -78,9 +78,9 @@ class DocumentSynchronizer: NSObject {
         delegates.removeObject(delegate)
     }
     
-    func informDelegateToUpdateDocument(document :Document) {
+    func informDelegateToUpdateDocument(document :Document, forceReload: Bool) {
         for delegate in delegates {
-            delegate.updateDocument(document)
+            delegate.updateDocument(document, forceReload: forceReload)
         }
     }
 
