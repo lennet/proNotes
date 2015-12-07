@@ -21,6 +21,7 @@
 		98AFFE711C14A6C0003A4A79 /* MovableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98AFFE701C14A6C0003A4A79 /* MovableImageView.swift */; };
 		98AFFE741C14AEDB003A4A79 /* CGSizeExtenstion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98AFFE731C14AEDB003A4A79 /* CGSizeExtenstion.swift */; };
 		98AFFE781C14BF05003A4A79 /* CGPointExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98AFFE771C14BF05003A4A79 /* CGPointExtension.swift */; };
+		98AFFE7A1C14E208003A4A79 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98AFFE791C14E208003A4A79 /* ArrayExtension.swift */; };
 		98D8C0B71C0B116F0026EECE /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D8C0B61C0B116F0026EECE /* Document.swift */; };
 		98D8C0BA1C0B11750026EECE /* DrawingSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D8C0B81C0B11750026EECE /* DrawingSettingsViewController.swift */; };
 		98D8C0BB1C0B11750026EECE /* DrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D8C0B91C0B11750026EECE /* DrawingView.swift */; };
@@ -66,6 +67,7 @@
 		98AFFE701C14A6C0003A4A79 /* MovableImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovableImageView.swift; sourceTree = "<group>"; };
 		98AFFE731C14AEDB003A4A79 /* CGSizeExtenstion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGSizeExtenstion.swift; sourceTree = "<group>"; };
 		98AFFE771C14BF05003A4A79 /* CGPointExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGPointExtension.swift; sourceTree = "<group>"; };
+		98AFFE791C14E208003A4A79 /* ArrayExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		98D8C0B61C0B116F0026EECE /* Document.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Document.swift; path = Document/Document.swift; sourceTree = "<group>"; };
 		98D8C0B81C0B11750026EECE /* DrawingSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DrawingSettingsViewController.swift; path = Document/DrawingSettingsViewController.swift; sourceTree = "<group>"; };
 		98D8C0B91C0B11750026EECE /* DrawingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DrawingView.swift; path = Document/DrawingView.swift; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 			children = (
 				98AFFE731C14AEDB003A4A79 /* CGSizeExtenstion.swift */,
 				98AFFE771C14BF05003A4A79 /* CGPointExtension.swift */,
+				98AFFE791C14E208003A4A79 /* ArrayExtension.swift */,
 			);
 			name = Extenstions;
 			sourceTree = "<group>";
@@ -370,6 +373,7 @@
 				98D8C0BD1C0B12DA0026EECE /* DocumentOverviewTableViewController.swift in Sources */,
 				98D8C0BB1C0B11750026EECE /* DrawingView.swift in Sources */,
 				98101BD31C0A58AA001E9555 /* PagesOverviewTableViewController.swift in Sources */,
+				98AFFE7A1C14E208003A4A79 /* ArrayExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,10 +10,21 @@ import UIKit
 
 extension CGSize {
 
-    mutating func increaseSize(float: CGFloat) -> CGSize{
+    mutating func increaseSize(float: CGFloat) -> CGSize {
         self.width += float
         self.height += float
         return self
+    }
+    
+    mutating func increaseSize(size: CGSize) -> CGSize {
+        self.width += size.width
+        self.height += size.height
+        return self
+    }
+    
+    mutating func multiplySize(factor: CGFloat) {
+        self.width *= factor
+        self.height *= factor
     }
     
 }

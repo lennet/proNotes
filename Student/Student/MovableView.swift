@@ -18,7 +18,7 @@ enum TouchRect {
     case BottomMiddle
     case BottomRight
     
-    static let allValues = [TopLeft, TopMiddle, TopRight, MiddleLeft, BottomLeft, BottomMiddle, BottomRight]
+    static let allValues = [TopLeft, TopMiddle, TopRight, MiddleLeft, MiddleRight, BottomLeft, BottomMiddle, BottomRight]
 }
 
 class MovableView: UIView {
@@ -28,6 +28,7 @@ class MovableView: UIView {
     var editMode = false
     var touchedRect: TouchRect?
     var finishedSetup = false
+    var lastPinchScale: CGFloat = 0
     
     
     override init(frame: CGRect) {
@@ -58,6 +59,9 @@ class MovableView: UIView {
         
         let tapRecognizer = UITapGestureRecognizer(target: self, action: Selector("handleTap:"))
         addGestureRecognizer(tapRecognizer)
+        
+        let pinchRecognizer =  UIPinchGestureRecognizer(target: self, action: Selector("handlePinch:"))
+        addGestureRecognizer(pinchRecognizer)
     }
     
     func handleTap(recognizer: UITapGestureRecognizer) {
@@ -88,53 +92,61 @@ class MovableView: UIView {
                     return
                 }
                 
-                var newSize = bounds.size
-                var newCenter = center
+                var size = bounds.size
+                var origin = frame.origin
                 
                 switch currentTouchedRect {
                 case .TopLeft:
-                    newCenter.y += translation.y
-                    newSize.height -= translation.y
-                    newCenter.x += translation.x
-                    newSize.width -= translation.x
+                    origin.y += translation.y
+                    size.height -= translation.y
+                    origin.x += translation.x
+                    size.width -= translation.x
                     break
                 case .TopMiddle:
-                    newCenter.y += translation.y
-                    newSize.height -= translation.y
+                    origin.y += translation.y
+                    size.height -= translation.y
                     break
                 case .TopRight:
-                    newCenter.y += translation.y
-                    newSize.height -= translation.y
-                    newSize.width += translation.x
+                    origin.y += translation.y
+                    size.height -= translation.y
+                    size.width += translation.x
                     break
                 case .MiddleLeft:
-                    newCenter.x += translation.x
-                    newSize.width -= translation.x
+                    origin.x += translation.x
+                    size.width -= translation.x
                     break
                 case .MiddleRight:
-                    newSize.width += translation.x
+                    size.width += translation.x
                     break
                 case .BottomLeft:
-                    newCenter.x += translation.x
-                    newSize.width -= translation.x
-                    newSize.height += translation.y
+                    origin.x += translation.x
+                    size.width -= translation.x
+                    size.height += translation.y
                     break
                 case .BottomMiddle:
-                    newSize.height += translation.y
+                    size.height += translation.y
                     break
                 case .BottomRight:
-                    newSize.height += translation.y
-                    newSize.width += translation.x
+                    size.height += translation.y
+                    size.width += translation.x
                     break
                 }
-                center = newCenter
-                bounds.size = newSize
+                frame.origin = origin
+                bounds.size = size
                 layoutIfNeeded()
                 setNeedsDisplay()
                 break
             default:
                 break
             }
+        }
+    }
+    
+    func handlePinch(recognizer: UIPinchGestureRecognizer){
+        if editMode {
+            let scale = 1.0 - (lastPinchScale - recognizer.scale);
+            bounds.size.multiplySize(scale)
+            lastPinchScale = recognizer.scale
         }
     }
     
@@ -179,7 +191,7 @@ class MovableView: UIView {
             result = CGRect(origin: CGPoint(x: 0, y: midY), size: size)
             break
         case .MiddleRight:
-            result = CGRect(origin: CGPoint(x: maxX, y: maxY), size: size)
+            result = CGRect(origin: CGPoint(x: maxX, y: midY), size: size)
             break
         case .BottomLeft:
             result = CGRect(origin: CGPoint(x: 0, y: maxY), size: size)
@@ -188,7 +200,7 @@ class MovableView: UIView {
             result = CGRect(origin: CGPoint(x: midX, y: maxY), size: size)
             break
         case .BottomRight:
-            result = CGRect(origin: CGPoint(x: maxX, y: midY), size: size)
+            result = CGRect(origin: CGPoint(x: maxX, y: maxY), size: size)
             break
         }
         return result
