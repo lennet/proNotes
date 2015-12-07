@@ -29,9 +29,10 @@ class MovableView: UIView {
     var touchedRect: TouchRect?
     var finishedSetup = false
     var lastPinchScale: CGFloat = 0
+    var movableLayer: MovableLayer?
     
-    
-    override init(frame: CGRect) {
+    init(frame: CGRect, movableLayer: MovableLayer) {
+        self.movableLayer = movableLayer
         super.init(frame: frame)
         setUpTouchRecognizer()
     }
@@ -135,6 +136,15 @@ class MovableView: UIView {
                 bounds.size = size
                 layoutIfNeeded()
                 setNeedsDisplay()
+                break
+            case .Ended:
+                if movableLayer != nil {
+                    movableLayer?.origin = frame.origin
+                
+                    var newSize = frame.size
+                    movableLayer?.size = newSize.increaseSize(MovableView.touchSize*(-2))
+                    DocumentSynchronizer.sharedInstance.updateMovableLayer(movableLayer!)
+                }
                 break
             default:
                 break

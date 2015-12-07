@@ -53,9 +53,8 @@ class PageView: UIView {
     }
     
     func addImageLayer(imageLayer :ImageLayer){
-        var imageSize = imageLayer.image.size
-        let frame = CGRect(origin: imageLayer.origin, size: imageSize.increaseSize(MovableView.touchSize))
-        let view = MovableImageView(image: imageLayer.image, frame: frame)
+        let frame = CGRect(origin: imageLayer.origin, size: imageLayer.size)
+        let view = MovableImageView(image: imageLayer.image, frame: frame, movableLayer: imageLayer)
         addSubview(view)
         view.setUpImageView()
     }

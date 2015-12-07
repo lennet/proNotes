@@ -25,13 +25,24 @@ class DocumentSynchronizer: NSObject {
         }
     }
     
-    func updateDrawLayer(drawLayer: DocumentDrawLayer, forceReloead: Bool){
+    func updateDrawLayer(drawLayer: DocumentDrawLayer, forceReload: Bool){
         if document != nil {
             let page = drawLayer.docPage
             page.layer[drawLayer.index] = drawLayer
             document?.pages[page.index] = page
             dispatch_async(dispatch_get_main_queue(),{
-                self.informDelegateToUpdateDocument(self.document!, forceReload: forceReloead)
+                self.informDelegateToUpdateDocument(self.document!, forceReload: forceReload)
+            })
+        }
+    }
+    
+    func updateMovableLayer(movableLayer: MovableLayer) {
+        if document != nil {
+            let page = movableLayer.docPage
+            page.layer[movableLayer.index] = movableLayer
+            document?.pages[page.index] = page
+            dispatch_async(dispatch_get_main_queue(),{
+                self.informDelegateToUpdateDocument(self.document!, forceReload: false)
             })
         }
     }

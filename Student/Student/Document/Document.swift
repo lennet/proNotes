@@ -43,10 +43,9 @@ class MovableLayer: DocumentLayer {
 class ImageLayer: MovableLayer {
     var image: UIImage
     
-    init(index: Int, docPage: DocumentPage, origin: CGPoint, size: CGSize, image: UIImage) {
+    init(index: Int, docPage: DocumentPage, origin: CGPoint, size: CGSize?, image: UIImage) {
         self.image = image
-        
-        super.init(index: index, type: .Image, docPage: docPage, origin: origin, size: size)
+        super.init(index: index, type: .Image, docPage: docPage, origin: origin, size: size ?? image.size)
     }
 }
 

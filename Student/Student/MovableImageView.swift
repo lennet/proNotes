@@ -12,9 +12,9 @@ class MovableImageView: MovableView {
 
     var image: UIImage
     
-    init(image: UIImage, frame: CGRect) {
+    init(image: UIImage, frame: CGRect, movableLayer: MovableLayer) {
         self.image = image
-        super.init(frame: frame)
+        super.init(frame: frame, movableLayer: movableLayer)
     }
     
     required init?(coder aDecoder: NSCoder) {

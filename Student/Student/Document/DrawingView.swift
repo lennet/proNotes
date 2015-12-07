@@ -36,7 +36,7 @@ class DrawingView: UIView {
     deinit{
         if incrementalImage != nil && drawLayer != nil && didChange{
             drawLayer?.image = incrementalImage
-            DocumentSynchronizer.sharedInstance.updateDrawLayer(drawLayer!, forceReloead: false)
+            DocumentSynchronizer.sharedInstance.updateDrawLayer(drawLayer!, forceReload: false)
             didChange = false
         }
     }
