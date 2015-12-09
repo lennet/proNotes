@@ -40,7 +40,10 @@ class SettingsViewController: UIViewController {
     
     func setUpChildViewController(settingsViewController: SettingsViewController) {
         // TODO Animate!
+        self.currentChildViewController?.willMoveToParentViewController(nil)
+        self.currentChildViewController?.view.removeFromSuperview()
         self.currentChildViewController?.removeFromParentViewController()
+
         self.currentChildViewController = UIStoryboard.documentStoryboard().instantiateViewControllerWithIdentifier(settingsViewController.rawValue)
         self.addChildViewController(self.currentChildViewController!)
         self.view.addSubview(self.currentChildViewController!.view)
