@@ -18,6 +18,7 @@
 		982FD9F11C18CA1E00058BCF /* UIStoryboardExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982FD9F01C18CA1E00058BCF /* UIStoryboardExtension.swift */; };
 		98312D661C0B65E500F3B1CB /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98312D651C0B65E500F3B1CB /* PageView.swift */; };
 		98312D691C0B79F200F3B1CB /* DocumentSynchronizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98312D681C0B79F200F3B1CB /* DocumentSynchronizer.swift */; };
+		987487CB1C18DA45000309D8 /* MovableTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987487CA1C18DA45000309D8 /* MovableTextView.swift */; };
 		9874DD721C079C2E00909A89 /* test.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9874DD711C079C2E00909A89 /* test.pdf */; };
 		98A5673B1C18CC330065B401 /* ImageSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A5673A1C18CC330065B401 /* ImageSettingsViewController.swift */; };
 		98AFFE6F1C14A6B0003A4A79 /* MovableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98AFFE6E1C14A6B0003A4A79 /* MovableView.swift */; };
@@ -67,6 +68,7 @@
 		982FD9F01C18CA1E00058BCF /* UIStoryboardExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIStoryboardExtension.swift; sourceTree = "<group>"; };
 		98312D651C0B65E500F3B1CB /* PageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageView.swift; path = Document/PageView.swift; sourceTree = "<group>"; };
 		98312D681C0B79F200F3B1CB /* DocumentSynchronizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DocumentSynchronizer.swift; path = Document/DocumentSynchronizer.swift; sourceTree = "<group>"; };
+		987487CA1C18DA45000309D8 /* MovableTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MovableTextView.swift; path = Document/MovableTextView.swift; sourceTree = "<group>"; };
 		9874DD711C079C2E00909A89 /* test.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = test.pdf; sourceTree = "<group>"; };
 		98A5673A1C18CC330065B401 /* ImageSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageSettingsViewController.swift; path = Document/ImageSettingsViewController.swift; sourceTree = "<group>"; };
 		98AFFE6E1C14A6B0003A4A79 /* MovableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovableView.swift; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 			children = (
 				98AFFE6E1C14A6B0003A4A79 /* MovableView.swift */,
 				98AFFE701C14A6C0003A4A79 /* MovableImageView.swift */,
+				987487CA1C18DA45000309D8 /* MovableTextView.swift */,
 			);
 			name = Movable;
 			sourceTree = "<group>";
@@ -400,6 +403,7 @@
 				98101BD91C0A5945001E9555 /* PDFView.swift in Sources */,
 				98D8C0BD1C0B12DA0026EECE /* DocumentOverviewTableViewController.swift in Sources */,
 				98D8C0BB1C0B11750026EECE /* DrawingView.swift in Sources */,
+				987487CB1C18DA45000309D8 /* MovableTextView.swift in Sources */,
 				98101BD31C0A58AA001E9555 /* PagesOverviewTableViewController.swift in Sources */,
 				98AFFE7A1C14E208003A4A79 /* ArrayExtension.swift in Sources */,
 			);

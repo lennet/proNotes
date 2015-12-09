@@ -48,6 +48,10 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
         presentViewController(imagePicker, animated: true, completion: nil)
     }
     
+    @IBAction func handleTextButtonPressed(sender: AnyObject) {
+        document?.addTextToPage("", pageIndex: 0)
+    }
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation

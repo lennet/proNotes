@@ -34,6 +34,9 @@ class PageView: UIView {
             case .Image:
                 addImageLayer(layer as! ImageLayer)
                 break
+            case .Text:
+                addTextLayer(layer as! TextLayer)
+                break
             }
         }
         setNeedsDisplay()
@@ -57,6 +60,13 @@ class PageView: UIView {
         let view = MovableImageView(image: imageLayer.image, frame: frame, movableLayer: imageLayer)
         addSubview(view)
         view.setUpImageView()
+    }
+    
+    func addTextLayer(textLayer: TextLayer) {
+        let frame = CGRect(origin: textLayer.origin, size: textLayer.size)
+        let view = MovableTextView(text: textLayer.text, frame: frame, movableLayer: textLayer)
+        addSubview(view)
+        view.setUpTextView()
     }
     
     func getDrawingViews() -> [DrawingView]{

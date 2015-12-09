@@ -122,6 +122,11 @@
                                     <action selector="handleImageButtonPressed:" destination="mNn-FC-EJF" id="feJ-Zh-2jR"/>
                                 </connections>
                             </barButtonItem>
+                            <barButtonItem title="Text" id="qNo-o0-Z1z">
+                                <connections>
+                                    <action selector="handleTextButtonPressed:" destination="mNn-FC-EJF" id="GMS-xf-Qgz"/>
+                                </connections>
+                            </barButtonItem>
                         </leftBarButtonItems>
                     </navigationItem>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>

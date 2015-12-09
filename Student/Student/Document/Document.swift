@@ -12,6 +12,7 @@ enum DocumentLayerType {
     case PDF
     case Drawing
     case Image
+    case Text
 }
 
 
@@ -50,6 +51,15 @@ class ImageLayer: MovableLayer {
     init(index: Int, docPage: DocumentPage, origin: CGPoint, size: CGSize?, image: UIImage) {
         self.image = image
         super.init(index: index, type: .Image, docPage: docPage, origin: origin, size: size ?? image.size)
+    }
+}
+
+class TextLayer: MovableLayer {
+    var text: String
+    
+    init(index: Int, docPage: DocumentPage, origin: CGPoint, size: CGSize, text: String) {
+        self.text = text
+        super.init(index: index, type: .Text, docPage: docPage, origin: origin, size: size)
     }
 }
 
@@ -93,9 +103,14 @@ class DocumentPage {
         layer.append(pdfLayer)
     }
     
-    func addImageLayer(image: UIImage){
+    func addImageLayer(image: UIImage) {
         let imageLayer = ImageLayer(index: layer.count, docPage: self, origin: CGPointZero, size: image.size, image: image)
         layer.append(imageLayer)
+    }
+    
+    func addTextLayer(text: String) {
+        let textLayer = TextLayer(index: layer.count, docPage: self, origin: CGPointZero, size: CGSize(width: 200, height: 200), text: "")
+        layer.append(textLayer)
     }
     
     func removeLayer(layer: DocumentLayer){
@@ -130,6 +145,13 @@ class Document {
     func addImageToPage(image: UIImage, pageIndex: Int){
         if pages.count > pageIndex{
             pages[pageIndex].addImageLayer(image)
+            DocumentSynchronizer.sharedInstance.document = self
+        }
+    }
+    
+    func addTextToPage(text: String, pageIndex: Int) {
+        if pages.count > pageIndex{
+            pages[pageIndex].addTextLayer(text)
             DocumentSynchronizer.sharedInstance.document = self
         }
     }
