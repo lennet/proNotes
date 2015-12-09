@@ -13,10 +13,16 @@ class DrawingSettings: NSObject {
     static let sharedInstance = DrawingSettings()
     var lineWidth:CGFloat = 2
     var color = UIColor.blackColor()
-    // todo add delegate!
+}
+
+protocol DrawingSettingsDelegate {
+    func clearDrawing()
+    
 }
 
 class DrawingSettingsViewController: UIViewController {
+    
+    static var delegate: DrawingSettingsDelegate?
     
     @IBOutlet weak var lineWidthSlider: UISlider!
     override func viewDidLoad() {
@@ -54,6 +60,10 @@ class DrawingSettingsViewController: UIViewController {
     
     @IBAction func handleEraseButtonPressed(sender: AnyObject) {
         DrawingSettings.sharedInstance.color = UIColor.clearColor()
+    }
+    
+    @IBAction func handleClearButtonPressed(sender: AnyObject) {
+        DrawingSettingsViewController.delegate?.clearDrawing()
     }
     /*
     // MARK: - Navigation

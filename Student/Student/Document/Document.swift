@@ -26,6 +26,10 @@ class DocumentLayer {
         self.docPage = docPage
     }
     
+    func removeFromPage() {
+        self.docPage.removeLayer(self)
+    }
+    
 }
 
 class MovableLayer: DocumentLayer {
@@ -92,6 +96,14 @@ class DocumentPage {
     func addImageLayer(image: UIImage){
         let imageLayer = ImageLayer(index: layer.count, docPage: self, origin: CGPointZero, size: image.size, image: image)
         layer.append(imageLayer)
+    }
+    
+    func removeLayer(layer: DocumentLayer){
+        self.layer.removeAtIndex(layer.index)
+        for var i = index; i < self.layer.count; i++ {
+            self.layer[i].index--
+        }
+        DocumentSynchronizer.sharedInstance.updatePage(self)
     }
 }
 

@@ -41,7 +41,6 @@ class MovableView: UIView {
         super.init(coder: aDecoder)
     }
     
-    
     func addAutoLayoutConstraints(subview: UIView) {
         let leftConstraint = NSLayoutConstraint(item: subview, attribute: .Left, relatedBy: .Equal, toItem: self, attribute: .Left, multiplier: 1.0, constant: MovableView.touchSize)
         let rightConstraint = NSLayoutConstraint(item: subview, attribute: .Right, relatedBy: .Equal, toItem: self, attribute: .Right, multiplier: 1.0, constant:-MovableView.touchSize)
@@ -70,6 +69,8 @@ class MovableView: UIView {
         
         if editMode {
             self.superview?.addGestureRecognizer(recognizer)
+            setUpSettingsViewController()
+            
         } else {
             self.superview?.removeGestureRecognizer(recognizer)
             self.addGestureRecognizer(recognizer)
@@ -225,6 +226,10 @@ class MovableView: UIView {
                 CGContextFillRect(context, touchRect)
             }
         }
+    }
+    
+    func setUpSettingsViewController() {
+    
     }
     
 }

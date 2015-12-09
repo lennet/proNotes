@@ -16,12 +16,20 @@ class DocumentSynchronizer: NSObject {
 
     static let sharedInstance = DocumentSynchronizer()
     var delegates = [DocumentSynchronizerDelegate]()
+    var settingsViewController: SettingsViewController?
 
     var document: Document?{
         didSet{
             if document != nil {
                 informDelegateToUpdateDocument(document!, forceReload: true)
             }
+        }
+    }
+    
+    func updatePage(page: DocumentPage) {
+        if document != nil {
+            document?.pages[page.index] = page
+            informDelegateToUpdateDocument(document!, forceReload: false)
         }
     }
     

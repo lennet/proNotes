@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MovableImageView: MovableView {
+class MovableImageView: MovableView, ImageSettingsDelegate {
 
     var image: UIImage
     
@@ -32,13 +32,18 @@ class MovableImageView: MovableView {
         addSubview(imageView)
         addAutoLayoutConstraints(imageView)
     }
-
-    /*
-    // Only override drawRect: if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
-        // Drawing code
+    
+    override func setUpSettingsViewController() {
+        DocumentSynchronizer.sharedInstance.settingsViewController?.currentSettingsType = .Image
+        ImageSettingsViewController.delegate = self
     }
-    */
+
+    // MARK: - ImageSettingsDelegate
+    
+    func removeImage() {
+        removeFromSuperview()
+        movableLayer?.removeFromPage()
+        DocumentSynchronizer.sharedInstance.settingsViewController?.currentSettingsType = .PageInfo
+    }
 
 }
