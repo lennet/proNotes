@@ -128,6 +128,11 @@
                                 </connections>
                             </barButtonItem>
                         </leftBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" title="Plot" id="xhq-m4-TQP">
+                            <connections>
+                                <action selector="handlePlotButtonPressed:" destination="mNn-FC-EJF" id="uQV-EZ-q74"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                 </viewController>
@@ -186,7 +191,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TCI-vs-m9q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="887" y="-1269"/>
+            <point key="canvasLocation" x="1085" y="-1271"/>
         </scene>
         <!--Text Settings View Controller-->
         <scene sceneID="VV7-B1-ZCp">
@@ -230,7 +235,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pmq-9h-XHr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="899" y="-557"/>
+            <point key="canvasLocation" x="1085" y="-574"/>
         </scene>
         <!--Drawing Settings View Controller-->
         <scene sceneID="2wg-7O-rWI">

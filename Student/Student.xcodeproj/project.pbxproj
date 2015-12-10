@@ -38,6 +38,8 @@
 		98F2E3EA1C1A1ED2008A5C6C /* UIStoryboardExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F2E3E61C1A1ED2008A5C6C /* UIStoryboardExtension.swift */; };
 		98F2E3EC1C1A1EE9008A5C6C /* MovableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F2E3EB1C1A1EE9008A5C6C /* MovableView.swift */; };
 		98F2E3EE1C1A1EF1008A5C6C /* MovableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F2E3ED1C1A1EF1008A5C6C /* MovableImageView.swift */; };
+		98F2E3FF1C1A20F1008A5C6C /* PlotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F2E3FE1C1A20F1008A5C6C /* PlotView.swift */; };
+		98F2E4011C1A3047008A5C6C /* MovablePlotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F2E4001C1A3047008A5C6C /* MovablePlotView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +99,8 @@
 		98F2E3EB1C1A1EE9008A5C6C /* MovableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MovableView.swift; path = Document/MovableView.swift; sourceTree = "<group>"; };
 		98F2E3ED1C1A1EF1008A5C6C /* MovableImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MovableImageView.swift; path = Document/MovableImageView.swift; sourceTree = "<group>"; };
 		98F2E3FA1C1A20AC008A5C6C /* Student-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Student-Bridging-Header.h"; sourceTree = "<group>"; };
+		98F2E3FE1C1A20F1008A5C6C /* PlotView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlotView.swift; sourceTree = "<group>"; };
+		98F2E4001C1A3047008A5C6C /* MovablePlotView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MovablePlotView.swift; path = Document/MovablePlotView.swift; sourceTree = "<group>"; };
 		E8D9A89B6910EDD4499E4B81 /* libPods-Student.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Student.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6EAEB48C0EAC7D2DD9AAAAB /* Pods-Student.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Student.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Student/Pods-Student.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -180,6 +184,7 @@
 				98101BD61C0A5945001E9555 /* PDFView.swift */,
 				98D8C0B91C0B11750026EECE /* DrawingView.swift */,
 				98312D651C0B65E500F3B1CB /* PageView.swift */,
+				98F2E3FE1C1A20F1008A5C6C /* PlotView.swift */,
 			);
 			name = PageView;
 			sourceTree = "<group>";
@@ -190,6 +195,7 @@
 				98F2E3ED1C1A1EF1008A5C6C /* MovableImageView.swift */,
 				98F2E3EB1C1A1EE9008A5C6C /* MovableView.swift */,
 				987487CA1C18DA45000309D8 /* MovableTextView.swift */,
+				98F2E4001C1A3047008A5C6C /* MovablePlotView.swift */,
 			);
 			name = Movable;
 			sourceTree = "<group>";
@@ -465,11 +471,13 @@
 				98F2E3E91C1A1ED2008A5C6C /* CGSizeExtenstion.swift in Sources */,
 				98DBAA0A1C0799CB007EFFE5 /* AppDelegate.swift in Sources */,
 				98101BD11C0A58AA001E9555 /* DocumentViewController.swift in Sources */,
+				98F2E4011C1A3047008A5C6C /* MovablePlotView.swift in Sources */,
 				98312D661C0B65E500F3B1CB /* PageView.swift in Sources */,
 				98F2E3EA1C1A1ED2008A5C6C /* UIStoryboardExtension.swift in Sources */,
 				98F2E3EC1C1A1EE9008A5C6C /* MovableView.swift in Sources */,
 				98006ABF1C1A1EAC0091E356 /* PagesTableViewController.swift in Sources */,
 				98DBAA121C0799CB007EFFE5 /* Student.xcdatamodeld in Sources */,
+				98F2E3FF1C1A20F1008A5C6C /* PlotView.swift in Sources */,
 				98F2E3E81C1A1ED2008A5C6C /* CGPointExtension.swift in Sources */,
 				98006ABB1C1A1E960091E356 /* SettingsViewController.swift in Sources */,
 				98312D691C0B79F200F3B1CB /* DocumentSynchronizer.swift in Sources */,

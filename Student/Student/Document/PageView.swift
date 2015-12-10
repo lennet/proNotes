@@ -37,6 +37,9 @@ class PageView: UIView {
             case .Text:
                 addTextLayer(layer as! TextLayer)
                 break
+            case .Plot:
+                addPlotLayer(layer as! PlotLayer)
+                break
             }
         }
         setNeedsDisplay()
@@ -69,6 +72,13 @@ class PageView: UIView {
         view.setUpTextView()
     }
     
+    func addPlotLayer(plotLayer: PlotLayer) {
+        let frame = CGRect(origin: plotLayer.origin, size: plotLayer.size)
+        let view = MovablePlotView(frame: frame, movableLayer: plotLayer)
+        addSubview(view)
+        view.setUpPlotView()
+    }
+    
     func getDrawingViews() -> [DrawingView]{
         var result = [DrawingView]()
         for view in subviews {
@@ -79,12 +89,4 @@ class PageView: UIView {
         return result
     }
     
-    /*
-    // Only override drawRect: if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
-        // Drawing code
-    }
-    */
-
 }

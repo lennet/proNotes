@@ -13,6 +13,7 @@ enum DocumentLayerType {
     case Drawing
     case Image
     case Text
+    case Plot
 }
 
 
@@ -60,6 +61,12 @@ class TextLayer: MovableLayer {
     init(index: Int, docPage: DocumentPage, origin: CGPoint, size: CGSize, text: String) {
         self.text = text
         super.init(index: index, type: .Text, docPage: docPage, origin: origin, size: size)
+    }
+}
+
+class PlotLayer: MovableLayer {
+    init(index: Int, docPage: DocumentPage, origin: CGPoint, size: CGSize) {
+        super.init(index: index, type: .Plot, docPage: docPage, origin: origin, size: size)
     }
 }
 
@@ -113,6 +120,11 @@ class DocumentPage {
         layer.append(textLayer)
     }
     
+    func addPlotLayer() {
+        let plotLayer = PlotLayer(index: layer.count, docPage: self , origin: CGPointZero, size: CGSize(width: 500, height: 300))
+        layer.append(plotLayer)
+    }
+    
     func removeLayer(layer: DocumentLayer){
         self.layer.removeAtIndex(layer.index)
         for var i = index; i < self.layer.count; i++ {
@@ -152,6 +164,13 @@ class Document {
     func addTextToPage(text: String, pageIndex: Int) {
         if pages.count > pageIndex{
             pages[pageIndex].addTextLayer(text)
+            DocumentSynchronizer.sharedInstance.document = self
+        }
+    }
+    
+    func addPlotToPage(pageIndex: Int) {
+        if pages.count > pageIndex{
+            pages[pageIndex].addPlotLayer()
             DocumentSynchronizer.sharedInstance.document = self
         }
     }
