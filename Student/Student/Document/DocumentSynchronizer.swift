@@ -16,6 +16,7 @@ class DocumentSynchronizer: NSObject {
 
     static let sharedInstance = DocumentSynchronizer()
     var delegates = [DocumentSynchronizerDelegate]()
+    
     var settingsViewController: SettingsViewController?
 
     var document: Document?{

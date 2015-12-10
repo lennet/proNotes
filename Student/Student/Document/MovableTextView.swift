@@ -43,7 +43,7 @@ class MovableTextView: MovableView {
     }
     
     override func setUpSettingsViewController() {
-        
+        DocumentSynchronizer.sharedInstance.settingsViewController?.currentSettingsType = .Text
     }
 
 }

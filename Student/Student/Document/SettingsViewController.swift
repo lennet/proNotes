@@ -14,6 +14,7 @@ class SettingsViewController: UIViewController {
         case Drawing = "DrawingSettingsIdentifier"
         case Image = "ImageSettingsIdentifier"
         case PageInfo = "PageInfoSettingsIdentifier"
+        case Text = "TextSettingsIdentifier"
     }
     
     var currentChildViewController: UIViewController?

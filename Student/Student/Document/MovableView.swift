@@ -35,6 +35,7 @@ class MovableView: UIView {
         self.movableLayer = movableLayer
         super.init(frame: frame)
         setUpTouchRecognizer()
+        backgroundColor = UIColor.clearColor()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -52,8 +53,6 @@ class MovableView: UIView {
     }
     
     func setUpTouchRecognizer() {
-        backgroundColor = UIColor.purpleColor()
-        
         let panRecognizer = UIPanGestureRecognizer(target: self, action: Selector("handlePan:"))
         addGestureRecognizer(panRecognizer)
         
