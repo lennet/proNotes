@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1D4D1923341C7C49B778ED7F /* libPods-Student.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E8D9A89B6910EDD4499E4B81 /* libPods-Student.a */; };
+		2BFAB4C6FA47327A1DA7E8F7 /* Pods_Student.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDAA0FD714BFED611DA1C2EB /* Pods_Student.framework */; };
 		98006AB91C1A1E8D0091E356 /* TextSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98006AB81C1A1E8D0091E356 /* TextSettingsViewController.swift */; };
 		98006ABB1C1A1E960091E356 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98006ABA1C1A1E960091E356 /* SettingsViewController.swift */; };
 		98006ABF1C1A1EAC0091E356 /* PagesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98006ABE1C1A1EAC0091E356 /* PagesTableViewController.swift */; };
@@ -98,10 +98,9 @@
 		98F2E3E61C1A1ED2008A5C6C /* UIStoryboardExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIStoryboardExtension.swift; path = Extensions/UIStoryboardExtension.swift; sourceTree = "<group>"; };
 		98F2E3EB1C1A1EE9008A5C6C /* MovableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MovableView.swift; path = Document/MovableView.swift; sourceTree = "<group>"; };
 		98F2E3ED1C1A1EF1008A5C6C /* MovableImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MovableImageView.swift; path = Document/MovableImageView.swift; sourceTree = "<group>"; };
-		98F2E3FA1C1A20AC008A5C6C /* Student-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Student-Bridging-Header.h"; sourceTree = "<group>"; };
 		98F2E3FE1C1A20F1008A5C6C /* PlotView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlotView.swift; sourceTree = "<group>"; };
 		98F2E4001C1A3047008A5C6C /* MovablePlotView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MovablePlotView.swift; path = Document/MovablePlotView.swift; sourceTree = "<group>"; };
-		E8D9A89B6910EDD4499E4B81 /* libPods-Student.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Student.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CDAA0FD714BFED611DA1C2EB /* Pods_Student.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Student.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6EAEB48C0EAC7D2DD9AAAAB /* Pods-Student.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Student.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Student/Pods-Student.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -111,7 +110,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				98D8C0C01C0B16760026EECE /* CloudKit.framework in Frameworks */,
-				1D4D1923341C7C49B778ED7F /* libPods-Student.a in Frameworks */,
+				2BFAB4C6FA47327A1DA7E8F7 /* Pods_Student.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,7 +134,7 @@
 		1B67489C00FC15173E9055FF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E8D9A89B6910EDD4499E4B81 /* libPods-Student.a */,
+				CDAA0FD714BFED611DA1C2EB /* Pods_Student.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -245,7 +244,6 @@
 				98DBAA151C0799CB007EFFE5 /* LaunchScreen.storyboard */,
 				98DBAA181C0799CB007EFFE5 /* Info.plist */,
 				98DBAA101C0799CB007EFFE5 /* Student.xcdatamodeld */,
-				98F2E3FA1C1A20AC008A5C6C /* Student-Bridging-Header.h */,
 			);
 			path = Student;
 			sourceTree = "<group>";

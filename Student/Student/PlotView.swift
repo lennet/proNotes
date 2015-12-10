@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import CorePlot
+import MathParser
 
 class PlotView: CPTGraphHostingView {
     
@@ -14,7 +16,7 @@ class PlotView: CPTGraphHostingView {
         let graph = CPTXYGraph(frame: bounds)
         self.hostedGraph = graph
         graph.applyTheme(CPTTheme(named: kCPTPlainWhiteTheme))
-        
+
         let plotSpace = graph.defaultPlotSpace as! CPTXYPlotSpace
         plotSpace.allowsUserInteraction = false
         plotSpace.yRange = CPTPlotRange(location:-5.0, length:10.0)
@@ -42,10 +44,14 @@ class PlotView: CPTGraphHostingView {
                 
             }
         }
-
+   
         let datasource = CPTFunctionDataSource(forPlot: mainPlot, withBlock: { (value) -> Double in
-            return sin(value)
+            let math = "cos($a)"
+            let substitutions = ["a": value]
+            let result = try! math.evaluate(substitutions)
+            return result
         })
+        
         datasource.resolution = 2
         
         graph.addPlot(mainPlot)

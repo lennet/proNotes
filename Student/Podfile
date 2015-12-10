@@ -4,7 +4,9 @@
 # use_frameworks!
 
 target 'Student' do
+	use_frameworks!
 	pod 'CorePlot', '~> 2.0'
+	pod 'DDMathParser', '~> 2.0'
 end
 
 target 'StudentTests' do

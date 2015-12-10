@@ -1,10 +1,13 @@
 PODS:
   - CorePlot (2.0)
+  - DDMathParser (2.0.0)
 
 DEPENDENCIES:
   - CorePlot (~> 2.0)
+  - DDMathParser (~> 2.0)
 
 SPEC CHECKSUMS:
   CorePlot: b7f422ad363f2b0e48152471d6da45ce232eb8c6
+  DDMathParser: 74cddd0aa652cfed79e68fdd076f1ee63ab43a16
 
 COCOAPODS: 0.39.0
