@@ -96,6 +96,7 @@
 		98F2E3E61C1A1ED2008A5C6C /* UIStoryboardExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIStoryboardExtension.swift; path = Extensions/UIStoryboardExtension.swift; sourceTree = "<group>"; };
 		98F2E3EB1C1A1EE9008A5C6C /* MovableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MovableView.swift; path = Document/MovableView.swift; sourceTree = "<group>"; };
 		98F2E3ED1C1A1EF1008A5C6C /* MovableImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MovableImageView.swift; path = Document/MovableImageView.swift; sourceTree = "<group>"; };
+		98F2E3FA1C1A20AC008A5C6C /* Student-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Student-Bridging-Header.h"; sourceTree = "<group>"; };
 		E8D9A89B6910EDD4499E4B81 /* libPods-Student.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Student.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6EAEB48C0EAC7D2DD9AAAAB /* Pods-Student.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Student.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Student/Pods-Student.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -238,6 +239,7 @@
 				98DBAA151C0799CB007EFFE5 /* LaunchScreen.storyboard */,
 				98DBAA181C0799CB007EFFE5 /* Info.plist */,
 				98DBAA101C0799CB007EFFE5 /* Student.xcdatamodeld */,
+				98F2E3FA1C1A20AC008A5C6C /* Student-Bridging-Header.h */,
 			);
 			path = Student;
 			sourceTree = "<group>";
@@ -334,7 +336,7 @@
 		98DBA9FE1C0799CB007EFFE5 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0710;
+				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = leonardthomas;
 				TargetAttributes = {
@@ -615,6 +617,7 @@
 			baseConfigurationReference = F6EAEB48C0EAC7D2DD9AAAAB /* Pods-Student.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Student/Student.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -623,6 +626,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = lt.student;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Student/Student-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -631,6 +636,7 @@
 			baseConfigurationReference = 85BADE581D2042ADF1C99309 /* Pods-Student.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Student/Student.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -639,6 +645,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = lt.student;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Student/Student-Bridging-Header.h";
 			};
 			name = Release;
 		};
