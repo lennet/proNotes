@@ -45,10 +45,10 @@ class PlotView: CPTGraphHostingView {
             }
         }
 
-        let math = function ?? "cos($a)"
+        let math = function ?? "cos($x)"
         
         let datasource = CPTFunctionDataSource(forPlot: mainPlot, withBlock: { (value) -> Double in
-            let substitutions = ["a": value]
+            let substitutions = ["x": value]
             let result = try! math.evaluate(substitutions)
             return result
         })
