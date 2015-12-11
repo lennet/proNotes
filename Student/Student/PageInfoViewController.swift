@@ -72,16 +72,14 @@ class PageInfoViewController: UIViewController, UITableViewDataSource, UITableVi
             }
             break
         default:
-            guard let cell = layerTableView.cellForRowAtIndexPath(sourceIndexPath!) else {
-                return
-            }
-            cell.hidden = false
-            cell.alpha = 0
+            let cell = layerTableView.cellForRowAtIndexPath(sourceIndexPath!)
+            cell?.hidden = false
+            cell?.alpha = 0
             UIView.animateWithDuration(0.25, animations: { () -> Void in
-                self.snapshotView.center = cell.center
+                self.snapshotView.center = cell?.center ?? self.snapshotView.center
                 self.snapshotView.transform = CGAffineTransformIdentity
                 self.snapshotView.alpha = 0
-                cell.alpha = 1
+                cell?.alpha = 1
                 }, completion: { (Bool) -> Void in
                     self.sourceIndexPath = nil
                     self.snapshotView.removeFromSuperview()
@@ -90,6 +88,7 @@ class PageInfoViewController: UIViewController, UITableViewDataSource, UITableVi
             break
         }
     }
+
     
     // MARK: - UITableViewDatasource
     
