@@ -12,7 +12,7 @@ import MathParser
 
 class PlotView: CPTGraphHostingView {
     
-    func setUpGraph() {
+    func setUpGraph(function: String?) {
         let graph = CPTXYGraph(frame: bounds)
         self.hostedGraph = graph
         graph.applyTheme(CPTTheme(named: kCPTPlainWhiteTheme))
@@ -44,9 +44,10 @@ class PlotView: CPTGraphHostingView {
                 
             }
         }
-   
+
+        let math = function ?? "cos($a)"
+        
         let datasource = CPTFunctionDataSource(forPlot: mainPlot, withBlock: { (value) -> Double in
-            let math = "cos($a)"
             let substitutions = ["a": value]
             let result = try! math.evaluate(substitutions)
             return result

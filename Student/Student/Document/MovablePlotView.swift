@@ -8,18 +8,27 @@
 
 import UIKit
 
-class MovablePlotView: MovableView {
+class MovablePlotView: MovableView, PlotSettingsDelegate {
 
+    var plotView: PlotView?
+    
     func setUpPlotView() {
         clipsToBounds = true
-        let plotView = PlotView(frame: bounds)
-        addSubview(plotView)
-        addAutoLayoutConstraints(plotView)
-        plotView.setUpGraph()
+        plotView = PlotView(frame: bounds)
+        addSubview(plotView!)
+        addAutoLayoutConstraints(plotView!)
+        plotView?.setUpGraph(nil)
     }
     
     override func setUpSettingsViewController() {
-        DocumentSynchronizer.sharedInstance.settingsViewController?.currentSettingsType = .Text
+        DocumentSynchronizer.sharedInstance.settingsViewController?.currentSettingsType = .Plot
+        PlotSettingsViewController.delegate = self
+    }
+    
+    // MARK: - PlotSettingsDelegate
+    
+    func updatePlot(function: String) {
+        plotView?.setUpGraph(function)
     }
 
 }
