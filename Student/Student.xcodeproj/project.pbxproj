@@ -24,6 +24,7 @@
 		98A5673B1C18CC330065B401 /* ImageSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A5673A1C18CC330065B401 /* ImageSettingsViewController.swift */; };
 		98BABB8D1C1B142C00D9C938 /* PageInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BABB8C1C1B142C00D9C938 /* PageInfoViewController.swift */; };
 		98BABB901C1B16A400D9C938 /* PageInfoLayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BABB8F1C1B16A400D9C938 /* PageInfoLayerTableViewCell.swift */; };
+		98BABB921C1B4D9300D9C938 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BABB911C1B4D9300D9C938 /* UIViewExtension.swift */; };
 		98D8C0B71C0B116F0026EECE /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D8C0B61C0B116F0026EECE /* Document.swift */; };
 		98D8C0BA1C0B11750026EECE /* DrawingSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D8C0B81C0B11750026EECE /* DrawingSettingsViewController.swift */; };
 		98D8C0BB1C0B11750026EECE /* DrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D8C0B91C0B11750026EECE /* DrawingView.swift */; };
@@ -80,6 +81,7 @@
 		98A5673A1C18CC330065B401 /* ImageSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageSettingsViewController.swift; path = Document/ImageSettingsViewController.swift; sourceTree = "<group>"; };
 		98BABB8C1C1B142C00D9C938 /* PageInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageInfoViewController.swift; sourceTree = "<group>"; };
 		98BABB8F1C1B16A400D9C938 /* PageInfoLayerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageInfoLayerTableViewCell.swift; sourceTree = "<group>"; };
+		98BABB911C1B4D9300D9C938 /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIViewExtension.swift; path = Extensions/UIViewExtension.swift; sourceTree = "<group>"; };
 		98D8C0B61C0B116F0026EECE /* Document.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Document.swift; path = Document/Document.swift; sourceTree = "<group>"; };
 		98D8C0B81C0B11750026EECE /* DrawingSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DrawingSettingsViewController.swift; path = Document/DrawingSettingsViewController.swift; sourceTree = "<group>"; };
 		98D8C0B91C0B11750026EECE /* DrawingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DrawingView.swift; path = Document/DrawingView.swift; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 				98F2E3E41C1A1ED2008A5C6C /* CGPointExtension.swift */,
 				98F2E3E51C1A1ED2008A5C6C /* CGSizeExtenstion.swift */,
 				98F2E3E61C1A1ED2008A5C6C /* UIStoryboardExtension.swift */,
+				98BABB911C1B4D9300D9C938 /* UIViewExtension.swift */,
 			);
 			name = Extenstions;
 			sourceTree = "<group>";
@@ -480,6 +483,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				98BABB921C1B4D9300D9C938 /* UIViewExtension.swift in Sources */,
 				98BABB901C1B16A400D9C938 /* PageInfoLayerTableViewCell.swift in Sources */,
 				98F2E3E71C1A1ED2008A5C6C /* ArrayExtension.swift in Sources */,
 				98101BD71C0A5945001E9555 /* PageTableViewCell.swift in Sources */,

@@ -134,10 +134,22 @@ class DocumentPage {
     
     func removeLayer(layer: DocumentLayer){
         self.layer.removeAtIndex(layer.index)
-        for var i = layer.index; i < self.layer.count; i++ {
-            self.layer[i].index--
-        }
+        updateLayerIndex()
         DocumentSynchronizer.sharedInstance.updatePage(self, forceReload: false)
+    }
+    
+    func swapLayerPositions(firstIndex: Int, secondIndex: Int){
+        if firstIndex != secondIndex && firstIndex >= 0 && secondIndex >= 0 && firstIndex < self.layer.count && secondIndex < self.layer.count {
+            swap(&self.layer[firstIndex], &self.layer[secondIndex])
+            updateLayerIndex()
+            DocumentSynchronizer.sharedInstance.updatePage(self, forceReload: true)
+        }
+    }
+    
+    func updateLayerIndex() {
+        for (index, currentLayer) in layer.enumerate() {
+            currentLayer.index = index
+        }
     }
 }
 
