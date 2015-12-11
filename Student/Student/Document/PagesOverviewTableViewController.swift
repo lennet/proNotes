@@ -105,4 +105,5 @@ class PagesOverviewTableViewController: UITableViewController, DocumentSynchroni
         self.document = document
     }
 
+    func currentPageDidChange(page: DocumentPage){}
 }

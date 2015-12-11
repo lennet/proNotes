@@ -10,6 +10,7 @@ import UIKit
 
 protocol DocumentSynchronizerDelegate {
     func updateDocument(document: Document, forceReload: Bool)
+    func currentPageDidChange(page: DocumentPage)
 }
 
 class DocumentSynchronizer: NSObject {
@@ -18,6 +19,13 @@ class DocumentSynchronizer: NSObject {
     var delegates = [DocumentSynchronizerDelegate]()
     
     var settingsViewController: SettingsViewController?
+    var currentPage: DocumentPage? {
+        didSet {
+            if currentPage != nil {
+                informDelegateToUpdateCurrentPage(currentPage!)
+            }
+        }
+    }
 
     var document: Document?{
         didSet{
@@ -27,10 +35,13 @@ class DocumentSynchronizer: NSObject {
         }
     }
     
-    func updatePage(page: DocumentPage) {
+    func updatePage(page: DocumentPage, forceReload: Bool) {
         if document != nil {
             document?.pages[page.index] = page
-            informDelegateToUpdateDocument(document!, forceReload: false)
+            if page.index == currentPage?.index {
+                currentPage = page
+            }
+            informDelegateToUpdateDocument(document!, forceReload: forceReload)
         }
     }
     
@@ -73,6 +84,11 @@ class DocumentSynchronizer: NSObject {
             delegate.updateDocument(document, forceReload: forceReload)
         }
     }
-
     
+    func informDelegateToUpdateCurrentPage(page :DocumentPage) {
+        for delegate in delegates {
+            delegate.currentPageDidChange(page)
+        }
+    }
+
 }

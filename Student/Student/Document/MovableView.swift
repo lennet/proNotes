@@ -73,6 +73,7 @@ class MovableView: UIView {
         } else {
             self.superview?.removeGestureRecognizer(recognizer)
             self.addGestureRecognizer(recognizer)
+            DocumentSynchronizer.sharedInstance.settingsViewController?.currentSettingsType = .PageInfo
         }
         
         setNeedsDisplay()

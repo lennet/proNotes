@@ -23,7 +23,7 @@ class PageView: UIView {
             view.removeFromSuperview()
         }
         
-        for layer in page!.layer {
+        for layer in page!.layer where !layer.hidden {
             switch layer.type {
             case .PDF:
                 addPDFView(layer as! DocumentPDFLayer)

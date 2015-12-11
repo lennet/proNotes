@@ -47,8 +47,10 @@ class SettingsViewController: UIViewController {
         self.currentChildViewController?.removeFromParentViewController()
 
         self.currentChildViewController = UIStoryboard.documentStoryboard().instantiateViewControllerWithIdentifier(settingsViewController.rawValue)
+        self.currentChildViewController!.view.frame = view.bounds
         self.addChildViewController(self.currentChildViewController!)
         self.view.addSubview(self.currentChildViewController!.view)
+        self.currentChildViewController!.view.layoutIfNeeded()
         self.currentChildViewController?.didMoveToParentViewController(self)
     }
 

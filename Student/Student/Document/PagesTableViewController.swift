@@ -54,6 +54,7 @@ class PagesTableViewController: UITableViewController, DocumentSynchronizerDeleg
 
     func showPage(pageNumber: Int){
         let indexPath = NSIndexPath(forRow: pageNumber, inSection: 0)
+        DocumentSynchronizer.sharedInstance.currentPage = document?.pages[pageNumber]
         tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
     }
     
@@ -96,5 +97,7 @@ class PagesTableViewController: UITableViewController, DocumentSynchronizerDeleg
         shouldReload = forceReload
         self.document = document
     }
+    
+    func currentPageDidChange(page: DocumentPage){}
 
 }

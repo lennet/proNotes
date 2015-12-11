@@ -78,6 +78,8 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
         self.document = document
     }
     
+    func currentPageDidChange(page: DocumentPage){}
+    
     // MARK: - UIImagePickerControllerDelegate
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]){

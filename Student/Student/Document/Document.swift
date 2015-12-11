@@ -21,6 +21,7 @@ class DocumentLayer {
     var index: Int
     var type: DocumentLayerType
     var docPage: DocumentPage
+    var hidden = false
     
     init(index: Int, type: DocumentLayerType, docPage: DocumentPage){
         self.index = index
@@ -125,12 +126,18 @@ class DocumentPage {
         layer.append(plotLayer)
     }
     
+    func changeLayerVisibility(hidden: Bool, layer: DocumentLayer){
+        layer.hidden = hidden
+        self.layer[layer.index] = layer
+        DocumentSynchronizer.sharedInstance.updatePage(self, forceReload: true)
+    }
+    
     func removeLayer(layer: DocumentLayer){
         self.layer.removeAtIndex(layer.index)
-        for var i = index; i < self.layer.count; i++ {
+        for var i = layer.index; i < self.layer.count; i++ {
             self.layer[i].index--
         }
-        DocumentSynchronizer.sharedInstance.updatePage(self)
+        DocumentSynchronizer.sharedInstance.updatePage(self, forceReload: false)
     }
 }
 
