@@ -97,7 +97,7 @@ class PageInfoViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return page?.layer.count ?? 0
+        return page?.layers.count ?? 0
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -105,7 +105,7 @@ class PageInfoViewController: UIViewController, UITableViewDataSource, UITableVi
             return UITableViewCell()
         }
         
-        guard let currentLayer = page?.layer[indexPath.row] else {
+        guard let currentLayer = page?.layers[indexPath.row] else {
             return cell
         }
         

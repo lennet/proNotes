@@ -8,12 +8,12 @@
 
 import UIKit
 
-enum DocumentLayerType {
-    case PDF
-    case Drawing
-    case Image
-    case Text
-    case Plot
+enum DocumentLayerType: Int {
+    case PDF = 1
+    case Drawing = 2
+    case Image = 3
+    case Text = 4
+    case Plot = 5
 }
 
 
@@ -31,6 +31,18 @@ class DocumentLayer {
     
     func removeFromPage() {
         self.docPage.removeLayer(self)
+    }
+    
+    func getFileWrapper() -> NSFileWrapper {
+        let properties = getPropertiesDict()
+        let data = NSKeyedArchiver.archivedDataWithRootObject(properties)
+        let fileWrapper = NSFileWrapper(regularFileWithContents: data)
+        return fileWrapper
+    }
+    
+    func getPropertiesDict() -> [String: AnyObject]{
+        return ["index": index,
+                "type": type.rawValue]
     }
     
 }
@@ -87,7 +99,7 @@ class DocumentDrawLayer: DocumentLayer {
 }
 
 class DocumentPage {
-    var layer = [DocumentLayer]()
+    var layers = [DocumentLayer]()
     var index = 0
 
     init(index: Int){
@@ -102,61 +114,81 @@ class DocumentPage {
     }
     
     func addDrawingLayer(image: UIImage?) {
-        let drawLayer = DocumentDrawLayer(index: layer.count,image: image, docPage: self)
-        layer.append(drawLayer)
+        let drawLayer = DocumentDrawLayer(index: layers.count,image: image, docPage: self)
+        layers.append(drawLayer)
     }
     
     func addPDFLayer(PDF: CGPDFPage) {
-        let pdfLayer = DocumentPDFLayer(index: layer.count, page: PDF, docPage: self)
-        layer.append(pdfLayer)
+        let pdfLayer = DocumentPDFLayer(index: layers.count, page: PDF, docPage: self)
+        layers.append(pdfLayer)
     }
     
     func addImageLayer(image: UIImage) {
-        let imageLayer = ImageLayer(index: layer.count, docPage: self, origin: CGPointZero, size: image.size, image: image)
-        layer.append(imageLayer)
+        let imageLayer = ImageLayer(index: layers.count, docPage: self, origin: CGPointZero, size: image.size, image: image)
+        layers.append(imageLayer)
     }
     
     func addTextLayer(text: String) {
-        let textLayer = TextLayer(index: layer.count, docPage: self, origin: CGPointZero, size: CGSize(width: 200, height: 200), text: "")
-        layer.append(textLayer)
+        let textLayer = TextLayer(index: layers.count, docPage: self, origin: CGPointZero, size: CGSize(width: 200, height: 200), text: "")
+        layers.append(textLayer)
     }
     
     func addPlotLayer() {
-        let plotLayer = PlotLayer(index: layer.count, docPage: self , origin: CGPointZero, size: CGSize(width: 500, height: 300))
-        layer.append(plotLayer)
+        let plotLayer = PlotLayer(index: layers.count, docPage: self , origin: CGPointZero, size: CGSize(width: 500, height: 300))
+        layers.append(plotLayer)
     }
     
     func changeLayerVisibility(hidden: Bool, layer: DocumentLayer){
         layer.hidden = hidden
-        self.layer[layer.index] = layer
+        self.layers[layer.index] = layer
         DocumentSynchronizer.sharedInstance.updatePage(self, forceReload: true)
     }
     
     func removeLayer(layer: DocumentLayer){
-        self.layer.removeAtIndex(layer.index)
+        self.layers.removeAtIndex(layer.index)
         updateLayerIndex()
         DocumentSynchronizer.sharedInstance.updatePage(self, forceReload: false)
     }
     
     func swapLayerPositions(firstIndex: Int, secondIndex: Int){
-        if firstIndex != secondIndex && firstIndex >= 0 && secondIndex >= 0 && firstIndex < self.layer.count && secondIndex < self.layer.count {
-            swap(&self.layer[firstIndex], &self.layer[secondIndex])
+        if firstIndex != secondIndex && firstIndex >= 0 && secondIndex >= 0 && firstIndex < self.layers.count && secondIndex < self.layers.count {
+            swap(&self.layers[firstIndex], &self.layers[secondIndex])
             updateLayerIndex()
             DocumentSynchronizer.sharedInstance.updatePage(self, forceReload: true)
         }
     }
     
     func updateLayerIndex() {
-        for (index, currentLayer) in layer.enumerate() {
+        for (index, currentLayer) in layers.enumerate() {
             currentLayer.index = index
         }
     }
+    
+    func getFileWrapper() -> NSFileWrapper {
+        let contents = NSFileWrapper()
+        for layer in layers {
+            contents.addFileWrapper(layer.getFileWrapper())
+        }
+        return contents
+    }
 }
 
-class Document {
+class Document: UIDocument {
 
     var name = ""
     var pages = [DocumentPage]()
+    
+    override func contentsForType(typeName: String) throws -> AnyObject {
+        let contents = NSFileWrapper()
+        for page in pages {
+            contents.addFileWrapper(page.getFileWrapper())
+        }
+        return contents
+    }
+    
+    override func loadFromContents(contents: AnyObject, ofType typeName: String?) throws {
+        // todo
+    }
     
     func addPDF(url: NSURL){
         let pdf = CGPDFDocumentCreateWithURL(url as CFURLRef)

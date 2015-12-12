@@ -14,7 +14,7 @@ protocol DocumentSynchronizerDelegate {
 }
 
 class DocumentSynchronizer: NSObject {
-
+    
     static let sharedInstance = DocumentSynchronizer()
     var delegates = [DocumentSynchronizerDelegate]()
     
@@ -48,7 +48,7 @@ class DocumentSynchronizer: NSObject {
     func updateDrawLayer(drawLayer: DocumentDrawLayer, forceReload: Bool){
         if document != nil {
             let page = drawLayer.docPage
-            page.layer[drawLayer.index] = drawLayer
+            page.layers[drawLayer.index] = drawLayer
             document?.pages[page.index] = page
             dispatch_async(dispatch_get_main_queue(),{
                 self.informDelegateToUpdateDocument(self.document!, forceReload: forceReload)
@@ -59,7 +59,7 @@ class DocumentSynchronizer: NSObject {
     func updateMovableLayer(movableLayer: MovableLayer) {
         if document != nil {
             let page = movableLayer.docPage
-            page.layer[movableLayer.index] = movableLayer
+            page.layers[movableLayer.index] = movableLayer
             document?.pages[page.index] = page
             dispatch_async(dispatch_get_main_queue(),{
                 self.informDelegateToUpdateDocument(self.document!, forceReload: false)
