@@ -85,6 +85,30 @@ class MovableLayer: DocumentLayer {
         
         super.init(index: index, type: type, docPage: docPage)
     }
+    
+    init(docPage: DocumentPage, properties: [String: AnyObject], type: DocumentLayerType){
+       
+        if let originValue = properties["origin"] as? NSValue {
+            origin =  originValue.CGPointValue()
+        } else {
+            origin = CGPointZero
+        }
+        
+        if let sizeValue = properties["size"] as? NSValue {
+            size =  sizeValue.CGSizeValue()
+        } else {
+            size = CGSizeZero
+        }
+
+        super.init(page: docPage, properties: properties, type: type)
+    }
+    
+    override func getPropertiesDict() -> [String : AnyObject] {
+        var properties = super.getPropertiesDict()
+        properties["origin"] = NSValue(CGPoint: origin)
+        properties["size"] = NSValue(CGSize: size)
+        return properties
+    }
 }
 
 class ImageLayer: MovableLayer {
@@ -93,6 +117,24 @@ class ImageLayer: MovableLayer {
     init(index: Int, docPage: DocumentPage, origin: CGPoint, size: CGSize?, image: UIImage) {
         self.image = image
         super.init(index: index, type: .Image, docPage: docPage, origin: origin, size: size ?? image.size)
+    }
+    
+    override init(docPage: DocumentPage, properties: [String: AnyObject], type: DocumentLayerType){
+        self.image = UIImage()
+        super.init(docPage: docPage, properties: properties, type: type)
+    }
+    
+    override func getContentFileWrapper() -> NSFileWrapper? {
+        if let imageData = UIImagePNGRepresentation(image) {
+            return NSFileWrapper(regularFileWithContents: imageData)
+        }
+        return nil
+    }
+    
+    override func handleContentData(data: NSData) {
+        if let image = UIImage(data: data){
+            self.image = image
+        }
     }
 }
 

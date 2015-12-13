@@ -54,6 +54,14 @@ class DocumentPage {
                                 }
                                 layers.append(layer)
                                 break
+                            case .Image:
+                                let layer = ImageLayer(docPage: self, properties: properties!, type: .Image)
+                                if contentWrapper != nil {
+                                    if let contentData = contentWrapper!.regularFileContents {
+                                        layer.handleContentData(contentData)
+                                    }
+                                }
+                                layers.append(layer)
                             default:
                                 break
                             }
