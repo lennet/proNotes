@@ -17,7 +17,7 @@ class MovablePlotView: MovableView, PlotSettingsDelegate {
         plotView = PlotView(frame: bounds)
         addSubview(plotView!)
         addAutoLayoutConstraints(plotView!)
-        plotView?.setUpGraph(nil)
+        plotView?.setUpGraph((movableLayer as? PlotLayer)?.function)
     }
     
     override func setUpSettingsViewController() {
@@ -29,6 +29,7 @@ class MovablePlotView: MovableView, PlotSettingsDelegate {
     
     func updatePlot(function: String) {
         plotView?.setUpGraph(function)
+        // todo update layer object
     }
 
 }

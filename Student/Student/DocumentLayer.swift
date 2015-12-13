@@ -119,9 +119,9 @@ class ImageLayer: MovableLayer {
         super.init(index: index, type: .Image, docPage: docPage, origin: origin, size: size ?? image.size)
     }
     
-    override init(docPage: DocumentPage, properties: [String: AnyObject], type: DocumentLayerType){
+    init(docPage: DocumentPage, properties: [String: AnyObject]){
         self.image = UIImage()
-        super.init(docPage: docPage, properties: properties, type: type)
+        super.init(docPage: docPage, properties: properties, type: .Image)
     }
     
     override func getContentFileWrapper() -> NSFileWrapper? {
@@ -145,12 +145,45 @@ class TextLayer: MovableLayer {
         self.text = text
         super.init(index: index, type: .Text, docPage: docPage, origin: origin, size: size)
     }
+    
+    init(docPage: DocumentPage, properties: [String: AnyObject]){
+        if let text = properties["text"] as? String {
+            self.text = text
+        } else {
+            text = ""
+        }
+        super.init(docPage: docPage, properties: properties, type: .Text)
+    }
+    
+    override func getPropertiesDict() -> [String : AnyObject] {
+        var properties = super.getPropertiesDict()
+        properties["text"] = text
+        return properties
+    }
 }
 
 class PlotLayer: MovableLayer {
+    var function: String
     init(index: Int, docPage: DocumentPage, origin: CGPoint, size: CGSize) {
+        function = "cos($x)"
         super.init(index: index, type: .Plot, docPage: docPage, origin: origin, size: size)
     }
+    
+    init(docPage: DocumentPage, properties: [String: AnyObject]){
+        if let function = properties["function"] as? String {
+            self.function = function
+        } else {
+            self.function = "cos($x)"
+        }
+        super.init(docPage: docPage, properties: properties, type: .Plot)
+    }
+    
+    override func getPropertiesDict() -> [String : AnyObject] {
+        var properties = super.getPropertiesDict()
+        properties["function"] = function
+        return properties
+    }
+
 }
 
 class DocumentPDFLayer: DocumentLayer {

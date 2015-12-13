@@ -26,7 +26,6 @@ class DocumentPage {
     init(fileWrapper: NSFileWrapper, index: Int) {
         self.index = index
         if let contents = fileWrapper.fileWrappers {
-
             for wrapper in contents {
                 if let innerWrappers = wrapper.1.fileWrappers{
                     var propertiesWrapper: NSFileWrapper?
@@ -36,34 +35,40 @@ class DocumentPage {
                             propertiesWrapper = innerWrapper.1
                         } else if innerWrapper.0 == "content" {
                             contentWrapper = innerWrapper.1
-
                         }
                     }
                     if propertiesWrapper != nil {
                         if let propertiesData = propertiesWrapper!.regularFileContents {
-                            let properties = NSKeyedUnarchiver.unarchiveObjectWithData(propertiesData) as? [String: AnyObject]
+                            if let properties = NSKeyedUnarchiver.unarchiveObjectWithData(propertiesData) as? [String: AnyObject] {
                             
-                            switch DocumentLayerType(rawValue: properties!["type"] as! Int)!{
-                            case .Drawing:
-                                let layer = DocumentDrawLayer(docPage: self, properties: properties!)
-                                if contentWrapper != nil {
-                                    if let contentData = contentWrapper!.regularFileContents {
-                                        layer.handleContentData(contentData)
+                                switch DocumentLayerType(rawValue: properties["type"] as! Int)!{
+                                case .Drawing:
+                                    let layer = DocumentDrawLayer(docPage: self, properties: properties)
+                                    if contentWrapper != nil {
+                                        if let contentData = contentWrapper!.regularFileContents {
+                                            layer.handleContentData(contentData)
+                                        }
                                     }
-
-                                }
-                                layers.append(layer)
-                                break
-                            case .Image:
-                                let layer = ImageLayer(docPage: self, properties: properties!, type: .Image)
-                                if contentWrapper != nil {
-                                    if let contentData = contentWrapper!.regularFileContents {
-                                        layer.handleContentData(contentData)
+                                    layers.append(layer)
+                                    break
+                                case .Image:
+                                    let layer = ImageLayer(docPage: self, properties: properties)
+                                    if contentWrapper != nil {
+                                        if let contentData = contentWrapper!.regularFileContents {
+                                            layer.handleContentData(contentData)
+                                        }
                                     }
+                                    layers.append(layer)
+                                case .Text:
+                                    let layer = TextLayer(docPage: self, properties: properties)
+                                    layers.append(layer)
+                                    break
+                                case .Plot:
+                                    let layer = PlotLayer(docPage: self, properties: properties)
+                                    layers.append(layer)
+                                default:
+                                    break
                                 }
-                                layers.append(layer)
-                            default:
-                                break
                             }
                         }
                     }
@@ -76,26 +81,31 @@ class DocumentPage {
     func addDrawingLayer(image: UIImage?) {
         let drawLayer = DocumentDrawLayer(index: layers.count,image: image, docPage: self)
         layers.append(drawLayer)
+        DocumentSynchronizer.sharedInstance.updatePage(self, forceReload: false)
     }
     
     func addPDFLayer(PDF: CGPDFPage) {
         let pdfLayer = DocumentPDFLayer(index: layers.count, page: PDF, docPage: self)
         layers.append(pdfLayer)
+        DocumentSynchronizer.sharedInstance.updatePage(self, forceReload: false)
     }
     
     func addImageLayer(image: UIImage) {
         let imageLayer = ImageLayer(index: layers.count, docPage: self, origin: CGPointZero, size: image.size, image: image)
         layers.append(imageLayer)
+        DocumentSynchronizer.sharedInstance.updatePage(self, forceReload: false)
     }
     
     func addTextLayer(text: String) {
         let textLayer = TextLayer(index: layers.count, docPage: self, origin: CGPointZero, size: CGSize(width: 200, height: 200), text: "")
         layers.append(textLayer)
+        DocumentSynchronizer.sharedInstance.updatePage(self, forceReload: false)
     }
     
     func addPlotLayer() {
         let plotLayer = PlotLayer(index: layers.count, docPage: self , origin: CGPointZero, size: CGSize(width: 500, height: 300))
         layers.append(plotLayer)
+        DocumentSynchronizer.sharedInstance.updatePage(self, forceReload: false)
     }
     
     func changeLayerVisibility(hidden: Bool, layer: DocumentLayer){
