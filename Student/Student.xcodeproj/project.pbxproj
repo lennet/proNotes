@@ -22,9 +22,13 @@
 		987487CB1C18DA45000309D8 /* MovableTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987487CA1C18DA45000309D8 /* MovableTextView.swift */; };
 		987D30741C1B009600FB86CB /* PlotSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D30731C1B009600FB86CB /* PlotSettingsViewController.swift */; };
 		98A5673B1C18CC330065B401 /* ImageSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A5673A1C18CC330065B401 /* ImageSettingsViewController.swift */; };
+		98A57C3D1C1DB2A400E6C5DF /* DocumentLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A57C3C1C1DB2A400E6C5DF /* DocumentLayer.swift */; };
+		98A57C3F1C1DB2BC00E6C5DF /* DocumentPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A57C3E1C1DB2BC00E6C5DF /* DocumentPage.swift */; };
 		98BABB8D1C1B142C00D9C938 /* PageInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BABB8C1C1B142C00D9C938 /* PageInfoViewController.swift */; };
 		98BABB901C1B16A400D9C938 /* PageInfoLayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BABB8F1C1B16A400D9C938 /* PageInfoLayerTableViewCell.swift */; };
 		98BABB921C1B4D9300D9C938 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BABB911C1B4D9300D9C938 /* UIViewExtension.swift */; };
+		98C8C4BC1C1D979500A1FD2A /* NSData+Compression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C8C4BB1C1D979500A1FD2A /* NSData+Compression.swift */; };
+		98C8C4BE1C1D98AB00A1FD2A /* libcompression.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 98C8C4BD1C1D98AB00A1FD2A /* libcompression.tbd */; };
 		98D8C0B71C0B116F0026EECE /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D8C0B61C0B116F0026EECE /* Document.swift */; };
 		98D8C0BA1C0B11750026EECE /* DrawingSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D8C0B81C0B11750026EECE /* DrawingSettingsViewController.swift */; };
 		98D8C0BB1C0B11750026EECE /* DrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D8C0B91C0B11750026EECE /* DrawingView.swift */; };
@@ -79,9 +83,13 @@
 		987487CA1C18DA45000309D8 /* MovableTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MovableTextView.swift; path = Document/MovableTextView.swift; sourceTree = "<group>"; };
 		987D30731C1B009600FB86CB /* PlotSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlotSettingsViewController.swift; path = Document/PlotSettingsViewController.swift; sourceTree = "<group>"; };
 		98A5673A1C18CC330065B401 /* ImageSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageSettingsViewController.swift; path = Document/ImageSettingsViewController.swift; sourceTree = "<group>"; };
+		98A57C3C1C1DB2A400E6C5DF /* DocumentLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentLayer.swift; sourceTree = "<group>"; };
+		98A57C3E1C1DB2BC00E6C5DF /* DocumentPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentPage.swift; sourceTree = "<group>"; };
 		98BABB8C1C1B142C00D9C938 /* PageInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageInfoViewController.swift; sourceTree = "<group>"; };
 		98BABB8F1C1B16A400D9C938 /* PageInfoLayerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageInfoLayerTableViewCell.swift; sourceTree = "<group>"; };
 		98BABB911C1B4D9300D9C938 /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIViewExtension.swift; path = Extensions/UIViewExtension.swift; sourceTree = "<group>"; };
+		98C8C4BB1C1D979500A1FD2A /* NSData+Compression.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSData+Compression.swift"; sourceTree = "<group>"; };
+		98C8C4BD1C1D98AB00A1FD2A /* libcompression.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libcompression.tbd; path = usr/lib/libcompression.tbd; sourceTree = SDKROOT; };
 		98D8C0B61C0B116F0026EECE /* Document.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Document.swift; path = Document/Document.swift; sourceTree = "<group>"; };
 		98D8C0B81C0B11750026EECE /* DrawingSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DrawingSettingsViewController.swift; path = Document/DrawingSettingsViewController.swift; sourceTree = "<group>"; };
 		98D8C0B91C0B11750026EECE /* DrawingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DrawingView.swift; path = Document/DrawingView.swift; sourceTree = "<group>"; };
@@ -117,6 +125,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				98C8C4BE1C1D98AB00A1FD2A /* libcompression.tbd in Frameworks */,
 				98D8C0C01C0B16760026EECE /* CloudKit.framework in Frameworks */,
 				2BFAB4C6FA47327A1DA7E8F7 /* Pods_Student.framework in Frameworks */,
 			);
@@ -142,6 +151,9 @@
 		1B67489C00FC15173E9055FF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				98C8C4BD1C1D98AB00A1FD2A /* libcompression.tbd */,
+				98C8C4BB1C1D979500A1FD2A /* NSData+Compression.swift */,
+				98D8C0BF1C0B16760026EECE /* CloudKit.framework */,
 				CDAA0FD714BFED611DA1C2EB /* Pods_Student.framework */,
 			);
 			name = Frameworks;
@@ -157,7 +169,6 @@
 				98006ABE1C1A1EAC0091E356 /* PagesTableViewController.swift */,
 				98101BD41C0A5945001E9555 /* PageTableViewCell.swift */,
 				98101BCD1C0A58AA001E9555 /* DocumentViewController.swift */,
-				98D8C0B61C0B116F0026EECE /* Document.swift */,
 				98D8C0BC1C0B12DA0026EECE /* DocumentOverviewTableViewController.swift */,
 				98312D681C0B79F200F3B1CB /* DocumentSynchronizer.swift */,
 			);
@@ -198,6 +209,16 @@
 			name = PageView;
 			sourceTree = "<group>";
 		};
+		98A57C3B1C1DB29200E6C5DF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				98D8C0B61C0B116F0026EECE /* Document.swift */,
+				98A57C3C1C1DB2A400E6C5DF /* DocumentLayer.swift */,
+				98A57C3E1C1DB2BC00E6C5DF /* DocumentPage.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		98AFFE6D1C14A685003A4A79 /* Movable */ = {
 			isa = PBXGroup;
 			children = (
@@ -233,7 +254,6 @@
 		98DBA9FD1C0799CB007EFFE5 = {
 			isa = PBXGroup;
 			children = (
-				98D8C0BF1C0B16760026EECE /* CloudKit.framework */,
 				98DBAA081C0799CB007EFFE5 /* Student */,
 				98DBAA201C0799CB007EFFE5 /* StudentTests */,
 				98DBAA2B1C0799CB007EFFE5 /* StudentUITests */,
@@ -256,6 +276,7 @@
 		98DBAA081C0799CB007EFFE5 /* Student */ = {
 			isa = PBXGroup;
 			children = (
+				98A57C3B1C1DB29200E6C5DF /* Model */,
 				98AFFE721C14AEC9003A4A79 /* Extenstions */,
 				98D8C0BE1C0B16610026EECE /* Student.entitlements */,
 				98DBAA091C0799CB007EFFE5 /* AppDelegate.swift */,
@@ -491,9 +512,12 @@
 				98F2E3E91C1A1ED2008A5C6C /* CGSizeExtenstion.swift in Sources */,
 				98DBAA0A1C0799CB007EFFE5 /* AppDelegate.swift in Sources */,
 				98101BD11C0A58AA001E9555 /* DocumentViewController.swift in Sources */,
+				98C8C4BC1C1D979500A1FD2A /* NSData+Compression.swift in Sources */,
 				98F2E4011C1A3047008A5C6C /* MovablePlotView.swift in Sources */,
+				98A57C3D1C1DB2A400E6C5DF /* DocumentLayer.swift in Sources */,
 				98312D661C0B65E500F3B1CB /* PageView.swift in Sources */,
 				98F2E3EA1C1A1ED2008A5C6C /* UIStoryboardExtension.swift in Sources */,
+				98A57C3F1C1DB2BC00E6C5DF /* DocumentPage.swift in Sources */,
 				98F2E3EC1C1A1EE9008A5C6C /* MovableView.swift in Sources */,
 				98006ABF1C1A1EAC0091E356 /* PagesTableViewController.swift in Sources */,
 				98BABB8D1C1B142C00D9C938 /* PageInfoViewController.swift in Sources */,

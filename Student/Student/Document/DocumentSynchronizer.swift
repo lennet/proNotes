@@ -37,6 +37,9 @@ class DocumentSynchronizer: NSObject {
     
     func updatePage(page: DocumentPage, forceReload: Bool) {
         if document != nil {
+            guard page.index < document?.pages.count else {
+                return
+            }
             document?.pages[page.index] = page
             if page.index == currentPage?.index {
                 currentPage = page
@@ -49,6 +52,9 @@ class DocumentSynchronizer: NSObject {
         if document != nil {
             let page = drawLayer.docPage
             page.layers[drawLayer.index] = drawLayer
+            guard page.index < document?.pages.count else {
+                return
+            }
             document?.pages[page.index] = page
             dispatch_async(dispatch_get_main_queue(),{
                 self.informDelegateToUpdateDocument(self.document!, forceReload: forceReload)
@@ -80,6 +86,7 @@ class DocumentSynchronizer: NSObject {
     }
     
     func informDelegateToUpdateDocument(document :Document, forceReload: Bool) {
+        document.updateChangeCount(.Done)
         for delegate in delegates {
             delegate.updateDocument(document, forceReload: forceReload)
         }

@@ -16,6 +16,7 @@ class PageTableViewCell: UITableViewCell, PDFViewDelegate {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        updateHeight(UIScreen.mainScreen().bounds.height)
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

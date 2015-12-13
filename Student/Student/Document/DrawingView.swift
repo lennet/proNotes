@@ -79,7 +79,6 @@ class DrawingView: UIView {
             points[1] = points[4];
             counter = 1;
         }
-        didChange = true
     }
 
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -87,6 +86,7 @@ class DrawingView: UIView {
     }
     
     func touchesEnd() {
+        didChange = true
         drawBitmap()
         setNeedsDisplay()
         path.removeAllPoints()
@@ -100,12 +100,12 @@ class DrawingView: UIView {
     func drawBitmap() {
         UIGraphicsBeginImageContextWithOptions(self.bounds.size, false, 0.0);
 
-        if incrementalImage == nil {
-            let rectPath = UIBezierPath(rect: self.bounds)
-            backgroundColor?.setFill()
-            rectPath.fill()
-        }
-        incrementalImage?.drawAtPoint(CGPointZero)
+//        if incrementalImage == nil {
+//            let rectPath = UIBezierPath(rect: self.bounds)
+//            backgroundColor?.setFill()
+//            rectPath.fill()
+//        }
+        incrementalImage?.drawInRect(self.bounds)
         stroke()
         incrementalImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
