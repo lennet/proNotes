@@ -20,7 +20,7 @@ protocol DrawingSettingsDelegate {
     
 }
 
-class DrawingSettingsViewController: UIViewController {
+class DrawingSettingsViewController: UIViewController, ColorPickerDelegate {
     
     static var delegate: DrawingSettingsDelegate?
     
@@ -42,22 +42,6 @@ class DrawingSettingsViewController: UIViewController {
         DrawingSettings.sharedInstance.lineWidth = CGFloat(sender.value)
     }
     
-    @IBAction func handleGreenButtonPressed(sender: AnyObject) {
-        DrawingSettings.sharedInstance.color = UIColor.greenColor().colorWithAlphaComponent(0.2)
-    }
-    
-    @IBAction func handleBlackButtonPressed(sender: AnyObject) {
-        DrawingSettings.sharedInstance.color = UIColor.blackColor()
-    }
-    
-    @IBAction func handleRedButtonPressed(sender: AnyObject) {
-        DrawingSettings.sharedInstance.color = UIColor.redColor()
-    }
-    
-    @IBAction func handleBlueButtonPressed(sender: AnyObject) {
-        DrawingSettings.sharedInstance.color = UIColor.blueColor()
-    }
-    
     @IBAction func handleEraseButtonPressed(sender: AnyObject) {
         DrawingSettings.sharedInstance.color = UIColor.clearColor()
     }
@@ -65,14 +49,21 @@ class DrawingSettingsViewController: UIViewController {
     @IBAction func handleClearButtonPressed(sender: AnyObject) {
         DrawingSettingsViewController.delegate?.clearDrawing()
     }
-    /*
+
+    // MARK: - ColorPickerDelegate 
+    
+    func didSelectColor(color: UIColor) {
+        DrawingSettings.sharedInstance.color = color
+    }
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if let viewContoller = segue.destinationViewController as? ColorPickerViewController {
+            viewContoller.delegate = self
+        }
     }
-    */
+
 
 }
