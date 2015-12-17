@@ -89,4 +89,15 @@ class PageView: UIView {
         return result
     }
     
+    func setLayerSelected(index: Int){
+        if index < subviews.count {
+            let subview = subviews[index]
+            if let movableView = subview as? MovableView {
+                movableView.setSelected()
+            } else  if let drawingView = subview as? DrawingView {
+                print("drawing")
+            }
+        }
+    }
+    
 }

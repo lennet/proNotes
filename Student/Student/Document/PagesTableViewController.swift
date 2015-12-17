@@ -75,6 +75,7 @@ class PagesTableViewController: UITableViewController, DocumentSynchronizerDeleg
         if let currentPage = document?.pages[indexPath.row] {
             cell.pageView.page = currentPage
             cell.pageView.pdfViewDelegate = cell
+            DocumentSynchronizer.sharedInstance.currentPageView = cell.pageView
         }
         cell.layoutIfNeeded()
         

@@ -63,6 +63,15 @@ class MovableView: UIView {
         addGestureRecognizer(pinchRecognizer)
     }
     
+    func setSelected() {
+        if gestureRecognizers != nil {
+            for recognizer in gestureRecognizers! where recognizer.isKindOfClass(UITapGestureRecognizer) {
+                handleTap(recognizer as! UITapGestureRecognizer)
+                return
+            }
+        }
+    }
+    
     func handleTap(recognizer: UITapGestureRecognizer) {
         editMode = !editMode
         

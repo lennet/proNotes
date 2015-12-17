@@ -27,8 +27,12 @@ class PageInfoViewController: UIViewController, UITableViewDataSource, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         DocumentSynchronizer.sharedInstance.addDelegate(self)
-        let gestureRecognizer = UILongPressGestureRecognizer(target: self, action: Selector("handleLongPress:"))
-        layerTableView.addGestureRecognizer(gestureRecognizer)
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: Selector("handleLongPress:"))
+        layerTableView.addGestureRecognizer(longPressRecognizer)
+        
+        let doupleTapRecognizer = UITapGestureRecognizer(target: self, action: Selector("handleDoubleTap:"))
+        doupleTapRecognizer.numberOfTapsRequired = 2
+        layerTableView.addGestureRecognizer(doupleTapRecognizer)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -40,6 +44,15 @@ class PageInfoViewController: UIViewController, UITableViewDataSource, UITableVi
         layerTableView.layoutIfNeeded()
         layerTableViewHeightConstraint.constant = layerTableView.contentSize.height
         self.view.layoutIfNeeded()
+    }
+    
+    func handleDoubleTap(gestureRecognizer: UITapGestureRecognizer) {
+        let location = gestureRecognizer.locationInView(layerTableView)
+        guard let indexPath = layerTableView.indexPathForRowAtPoint(location) else {
+            return
+        }
+        
+        DocumentSynchronizer.sharedInstance.currentPageView?.setLayerSelected(indexPath.row)
     }
     
     // Inspired by http://www.raywenderlich.com/63089/cookbook-moving-table-view-cells-with-a-long-press-gesture

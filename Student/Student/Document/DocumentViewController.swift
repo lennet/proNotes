@@ -71,6 +71,7 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
     
     func showPage(index: Int){
         pagesTableViewController?.showPage(index)
+        DocumentSynchronizer.sharedInstance.settingsViewController?.setUpChildViewController(.PageInfo)
     }
     
     // MARK: - DocumentSynchronizerDelegate

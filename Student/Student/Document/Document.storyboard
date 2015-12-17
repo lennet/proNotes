@@ -481,7 +481,7 @@
         <scene sceneID="w86-1m-zT1">
             <objects>
                 <tableViewController id="ItN-2y-GOr" customClass="PagesTableViewController" customModule="Student" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="144" sectionHeaderHeight="28" sectionFooterHeight="28" id="s4C-Ih-Vwd">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="144" sectionHeaderHeight="28" sectionFooterHeight="28" id="s4C-Ih-Vwd">
                         <rect key="frame" x="0.0" y="0.0" width="180" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

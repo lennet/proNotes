@@ -16,7 +16,21 @@ class ColorPickerViewController: UIViewController, UICollectionViewDataSource, U
 
     @IBOutlet weak var colorCollectionView: UICollectionView!
     
-    let colors = [UIColor.blackColor(), UIColor.redColor(), UIColor.yellowColor(), UIColor.greenColor(), UIColor.purpleColor()]
+    let colors = [UIColor.blackColor(),
+        UIColor.darkGrayColor(),
+        UIColor.lightGrayColor(),
+        UIColor.whiteColor(),
+        UIColor.grayColor(),
+        UIColor.redColor(),
+        UIColor.greenColor(),
+        UIColor.blueColor(),
+        UIColor.cyanColor(),
+        UIColor.yellowColor(),
+        UIColor.magentaColor(),
+        UIColor.orangeColor(),
+        UIColor.purpleColor(),
+        UIColor.brownColor()]
+    
     var selectedIndex = 0
     
     var delegate: ColorPickerDelegate?
@@ -54,5 +68,4 @@ class ColorPickerViewController: UIViewController, UICollectionViewDataSource, U
         selectedIndex = indexPath.row
         collectionView.reloadItemsAtIndexPaths([NSIndexPath(forItem: selectedIndex, inSection: 0), NSIndexPath(forItem: lastSelectedIndex, inSection: 0)])
     }
-
 }

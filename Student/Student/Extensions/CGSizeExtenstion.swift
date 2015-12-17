@@ -27,4 +27,8 @@ extension CGSize {
         self.height *= factor
     }
     
+    static func dinA4() -> CGSize {
+        return CGSize(width: 2384, height: 3370)
+    }
+    
 }

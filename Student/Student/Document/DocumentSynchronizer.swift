@@ -26,6 +26,8 @@ class DocumentSynchronizer: NSObject {
             }
         }
     }
+    
+    var currentPageView: PageView?
 
     var document: Document?{
         didSet{
