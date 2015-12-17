@@ -18,6 +18,7 @@
 		98101BD31C0A58AA001E9555 /* PagesOverviewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98101BCF1C0A58AA001E9555 /* PagesOverviewTableViewController.swift */; };
 		98101BD71C0A5945001E9555 /* PageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98101BD41C0A5945001E9555 /* PageTableViewCell.swift */; };
 		98101BD91C0A5945001E9555 /* PDFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98101BD61C0A5945001E9555 /* PDFView.swift */; };
+		98262C101C22C29A00B420A8 /* SettingsBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98262C0F1C22C29A00B420A8 /* SettingsBaseViewController.swift */; };
 		98312D661C0B65E500F3B1CB /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98312D651C0B65E500F3B1CB /* PageView.swift */; };
 		98312D691C0B79F200F3B1CB /* DocumentSynchronizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98312D681C0B79F200F3B1CB /* DocumentSynchronizer.swift */; };
 		987487CB1C18DA45000309D8 /* MovableTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987487CA1C18DA45000309D8 /* MovableTextView.swift */; };
@@ -81,6 +82,7 @@
 		98101BCF1C0A58AA001E9555 /* PagesOverviewTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PagesOverviewTableViewController.swift; path = Document/PagesOverviewTableViewController.swift; sourceTree = "<group>"; };
 		98101BD41C0A5945001E9555 /* PageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageTableViewCell.swift; path = Document/PageTableViewCell.swift; sourceTree = "<group>"; };
 		98101BD61C0A5945001E9555 /* PDFView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PDFView.swift; path = Document/PDFView.swift; sourceTree = "<group>"; };
+		98262C0F1C22C29A00B420A8 /* SettingsBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsBaseViewController.swift; path = Document/SettingsBaseViewController.swift; sourceTree = "<group>"; };
 		98312D651C0B65E500F3B1CB /* PageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageView.swift; path = Document/PageView.swift; sourceTree = "<group>"; };
 		98312D681C0B79F200F3B1CB /* DocumentSynchronizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DocumentSynchronizer.swift; path = Document/DocumentSynchronizer.swift; sourceTree = "<group>"; };
 		987487CA1C18DA45000309D8 /* MovableTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MovableTextView.swift; path = Document/MovableTextView.swift; sourceTree = "<group>"; };
@@ -207,6 +209,7 @@
 				987D30731C1B009600FB86CB /* PlotSettingsViewController.swift */,
 				98BABB8E1C1B169000D9C938 /* PageInfo */,
 				980A3F341C22B2010070C618 /* ColorPicker */,
+				98262C0F1C22C29A00B420A8 /* SettingsBaseViewController.swift */,
 			);
 			name = "Settings Container";
 			sourceTree = "<group>";
@@ -518,6 +521,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				98262C101C22C29A00B420A8 /* SettingsBaseViewController.swift in Sources */,
 				98BABB921C1B4D9300D9C938 /* UIViewExtension.swift in Sources */,
 				98BABB901C1B16A400D9C938 /* PageInfoLayerTableViewCell.swift in Sources */,
 				98F2E3E71C1A1ED2008A5C6C /* ArrayExtension.swift in Sources */,

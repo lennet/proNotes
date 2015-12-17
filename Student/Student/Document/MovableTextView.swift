@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MovableTextView: MovableView {
+class MovableTextView: MovableView, TextSettingsDelegate {
 
     var text = ""
     var textView = UITextView()
@@ -28,6 +28,8 @@ class MovableTextView: MovableView {
         textView.text = text
         textView.userInteractionEnabled = false
         textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.backgroundColor = UIColor.clearColor()
+        
         
         let doubleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("handleDoubleTap"))
         doubleTapGestureRecognizer.numberOfTapsRequired = 2
@@ -44,6 +46,17 @@ class MovableTextView: MovableView {
     
     override func setUpSettingsViewController() {
         DocumentSynchronizer.sharedInstance.settingsViewController?.currentSettingsType = .Text
+        TextSettingsViewController.delegate = self
     }
 
+    // MARK: - TextSettingsDelegate 
+    
+    func changeTextColor(color: UIColor) {
+        textView.textColor = color
+    }
+    
+    func removeText() {
+        // TODO
+    }
+    
 }

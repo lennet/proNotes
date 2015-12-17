@@ -20,23 +20,13 @@ protocol DrawingSettingsDelegate {
     
 }
 
-class DrawingSettingsViewController: UIViewController, ColorPickerDelegate {
+class DrawingSettingsViewController: SettingsBaseViewController {
     
     static var delegate: DrawingSettingsDelegate?
     
     @IBOutlet weak var lineWidthSlider: UISlider!
-    override func viewDidLoad() {
-
-
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+   
+    // MARK: - Actions
     
     @IBAction func handleLineWidthValueChanged(sender: UISlider) {
         DrawingSettings.sharedInstance.lineWidth = CGFloat(sender.value)
@@ -52,18 +42,7 @@ class DrawingSettingsViewController: UIViewController, ColorPickerDelegate {
 
     // MARK: - ColorPickerDelegate 
     
-    func didSelectColor(color: UIColor) {
+    override func didSelectColor(color: UIColor) {
         DrawingSettings.sharedInstance.color = color
     }
-    
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let viewContoller = segue.destinationViewController as? ColorPickerViewController {
-            viewContoller.delegate = self
-        }
-    }
-
-
 }

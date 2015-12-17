@@ -8,8 +8,15 @@
 
 import UIKit
 
-class TextSettingsViewController: UIViewController {
+protocol TextSettingsDelegate {
+    func removeText()
+    func changeTextColor(color: UIColor)
+}
 
+class TextSettingsViewController: SettingsBaseViewController {
+
+    static var delegate: TextSettingsDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -22,14 +29,10 @@ class TextSettingsViewController: UIViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // MARK: - ColorPickerDelegate
+    
+    override func didSelectColor(color: UIColor) {
+        TextSettingsViewController.delegate?.changeTextColor(color)
     }
-    */
 
 }

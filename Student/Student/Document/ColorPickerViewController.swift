@@ -15,7 +15,10 @@ protocol ColorPickerDelegate {
 class ColorPickerViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
 
     @IBOutlet weak var colorCollectionView: UICollectionView!
-    let colors = [UIColor.whiteColor(), UIColor.redColor(), UIColor.yellowColor(), UIColor.greenColor(), UIColor.purpleColor()]
+    
+    let colors = [UIColor.blackColor(), UIColor.redColor(), UIColor.yellowColor(), UIColor.greenColor(), UIColor.purpleColor()]
+    var selectedIndex = 0
+    
     var delegate: ColorPickerDelegate?
     
     override func viewDidLoad() {
@@ -37,15 +40,19 @@ class ColorPickerViewController: UIViewController, UICollectionViewDataSource, U
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell{
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ColorPickerCollectionViewCell.identifier, forIndexPath: indexPath)
-        cell.backgroundColor = colors[indexPath.row]
-        return cell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ColorPickerCollectionViewCell.identifier, forIndexPath: indexPath) as? ColorPickerCollectionViewCell
+        cell?.backgroundColor = colors[indexPath.row]
+        cell?.isSelectedColor = indexPath.row == selectedIndex
+        return cell!
     }
     
     // MARK: - UICollectionViewDelegate
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         delegate?.didSelectColor(colors[indexPath.row])
+        let lastSelectedIndex = selectedIndex
+        selectedIndex = indexPath.row
+        collectionView.reloadItemsAtIndexPaths([NSIndexPath(forItem: selectedIndex, inSection: 0), NSIndexPath(forItem: lastSelectedIndex, inSection: 0)])
     }
 
 }

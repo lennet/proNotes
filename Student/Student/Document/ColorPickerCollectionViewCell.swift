@@ -11,12 +11,21 @@ import UIKit
 class ColorPickerCollectionViewCell: UICollectionViewCell {
     static let identifier = "ColorPickerCollectionViewCellIdentifier"
     
+    var isSelectedColor = false
+    
+    
     override func drawRect(rect: CGRect) {
         super.drawRect(rect)
         
         let rectPath = UIBezierPath(rect: self.bounds)
-        rectPath.lineWidth = 2
-        UIColor.darkGrayColor().setStroke()
+
+        if isSelectedColor {
+            UIColor.blackColor().setStroke()
+            rectPath.lineWidth = 8
+        } else {
+            UIColor.darkGrayColor().setStroke()
+            rectPath.lineWidth = 2
+        }
 
         rectPath.stroke()
     }
