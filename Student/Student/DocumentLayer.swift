@@ -43,7 +43,7 @@ class DocumentLayer {
     }
     
     func removeFromPage() {
-        self.docPage.removeLayer(self)
+        self.docPage.removeLayer(self, forceReload: false)
     }
     
     func getFileWrapper() -> NSFileWrapper {

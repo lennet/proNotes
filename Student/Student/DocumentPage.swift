@@ -115,10 +115,10 @@ class DocumentPage {
         DocumentSynchronizer.sharedInstance.updatePage(self, forceReload: true)
     }
     
-    func removeLayer(layer: DocumentLayer){
+    func removeLayer(layer: DocumentLayer, forceReload: Bool){
         self.layers.removeAtIndex(layer.index)
         updateLayerIndex()
-        DocumentSynchronizer.sharedInstance.updatePage(self, forceReload: false)
+        DocumentSynchronizer.sharedInstance.updatePage(self, forceReload: forceReload)
     }
     
     func swapLayerPositions(firstIndex: Int, secondIndex: Int){

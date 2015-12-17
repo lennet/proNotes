@@ -32,7 +32,6 @@ class SettingsViewController: UIViewController {
         super.viewDidLoad()
         DocumentSynchronizer.sharedInstance.settingsViewController = self
         setUpChildViewController(currentSettingsType)
-        view.backgroundColor = UIColor.yellowColor()
     }
 
     override func didReceiveMemoryWarning() {

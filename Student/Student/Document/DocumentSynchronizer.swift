@@ -31,6 +31,9 @@ class DocumentSynchronizer: NSObject {
         didSet{
             if document != nil {
                 informDelegateToUpdateDocument(document!, forceReload: true)
+                if oldValue == nil {
+                    currentPage = document?.pages.first
+                }
             }
         }
     }

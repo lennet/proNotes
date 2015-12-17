@@ -215,14 +215,24 @@
                                                                         <action selector="handleVisibilityButtonPressed:" destination="yhV-xi-VRn" eventType="touchUpInside" id="UWy-ff-ZT7"/>
                                                                     </connections>
                                                                 </button>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h2N-hX-Gog">
+                                                                    <rect key="frame" x="489" y="7" width="43" height="30"/>
+                                                                    <state key="normal" title="delete"/>
+                                                                    <connections>
+                                                                        <action selector="handleDeleteButtonPressed:" destination="yhV-xi-VRn" eventType="touchUpInside" id="6vn-nZ-G7q"/>
+                                                                    </connections>
+                                                                </button>
                                                             </subviews>
                                                             <constraints>
                                                                 <constraint firstItem="dTu-ma-6WP" firstAttribute="centerY" secondItem="xHt-co-mih" secondAttribute="centerY" id="BO6-d6-WKS"/>
                                                                 <constraint firstAttribute="trailingMargin" secondItem="IfU-jS-xef" secondAttribute="trailing" constant="8" id="EGF-r4-pNp"/>
                                                                 <constraint firstItem="mOO-B3-4dF" firstAttribute="centerY" secondItem="xHt-co-mih" secondAttribute="centerY" id="Kqo-s6-pld"/>
                                                                 <constraint firstItem="dTu-ma-6WP" firstAttribute="leading" secondItem="mOO-B3-4dF" secondAttribute="trailing" constant="8" id="N6v-xm-M1n"/>
+                                                                <constraint firstItem="IfU-jS-xef" firstAttribute="leading" secondItem="h2N-hX-Gog" secondAttribute="trailing" constant="8" id="Wwd-Js-waM"/>
+                                                                <constraint firstItem="h2N-hX-Gog" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="dTu-ma-6WP" secondAttribute="trailing" constant="8" id="Wy1-PK-z9f"/>
                                                                 <constraint firstItem="IfU-jS-xef" firstAttribute="centerY" secondItem="xHt-co-mih" secondAttribute="centerY" id="bqf-E9-kjx"/>
                                                                 <constraint firstItem="mOO-B3-4dF" firstAttribute="leading" secondItem="xHt-co-mih" secondAttribute="leadingMargin" id="nxd-U0-pha"/>
+                                                                <constraint firstItem="h2N-hX-Gog" firstAttribute="centerY" secondItem="xHt-co-mih" secondAttribute="centerY" id="qla-C0-eUf"/>
                                                             </constraints>
                                                         </tableViewCellContentView>
                                                         <connections>
@@ -326,7 +336,6 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.2624116017" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TCI-vs-m9q" userLabel="First Responder" sceneMemberID="firstResponder"/>
