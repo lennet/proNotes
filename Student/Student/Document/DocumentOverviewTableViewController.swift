@@ -72,6 +72,18 @@ class DocumentOverviewTableViewController: UITableViewController, UIDocumentPick
         let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
 
         cell.textLabel?.text = urls[indexPath.row].pathComponents?.last
+        do {
+            let attr : NSDictionary? = try NSFileManager.defaultManager().attributesOfItemAtPath(self.urls[indexPath.row].path!)
+            
+            if let _attr = attr {
+                let fileSize = Int64(_attr.fileSize())
+                
+                let sizeString = NSByteCountFormatter.stringFromByteCount(fileSize, countStyle: .Binary)
+                cell.detailTextLabel?.text = sizeString
+            }
+        } catch {
+            print("Error: \(error)")
+        }
 
         return cell
     }
