@@ -12,12 +12,15 @@ class PageInfoViewController: UIViewController, UITableViewDataSource, UITableVi
     
     @IBOutlet weak var layerTableView: UITableView!
     
+    @IBOutlet weak var layerTableViewHeightConstraint: NSLayoutConstraint!
+    
     var snapshotView: UIView = UIView()
     var sourceIndexPath :NSIndexPath?
     
     var page: DocumentPage? = DocumentSynchronizer.sharedInstance.currentPage {
         didSet {
             layerTableView.reloadData()
+            layoutTableView()
         }
     }
     
@@ -27,10 +30,16 @@ class PageInfoViewController: UIViewController, UITableViewDataSource, UITableVi
         let gestureRecognizer = UILongPressGestureRecognizer(target: self, action: Selector("handleLongPress:"))
         layerTableView.addGestureRecognizer(gestureRecognizer)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        layoutTableView()
+    }
+    
+    func layoutTableView() {
+        layerTableView.layoutIfNeeded()
+        layerTableViewHeightConstraint.constant = layerTableView.contentSize.height
+        self.view.layoutIfNeeded()
     }
     
     // Inspired by http://www.raywenderlich.com/63089/cookbook-moving-table-view-cells-with-a-long-press-gesture
@@ -89,7 +98,6 @@ class PageInfoViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
 
-    
     // MARK: - UITableViewDatasource
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {

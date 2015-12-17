@@ -11,6 +11,7 @@ import UIKit
 class DocumentPage {
     var layers = [DocumentLayer]()
     var index = 0
+    var size = CGSizeZero
     
     init(index: Int){
         addDrawingLayer(nil)
