@@ -96,7 +96,6 @@ class MovableView: UIView {
                 
                 var size = bounds.size
                 var origin = frame.origin
-                
                 switch currentTouchedRect {
                 case .TopLeft:
                     origin.y += translation.y
@@ -105,7 +104,7 @@ class MovableView: UIView {
                     size.width -= translation.x
                     break
                 case .TopMiddle:
-                    origin.y += translation.y
+                    origin.y += translation.y/2
                     size.height -= translation.y
                     break
                 case .TopRight:
@@ -114,11 +113,12 @@ class MovableView: UIView {
                     size.width += translation.x
                     break
                 case .MiddleLeft:
-                    origin.x += translation.x
+                    origin.x += translation.x/2
                     size.width -= translation.x
                     break
                 case .MiddleRight:
                     size.width += translation.x
+                    origin.x += translation.x/2
                     break
                 case .BottomLeft:
                     origin.x += translation.x
@@ -127,6 +127,7 @@ class MovableView: UIView {
                     break
                 case .BottomMiddle:
                     size.height += translation.y
+                    origin.y += translation.y/2
                     break
                 case .BottomRight:
                     size.height += translation.y
