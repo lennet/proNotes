@@ -122,10 +122,10 @@ class DocumentPage {
     }
     
     func swapLayerPositions(firstIndex: Int, secondIndex: Int){
-        if firstIndex != secondIndex && firstIndex >= 0 && secondIndex >= 0 && firstIndex < self.layers.count && secondIndex < self.layers.count {
-            swap(&self.layers[firstIndex], &self.layers[secondIndex])
+        if firstIndex != secondIndex && firstIndex >= 0 && secondIndex >= 0 && firstIndex < layers.count && secondIndex < layers.count {
+            swap(&layers[firstIndex], &layers[secondIndex])
             updateLayerIndex()
-            DocumentSynchronizer.sharedInstance.updatePage(self, forceReload: true)
+            DocumentSynchronizer.sharedInstance.updatePage(self, forceReload: false)
         }
     }
     

@@ -143,6 +143,14 @@ class PageView: UIView {
         setSubviewsTransparent(0, alphaValue: 1)
     }
     
+    func swapLayerPositions(firstIndex: Int, secondIndex: Int){
+        if firstIndex != secondIndex && firstIndex >= 0 && secondIndex >= 0 && firstIndex < subviews.count && secondIndex < subviews.count {
+            exchangeSubviewAtIndex(firstIndex, withSubviewAtIndex: secondIndex)
+            page?.swapLayerPositions(firstIndex, secondIndex: secondIndex)
+        }
+    }
+    
+    
     // MARK: - UIGestureRecognizer
     
     func handlePan(panGestureRecognizer: UIPanGestureRecognizer) {

@@ -88,7 +88,7 @@ class PageInfoViewController: UIViewController, UITableViewDataSource, UITableVi
             center.y = location.y
             snapshotView.center = center
             if !indexPath.isEqual(sourceIndexPath){
-                page?.swapLayerPositions((sourceIndexPath?.row)!, secondIndex: indexPath.row)
+                DocumentSynchronizer.sharedInstance.currentPageView?.swapLayerPositions((sourceIndexPath?.row)!, secondIndex: indexPath.row)
                 layerTableView.moveRowAtIndexPath(sourceIndexPath!, toIndexPath: indexPath)
                 sourceIndexPath = indexPath
             }
