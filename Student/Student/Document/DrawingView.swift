@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DrawingView: UIView {
+class DrawingView: PageSubView {
 
     var path = UIBezierPath()
     var incrementalImage: UIImage?

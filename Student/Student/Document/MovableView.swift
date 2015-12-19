@@ -21,7 +21,7 @@ enum TouchRect {
     static let allValues = [TopLeft, TopMiddle, TopRight, MiddleLeft, MiddleRight, BottomLeft, BottomMiddle, BottomRight]
 }
 
-class MovableView: UIView {
+class MovableView: PageSubView {
 
     static let touchSize: CGFloat = 20
     
@@ -34,7 +34,6 @@ class MovableView: UIView {
     init(frame: CGRect, movableLayer: MovableLayer) {
         self.movableLayer = movableLayer
         super.init(frame: frame)
-        setUpTouchRecognizer()
         backgroundColor = UIColor.clearColor()
     }
 
@@ -52,43 +51,27 @@ class MovableView: UIView {
         layoutIfNeeded()
     }
     
-    func setUpTouchRecognizer() {
-        let panRecognizer = UIPanGestureRecognizer(target: self, action: Selector("handlePan:"))
-        addGestureRecognizer(panRecognizer)
-        
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: Selector("handleTap:"))
-        addGestureRecognizer(tapRecognizer)
-        
-        let pinchRecognizer =  UIPinchGestureRecognizer(target: self, action: Selector("handlePinch:"))
-        addGestureRecognizer(pinchRecognizer)
-    }
-    
     func setSelected() {
-        if gestureRecognizers != nil {
-            for recognizer in gestureRecognizers! where recognizer.isKindOfClass(UITapGestureRecognizer) {
-                handleTap(recognizer as! UITapGestureRecognizer)
-                return
-            }
-        }
+        handleTap(nil)
     }
     
-    func handleTap(recognizer: UITapGestureRecognizer) {
+    override func handleTap(recognizer: UITapGestureRecognizer?) {
         editMode = !editMode
         
         if editMode {
-            self.superview?.addGestureRecognizer(recognizer)
+//            self.superview?.addGestureRecognizer(recognizer)
             setUpSettingsViewController()
             
         } else {
-            self.superview?.removeGestureRecognizer(recognizer)
-            self.addGestureRecognizer(recognizer)
+//            self.superview?.removeGestureRecognizer(recognizer)
+//            self.addGestureRecognizer(recognizer)
             DocumentSynchronizer.sharedInstance.settingsViewController?.currentSettingsType = .PageInfo
         }
         
         setNeedsDisplay()
     }
     
-    func handlePan(recognizer: UIPanGestureRecognizer){
+    override func handlePan(recognizer: UIPanGestureRecognizer){
         if editMode {
             switch recognizer.state {
             case .Began:
@@ -163,7 +146,7 @@ class MovableView: UIView {
         }
     }
     
-    func handlePinch(recognizer: UIPinchGestureRecognizer){
+    override func handlePinch(recognizer: UIPinchGestureRecognizer){
         if editMode {
             let scale = 1.0 - (lastPinchScale - recognizer.scale);
             bounds.size.multiplySize(scale)

@@ -29,7 +29,10 @@ class MovablePlotView: MovableView, PlotSettingsDelegate {
     
     func updatePlot(function: String) {
         plotView?.setUpGraph(function)
-        // todo update layer object
+        if let layer = movableLayer as? PlotLayer {
+            layer.function = function
+                DocumentSynchronizer.sharedInstance.updateMovableLayer(layer)
+        }
     }
 
 }

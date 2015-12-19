@@ -12,7 +12,7 @@ protocol PDFViewDelegate {
     func updateHeight(height: CGFloat)
 }
 
-class PDFView: UIView {
+class PDFView: PageSubView {
     
     var delegate: PDFViewDelegate?
     

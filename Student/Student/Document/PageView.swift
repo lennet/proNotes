@@ -17,6 +17,24 @@ class PageView: UIView {
         }
     }
     
+    var selectedSubView: PageSubView?
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        setUpTouchRecognizer()
+    }
+    
+    func setUpTouchRecognizer() {
+        let panRecognizer = UIPanGestureRecognizer(target: self, action: Selector("handlePan:"))
+        addGestureRecognizer(panRecognizer)
+        
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: Selector("handleTap:"))
+        addGestureRecognizer(tapRecognizer)
+        
+        let pinchRecognizer =  UIPinchGestureRecognizer(target: self, action: Selector("handlePinch:"))
+        addGestureRecognizer(pinchRecognizer)
+    }
+    
     func setUpLayer() {
         
         for view in subviews {
@@ -91,12 +109,62 @@ class PageView: UIView {
     
     func setLayerSelected(index: Int){
         if index < subviews.count {
-            let subview = subviews[index]
-            if let movableView = subview as? MovableView {
-                movableView.setSelected()
-            } else  if let drawingView = subview as? DrawingView {
-                print("drawing")
+            selectedSubView?.handleTap(nil)
+            selectedSubView = nil
+            if let subview = subviews[index] as? PageSubView {
+                selectedSubView = subview
+                if let movableView = subview as? MovableView {
+                    movableView.setSelected()
+                    setSubviewsTransparent(index+1, alphaValue: 0.5)
+                } else  if let drawingView = subview as? DrawingView {
+                    print(drawingView)
+                }
             }
+        }
+    }
+    
+    func setSubviewsTransparent(startIndex: Int, alphaValue: CGFloat){
+        print(startIndex)
+        let transparentSubviews = subviews[startIndex..<subviews.count]
+        for subview in transparentSubviews {
+            subview.alpha = alphaValue
+        }
+    }
+    
+    func deselectSelectedSubview() {
+        selectedSubView?.handleTap(nil)
+        selectedSubView = nil
+        setSubviewsTransparent(0, alphaValue: 1)
+    }
+    
+    // MARK: - UIGestureRecognizer
+    
+    func handlePan(panGestureRecognizer: UIPanGestureRecognizer) {
+        if selectedSubView != nil {
+            selectedSubView?.handlePan(panGestureRecognizer)
+        }
+    }
+    
+    func handleTap(tapGestureRecognizer: UITapGestureRecognizer) {
+        if selectedSubView != nil {
+            deselectSelectedSubview()
+        } else {
+            let location = tapGestureRecognizer.locationInView(self)
+            for subview in subviews.reverse() where subview.isKindOfClass(MovableView) {
+                let pageSubview = subview as! PageSubView
+                if pageSubview.frame.contains(location) {
+                    pageSubview.handleTap(tapGestureRecognizer)
+                    selectedSubView = pageSubview
+                    return
+                }
+            }
+        }
+
+    }
+    
+    func handlePinch(pinchGestureRecognizer: UIPinchGestureRecognizer) {
+        if selectedSubView != nil {
+            selectedSubView?.handlePinch(pinchGestureRecognizer)
         }
     }
     
