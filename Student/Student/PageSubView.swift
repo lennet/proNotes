@@ -22,4 +22,8 @@ class PageSubView: UIView {
     func handlePinch(pinchGestureRecognizer: UIPinchGestureRecognizer) {
         // Empty Base Implementation
     }
+    
+    func handleDoubleTap(tapGestureRecognizer: UITapGestureRecognizer) {
+        // Empty Base Implementation
+    }
 }

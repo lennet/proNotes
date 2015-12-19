@@ -33,6 +33,12 @@ class PageView: UIView {
         
         let pinchRecognizer =  UIPinchGestureRecognizer(target: self, action: Selector("handlePinch:"))
         addGestureRecognizer(pinchRecognizer)
+        
+        let doubleTapRecognizer = UITapGestureRecognizer(target: self, action: "handleDoubleTap:")
+        doubleTapRecognizer.numberOfTapsRequired = 2
+        addGestureRecognizer(doubleTapRecognizer)
+        
+        tapRecognizer.requireGestureRecognizerToFail(doubleTapRecognizer)
     }
     
     func setUpLayer() {
@@ -140,9 +146,7 @@ class PageView: UIView {
     // MARK: - UIGestureRecognizer
     
     func handlePan(panGestureRecognizer: UIPanGestureRecognizer) {
-        if selectedSubView != nil {
-            selectedSubView?.handlePan(panGestureRecognizer)
-        }
+        selectedSubView?.handlePan(panGestureRecognizer)
     }
     
     func handleTap(tapGestureRecognizer: UITapGestureRecognizer) {
@@ -163,9 +167,11 @@ class PageView: UIView {
     }
     
     func handlePinch(pinchGestureRecognizer: UIPinchGestureRecognizer) {
-        if selectedSubView != nil {
-            selectedSubView?.handlePinch(pinchGestureRecognizer)
-        }
+        selectedSubView?.handlePinch(pinchGestureRecognizer)
+    }
+    
+    func handleDoubleTap(tapGestureRecognizer: UITapGestureRecognizer) {
+        selectedSubView?.handleDoubleTap(tapGestureRecognizer)
     }
     
 }

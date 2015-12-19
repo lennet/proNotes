@@ -30,17 +30,11 @@ class MovableTextView: MovableView, TextSettingsDelegate {
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.backgroundColor = UIColor.clearColor()
         
-        
-        let doubleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("handleDoubleTap"))
-        doubleTapGestureRecognizer.numberOfTapsRequired = 2
-        
-        addGestureRecognizer(doubleTapGestureRecognizer)
-        
         addSubview(textView)
         addAutoLayoutConstraints(textView)
     }
     
-    func handleDoubleTap() {
+    override func handleDoubleTap(tapGestureRecognizer: UITapGestureRecognizer) {
         textView.becomeFirstResponder()
     }
     
