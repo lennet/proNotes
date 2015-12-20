@@ -135,23 +135,23 @@
                                     <action selector="handleAddPageButtonPressed:" destination="mNn-FC-EJF" id="2Qs-CO-bnM"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Draw" id="78j-Lm-gB9">
+                            <barButtonItem image="DrawIcon" id="78j-Lm-gB9">
                                 <connections>
                                     <action selector="handleDrawButtonPressed:" destination="mNn-FC-EJF" id="6lJ-3O-gW8"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Image" id="oTW-FH-JM0">
+                            <barButtonItem image="ImageViewIcon" id="oTW-FH-JM0" userLabel="Image">
                                 <connections>
                                     <action selector="handleImageButtonPressed:" destination="mNn-FC-EJF" id="feJ-Zh-2jR"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Text" id="qNo-o0-Z1z">
+                            <barButtonItem image="TextViewIcon" id="qNo-o0-Z1z">
                                 <connections>
                                     <action selector="handleTextButtonPressed:" destination="mNn-FC-EJF" id="GMS-xf-Qgz"/>
                                 </connections>
                             </barButtonItem>
                         </leftBarButtonItems>
-                        <barButtonItem key="rightBarButtonItem" title="Plot" id="xhq-m4-TQP">
+                        <barButtonItem key="rightBarButtonItem" image="PlotIcon" id="xhq-m4-TQP">
                             <connections>
                                 <action selector="handlePlotButtonPressed:" destination="mNn-FC-EJF" id="uQV-EZ-q74"/>
                             </connections>
@@ -724,6 +724,10 @@
         <scene sceneID="JeK-SA-Okk">
             <objects>
                 <viewController id="Sb9-AE-GwL" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="16i-5M-Bdt"/>
+                        <viewControllerLayoutGuide type="bottom" id="efQ-Ck-6JA"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="fs8-ZJ-e06">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -734,6 +738,12 @@
             </objects>
         </scene>
     </scenes>
+    <resources>
+        <image name="DrawIcon" width="27" height="27"/>
+        <image name="ImageViewIcon" width="22" height="22"/>
+        <image name="PlotIcon" width="40" height="40"/>
+        <image name="TextViewIcon" width="14" height="15"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="LwV-Rs-AEa"/>
     </inferredMetricsTieBreakers>

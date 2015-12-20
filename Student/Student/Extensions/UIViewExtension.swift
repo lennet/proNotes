@@ -26,5 +26,13 @@ extension UIView {
         snapshotView.layer.shadowOpacity = 0.4
         return snapshotView
     }
+    
+    func removeAllGestureRecognizer() {
+        if gestureRecognizers != nil {
+            for recognizer in gestureRecognizers! {
+                removeGestureRecognizer(recognizer)
+            }
+        }
+    }
 
 }

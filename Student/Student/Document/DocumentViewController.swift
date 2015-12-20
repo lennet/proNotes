@@ -37,7 +37,7 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
     }
 
     @IBAction func handleDrawButtonPressed(sender: AnyObject) {
-    
+        DocumentSynchronizer.sharedInstance.currentPageView?.handleDrawButtonPressed()
     }
 
     @IBAction func handleImageButtonPressed(sender: AnyObject) {

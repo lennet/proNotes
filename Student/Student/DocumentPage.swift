@@ -79,10 +79,11 @@ class DocumentPage {
         updateLayerIndex()
     }
     
-    func addDrawingLayer(image: UIImage?) {
+    func addDrawingLayer(image: UIImage?) -> DocumentDrawLayer {
         let drawLayer = DocumentDrawLayer(index: layers.count,image: image, docPage: self)
         layers.append(drawLayer)
         DocumentSynchronizer.sharedInstance.updatePage(self, forceReload: false)
+        return drawLayer
     }
     
     func addPDFLayer(PDF: CGPDFPage) {
