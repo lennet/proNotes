@@ -65,6 +65,7 @@ class MovableView: PageSubView {
         } else {
 //            self.superview?.removeGestureRecognizer(recognizer)
 //            self.addGestureRecognizer(recognizer)
+            setDeselected()
             DocumentSynchronizer.sharedInstance.settingsViewController?.currentSettingsType = .PageInfo
         }
         

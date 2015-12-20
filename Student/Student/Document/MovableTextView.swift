@@ -53,4 +53,8 @@ class MovableTextView: MovableView, TextSettingsDelegate {
         // TODO
     }
     
+    override func setDeselected() {
+        textView.resignFirstResponder()
+    }
+    
 }

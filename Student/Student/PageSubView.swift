@@ -30,4 +30,8 @@ class PageSubView: UIView {
     func setSelected() {
         // Empty Base Implementation
     }
+    
+    func setDeselected() {
+        // Empty Base Implementation
+    }
 }
