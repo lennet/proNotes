@@ -8,14 +8,14 @@
 
 import UIKit
 
-class DrawingView: PageSubView {
+class DrawingView: PageSubView, DrawingSettingsDelegate {
 
     var path = UIBezierPath()
     var incrementalImage: UIImage?
     var points  = [CGPoint?](count:5, repeatedValue: nil)
   
     var didChange = false
-    
+
     var counter = 0
     var drawLayer: DocumentDrawLayer?{
         didSet{
@@ -96,14 +96,14 @@ class DrawingView: PageSubView {
     }
     
     func drawBitmap() {
-        UIGraphicsBeginImageContextWithOptions(self.bounds.size, false, 0.0);
+        UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0.0);
 
 //        if incrementalImage == nil {
 //            let rectPath = UIBezierPath(rect: self.bounds)
 //            backgroundColor?.setFill()
 //            rectPath.fill()
 //        }
-        incrementalImage?.drawInRect(self.bounds)
+        incrementalImage?.drawInRect(bounds)
         stroke()
         incrementalImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
@@ -121,6 +121,14 @@ class DrawingView: PageSubView {
     
     override func setSelected() {
         DocumentSynchronizer.sharedInstance.settingsViewController?.currentSettingsType = .Drawing
+        DrawingSettingsViewController.delegate = self
+    }
+    
+    // MARK: - DrawingSettingsDelegate
+    
+    func clearDrawing() {
+        self.incrementalImage = nil
+        self.touchesEnd()
     }
 
 
