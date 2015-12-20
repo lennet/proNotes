@@ -26,4 +26,8 @@ class PageSubView: UIView {
     func handleDoubleTap(tapGestureRecognizer: UITapGestureRecognizer) {
         // Empty Base Implementation
     }
+    
+    func setSelected() {
+        // Empty Base Implementation
+    }
 }

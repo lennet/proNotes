@@ -55,8 +55,6 @@ class DrawingView: PageSubView {
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        DocumentSynchronizer.sharedInstance.settingsViewController?.currentSettingsType = .Drawing
-        
         let touch = touches.first
         points[0] = (touch?.locationInView(self))!
     }
@@ -121,6 +119,9 @@ class DrawingView: PageSubView {
         }
     }
     
+    override func setSelected() {
+        DocumentSynchronizer.sharedInstance.settingsViewController?.currentSettingsType = .Drawing
+    }
 
 
 }

@@ -150,10 +150,15 @@
                                     <action selector="handleTextButtonPressed:" destination="mNn-FC-EJF" id="GMS-xf-Qgz"/>
                                 </connections>
                             </barButtonItem>
+                            <barButtonItem image="PlotIcon" id="xhq-m4-TQP">
+                                <connections>
+                                    <action selector="handlePlotButtonPressed:" destination="mNn-FC-EJF" id="uQV-EZ-q74"/>
+                                </connections>
+                            </barButtonItem>
                         </leftBarButtonItems>
-                        <barButtonItem key="rightBarButtonItem" image="PlotIcon" id="xhq-m4-TQP">
+                        <barButtonItem key="rightBarButtonItem" title="Info" style="plain" id="fcn-g7-TEP">
                             <connections>
-                                <action selector="handlePlotButtonPressed:" destination="mNn-FC-EJF" id="uQV-EZ-q74"/>
+                                <action selector="handlePageInfoButtonPressed:" destination="mNn-FC-EJF" id="XQ1-8D-Jx9"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -161,7 +166,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QeH-aA-dmU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="799" y="187"/>
+            <point key="canvasLocation" x="709" y="187"/>
         </scene>
         <!--Page Info View Controller-->
         <scene sceneID="rnY-r8-8LT">
@@ -719,23 +724,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yPu-WJ-9Io" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-857" y="149"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="JeK-SA-Okk">
-            <objects>
-                <viewController id="Sb9-AE-GwL" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="16i-5M-Bdt"/>
-                        <viewControllerLayoutGuide type="bottom" id="efQ-Ck-6JA"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="fs8-ZJ-e06">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="PCe-X8-cif" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
         </scene>
     </scenes>
     <resources>

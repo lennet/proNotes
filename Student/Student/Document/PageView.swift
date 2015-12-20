@@ -61,7 +61,7 @@ class PageView: UIView, UIGestureRecognizerDelegate {
             view.removeFromSuperview()
         }
         
-        for layer in page!.layers where !layer.hidden {
+        for layer in page!.layers {
             switch layer.type {
             case .PDF:
                 addPDFView(layer as! DocumentPDFLayer)
@@ -83,22 +83,25 @@ class PageView: UIView, UIGestureRecognizerDelegate {
         setNeedsDisplay()
     }
     
-    func addPDFView(layer: DocumentPDFLayer) {
-        let view = PDFView(page: layer.page, frame: bounds)
+    func addPDFView(pdfLayer: DocumentPDFLayer) {
+        let view = PDFView(page: pdfLayer.page, frame: bounds)
         view.backgroundColor = UIColor.clearColor()
         view.delegate = pdfViewDelegate
+        view.hidden = pdfLayer.hidden
         addSubview(view)
     }
     
     func addDrawingView(drawLayer: DocumentDrawLayer) {
         let view = DrawingView(drawLayer: drawLayer, frame: bounds)
         view.backgroundColor = UIColor.clearColor()
+        view.hidden = drawLayer.hidden
         addSubview(view)
     }
     
     func addImageLayer(imageLayer :ImageLayer){
         let frame = CGRect(origin: imageLayer.origin, size: imageLayer.size)
         let view = MovableImageView(image: imageLayer.image, frame: frame, movableLayer: imageLayer)
+        view.hidden = imageLayer.hidden
         addSubview(view)
         view.setUpImageView()
     }
@@ -106,6 +109,7 @@ class PageView: UIView, UIGestureRecognizerDelegate {
     func addTextLayer(textLayer: TextLayer) {
         let frame = CGRect(origin: textLayer.origin, size: textLayer.size)
         let view = MovableTextView(text: textLayer.text, frame: frame, movableLayer: textLayer)
+        view.hidden = textLayer.hidden
         addSubview(view)
         view.setUpTextView()
     }
@@ -113,6 +117,7 @@ class PageView: UIView, UIGestureRecognizerDelegate {
     func addPlotLayer(plotLayer: PlotLayer) {
         let frame = CGRect(origin: plotLayer.origin, size: plotLayer.size)
         let view = MovablePlotView(frame: frame, movableLayer: plotLayer)
+        view.hidden = plotLayer.hidden
         addSubview(view)
         view.setUpPlotView()
     }
@@ -133,10 +138,11 @@ class PageView: UIView, UIGestureRecognizerDelegate {
             if let drawLayer = page?.addDrawingLayer(nil){
                 addDrawingView(drawLayer)
                 DocumentSynchronizer.sharedInstance.updatePage(page!, forceReload: false)
+                handleDrawButtonPressed()
             }
             return
         }
-        
+        subview.setSelected()
         selectedSubView = subview
     }
     
@@ -145,15 +151,12 @@ class PageView: UIView, UIGestureRecognizerDelegate {
             selectedSubView?.handleTap(nil)
             selectedSubView = nil
             if let subview = subviews[index] as? PageSubView {
+                subview.setSelected()
                 selectedSubView = subview
-                if let movableView = subview as? MovableView {
-                    movableView.setSelected()
-                }
                 setSubviewsTransparent(index+1, alphaValue: 0.5)
             }
         }
     }
-    
     
     func setSubviewsTransparent(startIndex: Int, alphaValue: CGFloat){
         print(startIndex)
@@ -176,6 +179,24 @@ class PageView: UIView, UIGestureRecognizerDelegate {
         }
     }
     
+    func changeLayerVisibility(docLayer: DocumentLayer) {
+        let isHidden = !docLayer.hidden
+        if docLayer.index < subviews.count {
+            if let subview = subviews[docLayer.index] as? PageSubView {
+                subview.hidden = isHidden
+            }
+        }
+        page?.changeLayerVisibility(isHidden, layer: docLayer)
+    }
+    
+    func removeLayer(docLayer: DocumentLayer) {
+        if docLayer.index < subviews.count {
+            if let subview = subviews[docLayer.index] as? PageSubView {
+                subview.removeFromSuperview()
+            }
+        }
+        page?.removeLayer(docLayer, forceReload: false)
+    }
     
     // MARK: - UIGestureRecognizer
     

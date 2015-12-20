@@ -44,11 +44,16 @@ class PageInfoLayerTableViewCell: UITableViewCell {
     // MARK: - Actions
     
     @IBAction func handleDeleteButtonPressed(sender: AnyObject) {
-        documentLayer?.docPage.removeLayer(documentLayer!, forceReload: true)
+        if documentLayer != nil {
+            DocumentSynchronizer.sharedInstance.currentPageView?.removeLayer(documentLayer!)
+        }
     }
     
     @IBAction func handleVisibilityButtonPressed(sender: AnyObject) {
-        documentLayer?.docPage.changeLayerVisibility(!documentLayer!.hidden, layer: documentLayer!)
+        if documentLayer != nil {
+            DocumentSynchronizer.sharedInstance.currentPageView?.changeLayerVisibility(documentLayer!)
+        }
+        
     }
     
 }

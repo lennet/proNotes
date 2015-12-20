@@ -111,15 +111,19 @@ class DocumentPage {
     }
     
     func changeLayerVisibility(hidden: Bool, layer: DocumentLayer){
-        layer.hidden = hidden
-        self.layers[layer.index] = layer
-        DocumentSynchronizer.sharedInstance.updatePage(self, forceReload: true)
+        if layer.index < layers.count {
+            layer.hidden = hidden
+            layers[layer.index] = layer
+            DocumentSynchronizer.sharedInstance.updatePage(self, forceReload: false)
+        }
     }
     
     func removeLayer(layer: DocumentLayer, forceReload: Bool){
-        self.layers.removeAtIndex(layer.index)
-        updateLayerIndex()
-        DocumentSynchronizer.sharedInstance.updatePage(self, forceReload: forceReload)
+        if layer.index < layers.count {
+            layers.removeAtIndex(layer.index)
+            updateLayerIndex()
+            DocumentSynchronizer.sharedInstance.updatePage(self, forceReload: forceReload)
+        }
     }
     
     func swapLayerPositions(firstIndex: Int, secondIndex: Int){

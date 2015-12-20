@@ -51,7 +51,7 @@ class MovableView: PageSubView {
         layoutIfNeeded()
     }
     
-    func setSelected() {
+    override func setSelected() {
         handleTap(nil)
     }
     
