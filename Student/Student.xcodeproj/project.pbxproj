@@ -24,6 +24,7 @@
 		98312D691C0B79F200F3B1CB /* DocumentSynchronizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98312D681C0B79F200F3B1CB /* DocumentSynchronizer.swift */; };
 		987487CB1C18DA45000309D8 /* MovableTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987487CA1C18DA45000309D8 /* MovableTextView.swift */; };
 		987D30741C1B009600FB86CB /* PlotSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D30731C1B009600FB86CB /* PlotSettingsViewController.swift */; };
+		9881D2761C2857DB00A6651A /* ColorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9881D2751C2857DB00A6651A /* ColorButton.swift */; };
 		98A133DE1C22BB230064D983 /* ColorPickerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A133DD1C22BB230064D983 /* ColorPickerCollectionViewCell.swift */; };
 		98A5673B1C18CC330065B401 /* ImageSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A5673A1C18CC330065B401 /* ImageSettingsViewController.swift */; };
 		98A57C3D1C1DB2A400E6C5DF /* DocumentLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A57C3C1C1DB2A400E6C5DF /* DocumentLayer.swift */; };
@@ -89,6 +90,7 @@
 		98312D681C0B79F200F3B1CB /* DocumentSynchronizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DocumentSynchronizer.swift; path = Document/DocumentSynchronizer.swift; sourceTree = "<group>"; };
 		987487CA1C18DA45000309D8 /* MovableTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MovableTextView.swift; path = Document/MovableTextView.swift; sourceTree = "<group>"; };
 		987D30731C1B009600FB86CB /* PlotSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlotSettingsViewController.swift; path = Document/PlotSettingsViewController.swift; sourceTree = "<group>"; };
+		9881D2751C2857DB00A6651A /* ColorButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ColorButton.swift; path = Document/ColorButton.swift; sourceTree = "<group>"; };
 		98A133DD1C22BB230064D983 /* ColorPickerCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ColorPickerCollectionViewCell.swift; path = Document/ColorPickerCollectionViewCell.swift; sourceTree = "<group>"; };
 		98A5673A1C18CC330065B401 /* ImageSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageSettingsViewController.swift; path = Document/ImageSettingsViewController.swift; sourceTree = "<group>"; };
 		98A57C3C1C1DB2A400E6C5DF /* DocumentLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentLayer.swift; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 			children = (
 				980A3F321C22B1FC0070C618 /* ColorPickerViewController.swift */,
 				98A133DD1C22BB230064D983 /* ColorPickerCollectionViewCell.swift */,
+				9881D2751C2857DB00A6651A /* ColorButton.swift */,
 			);
 			name = ColorPicker;
 			sourceTree = "<group>";
@@ -533,6 +536,7 @@
 				98F2E3E91C1A1ED2008A5C6C /* CGSizeExtenstion.swift in Sources */,
 				98DBAA0A1C0799CB007EFFE5 /* AppDelegate.swift in Sources */,
 				98101BD11C0A58AA001E9555 /* DocumentViewController.swift in Sources */,
+				9881D2761C2857DB00A6651A /* ColorButton.swift in Sources */,
 				98C8C4BC1C1D979500A1FD2A /* NSData+Compression.swift in Sources */,
 				98F2E4011C1A3047008A5C6C /* MovablePlotView.swift in Sources */,
 				98A57C3D1C1DB2A400E6C5DF /* DocumentLayer.swift in Sources */,

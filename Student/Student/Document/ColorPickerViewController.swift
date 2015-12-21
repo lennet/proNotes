@@ -35,6 +35,11 @@ class ColorPickerViewController: UIViewController, UICollectionViewDataSource, U
     
     var delegate: ColorPickerDelegate?
     
+    static func getColorPicker() -> ColorPickerViewController {
+        let storyboard = UIStoryboard.documentStoryboard()
+        return storyboard.instantiateViewControllerWithIdentifier("ColorPickerViewControllerIdentifier") as! ColorPickerViewController
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -44,6 +49,11 @@ class ColorPickerViewController: UIViewController, UICollectionViewDataSource, U
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func getRect() -> CGRect {
+        colorCollectionView.layoutIfNeeded()
+        return colorCollectionView.bounds
     }
     
 
@@ -63,9 +73,11 @@ class ColorPickerViewController: UIViewController, UICollectionViewDataSource, U
     // MARK: - UICollectionViewDelegate
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        delegate?.didSelectColor(colors[indexPath.row])
+    delegate?.didSelectColor(colors[indexPath.row])
         let lastSelectedIndex = selectedIndex
         selectedIndex = indexPath.row
         collectionView.reloadItemsAtIndexPaths([NSIndexPath(forItem: selectedIndex, inSection: 0), NSIndexPath(forItem: lastSelectedIndex, inSection: 0)])
+        
+        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
     }
 }

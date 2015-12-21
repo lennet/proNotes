@@ -156,7 +156,7 @@
                                 </connections>
                             </barButtonItem>
                         </leftBarButtonItems>
-                        <barButtonItem key="rightBarButtonItem" title="Info" style="plain" id="fcn-g7-TEP">
+                        <barButtonItem key="rightBarButtonItem" title="Info" id="fcn-g7-TEP">
                             <connections>
                                 <action selector="handlePageInfoButtonPressed:" destination="mNn-FC-EJF" id="XQ1-8D-Jx9"/>
                             </connections>
@@ -365,24 +365,97 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LRr-9U-7PC">
-                                <rect key="frame" x="20" y="28.5" width="560" height="128"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7za-g8-X2f" customClass="ColorButton" customModule="Student" customModuleProvider="target">
+                                <rect key="frame" x="132" y="24" width="448" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="128" id="RmJ-YI-lYa"/>
+                                    <constraint firstAttribute="width" constant="46" id="S5e-rG-4wB"/>
+                                    <constraint firstAttribute="height" constant="30" id="ibE-8Y-cgm"/>
                                 </constraints>
+                                <state key="normal">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="S5e-rG-4wB"/>
+                                    </mask>
+                                </variation>
                                 <connections>
-                                    <segue destination="T4v-7O-Cd0" kind="embed" id="Z2j-aW-KpF"/>
+                                    <action selector="handleTextColorValueChanged:" destination="27M-rL-X2z" eventType="valueChanged" id="YTB-3w-uMr"/>
                                 </connections>
-                            </containerView>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Textfarbe" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hgU-Ha-DZf">
+                                <rect key="frame" x="20" y="28" width="72.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1PJ-Ur-ZNJ" customClass="ColorButton" customModule="Student" customModuleProvider="target">
+                                <rect key="frame" x="192" y="84" width="388" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="46" id="iGb-MF-jSt"/>
+                                    <constraint firstAttribute="height" constant="30" id="qEf-yK-G4B"/>
+                                </constraints>
+                                <state key="normal">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="iGb-MF-jSt"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="handleBackgroundColorValueChanged:" destination="27M-rL-X2z" eventType="valueChanged" id="d6W-P1-SLF"/>
+                                    <action selector="handleTextColorValueChanged:" destination="27M-rL-X2z" eventType="valueChanged" id="hTI-Zu-o5b"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hintergrundfarbe" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Adx-IE-4BD">
+                                <rect key="frame" x="20" y="89" width="132" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Textausrichtung" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oq2-Ud-U2i">
+                                <rect key="frame" x="20" y="149" width="123.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Jnz-ZE-Xqz">
+                                <rect key="frame" x="183" y="145" width="396.5" height="29"/>
+                                <segments>
+                                    <segment title="Links"/>
+                                    <segment title="Mittig"/>
+                                    <segment title="Rechts"/>
+                                    <segment title="Justified"/>
+                                    <segment title="Natural"/>
+                                </segments>
+                                <connections>
+                                    <action selector="handleTextAlignmentValueChanged:" destination="27M-rL-X2z" eventType="valueChanged" id="A37-8g-hj0"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="LRr-9U-7PC" firstAttribute="top" secondItem="rBt-FH-k2q" secondAttribute="bottom" constant="8" id="BBu-zQ-a1S"/>
+                            <constraint firstItem="Adx-IE-4BD" firstAttribute="leading" secondItem="CuB-kN-kwZ" secondAttribute="leadingMargin" id="4D8-u0-zlf"/>
+                            <constraint firstItem="hgU-Ha-DZf" firstAttribute="leading" secondItem="CuB-kN-kwZ" secondAttribute="leadingMargin" id="AWV-WM-3GG"/>
+                            <constraint firstItem="1PJ-Ur-ZNJ" firstAttribute="centerY" secondItem="Adx-IE-4BD" secondAttribute="centerY" id="BhP-3Z-jfB"/>
+                            <constraint firstItem="1PJ-Ur-ZNJ" firstAttribute="leading" secondItem="Adx-IE-4BD" secondAttribute="trailing" constant="40" id="BxY-nL-C7l"/>
                             <constraint firstAttribute="trailingMargin" secondItem="rBt-FH-k2q" secondAttribute="trailing" id="CSe-ag-e4U"/>
-                            <constraint firstItem="LRr-9U-7PC" firstAttribute="leading" secondItem="CuB-kN-kwZ" secondAttribute="leadingMargin" id="E2s-pM-WBn"/>
+                            <constraint firstItem="7za-g8-X2f" firstAttribute="centerY" secondItem="hgU-Ha-DZf" secondAttribute="centerY" id="FGB-7N-bsT"/>
                             <constraint firstItem="rBt-FH-k2q" firstAttribute="leading" secondItem="CuB-kN-kwZ" secondAttribute="leadingMargin" id="JEg-41-dls"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="1PJ-Ur-ZNJ" secondAttribute="trailing" id="KGI-6g-Pao"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="7za-g8-X2f" secondAttribute="trailing" id="LrN-ZM-z44"/>
                             <constraint firstItem="rBt-FH-k2q" firstAttribute="top" secondItem="CuB-kN-kwZ" secondAttribute="topMargin" id="T5J-SL-aHc"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="LRr-9U-7PC" secondAttribute="trailing" id="pdo-T9-ZI4"/>
+                            <constraint firstItem="oq2-Ud-U2i" firstAttribute="top" secondItem="Adx-IE-4BD" secondAttribute="bottom" constant="40" id="X3x-z5-ZCd"/>
+                            <constraint firstItem="oq2-Ud-U2i" firstAttribute="leading" secondItem="CuB-kN-kwZ" secondAttribute="leadingMargin" id="XPb-4u-gVG"/>
+                            <constraint firstItem="7za-g8-X2f" firstAttribute="leading" secondItem="hgU-Ha-DZf" secondAttribute="trailing" constant="40" id="ZkU-cr-yIU"/>
+                            <constraint firstItem="Adx-IE-4BD" firstAttribute="top" secondItem="hgU-Ha-DZf" secondAttribute="bottom" constant="40" id="lij-jI-4Ka"/>
+                            <constraint firstItem="Jnz-ZE-Xqz" firstAttribute="centerY" secondItem="oq2-Ud-U2i" secondAttribute="centerY" id="meB-W5-1iI"/>
+                            <constraint firstItem="hgU-Ha-DZf" firstAttribute="top" secondItem="rBt-FH-k2q" secondAttribute="bottom" constant="8" id="o77-DX-60P"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Jnz-ZE-Xqz" secondAttribute="trailing" id="os9-BF-byc"/>
+                            <constraint firstItem="Jnz-ZE-Xqz" firstAttribute="leading" secondItem="oq2-Ud-U2i" secondAttribute="trailing" constant="40" id="xgv-Ik-ipG"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -656,7 +729,7 @@
         <!--Color Picker View Controller-->
         <scene sceneID="j3l-KQ-BXi">
             <objects>
-                <viewController id="T4v-7O-Cd0" customClass="ColorPickerViewController" customModule="Student" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ColorPickerViewControllerIdentifier" id="T4v-7O-Cd0" customClass="ColorPickerViewController" customModule="Student" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="VbO-uh-DYB"/>
                         <viewControllerLayoutGuide type="bottom" id="UgE-VB-jxN"/>
@@ -732,7 +805,4 @@
         <image name="PlotIcon" width="40" height="40"/>
         <image name="TextViewIcon" width="14" height="15"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="LwV-Rs-AEa"/>
-    </inferredMetricsTieBreakers>
 </document>

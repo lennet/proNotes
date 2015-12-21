@@ -159,7 +159,6 @@ class PageView: UIView, UIGestureRecognizerDelegate {
     }
     
     func setSubviewsTransparent(startIndex: Int, alphaValue: CGFloat){
-        print(startIndex)
         let transparentSubviews = subviews[startIndex..<subviews.count]
         for subview in transparentSubviews {
             subview.alpha = alphaValue

@@ -11,6 +11,17 @@ import UIKit
 protocol TextSettingsDelegate {
     func removeText()
     func changeTextColor(color: UIColor)
+    func changeBackgroundColor(color: UIColor)
+    func changeAlignment(textAlignment: NSTextAlignment)
+
+/*
+    TODO:
+    Auto Correct
+    Font
+    Alignment
+    Autoresizing
+    background color
+*/
 }
 
 class TextSettingsViewController: SettingsBaseViewController {
@@ -28,11 +39,21 @@ class TextSettingsViewController: SettingsBaseViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    // MARK: - ColorPickerDelegate
-    
-    override func didSelectColor(color: UIColor) {
-        TextSettingsViewController.delegate?.changeTextColor(color)
+    @IBAction func handleTextColorValueChanged(button: UIButton) {
+        if let newColor = button.backgroundColor {
+                TextSettingsViewController.delegate?.changeTextColor(newColor)
+        }
     }
 
+    @IBAction func handleBackgroundColorValueChanged(button: UIButton) {
+        if let newColor = button.backgroundColor {
+            TextSettingsViewController.delegate?.changeBackgroundColor(newColor)
+        }
+    }
+    
+    @IBAction func handleTextAlignmentValueChanged(control: UISegmentedControl) {
+        if let textAlignment = NSTextAlignment(rawValue: control.selectedSegmentIndex) {
+            TextSettingsViewController.delegate?.changeAlignment(textAlignment)
+        }
+    }
 }

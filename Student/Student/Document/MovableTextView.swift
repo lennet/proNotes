@@ -42,19 +42,29 @@ class MovableTextView: MovableView, TextSettingsDelegate {
         DocumentSynchronizer.sharedInstance.settingsViewController?.currentSettingsType = .Text
         TextSettingsViewController.delegate = self
     }
-
+    
+    override func setDeselected() {
+        textView.resignFirstResponder()
+    }
+    
     // MARK: - TextSettingsDelegate 
     
     func changeTextColor(color: UIColor) {
         textView.textColor = color
     }
     
+    func changeBackgroundColor(color: UIColor) {
+        textView.backgroundColor = color
+    }
+    
+    func changeAlignment(textAlignment: NSTextAlignment) {
+        textView.textAlignment = textAlignment
+    }
+    
     func removeText() {
         // TODO
     }
     
-    override func setDeselected() {
-        textView.resignFirstResponder()
-    }
+
     
 }

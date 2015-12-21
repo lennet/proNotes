@@ -49,8 +49,7 @@ class Document: UIDocument {
                 })
 
             } else {
-                let object  = NSKeyedUnarchiver.unarchiveObjectWithData(directoryData)
-                print(object)
+                _  = NSKeyedUnarchiver.unarchiveObjectWithData(directoryData)
             }
         }
     }
