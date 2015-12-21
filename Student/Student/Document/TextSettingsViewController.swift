@@ -13,15 +13,8 @@ protocol TextSettingsDelegate {
     func changeTextColor(color: UIColor)
     func changeBackgroundColor(color: UIColor)
     func changeAlignment(textAlignment: NSTextAlignment)
-
-/*
-    TODO:
-    Auto Correct
-    Font
-    Alignment
-    Autoresizing
-    background color
-*/
+    func changeFont(font: UIFont)
+    func disableAutoCorrect(disable: Bool)
 }
 
 class TextSettingsViewController: SettingsBaseViewController {
@@ -55,5 +48,9 @@ class TextSettingsViewController: SettingsBaseViewController {
         if let textAlignment = NSTextAlignment(rawValue: control.selectedSegmentIndex) {
             TextSettingsViewController.delegate?.changeAlignment(textAlignment)
         }
+    }
+    
+    @IBAction func handleAutoCorrectValueChanged(aSwitch: UISwitch) {
+        TextSettingsViewController.delegate?.disableAutoCorrect(!aSwitch.on)
     }
 }

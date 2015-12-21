@@ -423,7 +423,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Jnz-ZE-Xqz">
-                                <rect key="frame" x="183" y="145" width="396.5" height="29"/>
+                                <rect key="frame" x="183" y="145" width="397" height="29"/>
                                 <segments>
                                     <segment title="Links"/>
                                     <segment title="Mittig"/>
@@ -435,10 +435,23 @@
                                     <action selector="handleTextAlignmentValueChanged:" destination="27M-rL-X2z" eventType="valueChanged" id="A37-8g-hj0"/>
                                 </connections>
                             </segmentedControl>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AuttoCorrect" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bzP-sU-JmE">
+                                <rect key="frame" x="20" y="209" width="99.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k1p-zW-ecm">
+                                <rect key="frame" x="159.5" y="204" width="51" height="31"/>
+                                <connections>
+                                    <action selector="handleAutoCorrectValueChanged:" destination="27M-rL-X2z" eventType="valueChanged" id="IkO-Xb-gSN"/>
+                                </connections>
+                            </switch>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Adx-IE-4BD" firstAttribute="leading" secondItem="CuB-kN-kwZ" secondAttribute="leadingMargin" id="4D8-u0-zlf"/>
+                            <constraint firstItem="k1p-zW-ecm" firstAttribute="leading" secondItem="bzP-sU-JmE" secondAttribute="trailing" constant="40" id="6cx-8J-CD7"/>
                             <constraint firstItem="hgU-Ha-DZf" firstAttribute="leading" secondItem="CuB-kN-kwZ" secondAttribute="leadingMargin" id="AWV-WM-3GG"/>
                             <constraint firstItem="1PJ-Ur-ZNJ" firstAttribute="centerY" secondItem="Adx-IE-4BD" secondAttribute="centerY" id="BhP-3Z-jfB"/>
                             <constraint firstItem="1PJ-Ur-ZNJ" firstAttribute="leading" secondItem="Adx-IE-4BD" secondAttribute="trailing" constant="40" id="BxY-nL-C7l"/>
@@ -451,10 +464,13 @@
                             <constraint firstItem="oq2-Ud-U2i" firstAttribute="top" secondItem="Adx-IE-4BD" secondAttribute="bottom" constant="40" id="X3x-z5-ZCd"/>
                             <constraint firstItem="oq2-Ud-U2i" firstAttribute="leading" secondItem="CuB-kN-kwZ" secondAttribute="leadingMargin" id="XPb-4u-gVG"/>
                             <constraint firstItem="7za-g8-X2f" firstAttribute="leading" secondItem="hgU-Ha-DZf" secondAttribute="trailing" constant="40" id="ZkU-cr-yIU"/>
+                            <constraint firstItem="bzP-sU-JmE" firstAttribute="top" secondItem="oq2-Ud-U2i" secondAttribute="bottom" constant="40" id="Zlj-J6-n5b"/>
+                            <constraint firstItem="bzP-sU-JmE" firstAttribute="leading" secondItem="CuB-kN-kwZ" secondAttribute="leadingMargin" id="f7i-6g-oFJ"/>
                             <constraint firstItem="Adx-IE-4BD" firstAttribute="top" secondItem="hgU-Ha-DZf" secondAttribute="bottom" constant="40" id="lij-jI-4Ka"/>
                             <constraint firstItem="Jnz-ZE-Xqz" firstAttribute="centerY" secondItem="oq2-Ud-U2i" secondAttribute="centerY" id="meB-W5-1iI"/>
                             <constraint firstItem="hgU-Ha-DZf" firstAttribute="top" secondItem="rBt-FH-k2q" secondAttribute="bottom" constant="8" id="o77-DX-60P"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Jnz-ZE-Xqz" secondAttribute="trailing" id="os9-BF-byc"/>
+                            <constraint firstItem="k1p-zW-ecm" firstAttribute="centerY" secondItem="bzP-sU-JmE" secondAttribute="centerY" id="vcV-iv-ZtP"/>
                             <constraint firstItem="Jnz-ZE-Xqz" firstAttribute="leading" secondItem="oq2-Ud-U2i" secondAttribute="trailing" constant="40" id="xgv-Ik-ipG"/>
                         </constraints>
                     </view>

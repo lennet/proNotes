@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MovableTextView: MovableView, TextSettingsDelegate {
+class MovableTextView: MovableView, UITextViewDelegate,TextSettingsDelegate {
 
     var text = ""
     var textView = UITextView()
@@ -29,6 +29,7 @@ class MovableTextView: MovableView, TextSettingsDelegate {
         textView.userInteractionEnabled = false
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.backgroundColor = UIColor.clearColor()
+        textView.delegate = self
         
         addSubview(textView)
         addAutoLayoutConstraints(textView)
@@ -61,10 +62,34 @@ class MovableTextView: MovableView, TextSettingsDelegate {
         textView.textAlignment = textAlignment
     }
     
+    func changeFont(font: UIFont) {
+        textView.font = font
+    }
+    
+    func disableAutoCorrect(disable: Bool) {
+        if disable {
+            textView.autocorrectionType = .No
+        } else {
+            textView.autocorrectionType = .Yes
+        }
+    }
+    
     func removeText() {
         // TODO
     }
     
-
+    // MARK: - UITextViewDelegate
     
+    func textViewDidChange(textView: UITextView) {
+        let heightOffset = textView.contentSize.height - textView.bounds.size.height
+        if heightOffset > 0 {
+            let origin = frame.origin
+            var size = bounds.size
+            size.height += heightOffset
+            frame = CGRect(origin: origin, size: size)
+            layoutIfNeeded()
+            setNeedsDisplay()
+        }
+    }
+
 }
