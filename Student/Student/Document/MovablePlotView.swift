@@ -10,14 +10,15 @@ import UIKit
 
 class MovablePlotView: MovableView, PlotSettingsDelegate {
 
-    var plotView: PlotView?
+    var plotView = PlotView()
     
     func setUpPlotView() {
         clipsToBounds = true
-        plotView = PlotView(frame: bounds)
-        addSubview(plotView!)
-        addAutoLayoutConstraints(plotView!)
-        plotView?.setUpGraph((movableLayer as? PlotLayer)?.function)
+        plotView.frame = bounds
+        addSubview(plotView)
+        addAutoLayoutConstraints(plotView)
+        plotView.layoutIfNeeded()
+        plotView.setUpGraph((movableLayer as? PlotLayer)?.function)
     }
     
     override func setUpSettingsViewController() {
@@ -28,7 +29,7 @@ class MovablePlotView: MovableView, PlotSettingsDelegate {
     // MARK: - PlotSettingsDelegate
     
     func updatePlot(function: String) {
-        plotView?.setUpGraph(function)
+        plotView.setUpGraph(function)
         if let layer = movableLayer as? PlotLayer {
             layer.function = function
                 DocumentSynchronizer.sharedInstance.updateMovableLayer(layer)
