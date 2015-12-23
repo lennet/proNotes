@@ -10,6 +10,15 @@ import UIKit
 
 class DrawingView: PageSubView, DrawingSettingsDelegate {
 
+    var strokeColor = UIColor.blackColor()
+    var lineWidth: CGFloat = 2
+    var drawingType: DrawingType = .Pen
+
+    var markerAlphaValue = 0.5
+    var markerLineWidth: CGFloat = 4
+    var penLineWidth: CGFloat = 2
+    var eraserLineWidth: CGFloat = 15
+    
     var path = UIBezierPath()
     var incrementalImage: UIImage?
     var points  = [CGPoint?](count:5, repeatedValue: nil)
@@ -110,9 +119,9 @@ class DrawingView: PageSubView, DrawingSettingsDelegate {
     }
     
     func stroke() {
-        DrawingSettings.sharedInstance.color.setStroke()
-        path.lineWidth = DrawingSettings.sharedInstance.lineWidth
-        if DrawingSettings.sharedInstance.color == UIColor.clearColor() {
+        setUpStrokeColor()
+        setUpLineWidth()
+        if drawingType == .Eraser {
             path.strokeWithBlendMode(.Clear, alpha: 1.0)
         } else {
             path.stroke()
@@ -130,6 +139,53 @@ class DrawingView: PageSubView, DrawingSettingsDelegate {
         self.incrementalImage = nil
         self.touchesEnd()
     }
-
-
+    
+    func removeLayer() {
+        drawLayer?.removeFromPage()
+        DocumentSynchronizer.sharedInstance.settingsViewController?.currentSettingsType = .PageInfo
+    }
+    
+    func didSelectColor(color: UIColor){
+        strokeColor = color
+        setUpStrokeColor()
+    }
+    
+    func setUpStrokeColor() {
+        if drawingType == .Marker {
+            strokeColor.colorWithAlphaComponent(0.5).setStroke()
+        } else {
+            strokeColor.setStroke()
+        }
+    }
+    
+    func setUpLineWidth() {
+        path.lineWidth = lineWidth
+    }
+    
+    func didSelectDrawingType(type: DrawingType) {
+        switch type{
+        case .Pen:
+            setUpPen()
+            break
+        case .Marker:
+            setUpMarker()
+            break
+        case .Eraser:
+            setUpEraser()
+            break
+        }
+        drawingType = type
+    }
+    
+    func setUpPen() {
+        lineWidth = penLineWidth
+    }
+    
+    func setUpMarker() {
+        lineWidth = markerLineWidth
+    }
+    
+    func setUpEraser() {
+        lineWidth = eraserLineWidth
+    }
 }

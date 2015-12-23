@@ -9,7 +9,9 @@
 import UIKit
 
 class SettingsBaseViewController: UIViewController, ColorPickerDelegate {
-
+    
+    var colorPickerViewController: ColorPickerViewController?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -34,6 +36,7 @@ class SettingsBaseViewController: UIViewController, ColorPickerDelegate {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let viewContoller = segue.destinationViewController as? ColorPickerViewController {
             viewContoller.delegate = self
+            colorPickerViewController = viewContoller
         }
     }
 
