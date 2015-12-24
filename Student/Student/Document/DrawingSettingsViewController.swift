@@ -12,6 +12,7 @@ protocol DrawingSettingsDelegate {
     func clearDrawing()
     func didSelectDrawingType(type: DrawingType)
     func didSelectColor(color: UIColor)
+    func didChangeLineWidth(lineWidth: CGFloat)
     func removeLayer()
 }
 
@@ -67,7 +68,8 @@ class DrawingSettingsViewController: SettingsBaseViewController {
     @IBOutlet weak var markerTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var eraserTopConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var lineWidthSlider: UISlider!
+    @IBOutlet weak var lineWidthCircleView: CircleView!
+
     // MARK: - Actions
     
     @IBAction func handlePenButtonPressed(sender: AnyObject) {
@@ -90,6 +92,11 @@ class DrawingSettingsViewController: SettingsBaseViewController {
         DrawingSettingsViewController.delegate?.removeLayer()
     }
 
+    @IBAction func handleLineWidthSliderValueChanged(sender: UISlider) {
+        lineWidthCircleView.radius = CGFloat(sender.value)
+        DrawingSettingsViewController.delegate?.didChangeLineWidth(CGFloat(sender.value)*2)
+    }
+    
     // MARK: - ColorPickerDelegate 
     
     override func didSelectColor(color: UIColor) {

@@ -23,6 +23,7 @@
 		98312D661C0B65E500F3B1CB /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98312D651C0B65E500F3B1CB /* PageView.swift */; };
 		98312D691C0B79F200F3B1CB /* DocumentSynchronizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98312D681C0B79F200F3B1CB /* DocumentSynchronizer.swift */; };
 		986D605B1C2B21140065D71B /* CustomScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986D605A1C2B21140065D71B /* CustomScrollView.swift */; };
+		986D605E1C2C2D700065D71B /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986D605D1C2C2D700065D71B /* CircleView.swift */; };
 		987487CB1C18DA45000309D8 /* MovableTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987487CA1C18DA45000309D8 /* MovableTextView.swift */; };
 		987D30741C1B009600FB86CB /* PlotSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D30731C1B009600FB86CB /* PlotSettingsViewController.swift */; };
 		9881D2761C2857DB00A6651A /* ColorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9881D2751C2857DB00A6651A /* ColorButton.swift */; };
@@ -90,6 +91,7 @@
 		98312D651C0B65E500F3B1CB /* PageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageView.swift; path = Document/PageView.swift; sourceTree = "<group>"; };
 		98312D681C0B79F200F3B1CB /* DocumentSynchronizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DocumentSynchronizer.swift; path = Document/DocumentSynchronizer.swift; sourceTree = "<group>"; };
 		986D605A1C2B21140065D71B /* CustomScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomScrollView.swift; path = Document/CustomScrollView.swift; sourceTree = "<group>"; };
+		986D605D1C2C2D700065D71B /* CircleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		987487CA1C18DA45000309D8 /* MovableTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MovableTextView.swift; path = Document/MovableTextView.swift; sourceTree = "<group>"; };
 		987D30731C1B009600FB86CB /* PlotSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlotSettingsViewController.swift; path = Document/PlotSettingsViewController.swift; sourceTree = "<group>"; };
 		9881D2751C2857DB00A6651A /* ColorButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ColorButton.swift; path = Document/ColorButton.swift; sourceTree = "<group>"; };
@@ -215,9 +217,7 @@
 				98A5673A1C18CC330065B401 /* ImageSettingsViewController.swift */,
 				987D30731C1B009600FB86CB /* PlotSettingsViewController.swift */,
 				98BABB8E1C1B169000D9C938 /* PageInfo */,
-				980A3F341C22B2010070C618 /* ColorPicker */,
 				98262C0F1C22C29A00B420A8 /* SettingsBaseViewController.swift */,
-				986D605A1C2B21140065D71B /* CustomScrollView.swift */,
 			);
 			name = "Settings Container";
 			sourceTree = "<group>";
@@ -233,6 +233,16 @@
 				98262C111C22D96A00B420A8 /* PageSubView.swift */,
 			);
 			name = PageView;
+			sourceTree = "<group>";
+		};
+		986D605C1C2C2D410065D71B /* Generic Components */ = {
+			isa = PBXGroup;
+			children = (
+				986D605A1C2B21140065D71B /* CustomScrollView.swift */,
+				980A3F341C22B2010070C618 /* ColorPicker */,
+				986D605D1C2C2D700065D71B /* CircleView.swift */,
+			);
+			name = "Generic Components";
 			sourceTree = "<group>";
 		};
 		98A57C3B1C1DB29200E6C5DF /* Model */ = {
@@ -302,6 +312,7 @@
 		98DBAA081C0799CB007EFFE5 /* Student */ = {
 			isa = PBXGroup;
 			children = (
+				986D605C1C2C2D410065D71B /* Generic Components */,
 				98A57C3B1C1DB29200E6C5DF /* Model */,
 				98AFFE721C14AEC9003A4A79 /* Extenstions */,
 				98D8C0BE1C0B16610026EECE /* Student.entitlements */,
@@ -546,6 +557,7 @@
 				98312D661C0B65E500F3B1CB /* PageView.swift in Sources */,
 				98F2E3EA1C1A1ED2008A5C6C /* UIStoryboardExtension.swift in Sources */,
 				98A57C3F1C1DB2BC00E6C5DF /* DocumentPage.swift in Sources */,
+				986D605E1C2C2D700065D71B /* CircleView.swift in Sources */,
 				98F2E3EC1C1A1EE9008A5C6C /* MovableView.swift in Sources */,
 				986D605B1C2B21140065D71B /* CustomScrollView.swift in Sources */,
 				98006ABF1C1A1EAC0091E356 /* PagesTableViewController.swift in Sources */,

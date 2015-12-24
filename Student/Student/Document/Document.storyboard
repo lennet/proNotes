@@ -522,7 +522,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="186.5" height="56"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nTq-wg-x1v">
-                                                                <rect key="frame" x="79" y="0.0" width="27" height="56"/>
+                                                                <rect key="frame" x="80" y="0.0" width="27" height="56"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="56" id="PMx-bS-RiQ"/>
                                                                     <constraint firstAttribute="width" constant="81" id="RB9-b1-Ubg"/>
@@ -604,8 +604,37 @@
                                                     <segue destination="T4v-7O-Cd0" kind="embed" id="LCC-YW-Uy0"/>
                                                 </connections>
                                             </containerView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dicke" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7lr-Hp-vcy">
+                                                <rect key="frame" x="278" y="254" width="44.5" height="21"/>
+                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZBF-4L-Ukl" customClass="CircleView" customModule="Student" customModuleProvider="target">
+                                                <rect key="frame" x="260" y="284" width="80" height="80"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="80" id="EC3-ZV-e9b"/>
+                                                    <constraint firstAttribute="width" constant="80" id="p8t-Fd-Tlp"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="strokeColor">
+                                                        <color key="value" red="0.32549019610000002" green="0.32549019610000002" blue="0.32549019610000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="2" minValue="1" maxValue="38" translatesAutoresizingMaskIntoConstraints="NO" id="11l-Bn-j6N">
+                                                <rect key="frame" x="241" y="374" width="118" height="31"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="114" id="IWw-gN-pwm"/>
+                                                </constraints>
+                                                <color key="minimumTrackTintColor" red="0.32549019610000002" green="0.32549019610000002" blue="0.32549019610000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                <connections>
+                                                    <action selector="handleLineWidthSliderValueChanged:" destination="gSi-pd-1tu" eventType="valueChanged" id="Anv-Ur-weD"/>
+                                                </connections>
+                                            </slider>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3ib-mm-0Jf">
-                                                <rect key="frame" x="233" y="274" width="135" height="30"/>
+                                                <rect key="frame" x="233" y="434" width="135" height="30"/>
                                                 <state key="normal" title="Zeichnung Löschen">
                                                     <color key="titleColor" red="0.32549019607843138" green="0.32549019607843138" blue="0.32549019607843138" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
@@ -614,7 +643,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4PU-gq-ZH8">
-                                                <rect key="frame" x="248" y="324.5" width="105" height="30"/>
+                                                <rect key="frame" x="248" y="484" width="105" height="30"/>
                                                 <state key="normal" title="Ebene Löschen">
                                                     <color key="titleColor" red="0.32549019607843138" green="0.32549019607843138" blue="0.32549019607843138" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
@@ -625,19 +654,29 @@
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
+                                            <constraint firstItem="3ib-mm-0Jf" firstAttribute="top" secondItem="11l-Bn-j6N" secondAttribute="bottom" constant="30" id="5ql-tE-f0Q"/>
+                                            <constraint firstItem="3ib-mm-0Jf" firstAttribute="top" secondItem="7lr-Hp-vcy" secondAttribute="bottom" constant="40" id="68U-Xx-bay"/>
+                                            <constraint firstItem="11l-Bn-j6N" firstAttribute="centerX" secondItem="le5-M3-CQh" secondAttribute="centerX" id="7mx-nx-X4N"/>
+                                            <constraint firstItem="11l-Bn-j6N" firstAttribute="top" secondItem="ZBF-4L-Ukl" secondAttribute="bottom" constant="10" id="9no-3p-TF2"/>
                                             <constraint firstItem="TKI-Xr-sDc" firstAttribute="leading" secondItem="le5-M3-CQh" secondAttribute="leading" id="9xJ-5j-kQz"/>
+                                            <constraint firstItem="7lr-Hp-vcy" firstAttribute="centerX" secondItem="le5-M3-CQh" secondAttribute="centerX" id="APK-be-Mr5"/>
                                             <constraint firstAttribute="trailing" secondItem="TKI-Xr-sDc" secondAttribute="trailing" id="ArH-Fx-xDb"/>
+                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="4PU-gq-ZH8" secondAttribute="bottom" constant="10" id="B5I-OE-E0M"/>
+                                            <constraint firstItem="ZBF-4L-Ukl" firstAttribute="top" secondItem="7lr-Hp-vcy" secondAttribute="bottom" constant="10" id="D5m-pC-xEJ"/>
                                             <constraint firstAttribute="height" constant="128" id="D6s-3A-aXn"/>
                                             <constraint firstItem="TKI-Xr-sDc" firstAttribute="leading" secondItem="le5-M3-CQh" secondAttribute="leading" constant="8" id="FrC-5L-Vww"/>
                                             <constraint firstAttribute="trailing" secondItem="TKI-Xr-sDc" secondAttribute="trailing" constant="8" id="OYP-b4-NLs"/>
                                             <constraint firstItem="3ib-mm-0Jf" firstAttribute="centerX" secondItem="le5-M3-CQh" secondAttribute="centerX" id="PsE-Mt-xRX"/>
+                                            <constraint firstItem="3ib-mm-0Jf" firstAttribute="top" secondItem="ZBF-4L-Ukl" secondAttribute="bottom" constant="40" id="RaZ-3m-1We"/>
                                             <constraint firstAttribute="trailing" secondItem="PJb-hA-8U0" secondAttribute="trailing" constant="20" id="S83-RR-Ugp"/>
                                             <constraint firstItem="PJb-hA-8U0" firstAttribute="top" secondItem="le5-M3-CQh" secondAttribute="top" id="UAs-y5-kD4"/>
                                             <constraint firstItem="GDW-J9-S4w" firstAttribute="top" secondItem="PJb-hA-8U0" secondAttribute="bottom" constant="20" id="Xhe-8w-cx0"/>
                                             <constraint firstItem="4PU-gq-ZH8" firstAttribute="centerX" secondItem="le5-M3-CQh" secondAttribute="centerX" id="YKm-Qb-tMF"/>
                                             <constraint firstItem="PJb-hA-8U0" firstAttribute="leading" secondItem="le5-M3-CQh" secondAttribute="leading" constant="20" id="aaP-VX-5FS"/>
                                             <constraint firstItem="TKI-Xr-sDc" firstAttribute="top" secondItem="GDW-J9-S4w" secondAttribute="bottom" constant="10" id="cSI-Uq-wzz"/>
+                                            <constraint firstItem="ZBF-4L-Ukl" firstAttribute="centerX" secondItem="le5-M3-CQh" secondAttribute="centerX" id="iDX-AV-U6J"/>
                                             <constraint firstItem="GDW-J9-S4w" firstAttribute="centerX" secondItem="le5-M3-CQh" secondAttribute="centerX" id="obl-Iz-jBw"/>
+                                            <constraint firstItem="7lr-Hp-vcy" firstAttribute="top" secondItem="TKI-Xr-sDc" secondAttribute="bottom" constant="20" id="tDr-FJ-tsv"/>
                                             <constraint firstItem="3ib-mm-0Jf" firstAttribute="top" secondItem="TKI-Xr-sDc" secondAttribute="bottom" constant="40" id="wPX-W3-Zst"/>
                                             <constraint firstItem="4PU-gq-ZH8" firstAttribute="top" secondItem="3ib-mm-0Jf" secondAttribute="bottom" constant="20" id="yR8-QZ-eOX"/>
                                         </constraints>
@@ -646,6 +685,9 @@
                                                 <exclude reference="D6s-3A-aXn"/>
                                                 <exclude reference="9xJ-5j-kQz"/>
                                                 <exclude reference="ArH-Fx-xDb"/>
+                                                <exclude reference="68U-Xx-bay"/>
+                                                <exclude reference="RaZ-3m-1We"/>
+                                                <exclude reference="wPX-W3-Zst"/>
                                             </mask>
                                         </variation>
                                     </view>
@@ -676,6 +718,7 @@
                     </view>
                     <connections>
                         <outlet property="eraserTopConstraint" destination="VAS-bh-saJ" id="iSu-PN-Khr"/>
+                        <outlet property="lineWidthCircleView" destination="ZBF-4L-Ukl" id="Rdk-06-Trs"/>
                         <outlet property="markerTopConstraint" destination="4GZ-uH-cBi" id="G1t-gB-Uwb"/>
                         <outlet property="penTopConstraint" destination="w0T-O0-uHp" id="3BW-an-QtQ"/>
                     </connections>

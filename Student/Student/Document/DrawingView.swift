@@ -177,6 +177,10 @@ class DrawingView: PageSubView, DrawingSettingsDelegate {
         drawingType = type
     }
     
+    func didChangeLineWidth(lineWidth: CGFloat){
+        self.lineWidth = lineWidth
+    }
+    
     func setUpPen() {
         lineWidth = penLineWidth
     }
