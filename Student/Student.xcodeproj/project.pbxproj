@@ -24,6 +24,7 @@
 		98312D691C0B79F200F3B1CB /* DocumentSynchronizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98312D681C0B79F200F3B1CB /* DocumentSynchronizer.swift */; };
 		986D605B1C2B21140065D71B /* CustomScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986D605A1C2B21140065D71B /* CustomScrollView.swift */; };
 		986D605E1C2C2D700065D71B /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986D605D1C2C2D700065D71B /* CircleView.swift */; };
+		986D60601C2C34BD0065D71B /* CALayerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986D605F1C2C34BD0065D71B /* CALayerExtension.swift */; };
 		987487CB1C18DA45000309D8 /* MovableTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987487CA1C18DA45000309D8 /* MovableTextView.swift */; };
 		987D30741C1B009600FB86CB /* PlotSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D30731C1B009600FB86CB /* PlotSettingsViewController.swift */; };
 		9881D2761C2857DB00A6651A /* ColorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9881D2751C2857DB00A6651A /* ColorButton.swift */; };
@@ -92,6 +93,7 @@
 		98312D681C0B79F200F3B1CB /* DocumentSynchronizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DocumentSynchronizer.swift; path = Document/DocumentSynchronizer.swift; sourceTree = "<group>"; };
 		986D605A1C2B21140065D71B /* CustomScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomScrollView.swift; path = Document/CustomScrollView.swift; sourceTree = "<group>"; };
 		986D605D1C2C2D700065D71B /* CircleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
+		986D605F1C2C34BD0065D71B /* CALayerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CALayerExtension.swift; sourceTree = "<group>"; };
 		987487CA1C18DA45000309D8 /* MovableTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MovableTextView.swift; path = Document/MovableTextView.swift; sourceTree = "<group>"; };
 		987D30731C1B009600FB86CB /* PlotSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlotSettingsViewController.swift; path = Document/PlotSettingsViewController.swift; sourceTree = "<group>"; };
 		9881D2751C2857DB00A6651A /* ColorButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ColorButton.swift; path = Document/ColorButton.swift; sourceTree = "<group>"; };
@@ -274,6 +276,7 @@
 				98F2E3E51C1A1ED2008A5C6C /* CGSizeExtenstion.swift */,
 				98F2E3E61C1A1ED2008A5C6C /* UIStoryboardExtension.swift */,
 				98BABB911C1B4D9300D9C938 /* UIViewExtension.swift */,
+				986D605F1C2C34BD0065D71B /* CALayerExtension.swift */,
 			);
 			name = Extenstions;
 			sourceTree = "<group>";
@@ -571,6 +574,7 @@
 				98D8C0B71C0B116F0026EECE /* Document.swift in Sources */,
 				98A5673B1C18CC330065B401 /* ImageSettingsViewController.swift in Sources */,
 				98D8C0BA1C0B11750026EECE /* DrawingSettingsViewController.swift in Sources */,
+				986D60601C2C34BD0065D71B /* CALayerExtension.swift in Sources */,
 				98101BD21C0A58AA001E9555 /* PagesOverviewTableViewCell.swift in Sources */,
 				980A3F331C22B1FC0070C618 /* ColorPickerViewController.swift in Sources */,
 				98006AB91C1A1E8D0091E356 /* TextSettingsViewController.swift in Sources */,

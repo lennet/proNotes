@@ -22,6 +22,7 @@ class Document: UIDocument {
     override func contentsForType(typeName: String) throws -> AnyObject {
         var fileWrappers: [String: NSFileWrapper] = [String: NSFileWrapper]()
         for page in pages {
+            print(page.index)
             fileWrappers[String(page.index)] = page.getFileWrapper()
         }
         let contents = NSFileWrapper(directoryWithFileWrappers: fileWrappers)
@@ -41,8 +42,10 @@ class Document: UIDocument {
                     return
                 }
                 for fileWrapper in fileWrappers {
+                    print(fileWrapper.0)
                     let page = DocumentPage(fileWrapper: fileWrapper.1, index: Int(fileWrapper.0)!)
                     pages.append(page)
+                    // TODO handle Corrupt Page Indexes
                 }
                 pages.sortInPlace({ (firstPage, secondPage) -> Bool in
                     return firstPage.index < secondPage.index
@@ -67,7 +70,6 @@ class Document: UIDocument {
     func addEmptyPage() {
         let page = DocumentPage(index: pages.count)
         pages.append(page)
-        updatePageIndex()
     }
     
     func addImageToPage(image: UIImage, pageIndex: Int){
@@ -94,11 +96,5 @@ class Document: UIDocument {
     func getNumberOfPages() -> Int {
         return pages.count;
     }
-    
-    func updatePageIndex(){
-        for (index, page) in pages.enumerate() {
-            page.index = index
-        }
-    }
-    
+
 }

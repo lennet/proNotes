@@ -174,8 +174,10 @@ class DocumentOverviewTableViewController: UITableViewController, UIDocumentPick
     
 
     func documentPicker(controller: UIDocumentPickerViewController, didPickDocumentAtURL url: NSURL) {
-        
-        let document = Document()
+        let documentUrl =  try! NSFileManager().URLForDirectory(.DocumentDirectory, inDomain: .UserDomainMask, appropriateForURL: nil, create: true)
+        let fileExtension = String(NSDate().timeIntervalSinceReferenceDate) + "test.studentDoc"
+        let fileURL = documentUrl.URLByAppendingPathComponent(fileExtension)
+        let document = Document(fileURL: fileURL)
         document.addPDF(url)
         DocumentSynchronizer.sharedInstance.document = document
                 performSegueWithIdentifier("test", sender: nil)

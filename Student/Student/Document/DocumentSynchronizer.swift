@@ -36,6 +36,7 @@ class DocumentSynchronizer: NSObject {
                 if oldValue == nil {
                     currentPage = document?.pages.first
                 }
+                document?.autosaveWithCompletionHandler(nil)
             }
         }
     }

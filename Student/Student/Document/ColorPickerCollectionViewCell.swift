@@ -13,20 +13,19 @@ class ColorPickerCollectionViewCell: UICollectionViewCell {
     
     var isSelectedColor = false
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        layer.setUpDefaultShaddow()
+    }
     
     override func drawRect(rect: CGRect) {
         super.drawRect(rect)
-        
-        let rectPath = UIBezierPath(rect: self.bounds)
+        let context = UIGraphicsGetCurrentContext()
 
         if isSelectedColor {
-            UIColor.blackColor().setStroke()
-            rectPath.lineWidth = 8
-        } else {
-            UIColor.darkGrayColor().setStroke()
-            rectPath.lineWidth = 2
+            CGContextSetStrokeColorWithColor(context, UIColor.blackColor().CGColor)
+            CGContextSetLineWidth(context, 4)
         }
-
-        rectPath.stroke()
+        CGContextStrokeRect(context, self.bounds)
     }
 }

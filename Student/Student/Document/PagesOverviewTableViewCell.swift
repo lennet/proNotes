@@ -22,13 +22,8 @@ class PagesOverviewTableViewCell: UITableViewCell {
     var delegate: PagesOverviewTableViewCellDelegate?
     
     override func awakeFromNib() {
-
         super.awakeFromNib()
-        let shadowLayer = pageThumbView.layer
-        shadowLayer.masksToBounds = false;
-        shadowLayer.shadowOffset = CGSize(width: 0, height: 2)
-        shadowLayer.shadowRadius = 1.5
-        shadowLayer.shadowOpacity = 0.6
+        pageThumbView.layer.setUpDefaultShaddow()
         backgroundColor = UIColor.clearColor()
     }
 

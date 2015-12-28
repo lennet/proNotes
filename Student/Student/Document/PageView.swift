@@ -175,6 +175,8 @@ class PageView: UIView, UIGestureRecognizerDelegate {
         if firstIndex != secondIndex && firstIndex >= 0 && secondIndex >= 0 && firstIndex < subviews.count && secondIndex < subviews.count {
             exchangeSubviewAtIndex(firstIndex, withSubviewAtIndex: secondIndex)
             page?.swapLayerPositions(firstIndex, secondIndex: secondIndex)
+        } else {
+            print("Swap Layerpositions failed with firstIndex:\(firstIndex) and secondIndex\(secondIndex) and subviewsCount \(subviews.count)")
         }
     }
     

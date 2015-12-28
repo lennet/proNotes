@@ -10,18 +10,22 @@ import UIKit
 
 class DocumentPage {
     var layers = [DocumentLayer]()
-    var index = 0
+    var index = 0 {
+        didSet {
+            print("D'Oh")
+        }
+    }
     var size = CGSize.dinA4()
     
     init(index: Int){
-        addDrawingLayer(nil)
         self.index = index
+        addDrawingLayer(nil)
     }
     
     init(PDF: CGPDFPage, index: Int){
+        self.index = index
         addPDFLayer(PDF)
         addDrawingLayer(nil)
-        self.index = index
     }
     
     init(fileWrapper: NSFileWrapper, index: Int) {
@@ -128,8 +132,10 @@ class DocumentPage {
     
     func swapLayerPositions(firstIndex: Int, secondIndex: Int){
         if firstIndex != secondIndex && firstIndex >= 0 && secondIndex >= 0 && firstIndex < layers.count && secondIndex < layers.count {
+            let tmp = firstIndex
+            layers[firstIndex].index = secondIndex
+            layers[secondIndex].index = tmp
             swap(&layers[firstIndex], &layers[secondIndex])
-            updateLayerIndex()
             DocumentSynchronizer.sharedInstance.updatePage(self, forceReload: false)
         }
     }
