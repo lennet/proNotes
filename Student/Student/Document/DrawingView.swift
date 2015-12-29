@@ -43,11 +43,7 @@ class DrawingView: PageSubView, DrawingSettingsDelegate {
     }
     
     deinit{
-        if incrementalImage != nil && drawLayer != nil && didChange{
-            drawLayer?.image = incrementalImage
-            DocumentSynchronizer.sharedInstance.updateDrawLayer(drawLayer!, forceReload: false)
-            didChange = false
-        }
+        saveChanges()
     }
     
     func commonInit() {
@@ -61,6 +57,14 @@ class DrawingView: PageSubView, DrawingSettingsDelegate {
             incrementalImage!.drawInRect(rect)
         }
         stroke()
+    }
+    
+    override func saveChanges() {
+        if incrementalImage != nil && drawLayer != nil && didChange{
+            drawLayer?.image = incrementalImage
+            DocumentSynchronizer.sharedInstance.updateDrawLayer(drawLayer!, forceReload: false)
+            didChange = false
+        }
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -98,6 +102,7 @@ class DrawingView: PageSubView, DrawingSettingsDelegate {
         setNeedsDisplay()
         path.removeAllPoints()
         counter = 0
+        saveChanges()
     }
     
     override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {

@@ -34,4 +34,12 @@ class PageSubView: UIView {
     func setDeselected() {
         // Empty Base Implementation
     }
+    
+    func saveChanges() {
+        // Empty Base Implementation
+    }
+    
+    func setUpSettingsViewController() {
+        // Empty Base Implementation
+    }
 }

@@ -52,7 +52,7 @@ class PageInfoViewController: UIViewController, UITableViewDataSource, UITableVi
             return
         }
         
-        DocumentSynchronizer.sharedInstance.currentPageView?.setLayerSelected(indexPath.row)
+        PagesTableViewController.sharedInstance?.currentPageView().setLayerSelected(indexPath.row)
     }
     
     // Inspired by http://www.raywenderlich.com/63089/cookbook-moving-table-view-cells-with-a-long-press-gesture
@@ -88,7 +88,7 @@ class PageInfoViewController: UIViewController, UITableViewDataSource, UITableVi
             center.y = location.y
             snapshotView.center = center
             if !indexPath.isEqual(sourceIndexPath){
-                DocumentSynchronizer.sharedInstance.currentPageView?.swapLayerPositions((sourceIndexPath?.row)!, secondIndex: indexPath.row)
+                PagesTableViewController.sharedInstance?.currentPageView().swapLayerPositions((sourceIndexPath?.row)!, secondIndex: indexPath.row)
                 layerTableView.moveRowAtIndexPath(sourceIndexPath!, toIndexPath: indexPath)
                 sourceIndexPath = indexPath
             }

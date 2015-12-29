@@ -11,7 +11,6 @@ import UIKit
 class DocumentViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, PagesOverviewTableViewCellDelegate, DocumentSynchronizerDelegate {
 
     var pagesOverviewController: PagesOverviewTableViewController?
-    var pagesTableViewController: PagesTableViewController?
 
     var document: Document? = DocumentSynchronizer.sharedInstance.document
     
@@ -19,7 +18,7 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
         super.viewDidLoad()
         DocumentSynchronizer.sharedInstance.addDelegate(self)
         document = DocumentSynchronizer.sharedInstance.document
-        pagesTableViewController?.document = document
+        PagesTableViewController.sharedInstance?.document = document
     }
 
     deinit {
@@ -37,7 +36,7 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
     }
 
     @IBAction func handleDrawButtonPressed(sender: AnyObject) {
-        DocumentSynchronizer.sharedInstance.currentPageView?.handleDrawButtonPressed()
+        PagesTableViewController.sharedInstance?.currentPageView().handleDrawButtonPressed()
     }
 
     @IBAction func handleImageButtonPressed(sender: AnyObject) {
@@ -49,7 +48,13 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
     }
     
     @IBAction func handleTextButtonPressed(sender: AnyObject) {
-        document?.addTextToPage("", pageIndex: 0)
+        if let textLayer = DocumentSynchronizer.sharedInstance.currentPage?.addTextLayer("") {
+            if let currentPageView = PagesTableViewController.sharedInstance?.currentPageView() {
+                currentPageView.addTextLayer(textLayer)
+                currentPageView.page = DocumentSynchronizer.sharedInstance.currentPage
+                currentPageView.setLayerSelected(currentPageView.subviews.count-1)
+            }
+        }
     }
     
     @IBAction func handlePlotButtonPressed(sender: AnyObject) {
@@ -57,6 +62,7 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
     }
     
     @IBAction func handlePageInfoButtonPressed(sender: AnyObject) {
+        PagesTableViewController.sharedInstance?.currentPageView().deselectSelectedSubview()
         DocumentSynchronizer.sharedInstance.settingsViewController?.currentSettingsType = .PageInfo
     }
     // MARK: - Navigation
@@ -67,14 +73,14 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
             viewController.pagesOverViewDelegate = self
             pagesOverviewController = viewController
         } else if let viewController = segue.destinationViewController as? PagesTableViewController {
-            pagesTableViewController = viewController
+            PagesTableViewController.sharedInstance = viewController
         }
     }
     
     // MARK: - PagesOverViewDelegate
     
     func showPage(index: Int){
-        pagesTableViewController?.showPage(index)
+        PagesTableViewController.sharedInstance?.showPage(index)
         DocumentSynchronizer.sharedInstance.settingsViewController?.setUpChildViewController(.PageInfo)
     }
     

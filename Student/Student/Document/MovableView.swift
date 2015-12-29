@@ -138,7 +138,7 @@ class MovableView: PageSubView {
                 
                     var newSize = frame.size
                     movableLayer?.size = newSize.increaseSize(MovableView.touchSize*(-2))
-                    DocumentSynchronizer.sharedInstance.updateMovableLayer(movableLayer!)
+                    saveChanges()
                 }
                 break
             default:
@@ -222,8 +222,12 @@ class MovableView: PageSubView {
         }
     }
     
-    func setUpSettingsViewController() {
     
+    
+    
+    
+    override func saveChanges() {
+        DocumentSynchronizer.sharedInstance.updateMovableLayer(movableLayer!)
     }
     
 }

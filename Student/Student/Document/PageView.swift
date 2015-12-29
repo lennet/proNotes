@@ -19,7 +19,9 @@ class PageView: UIView, UIGestureRecognizerDelegate {
     
     var page : DocumentPage? {
         didSet{
-            setUpLayer()
+            if oldValue == nil {
+                setUpLayer()
+            }
         }
     }
     
@@ -155,6 +157,8 @@ class PageView: UIView, UIGestureRecognizerDelegate {
                 selectedSubView = subview
                 setSubviewsTransparent(index+1, alphaValue: 0.5)
             }
+        } else {
+            print("Selecting Layer failed with index:\(index) and subviewsCount \(subviews.count)")
         }
     }
     

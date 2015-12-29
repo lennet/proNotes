@@ -26,8 +26,6 @@ class DocumentSynchronizer: NSObject {
             }
         }
     }
-    
-    var currentPageView: PageView?
 
     var document: Document?{
         didSet{
@@ -78,7 +76,7 @@ class DocumentSynchronizer: NSObject {
             })
         }
     }
-    
+
     // MARK: - Delegate Handling
     
     func addDelegate(delegate  :DocumentSynchronizerDelegate) {

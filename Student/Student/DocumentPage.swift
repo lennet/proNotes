@@ -10,22 +10,16 @@ import UIKit
 
 class DocumentPage {
     var layers = [DocumentLayer]()
-    var index = 0 {
-        didSet {
-            print("D'Oh")
-        }
-    }
+    var index = 0 
     var size = CGSize.dinA4()
     
     init(index: Int){
         self.index = index
-        addDrawingLayer(nil)
     }
     
     init(PDF: CGPDFPage, index: Int){
         self.index = index
         addPDFLayer(PDF)
-        addDrawingLayer(nil)
     }
     
     init(fileWrapper: NSFileWrapper, index: Int) {
@@ -86,7 +80,6 @@ class DocumentPage {
     func addDrawingLayer(image: UIImage?) -> DocumentDrawLayer {
         let drawLayer = DocumentDrawLayer(index: layers.count,image: image, docPage: self)
         layers.append(drawLayer)
-        DocumentSynchronizer.sharedInstance.updatePage(self, forceReload: false)
         return drawLayer
     }
     
@@ -102,10 +95,11 @@ class DocumentPage {
         DocumentSynchronizer.sharedInstance.updatePage(self, forceReload: false)
     }
     
-    func addTextLayer(text: String) {
+    func addTextLayer(text: String) -> TextLayer {
         let textLayer = TextLayer(index: layers.count, docPage: self, origin: CGPointZero, size: CGSize(width: 200, height: 200), text: "")
         layers.append(textLayer)
         DocumentSynchronizer.sharedInstance.updatePage(self, forceReload: false)
+        return textLayer
     }
     
     func addPlotLayer() {

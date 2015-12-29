@@ -10,7 +10,9 @@ import UIKit
 
 class PagesTableViewController: UITableViewController, DocumentSynchronizerDelegate {
 
-   var shouldReload = true
+    static var sharedInstance: PagesTableViewController?
+    
+    var shouldReload = true
     
     var document: Document? {
         didSet {
@@ -21,6 +23,8 @@ class PagesTableViewController: UITableViewController, DocumentSynchronizerDeleg
             }
         }
     }
+    
+    var currentPageIndex = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,6 +62,11 @@ class PagesTableViewController: UITableViewController, DocumentSynchronizerDeleg
         tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
     }
     
+    func currentPageView() -> PageView {
+       let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: currentPageIndex, inSection: 0)) as! PageTableViewCell
+        return cell.pageView
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -75,8 +84,9 @@ class PagesTableViewController: UITableViewController, DocumentSynchronizerDeleg
         if let currentPage = document?.pages[indexPath.row] {
             cell.pageView.page = currentPage
             cell.pageView.pdfViewDelegate = cell
-            DocumentSynchronizer.sharedInstance.currentPageView = cell.pageView
+            currentPageIndex = indexPath.row
         }
+        
         cell.layoutIfNeeded()
         
         return cell

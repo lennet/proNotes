@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MovableTextView: MovableView, UITextViewDelegate,TextSettingsDelegate {
+class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
 
     var text = ""
     var textView = UITextView()
@@ -75,7 +75,14 @@ class MovableTextView: MovableView, UITextViewDelegate,TextSettingsDelegate {
     }
     
     func removeText() {
-        // TODO
+        textView.text = ""
+    }
+    
+    override func saveChanges() {
+        if let textLayer = movableLayer as? TextLayer {
+            textLayer.text = textView.text
+        }
+        super.saveChanges()
     }
     
     // MARK: - UITextViewDelegate
@@ -90,6 +97,10 @@ class MovableTextView: MovableView, UITextViewDelegate,TextSettingsDelegate {
             layoutIfNeeded()
             setNeedsDisplay()
         }
+    }
+    
+    func textViewDidEndEditing(textView: UITextView) {
+        saveChanges()
     }
 
 }
