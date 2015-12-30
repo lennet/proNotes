@@ -10,9 +10,17 @@ import UIKit
 
 class DocumentViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, PagesOverviewTableViewCellDelegate, DocumentSynchronizerDelegate {
 
-    var pagesOverviewController: PagesOverviewTableViewController?
+    @IBOutlet weak var settingsWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var pagesOverviewWidthConstraint: NSLayoutConstraint!
 
+    final let defaultSettingsWidth: CGFloat = 240
+    final let defaultPagesOverViewWidth: CGFloat = 180
+    
+    var isFullScreen = false
+    
+    var pagesOverviewController: PagesOverviewTableViewController?
     var document: Document? = DocumentSynchronizer.sharedInstance.document
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,6 +78,24 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
     @IBAction func handlePageInfoButtonPressed(sender: AnyObject) {
         PagesTableViewController.sharedInstance?.currentPageView()?.deselectSelectedSubview()
         DocumentSynchronizer.sharedInstance.settingsViewController?.currentSettingsType = .PageInfo
+    }
+    
+    @IBAction func handleFullscreenToggleButtonPressed(sender: AnyObject) {
+        // TODO Change BarButtonIcon
+        if isFullScreen {
+            settingsWidthConstraint.constant = defaultSettingsWidth
+            pagesOverviewWidthConstraint.constant = defaultPagesOverViewWidth
+            isFullScreen = false
+        } else {
+            settingsWidthConstraint.constant = 0
+            pagesOverviewWidthConstraint.constant = 0
+            isFullScreen = true
+        }
+        
+        UIView.animateWithDuration(0.2, delay: 0, usingSpringWithDamping: 0.85, initialSpringVelocity: 5, options: .CurveEaseInOut, animations: { () -> Void in
+            self.view.layoutIfNeeded()
+            }, completion: nil)
+
     }
     // MARK: - Navigation
 

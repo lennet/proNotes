@@ -23,6 +23,10 @@ enum TouchRect {
 
 class MovableView: PageSubView {
 
+    // TODO Resizing Bug after saving and reloading View
+    // TODO change resizing mode for different classes
+    // TODO style
+    
     static let touchSize: CGFloat = 20
     
     var editMode = false
@@ -221,10 +225,6 @@ class MovableView: PageSubView {
             }
         }
     }
-    
-    
-    
-    
     
     override func saveChanges() {
         DocumentSynchronizer.sharedInstance.updateMovableLayer(movableLayer!)

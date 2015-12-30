@@ -107,6 +107,7 @@ class PageInfoViewController: UIViewController, UITableViewDataSource, UITableVi
                     self.snapshotView.removeFromSuperview()
                     self.snapshotView = UIView()
             })
+            layerTableView.reloadData()
             break
         }
     }
