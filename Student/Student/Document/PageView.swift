@@ -95,6 +95,7 @@ class PageView: UIView, UIGestureRecognizerDelegate {
     
     func addDrawingView(drawLayer: DocumentDrawLayer) {
         let view = DrawingView(drawLayer: drawLayer, frame: bounds)
+        print(bounds)
         view.backgroundColor = UIColor.clearColor()
         view.hidden = drawLayer.hidden
         addSubview(view)

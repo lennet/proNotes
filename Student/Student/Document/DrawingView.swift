@@ -60,7 +60,7 @@ class DrawingView: PageSubView, DrawingSettingsDelegate {
     }
     
     override func saveChanges() {
-        if incrementalImage != nil && drawLayer != nil && didChange{
+        if incrementalImage != nil && drawLayer != nil && didChange {
             drawLayer?.image = incrementalImage
             DocumentSynchronizer.sharedInstance.updateDrawLayer(drawLayer!, forceReload: false)
             didChange = false

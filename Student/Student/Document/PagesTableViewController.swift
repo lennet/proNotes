@@ -23,8 +23,6 @@ class PagesTableViewController: UITableViewController, DocumentSynchronizerDeleg
             }
         }
     }
-    
-    var currentPageIndex = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,15 +60,21 @@ class PagesTableViewController: UITableViewController, DocumentSynchronizerDeleg
         tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
     }
     
-    func currentPageView() -> PageView {
-       let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: currentPageIndex, inSection: 0)) as! PageTableViewCell
-        return cell.pageView
+    func currentPageView() -> PageView? {
+        if let indexPaths = tableView.indexPathsForVisibleRows {
+            for indexPath in indexPaths {
+                if let cell = tableView.cellForRowAtIndexPath(indexPath) as? PageTableViewCell {
+                    return cell.pageView
+                }
+            }
+        }
+        
+        return nil
     }
     
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-
         return 1
     }
 
@@ -80,16 +84,17 @@ class PagesTableViewController: UITableViewController, DocumentSynchronizerDeleg
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(PageTableViewCell.identifier, forIndexPath: indexPath) as! PageTableViewCell
+
+            if let currentPage = document?.pages[indexPath.row] {
+                cell.pageView.page = currentPage
+                cell.pageView.setUpLayer()
+                cell.pageView.pdfViewDelegate = cell
+            }
         
-        if let currentPage = document?.pages[indexPath.row] {
-            cell.pageView.page = currentPage
-            cell.pageView.pdfViewDelegate = cell
-            currentPageIndex = indexPath.row
-        }
+            cell.layoutIfNeeded()
         
-        cell.layoutIfNeeded()
-        
-        return cell
+            return cell
+
     }
 
     /*

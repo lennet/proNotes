@@ -30,13 +30,19 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
         // Dispose of any resources that can be recreated.
     }
     
+    override func canBecomeFirstResponder() -> Bool {
+        return true
+    }
+    
+    // MARK: - Actions
+    
     @IBAction func handleAddPageButtonPressed(sender: AnyObject) {
         document?.addEmptyPage()
         DocumentSynchronizer.sharedInstance.document = document
     }
 
     @IBAction func handleDrawButtonPressed(sender: AnyObject) {
-        PagesTableViewController.sharedInstance?.currentPageView().handleDrawButtonPressed()
+        PagesTableViewController.sharedInstance?.currentPageView()?.handleDrawButtonPressed()
     }
 
     @IBAction func handleImageButtonPressed(sender: AnyObject) {
@@ -62,7 +68,7 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
     }
     
     @IBAction func handlePageInfoButtonPressed(sender: AnyObject) {
-        PagesTableViewController.sharedInstance?.currentPageView().deselectSelectedSubview()
+        PagesTableViewController.sharedInstance?.currentPageView()?.deselectSelectedSubview()
         DocumentSynchronizer.sharedInstance.settingsViewController?.currentSettingsType = .PageInfo
     }
     // MARK: - Navigation
@@ -103,4 +109,19 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
     func imagePickerControllerDidCancel(picker: UIImagePickerController){
         dismissViewControllerAnimated(true, completion: nil)
     }
+    
+    // MARK: - UIKeyCommands
+    
+    // TODO add more commands
+    override var keyCommands: [UIKeyCommand]? {
+        return [
+            UIKeyCommand(input: "+", modifierFlags: .Command, action: "handleAddPageButtonPressed:", discoverabilityTitle: "Add Page"),
+        ]
+    }
+    
+    func selectTab(sender: UIKeyCommand) {
+        let selectedTab = sender.input
+        print(selectedTab)
+    }
+    
 }

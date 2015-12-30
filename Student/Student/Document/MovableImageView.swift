@@ -37,7 +37,7 @@ class MovableImageView: MovableView, ImageSettingsDelegate {
         DocumentSynchronizer.sharedInstance.settingsViewController?.currentSettingsType = .Image
         ImageSettingsViewController.delegate = self
     }
-
+    
     // MARK: - ImageSettingsDelegate
     
     func removeImage() {
