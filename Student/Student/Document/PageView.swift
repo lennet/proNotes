@@ -17,6 +17,7 @@ class PageView: UIView, UIGestureRecognizerDelegate {
     var pinchGestureRecognizer: UIPinchGestureRecognizer?
     var doubleTapGestureRecognizer: UITapGestureRecognizer?
     
+    
     var page : DocumentPage? {
         didSet{
             if oldValue == nil {
@@ -30,6 +31,7 @@ class PageView: UIView, UIGestureRecognizerDelegate {
     override func awakeFromNib() {
         super.awakeFromNib()
         setUpTouchRecognizer()
+        clearsContextBeforeDrawing = true
     }
     
     func setUpTouchRecognizer() {
@@ -83,7 +85,7 @@ class PageView: UIView, UIGestureRecognizerDelegate {
                 break
             }
         }
-        setNeedsDisplay()
+//        setNeedsDisplay()
     }
     
     func addPDFView(pdfLayer: DocumentPDFLayer) {
@@ -204,6 +206,33 @@ class PageView: UIView, UIGestureRecognizerDelegate {
         page?.removeLayer(docLayer, forceReload: false)
     }
     
+    override func drawRect(rect: CGRect) {
+        let path = UIBezierPath()
+
+        let xOffset: CGFloat = 20
+        let yOffset: CGFloat = 20
+            
+        var currentXPos = xOffset
+        var currentYPos = yOffset
+            
+        while (currentXPos < rect.width){
+            print(currentXPos)
+            path.moveToPoint(CGPoint(x: currentXPos, y: 0))
+            path.addLineToPoint(CGPoint(x: currentXPos, y: rect.height))
+
+            currentXPos += xOffset
+        }
+
+        while (currentYPos < rect.height){
+            print(currentYPos)
+            path.moveToPoint(CGPoint(x: 0, y: currentYPos))
+            path.addLineToPoint(CGPoint(x: rect.width, y: currentYPos))
+            currentYPos += yOffset
+        }
+            
+        path.stroke()
+    }
+    
     // MARK: - UIGestureRecognizer
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -230,6 +259,7 @@ class PageView: UIView, UIGestureRecognizerDelegate {
     
     func handleTap(tapGestureRecognizer: UITapGestureRecognizer) {
         if selectedSubView != nil {
+            // todo improve
             deselectSelectedSubview()
         } else {
             let location = tapGestureRecognizer.locationInView(self)

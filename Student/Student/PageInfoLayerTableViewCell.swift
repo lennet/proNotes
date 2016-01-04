@@ -34,11 +34,11 @@ class PageInfoLayerTableViewCell: UITableViewCell {
         self.documentLayer = documentLayer
         indexLabel.text = String(documentLayer.index+1)
         typeLabel.text = String(documentLayer.type)
-        if documentLayer.hidden {
-            visibilityButton.setTitle("visible", forState: .Normal)
-        } else {
-            visibilityButton.setTitle("hidden", forState: .Normal)
-        }
+        
+        let buttonImageName = documentLayer.hidden ? "invisibleIcon" : "visibleIcon"
+        UIView.animateWithDuration(0.2, delay: 0, options: .CurveEaseInOut, animations: { () -> Void in
+            self.visibilityButton.setImage(UIImage(named: buttonImageName), forState: .Normal)
+            }, completion: nil)
     }
     
     // MARK: - Actions

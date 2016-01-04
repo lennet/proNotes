@@ -9,11 +9,10 @@
 import UIKit
 
 extension UIStoryboard {
-
-    
     
     static func documentStoryboard() -> UIStoryboard {
         let documentStoryboardName = "Document"
         return UIStoryboard(name: documentStoryboardName, bundle: nil)
     }
+    
 }

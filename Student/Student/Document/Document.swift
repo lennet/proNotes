@@ -22,7 +22,6 @@ class Document: UIDocument {
     override func contentsForType(typeName: String) throws -> AnyObject {
         var fileWrappers: [String: NSFileWrapper] = [String: NSFileWrapper]()
         for page in pages {
-            print(page.index)
             fileWrappers[String(page.index)] = page.getFileWrapper()
         }
         let contents = NSFileWrapper(directoryWithFileWrappers: fileWrappers)
@@ -42,7 +41,6 @@ class Document: UIDocument {
                     return
                 }
                 for fileWrapper in fileWrappers {
-                    print(fileWrapper.0)
                     let page = DocumentPage(fileWrapper: fileWrapper.1, index: Int(fileWrapper.0)!)
                     pages.append(page)
                     // TODO handle Corrupt Page Indexes

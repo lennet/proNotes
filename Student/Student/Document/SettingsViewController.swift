@@ -32,6 +32,8 @@ class SettingsViewController: UIViewController {
         super.viewDidLoad()
         DocumentSynchronizer.sharedInstance.settingsViewController = self
         setUpChildViewController(currentSettingsType)
+        
+        view.layer.setUpDefaultBorder()
     }
 
     override func didReceiveMemoryWarning() {

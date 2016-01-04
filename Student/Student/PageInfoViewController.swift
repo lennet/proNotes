@@ -8,11 +8,17 @@
 
 import UIKit
 
-class PageInfoViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, DocumentSynchronizerDelegate {
+class PageInfoViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, DocumentSynchronizerDelegate {
     
+    @IBOutlet weak var backgroundSelectionCollectionView: UICollectionView!
     @IBOutlet weak var layerTableView: UITableView!
     
+    @IBOutlet weak var formatSelectionCollectionView: UICollectionView!
     @IBOutlet weak var layerTableViewHeightConstraint: NSLayoutConstraint!
+    
+    final let collectionViewCellIdentifier = "UICollectionViewCellIdentifier"
+    
+    let paperSizes = CGSize.paperSizes()
     
     var snapshotView: UIView = UIView()
     var sourceIndexPath :NSIndexPath?
@@ -112,7 +118,7 @@ class PageInfoViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
 
-    // MARK: - UITableViewDatasource
+    // MARK: - UITableViewDataSource
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -142,4 +148,38 @@ class PageInfoViewController: UIViewController, UITableViewDataSource, UITableVi
     func currentPageDidChange(page: DocumentPage){
         self.page = page
     }
+    
+    // MARK: - UICollectionViewDataSource
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
+        if collectionView == backgroundSelectionCollectionView {
+            return 2
+        } else {
+            return paperSizes.count
+        }
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell{
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(collectionViewCellIdentifier, forIndexPath: indexPath)
+        return cell
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        if collectionView == backgroundSelectionCollectionView {
+            return CGSizeMake(collectionView.bounds.height/1.5, collectionView.bounds.height/1.5)
+        } else {
+            var size = paperSizes[indexPath.row]
+            let maxRatio = collectionView.bounds.height/paperSizes[0].height*0.8
+            size.multiplySize(maxRatio)
+            return size
+        }
+    }
+    
+    
+    // MARK: - UICollectionViewDelegate
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        // TODO
+    }
+
 }

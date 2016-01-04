@@ -17,4 +17,11 @@ extension CALayer {
         self.shadowOpacity = 0.6
     }
     
+    func setUpDefaultBorder() {
+        self.masksToBounds = false
+        self.shadowOffset = CGSize(width: -1, height: 0)
+        self.shadowRadius = 1
+        self.shadowOpacity = 1
+    }
+    
 }

@@ -48,6 +48,7 @@
 		98DBAA171C0799CB007EFFE5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98DBAA151C0799CB007EFFE5 /* LaunchScreen.storyboard */; };
 		98DBAA221C0799CB007EFFE5 /* StudentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DBAA211C0799CB007EFFE5 /* StudentTests.swift */; };
 		98DBAA2D1C0799CB007EFFE5 /* StudentUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DBAA2C1C0799CB007EFFE5 /* StudentUITests.swift */; };
+		98E33D4F1C37E8D10065B590 /* CropImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E33D4E1C37E8D10065B590 /* CropImageView.swift */; };
 		98F2E3E71C1A1ED2008A5C6C /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F2E3E31C1A1ED2008A5C6C /* ArrayExtension.swift */; };
 		98F2E3E81C1A1ED2008A5C6C /* CGPointExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F2E3E41C1A1ED2008A5C6C /* CGPointExtension.swift */; };
 		98F2E3E91C1A1ED2008A5C6C /* CGSizeExtenstion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F2E3E51C1A1ED2008A5C6C /* CGSizeExtenstion.swift */; };
@@ -124,6 +125,7 @@
 		98DBAA281C0799CB007EFFE5 /* StudentUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StudentUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		98DBAA2C1C0799CB007EFFE5 /* StudentUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentUITests.swift; sourceTree = "<group>"; };
 		98DBAA2E1C0799CB007EFFE5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		98E33D4E1C37E8D10065B590 /* CropImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CropImageView.swift; path = Document/CropImageView.swift; sourceTree = "<group>"; };
 		98F2E3E31C1A1ED2008A5C6C /* ArrayExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArrayExtension.swift; path = Extensions/ArrayExtension.swift; sourceTree = "<group>"; };
 		98F2E3E41C1A1ED2008A5C6C /* CGPointExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CGPointExtension.swift; path = Extensions/CGPointExtension.swift; sourceTree = "<group>"; };
 		98F2E3E51C1A1ED2008A5C6C /* CGSizeExtenstion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CGSizeExtenstion.swift; path = Extensions/CGSizeExtenstion.swift; sourceTree = "<group>"; };
@@ -216,7 +218,7 @@
 				98006ABA1C1A1E960091E356 /* SettingsViewController.swift */,
 				98006AB81C1A1E8D0091E356 /* TextSettingsViewController.swift */,
 				98D8C0B81C0B11750026EECE /* DrawingSettingsViewController.swift */,
-				98A5673A1C18CC330065B401 /* ImageSettingsViewController.swift */,
+				98E33D4D1C37E8BB0065B590 /* ImageSettings */,
 				987D30731C1B009600FB86CB /* PlotSettingsViewController.swift */,
 				98BABB8E1C1B169000D9C938 /* PageInfo */,
 				98262C0F1C22C29A00B420A8 /* SettingsBaseViewController.swift */,
@@ -345,6 +347,15 @@
 				98DBAA2E1C0799CB007EFFE5 /* Info.plist */,
 			);
 			path = StudentUITests;
+			sourceTree = "<group>";
+		};
+		98E33D4D1C37E8BB0065B590 /* ImageSettings */ = {
+			isa = PBXGroup;
+			children = (
+				98A5673A1C18CC330065B401 /* ImageSettingsViewController.swift */,
+				98E33D4E1C37E8D10065B590 /* CropImageView.swift */,
+			);
+			name = ImageSettings;
 			sourceTree = "<group>";
 		};
 		B1EDBCECD2277CE4E1A94336 /* Pods */ = {
@@ -550,6 +561,7 @@
 				98F2E3E71C1A1ED2008A5C6C /* ArrayExtension.swift in Sources */,
 				98101BD71C0A5945001E9555 /* PageTableViewCell.swift in Sources */,
 				98F2E3EE1C1A1EF1008A5C6C /* MovableImageView.swift in Sources */,
+				98E33D4F1C37E8D10065B590 /* CropImageView.swift in Sources */,
 				98F2E3E91C1A1ED2008A5C6C /* CGSizeExtenstion.swift in Sources */,
 				98DBAA0A1C0799CB007EFFE5 /* AppDelegate.swift in Sources */,
 				98101BD11C0A58AA001E9555 /* DocumentViewController.swift in Sources */,
@@ -673,6 +685,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "";
 			};
 			name = Debug;
 		};

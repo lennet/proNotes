@@ -46,4 +46,8 @@ class MovableImageView: MovableView, ImageSettingsDelegate {
         DocumentSynchronizer.sharedInstance.settingsViewController?.currentSettingsType = .PageInfo
     }
 
+    func getImage() -> UIImage {
+        return image
+    }
+
 }

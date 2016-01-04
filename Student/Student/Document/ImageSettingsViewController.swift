@@ -10,16 +10,29 @@ import UIKit
 
 protocol ImageSettingsDelegate {
     func removeImage()
+    func getImage() -> UIImage
 }
 
 class ImageSettingsViewController: UIViewController {
-
+    
+    @IBOutlet weak var imageViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var cropImageView: CropImageView!
     static var delegate: ImageSettingsDelegate?
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        if let image = ImageSettingsViewController.delegate?.getImage() {
+            cropImageView.layoutIfNeeded()
+            let ratio = cropImageView.bounds.width/image.size.width
+            cropImageView.image = image
+            imageViewHeightConstraint.constant = image.size.height * ratio
+        }
+        cropImageView.layer.setUpDefaultShaddow()
     }
 
     override func didReceiveMemoryWarning() {
@@ -27,18 +40,14 @@ class ImageSettingsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    // MARK: - Actions
+    
     @IBAction func handleDeleteButtonPressed(sender: AnyObject) {
         ImageSettingsViewController.delegate?.removeImage()
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @IBAction func handleCropButtonPressed(sender: AnyObject) {
+        cropImageView.isCropping = true
     }
-    */
 
 }

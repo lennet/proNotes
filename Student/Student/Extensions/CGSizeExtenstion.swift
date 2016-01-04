@@ -26,9 +26,22 @@ extension CGSize {
         self.width *= factor
         self.height *= factor
     }
-    
+
     static func dinA4() -> CGSize {
         return CGSize(width: 2384, height: 3370)
+    }
+    
+    static func dinA4LandScape() -> CGSize {
+        let size = dinA4()
+        return CGSize(width: size.height, height: size.width)
+    }
+    
+    static func quadratic() -> CGSize {
+        return CGSize(width: 2384, height: 2384)
+    }
+    
+    static func paperSizes() -> [CGSize] {
+        return [dinA4(), quadratic(), dinA4LandScape()]
     }
     
 }

@@ -57,7 +57,7 @@ class ColorPickerViewController: UIViewController, UICollectionViewDataSource, U
     }
     
 
-    // MARK: - UICollectionViewDatasource
+    // MARK: - UICollectionViewDataSource
 
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
         return colors.count
