@@ -34,8 +34,8 @@ class MovableImageView: MovableView, ImageSettingsDelegate {
     }
     
     override func setUpSettingsViewController() {
-        DocumentSynchronizer.sharedInstance.settingsViewController?.currentSettingsType = .Image
         ImageSettingsViewController.delegate = self
+        DocumentSynchronizer.sharedInstance.settingsViewController?.currentSettingsType = .Image
     }
     
     // MARK: - ImageSettingsDelegate

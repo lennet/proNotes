@@ -11,7 +11,13 @@ import UIKit
 @IBDesignable
 class CropImageView: UIView {
 
-    var image: UIImage?
+    var image: UIImage? {
+        didSet{
+            if image != nil {
+                setNeedsDisplay()
+            }
+        }
+    }
     
     @IBInspectable
     var leftPadding: CGFloat = 0 {

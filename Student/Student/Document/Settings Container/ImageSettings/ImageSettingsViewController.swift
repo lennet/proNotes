@@ -17,6 +17,7 @@ class ImageSettingsViewController: UIViewController {
     
     @IBOutlet weak var imageViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var cropImageView: CropImageView!
+    
     static var delegate: ImageSettingsDelegate?
 
     

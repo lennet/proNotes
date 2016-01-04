@@ -40,8 +40,8 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
     }
     
     override func setUpSettingsViewController() {
-        DocumentSynchronizer.sharedInstance.settingsViewController?.currentSettingsType = .Text
         TextSettingsViewController.delegate = self
+        DocumentSynchronizer.sharedInstance.settingsViewController?.currentSettingsType = .Text
     }
     
     override func setDeselected() {

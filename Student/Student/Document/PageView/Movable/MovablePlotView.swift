@@ -22,8 +22,8 @@ class MovablePlotView: MovableView, PlotSettingsDelegate {
     }
     
     override func setUpSettingsViewController() {
-        DocumentSynchronizer.sharedInstance.settingsViewController?.currentSettingsType = .Plot
         PlotSettingsViewController.delegate = self
+        DocumentSynchronizer.sharedInstance.settingsViewController?.currentSettingsType = .Plot
     }
     
     // MARK: - PlotSettingsDelegate
