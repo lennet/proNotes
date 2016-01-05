@@ -1,0 +1,21 @@
+//
+//  CGRectExtension.swift
+//  Student
+//
+//  Created by Leo Thomas on 04/01/16.
+//  Copyright © 2016 leonardthomas. All rights reserved.
+//
+
+import UIKit
+
+extension CGRect {
+
+    init(center: CGPoint, width: CGFloat, height: CGFloat) {
+        size = CGSize(width: width, height: height)
+        origin = CGPoint(x: center.x-width/2, y: center.y-height/2)
+    }
+    
+    func getCenter() -> CGPoint {
+        return CGPoint(x: CGRectGetMidX(self), y: CGRectGetMidY(self))
+    }
+}

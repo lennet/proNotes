@@ -26,6 +26,9 @@
 		986D605E1C2C2D700065D71B /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986D605D1C2C2D700065D71B /* CircleView.swift */; };
 		986D60601C2C34BD0065D71B /* CALayerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986D605F1C2C34BD0065D71B /* CALayerExtension.swift */; };
 		987487CB1C18DA45000309D8 /* MovableTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987487CA1C18DA45000309D8 /* MovableTextView.swift */; };
+		987B570C1C3AF85200141EA5 /* CGRectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987B570B1C3AF85200141EA5 /* CGRectExtension.swift */; };
+		987B570E1C3B10F300141EA5 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987B570D1C3B10F300141EA5 /* Global.swift */; };
+		987B57101C3B139700141EA5 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987B570F1C3B139700141EA5 /* UIImageExtension.swift */; };
 		987D30741C1B009600FB86CB /* PlotSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987D30731C1B009600FB86CB /* PlotSettingsViewController.swift */; };
 		9881D2761C2857DB00A6651A /* ColorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9881D2751C2857DB00A6651A /* ColorButton.swift */; };
 		98A133DE1C22BB230064D983 /* ColorPickerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A133DD1C22BB230064D983 /* ColorPickerCollectionViewCell.swift */; };
@@ -96,6 +99,9 @@
 		986D605D1C2C2D700065D71B /* CircleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		986D605F1C2C34BD0065D71B /* CALayerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CALayerExtension.swift; sourceTree = "<group>"; };
 		987487CA1C18DA45000309D8 /* MovableTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovableTextView.swift; sourceTree = "<group>"; };
+		987B570B1C3AF85200141EA5 /* CGRectExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGRectExtension.swift; sourceTree = "<group>"; };
+		987B570D1C3B10F300141EA5 /* Global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
+		987B570F1C3B139700141EA5 /* UIImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
 		987D30731C1B009600FB86CB /* PlotSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlotSettingsViewController.swift; sourceTree = "<group>"; };
 		9881D2751C2857DB00A6651A /* ColorButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorButton.swift; sourceTree = "<group>"; };
 		98A133DD1C22BB230064D983 /* ColorPickerCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPickerCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -279,6 +285,9 @@
 				98F2E3E51C1A1ED2008A5C6C /* CGSizeExtenstion.swift */,
 				98F2E3E61C1A1ED2008A5C6C /* UIStoryboardExtension.swift */,
 				98BABB911C1B4D9300D9C938 /* UIViewExtension.swift */,
+				987B570B1C3AF85200141EA5 /* CGRectExtension.swift */,
+				987B570D1C3B10F300141EA5 /* Global.swift */,
+				987B570F1C3B139700141EA5 /* UIImageExtension.swift */,
 			);
 			path = Extenstions;
 			sourceTree = "<group>";
@@ -578,11 +587,13 @@
 				98006ABF1C1A1EAC0091E356 /* PagesTableViewController.swift in Sources */,
 				98A133DE1C22BB230064D983 /* ColorPickerCollectionViewCell.swift in Sources */,
 				98BABB8D1C1B142C00D9C938 /* PageInfoViewController.swift in Sources */,
+				987B57101C3B139700141EA5 /* UIImageExtension.swift in Sources */,
 				98DBAA121C0799CB007EFFE5 /* Student.xcdatamodeld in Sources */,
 				98F2E3FF1C1A20F1008A5C6C /* PlotView.swift in Sources */,
 				98F2E3E81C1A1ED2008A5C6C /* CGPointExtension.swift in Sources */,
 				98006ABB1C1A1E960091E356 /* SettingsViewController.swift in Sources */,
 				98312D691C0B79F200F3B1CB /* DocumentSynchronizer.swift in Sources */,
+				987B570E1C3B10F300141EA5 /* Global.swift in Sources */,
 				98D8C0B71C0B116F0026EECE /* Document.swift in Sources */,
 				98A5673B1C18CC330065B401 /* ImageSettingsViewController.swift in Sources */,
 				98D8C0BA1C0B11750026EECE /* DrawingSettingsViewController.swift in Sources */,
@@ -590,6 +601,7 @@
 				98101BD21C0A58AA001E9555 /* PagesOverviewTableViewCell.swift in Sources */,
 				980A3F331C22B1FC0070C618 /* ColorPickerViewController.swift in Sources */,
 				98006AB91C1A1E8D0091E356 /* TextSettingsViewController.swift in Sources */,
+				987B570C1C3AF85200141EA5 /* CGRectExtension.swift in Sources */,
 				987D30741C1B009600FB86CB /* PlotSettingsViewController.swift in Sources */,
 				98101BD91C0A5945001E9555 /* PDFView.swift in Sources */,
 				98262C121C22D96A00B420A8 /* PageSubView.swift in Sources */,

@@ -485,20 +485,38 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5OQ-aF-b80">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5OQ-aF-b80" userLabel="cropButton">
                                                 <rect key="frame" x="283" y="128" width="34" height="34"/>
                                                 <state key="normal" image="cropIcon"/>
                                                 <connections>
                                                     <action selector="handleCropButtonPressed:" destination="iBA-lP-0Ke" eventType="touchUpInside" id="tm9-By-cX4"/>
                                                 </connections>
                                             </button>
+                                            <button hidden="YES" opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zYc-iz-mXQ" userLabel="cancelButton">
+                                                <rect key="frame" x="284" y="128" width="32" height="32"/>
+                                                <state key="normal" image="cancel"/>
+                                                <connections>
+                                                    <action selector="handleCancelButtonPressed:" destination="iBA-lP-0Ke" eventType="touchUpInside" id="Nf3-jw-cXE"/>
+                                                </connections>
+                                            </button>
+                                            <button hidden="YES" opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0r9-Fp-Ker" userLabel="finishButton">
+                                                <rect key="frame" x="283" y="128" width="34" height="25"/>
+                                                <state key="normal" image="finishIcon"/>
+                                                <connections>
+                                                    <action selector="handleFinishButtonPressed:" destination="iBA-lP-0Ke" eventType="touchUpInside" id="9dg-y8-vSJ"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="5OQ-aF-b80" firstAttribute="centerX" secondItem="BFX-Yb-7P9" secondAttribute="centerX" id="50Z-lZ-KIs"/>
+                                            <constraint firstItem="zYc-iz-mXQ" firstAttribute="centerX" secondItem="BFX-Yb-7P9" secondAttribute="centerX" id="5ZS-K6-Nba"/>
                                             <constraint firstItem="BFX-Yb-7P9" firstAttribute="top" secondItem="85W-US-ydQ" secondAttribute="top" id="FSD-Dg-XUr"/>
                                             <constraint firstItem="5OQ-aF-b80" firstAttribute="centerX" secondItem="BFX-Yb-7P9" secondAttribute="centerX" id="LQq-bh-b1t"/>
+                                            <constraint firstItem="0r9-Fp-Ker" firstAttribute="top" secondItem="BFX-Yb-7P9" secondAttribute="bottom" id="Ov6-RL-ME4"/>
                                             <constraint firstItem="5OQ-aF-b80" firstAttribute="top" secondItem="BFX-Yb-7P9" secondAttribute="bottom" id="Zjv-YC-cWw"/>
+                                            <constraint firstItem="0r9-Fp-Ker" firstAttribute="centerX" secondItem="BFX-Yb-7P9" secondAttribute="centerX" id="eSa-XM-ANP"/>
+                                            <constraint firstItem="zYc-iz-mXQ" firstAttribute="top" secondItem="BFX-Yb-7P9" secondAttribute="bottom" id="pRx-Sl-g5P"/>
                                             <constraint firstAttribute="trailing" secondItem="BFX-Yb-7P9" secondAttribute="trailing" id="qsQ-iA-shk"/>
                                             <constraint firstItem="BFX-Yb-7P9" firstAttribute="leading" secondItem="85W-US-ydQ" secondAttribute="leading" id="zoT-rV-ax7"/>
                                         </constraints>
@@ -529,7 +547,12 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="cancelButton" destination="zYc-iz-mXQ" id="ndr-O9-pLR"/>
+                        <outlet property="cancelButtonConstraint" destination="5ZS-K6-Nba" id="blu-45-7NP"/>
+                        <outlet property="cropButton" destination="5OQ-aF-b80" id="1Ba-45-uk3"/>
                         <outlet property="cropImageView" destination="BFX-Yb-7P9" id="Fpq-TQ-cj3"/>
+                        <outlet property="finishButton" destination="0r9-Fp-Ker" id="iag-Rw-Bd2"/>
+                        <outlet property="finishButtonConstraint" destination="eSa-XM-ANP" id="nm5-pu-HOi"/>
                         <outlet property="imageViewHeightConstraint" destination="MNs-8f-Yg9" id="LWj-HK-zRP"/>
                     </connections>
                 </viewController>
@@ -1257,10 +1280,12 @@
         <image name="ImageViewIcon" width="31" height="25"/>
         <image name="PlotIcon" width="27" height="25"/>
         <image name="TextViewIcon" width="22" height="25"/>
+        <image name="cancel" width="32" height="32"/>
         <image name="centerAlignment" width="31" height="32"/>
         <image name="cropIcon" width="34" height="34"/>
         <image name="deleteIcon" width="12" height="19"/>
         <image name="eraserIcon" width="27" height="55"/>
+        <image name="finishIcon" width="34" height="25"/>
         <image name="justifiedAlignment" width="31" height="32"/>
         <image name="leftAlignment" width="31" height="32"/>
         <image name="markerIcon" width="30" height="55"/>
