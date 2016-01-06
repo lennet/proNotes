@@ -231,7 +231,6 @@ class CropImageView: UIView {
 
     func getImageRatio() -> CGFloat{
         if image != nil {
-            print(image?.size)
             let width = bounds.width - leftPadding - rightPadding
             let ratio = width/image!.size.width
             return ratio
@@ -240,8 +239,7 @@ class CropImageView: UIView {
     }
     
     func crop() {
-        let newImageRect = convertToImageRect(CGRect(origin: CGPointZero, size: overlayRect.size), ratio: getImageRatio())
-        print(newImageRect)
+        let newImageRect = convertToImageRect(CGRect(origin: CGPoint(x: overlayRect.origin.x-leftPadding, y: overlayRect.origin.y-topPadding), size: overlayRect.size), ratio: getImageRatio())
         isCropping = false
         image = image?.cropedImage(newImageRect)
         layout()
