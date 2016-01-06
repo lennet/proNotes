@@ -10,9 +10,13 @@ import UIKit
 
 protocol DrawingSettingsDelegate {
     func clearDrawing()
+
     func didSelectDrawingType(type: DrawingType)
+
     func didSelectColor(color: UIColor)
+
     func didChangeLineWidth(lineWidth: CGFloat)
+
     func removeLayer()
 }
 
@@ -23,12 +27,12 @@ enum DrawingType {
 }
 
 class DrawingSettingsViewController: SettingsBaseViewController {
-    
+
     static var delegate: DrawingSettingsDelegate?
-    
+
     let defaultTopConstant: CGFloat = -20
     let animationDuration = 0.2
-    
+
     var currentType = DrawingType.Pen {
         didSet {
             if oldValue != currentType {
@@ -43,7 +47,7 @@ class DrawingSettingsViewController: SettingsBaseViewController {
                     eraserTopConstraint.constant = defaultTopConstant
                     break
                 }
-                
+
                 switch currentType {
                 case .Pen:
                     penTopConstraint.constant = 0
@@ -55,31 +59,32 @@ class DrawingSettingsViewController: SettingsBaseViewController {
                     eraserTopConstraint.constant = 0
                     break
                 }
-                
-                UIView.animateWithDuration(animationDuration, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 5, options: .CurveEaseInOut, animations: { () -> Void in
+
+                UIView.animateWithDuration(animationDuration, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 5, options: .CurveEaseInOut, animations: {
+                    () -> Void in
                     self.view.layoutIfNeeded()
-                    }, completion: nil)
+                }, completion: nil)
                 DrawingSettingsViewController.delegate?.didSelectDrawingType(currentType)
             }
         }
     }
-    
+
     @IBOutlet weak var penTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var markerTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var eraserTopConstraint: NSLayoutConstraint!
-    
+
     @IBOutlet weak var lineWidthCircleView: CircleView!
 
     // MARK: - Actions
-    
+
     @IBAction func handlePenButtonPressed(sender: AnyObject) {
         currentType = .Pen
     }
-    
+
     @IBAction func handleMarkerButtonPressed(sender: AnyObject) {
         currentType = .Marker
     }
-    
+
     @IBAction func handleEraserButtonPressed(sender: AnyObject) {
         currentType = .Eraser
     }
@@ -87,18 +92,18 @@ class DrawingSettingsViewController: SettingsBaseViewController {
     @IBAction func handleClearButtonPressed(sender: AnyObject) {
         DrawingSettingsViewController.delegate?.clearDrawing()
     }
-    
+
     @IBAction func handleDeleteButtonPressed(sender: AnyObject) {
         DrawingSettingsViewController.delegate?.removeLayer()
     }
 
     @IBAction func handleLineWidthSliderValueChanged(sender: UISlider) {
         lineWidthCircleView.radius = CGFloat(sender.value)
-        DrawingSettingsViewController.delegate?.didChangeLineWidth(CGFloat(sender.value)*2)
+        DrawingSettingsViewController.delegate?.didChangeLineWidth(CGFloat(sender.value) * 2)
     }
-    
+
     // MARK: - ColorPickerDelegate 
-    
+
     override func didSelectColor(color: UIColor) {
         DrawingSettingsViewController.delegate?.didSelectColor(color)
     }

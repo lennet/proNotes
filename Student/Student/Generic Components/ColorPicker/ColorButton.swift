@@ -15,12 +15,12 @@ class ColorButton: UIButton, ColorPickerDelegate {
         super.init(frame: frame)
         setUp()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setUp()
     }
-    
+
     func setUp() {
         addTarget(self, action: "handleTouchUpInside", forControlEvents: .TouchUpInside)
     }
@@ -28,12 +28,12 @@ class ColorButton: UIButton, ColorPickerDelegate {
     func handleTouchUpInside() {
         showColorPicker()
     }
-    
+
     func showColorPicker() {
         let viewController = ColorPickerViewController.getColorPicker()
         viewController.delegate = self
         viewController.view.frame = viewController.getRect()
-        
+
         let navigationController = UINavigationController(rootViewController: viewController)
         navigationController.setNavigationBarHidden(true, animated: false)
         navigationController.modalPresentationStyle = .Popover
@@ -42,9 +42,9 @@ class ColorButton: UIButton, ColorPickerDelegate {
         }
         superview?.parentViewController?.presentViewController(navigationController, animated: true, completion: nil)
     }
-    
+
     // MARK: - ColorPickerDelegate
-    
+
     func didSelectColor(color: UIColor) {
         backgroundColor = color
         sendActionsForControlEvents(.ValueChanged)

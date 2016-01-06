@@ -17,7 +17,7 @@ extension UIView {
         UIGraphicsEndImageContext()
         return snapshot
     }
-    
+
     func snapshotView() -> UIView {
         let snapshotView = UIImageView(image: snapshot())
         snapshotView.layer.masksToBounds = false
@@ -26,7 +26,7 @@ extension UIView {
         snapshotView.layer.shadowOpacity = 0.4
         return snapshotView
     }
-    
+
     func removeAllGestureRecognizer() {
         if gestureRecognizers != nil {
             for recognizer in gestureRecognizers! {
@@ -34,7 +34,7 @@ extension UIView {
             }
         }
     }
-    
+
     var parentViewController: UIViewController? {
         var parentResponder: UIResponder? = self
         while parentResponder != nil {

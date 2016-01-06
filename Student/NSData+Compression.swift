@@ -36,21 +36,21 @@ extension NSData {
     func compress(action: LZFSEAction) -> NSData {
 
         let data = self
-        
+
         let sourceBuffer: UnsafePointer<UInt8> = UnsafePointer<UInt8>(data.bytes)
         let sourceBufferSize: Int = data.length
 
-        let destinationBuffer: UnsafeMutablePointer<UInt8> = UnsafeMutablePointer<UInt8>.alloc(sourceBufferSize)
+        let destinationBuffer: UnsafeMutablePointer<UInt8> = UnsafeMutablePointer < UInt8>.alloc(sourceBufferSize)
         let destinationBufferSize: Int = sourceBufferSize
-        
+
         var status: Int
         switch action {
-            case .Compress:
-                status = compression_encode_buffer(destinationBuffer, destinationBufferSize, sourceBuffer, sourceBufferSize, nil, COMPRESSION_ZLIB)
-            default:
-                status = compression_decode_buffer(destinationBuffer, destinationBufferSize, sourceBuffer, sourceBufferSize, nil, COMPRESSION_ZLIB)
+        case .Compress:
+            status = compression_encode_buffer(destinationBuffer, destinationBufferSize, sourceBuffer, sourceBufferSize, nil, COMPRESSION_ZLIB)
+        default:
+            status = compression_decode_buffer(destinationBuffer, destinationBufferSize, sourceBuffer, sourceBufferSize, nil, COMPRESSION_ZLIB)
         }
-        
+
         if status == 0 {
             print("Error with status: \(status)")
         }

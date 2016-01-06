@@ -10,16 +10,17 @@ import UIKit
 
 protocol DocumentSynchronizerDelegate {
     func updateDocument(document: Document, forceReload: Bool)
+
     func currentPageDidChange(page: DocumentPage)
 }
 
 class DocumentSynchronizer: NSObject {
-    
+
     static let sharedInstance = DocumentSynchronizer()
     var delegates = [DocumentSynchronizerDelegate]()
-    
+
     // TODO Use inout functions instead of having multiple document objects!
-    
+
     var settingsViewController: SettingsViewController?
     var currentPage: DocumentPage? {
         didSet {
@@ -29,8 +30,8 @@ class DocumentSynchronizer: NSObject {
         }
     }
 
-    var document: Document?{
-        didSet{
+    var document: Document? {
+        didSet {
             if document != nil {
                 informDelegateToUpdateDocument(document!, forceReload: true)
                 if oldValue == nil {
@@ -40,7 +41,7 @@ class DocumentSynchronizer: NSObject {
             }
         }
     }
-    
+
     func updatePage(page: DocumentPage, forceReload: Bool) {
         if document != nil {
             guard page.index < document?.pages.count else {
@@ -53,8 +54,8 @@ class DocumentSynchronizer: NSObject {
             informDelegateToUpdateDocument(document!, forceReload: forceReload)
         }
     }
-    
-    func updateDrawLayer(drawLayer: DocumentDrawLayer, forceReload: Bool){
+
+    func updateDrawLayer(drawLayer: DocumentDrawLayer, forceReload: Bool) {
         if document != nil {
             let page = drawLayer.docPage
             page.layers[drawLayer.index] = drawLayer
@@ -62,43 +63,43 @@ class DocumentSynchronizer: NSObject {
                 return
             }
             document?.pages[page.index] = page
-            dispatch_async(dispatch_get_main_queue(),{
+            dispatch_async(dispatch_get_main_queue(), {
                 self.informDelegateToUpdateDocument(self.document!, forceReload: forceReload)
             })
         }
     }
-    
+
     func updateMovableLayer(movableLayer: MovableLayer) {
         if document != nil {
             let page = movableLayer.docPage
             page.layers[movableLayer.index] = movableLayer
             document?.pages[page.index] = page
-            dispatch_async(dispatch_get_main_queue(),{
+            dispatch_async(dispatch_get_main_queue(), {
                 self.informDelegateToUpdateDocument(self.document!, forceReload: false)
             })
         }
     }
 
     // MARK: - Delegate Handling
-    
-    func addDelegate(delegate  :DocumentSynchronizerDelegate) {
+
+    func addDelegate(delegate: DocumentSynchronizerDelegate) {
         if !delegates.containsObject(delegate) {
             delegates.append(delegate)
         }
     }
-    
-    func removeDelegate(delegate :DocumentSynchronizerDelegate) {
+
+    func removeDelegate(delegate: DocumentSynchronizerDelegate) {
         delegates.removeObject(delegate)
     }
-    
-    func informDelegateToUpdateDocument(document :Document, forceReload: Bool) {
+
+    func informDelegateToUpdateDocument(document: Document, forceReload: Bool) {
         document.updateChangeCount(.Done)
         for delegate in delegates {
             delegate.updateDocument(document, forceReload: forceReload)
         }
     }
-    
-    func informDelegateToUpdateCurrentPage(page :DocumentPage) {
+
+    func informDelegateToUpdateCurrentPage(page: DocumentPage) {
         for delegate in delegates {
             delegate.currentPageDidChange(page)
         }

@@ -10,14 +10,14 @@ import UIKit
 
 class ColorPickerCollectionViewCell: UICollectionViewCell {
     static let identifier = "ColorPickerCollectionViewCellIdentifier"
-    
+
     var isSelectedColor = false
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         layer.setUpDefaultShaddow()
     }
-    
+
     override func drawRect(rect: CGRect) {
         super.drawRect(rect)
         let context = UIGraphicsGetCurrentContext()

@@ -11,17 +11,17 @@ import UIKit
 class MovableImageView: MovableView, ImageSettingsDelegate {
 
     var image: UIImage
-    
+
     init(image: UIImage, frame: CGRect, movableLayer: MovableLayer) {
         self.image = image
         super.init(frame: frame, movableLayer: movableLayer)
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         self.image = UIImage()
         super.init(coder: aDecoder)
     }
-    
+
     func setUpImageView() {
         clipsToBounds = true
         let imageView = UIImageView()
@@ -32,14 +32,14 @@ class MovableImageView: MovableView, ImageSettingsDelegate {
         addSubview(imageView)
         addAutoLayoutConstraints(imageView)
     }
-    
+
     override func setUpSettingsViewController() {
         ImageSettingsViewController.delegate = self
         DocumentSynchronizer.sharedInstance.settingsViewController?.currentSettingsType = .Image
     }
-    
+
     // MARK: - ImageSettingsDelegate
-    
+
     func removeImage() {
         removeFromSuperview()
         movableLayer?.removeFromPage()

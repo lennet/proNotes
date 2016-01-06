@@ -15,9 +15,9 @@ protocol PlotSettingsDelegate {
 class PlotSettingsViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var textField: UITextField!
-    
+
     static var delegate: PlotSettingsDelegate?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -28,8 +28,8 @@ class PlotSettingsViewController: UIViewController, UITextFieldDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    
+
+
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         if let text = textField.text {
             PlotSettingsViewController.delegate?.updatePlot(text)

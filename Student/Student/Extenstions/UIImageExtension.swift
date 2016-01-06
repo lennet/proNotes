@@ -9,7 +9,7 @@
 import UIKit
 
 extension UIImage {
-    
+
     func cropedImage(rect: CGRect) -> UIImage? {
         if let croppedCGImage = CGImageCreateWithImageInRect(self.CGImage, rect) {
             return UIImage(CGImage: croppedCGImage)

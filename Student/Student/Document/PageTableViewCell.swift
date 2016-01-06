@@ -13,7 +13,7 @@ class PageTableViewCell: UITableViewCell, PDFViewDelegate {
     @IBOutlet weak var pageView: PageView!
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
     static let identifier = "PageTableViewCellIdentifier"
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         updateHeight(UIScreen.mainScreen().bounds.height)
@@ -24,8 +24,8 @@ class PageTableViewCell: UITableViewCell, PDFViewDelegate {
 
         // Configure the view for the selected state
     }
-    
-    func updateHeight(height: CGFloat){
+
+    func updateHeight(height: CGFloat) {
         if height != heightConstraint.constant {
             heightConstraint.constant = height
             setNeedsLayout()

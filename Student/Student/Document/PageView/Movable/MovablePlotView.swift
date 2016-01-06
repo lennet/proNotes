@@ -11,7 +11,7 @@ import UIKit
 class MovablePlotView: MovableView, PlotSettingsDelegate {
 
     var plotView = PlotView()
-    
+
     func setUpPlotView() {
         clipsToBounds = true
         plotView.frame = bounds
@@ -20,19 +20,19 @@ class MovablePlotView: MovableView, PlotSettingsDelegate {
         plotView.layoutIfNeeded()
         plotView.setUpGraph((movableLayer as? PlotLayer)?.function)
     }
-    
+
     override func setUpSettingsViewController() {
         PlotSettingsViewController.delegate = self
         DocumentSynchronizer.sharedInstance.settingsViewController?.currentSettingsType = .Plot
     }
-    
+
     // MARK: - PlotSettingsDelegate
-    
+
     func updatePlot(function: String) {
         plotView.setUpGraph(function)
         if let layer = movableLayer as? PlotLayer {
             layer.function = function
-                DocumentSynchronizer.sharedInstance.updateMovableLayer(layer)
+            DocumentSynchronizer.sharedInstance.updateMovableLayer(layer)
         }
     }
 

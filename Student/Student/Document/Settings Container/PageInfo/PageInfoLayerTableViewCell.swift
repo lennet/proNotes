@@ -15,9 +15,9 @@ class PageInfoLayerTableViewCell: UITableViewCell {
     @IBOutlet weak var visibilityButton: UIButton!
     @IBOutlet weak var indexLabel: UILabel!
     @IBOutlet weak var typeLabel: UILabel!
-    
+
     var documentLayer: DocumentLayer?
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
 
@@ -29,31 +29,32 @@ class PageInfoLayerTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
-    func setUpCellWithLayer(documentLayer: DocumentLayer){
+
+    func setUpCellWithLayer(documentLayer: DocumentLayer) {
         self.documentLayer = documentLayer
-        indexLabel.text = String(documentLayer.index+1)
+        indexLabel.text = String(documentLayer.index + 1)
         typeLabel.text = String(documentLayer.type)
-        
+
         let buttonImageName = documentLayer.hidden ? "invisibleIcon" : "visibleIcon"
-        UIView.animateWithDuration(0.2, delay: 0, options: .CurveEaseInOut, animations: { () -> Void in
+        UIView.animateWithDuration(0.2, delay: 0, options: .CurveEaseInOut, animations: {
+            () -> Void in
             self.visibilityButton.setImage(UIImage(named: buttonImageName), forState: .Normal)
-            }, completion: nil)
+        }, completion: nil)
     }
-    
+
     // MARK: - Actions
-    
+
     @IBAction func handleDeleteButtonPressed(sender: AnyObject) {
         if documentLayer != nil {
             PagesTableViewController.sharedInstance?.currentPageView()?.removeLayer(documentLayer!)
         }
     }
-    
+
     @IBAction func handleVisibilityButtonPressed(sender: AnyObject) {
         if documentLayer != nil {
             PagesTableViewController.sharedInstance?.currentPageView()?.changeLayerVisibility(documentLayer!)
         }
-        
+
     }
-    
+
 }

@@ -9,11 +9,11 @@
 import UIKit
 
 class PagesOverviewTableViewController: UITableViewController, DocumentSynchronizerDelegate {
-    
+
     var shouldReload = true
-    
+
     var document: Document? = DocumentSynchronizer.sharedInstance.document {
-        didSet{
+        didSet {
             if shouldReload {
                 tableView.reloadData()
             } else {
@@ -21,14 +21,14 @@ class PagesOverviewTableViewController: UITableViewController, DocumentSynchroni
             }
         }
     }
-    
+
     var pagesOverViewDelegate: PagesOverviewTableViewCellDelegate?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         DocumentSynchronizer.sharedInstance.addDelegate(self)
     }
-    
+
     deinit {
         DocumentSynchronizer.sharedInstance.removeDelegate(self)
     }
@@ -37,7 +37,7 @@ class PagesOverviewTableViewController: UITableViewController, DocumentSynchroni
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -48,22 +48,23 @@ class PagesOverviewTableViewController: UITableViewController, DocumentSynchroni
         return document?.getNumberOfPages() ?? 0
     }
 
-    
+
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(PagesOverviewTableViewCell.identifier, forIndexPath: indexPath) as! PagesOverviewTableViewCell
 
-        cell.numberLabel.text = String(indexPath.row+1)
+        cell.numberLabel.text = String(indexPath.row + 1)
         cell.index = indexPath.row
         cell.delegate = pagesOverViewDelegate
-        
+
         return cell
     }
-    
+
     // MARK: - DocumentSynchronizerDelegate
-    func updateDocument(document: Document, forceReload: Bool){
+    func updateDocument(document: Document, forceReload: Bool) {
         shouldReload = forceReload
         self.document = document
     }
 
-    func currentPageDidChange(page: DocumentPage){}
+    func currentPageDidChange(page: DocumentPage) {
+    }
 }

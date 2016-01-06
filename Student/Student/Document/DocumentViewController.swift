@@ -15,13 +15,13 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
 
     final let defaultSettingsWidth: CGFloat = 240
     final let defaultPagesOverViewWidth: CGFloat = 180
-    
+
     var isFullScreen = false
-    
+
     var pagesOverviewController: PagesOverviewTableViewController?
     var document: Document? = DocumentSynchronizer.sharedInstance.document
 
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         DocumentSynchronizer.sharedInstance.addDelegate(self)
@@ -32,18 +32,18 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
     deinit {
         DocumentSynchronizer.sharedInstance.removeDelegate(self)
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
     override func canBecomeFirstResponder() -> Bool {
         return true
     }
-    
+
     // MARK: - Actions
-    
+
     @IBAction func handleAddPageButtonPressed(sender: AnyObject) {
         document?.addEmptyPage()
         DocumentSynchronizer.sharedInstance.document = document
@@ -60,26 +60,26 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
         imagePicker.allowsEditing = false
         presentViewController(imagePicker, animated: true, completion: nil)
     }
-    
+
     @IBAction func handleTextButtonPressed(sender: AnyObject) {
         if let textLayer = DocumentSynchronizer.sharedInstance.currentPage?.addTextLayer("") {
             if let currentPageView = PagesTableViewController.sharedInstance?.currentPageView() {
                 currentPageView.addTextLayer(textLayer)
                 currentPageView.page = DocumentSynchronizer.sharedInstance.currentPage
-                currentPageView.setLayerSelected(currentPageView.subviews.count-1)
+                currentPageView.setLayerSelected(currentPageView.subviews.count - 1)
             }
         }
     }
-    
+
     @IBAction func handlePlotButtonPressed(sender: AnyObject) {
         document?.addPlotToPage(0)
     }
-    
+
     @IBAction func handlePageInfoButtonPressed(sender: AnyObject) {
         PagesTableViewController.sharedInstance?.currentPageView()?.deselectSelectedSubview()
         DocumentSynchronizer.sharedInstance.settingsViewController?.currentSettingsType = .PageInfo
     }
-    
+
     @IBAction func handleFullscreenToggleButtonPressed(sender: AnyObject) {
         // TODO Change BarButtonIcon
         if isFullScreen {
@@ -91,10 +91,11 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
             pagesOverviewWidthConstraint.constant = 0
             isFullScreen = true
         }
-        
-        UIView.animateWithDuration(0.2, delay: 0, usingSpringWithDamping: 0.85, initialSpringVelocity: 5, options: .CurveEaseInOut, animations: { () -> Void in
+
+        UIView.animateWithDuration(0.2, delay: 0, usingSpringWithDamping: 0.85, initialSpringVelocity: 5, options: .CurveEaseInOut, animations: {
+            () -> Void in
             self.view.layoutIfNeeded()
-            }, completion: nil)
+        }, completion: nil)
 
     }
     // MARK: - Navigation
@@ -108,46 +109,47 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
             PagesTableViewController.sharedInstance = viewController
         }
     }
-    
+
     // MARK: - PagesOverViewDelegate
-    
-    func showPage(index: Int){
+
+    func showPage(index: Int) {
         PagesTableViewController.sharedInstance?.showPage(index)
         DocumentSynchronizer.sharedInstance.settingsViewController?.setUpChildViewController(.PageInfo)
     }
-    
+
     // MARK: - DocumentSynchronizerDelegate
-    func updateDocument(document: Document, forceReload: Bool){
+    func updateDocument(document: Document, forceReload: Bool) {
         self.document = document
     }
-    
-    func currentPageDidChange(page: DocumentPage){}
-    
+
+    func currentPageDidChange(page: DocumentPage) {
+    }
+
     // MARK: - UIImagePickerControllerDelegate
-    
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]){
+
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String:AnyObject]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             document?.addImageToPage(image, pageIndex: 0)
         }
         dismissViewControllerAnimated(true, completion: nil)
     }
-    
-    func imagePickerControllerDidCancel(picker: UIImagePickerController){
+
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
         dismissViewControllerAnimated(true, completion: nil)
     }
-    
+
     // MARK: - UIKeyCommands
-    
+
     // TODO add more commands
     override var keyCommands: [UIKeyCommand]? {
         return [
-            UIKeyCommand(input: "+", modifierFlags: .Command, action: "handleAddPageButtonPressed:", discoverabilityTitle: "Add Page"),
+                UIKeyCommand(input: "+", modifierFlags: .Command, action: "handleAddPageButtonPressed:", discoverabilityTitle: "Add Page"),
         ]
     }
-    
+
     func selectTab(sender: UIKeyCommand) {
         let selectedTab = sender.input
         print(selectedTab)
     }
-    
+
 }

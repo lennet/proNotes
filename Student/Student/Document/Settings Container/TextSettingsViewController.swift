@@ -10,10 +10,15 @@ import UIKit
 
 protocol TextSettingsDelegate {
     func removeText()
+
     func changeTextColor(color: UIColor)
+
     func changeBackgroundColor(color: UIColor)
+
     func changeAlignment(textAlignment: NSTextAlignment)
+
     func changeFont(font: UIFont)
+
     func disableAutoCorrect(disable: Bool)
 }
 
@@ -21,13 +26,13 @@ class TextSettingsViewController: SettingsBaseViewController, UIPickerViewDataSo
 
     @IBOutlet weak var fontPicker: UIPickerView!
     static var delegate: TextSettingsDelegate?
-    
+
     var fontFamilies = [String]()
     var fontNames = [String]()
     // TODO fill possible Font Sizes
-    var fontSizes = [10,12,14,15,16,18,22]
+    var fontSizes = [10, 12, 14, 15, 16, 18, 22]
     var selectedRow = 0
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         fontFamilies = UIFont.familyNames()
@@ -38,10 +43,10 @@ class TextSettingsViewController: SettingsBaseViewController, UIPickerViewDataSo
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
     @IBAction func handleTextColorValueChanged(button: UIButton) {
         if let newColor = button.backgroundColor {
-                TextSettingsViewController.delegate?.changeTextColor(newColor)
+            TextSettingsViewController.delegate?.changeTextColor(newColor)
         }
     }
 
@@ -50,25 +55,25 @@ class TextSettingsViewController: SettingsBaseViewController, UIPickerViewDataSo
             TextSettingsViewController.delegate?.changeBackgroundColor(newColor)
         }
     }
-    
+
     @IBAction func handleTextAlignmentValueChanged(control: UISegmentedControl) {
         if let textAlignment = NSTextAlignment(rawValue: control.selectedSegmentIndex) {
             TextSettingsViewController.delegate?.changeAlignment(textAlignment)
         }
     }
-    
+
     @IBAction func handleAutoCorrectValueChanged(aSwitch: UISwitch) {
         TextSettingsViewController.delegate?.disableAutoCorrect(!aSwitch.on)
     }
-    
+
     // MARK: - UIPickerViewDataSource
-    
+
     // TODO use enums instead of hardcoded rows
-    
+
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return 3
     }
-    
+
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         switch component {
         case 0:
@@ -82,7 +87,7 @@ class TextSettingsViewController: SettingsBaseViewController, UIPickerViewDataSo
         }
 
     }
-    
+
     func getTitle(row: Int, forComponent component: Int) -> String {
         switch component {
         case 0:
@@ -95,7 +100,7 @@ class TextSettingsViewController: SettingsBaseViewController, UIPickerViewDataSo
             return ""
         }
     }
-    
+
     func getFont(row: Int, forComponent component: Int) -> UIFont {
         let fontSize = UIFont.systemFontSize()
         switch component {
@@ -109,24 +114,23 @@ class TextSettingsViewController: SettingsBaseViewController, UIPickerViewDataSo
             return UIFont.systemFontOfSize(fontSize)
         }
     }
-    
+
     func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView?) -> UIView {
-        
+
         var pickerLabel = view as? UILabel;
-        
-        if (pickerLabel == nil)
-        {
+
+        if (pickerLabel == nil) {
             pickerLabel = UILabel()
-            
+
             pickerLabel?.font = getFont(row, forComponent: component)
             pickerLabel?.textAlignment = NSTextAlignment.Center
         }
-        
+
         pickerLabel?.text = getTitle(row, forComponent: component)
-        
+
         return pickerLabel!;
     }
-    
+
     func pickerView(pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
         let width = pickerView.bounds.width
         switch component {
@@ -140,9 +144,9 @@ class TextSettingsViewController: SettingsBaseViewController, UIPickerViewDataSo
             return 0
         }
     }
-    
+
     // MARK: - UIPickerViewDelegate 
-    
+
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch component {
         case 0:
@@ -160,7 +164,6 @@ class TextSettingsViewController: SettingsBaseViewController, UIPickerViewDataSo
             return
         }
 
-        
 
     }
 }

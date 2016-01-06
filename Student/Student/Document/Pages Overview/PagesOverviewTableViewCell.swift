@@ -13,14 +13,14 @@ protocol PagesOverviewTableViewCellDelegate {
 }
 
 class PagesOverviewTableViewCell: UITableViewCell {
-    
+
     static let identifier = "PagesOverViewTableViewCellIdentifier"
 
     @IBOutlet weak var pageThumbView: UIView!
     @IBOutlet weak var numberLabel: UILabel!
     var index = 0
     var delegate: PagesOverviewTableViewCellDelegate?
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         pageThumbView.layer.setUpDefaultShaddow()
@@ -32,7 +32,7 @@ class PagesOverviewTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
+
     @IBAction func handlePageButtonPressed(sender: AnyObject) {
         delegate?.showPage(index)
     }
