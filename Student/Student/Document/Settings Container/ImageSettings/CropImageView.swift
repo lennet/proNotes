@@ -11,7 +11,9 @@ import UIKit
 
 @IBDesignable
 class CropImageView: TouchControlView {
-
+    
+    // TODO implement maxHeight
+    
     var image: UIImage? {
         didSet {
             if image != nil {
@@ -95,6 +97,8 @@ class CropImageView: TouchControlView {
         overlayRect.size.width = between(newOverlayRect.width, min: controlLength * 2, max: imageRect.width)
         overlayRect.size.height = between(newOverlayRect.height, min: controlLength * 2, max: imageRect.height)
         
+        setNeedsDisplay()
+        
         return newOverlayRect
 
     }
@@ -124,6 +128,10 @@ class CropImageView: TouchControlView {
     }
 
     override func getControllableRect() -> CGRect {
+        return overlayRect
+    }
+    
+    override func getMovableRect() -> CGRect {
         return overlayRect
     }
     

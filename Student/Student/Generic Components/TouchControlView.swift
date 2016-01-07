@@ -36,6 +36,8 @@ class TouchControlView: PageSubView {
         }
     }
     
+    var proportionalResize = false
+    
     var selectedTouchControl = TouchControl.None
     
     override func awakeFromNib() {
@@ -56,7 +58,6 @@ class TouchControlView: PageSubView {
                 let translation = panGestureRecognizer.translationInView(self)
                 panGestureRecognizer.setTranslation(CGPointZero, inView: self)
                 handlePanTranslation(translation)
-                setNeedsDisplay()
                 break
             default:
                 handlePanEnded()
@@ -77,7 +78,7 @@ class TouchControlView: PageSubView {
     func getControlRects() -> Dictionary<TouchControl, CGRect> {
         var rects = Dictionary<TouchControl, CGRect>()
         let mainRect = getControllableRect()
-        
+        print(mainRect)
         let topLeftRect = CGRect(center: mainRect.origin, width: controlLength * 2, height: controlLength * 2)
         rects[.TopLeftCorner] = topLeftRect
         
@@ -108,46 +109,92 @@ class TouchControlView: PageSubView {
         return rects
     }
 
-    func getControllableRect() -> CGRect {
+    func getMovableRect() -> CGRect {
         return frame
     }
     
+    func getControllableRect() -> CGRect {
+        return bounds
+    }
+    
     func handlePanTranslation(translation: CGPoint) -> CGRect {
-        var contralableRect = getControllableRect()
+        var contralableRect = getMovableRect()
         print(selectedTouchControl)
         switch selectedTouchControl {
         case .TopLeftCorner:
             contralableRect.origin.addPoint(translation)
-            contralableRect.size.width -= translation.x
-            contralableRect.size.height -= translation.y
+            if proportionalResize {
+                let resizeValue = (translation.x+translation.y)/2
+                contralableRect.size.width -= resizeValue
+                contralableRect.size.height -= resizeValue
+            } else {
+                contralableRect.size.width -= translation.x
+                contralableRect.size.height -= translation.y
+            }
             break
         case .TopRightCorner:
-            contralableRect.origin.addPoint(CGPoint(x: 0, y: translation.y))
-            contralableRect.size.width += translation.x
-            contralableRect.size.height -= translation.y
+            if proportionalResize {
+                let resizeValue = (translation.x+translation.y)/2
+                contralableRect.origin.addPoint(CGPoint(x: resizeValue, y: resizeValue))
+                contralableRect.size.width += resizeValue
+                contralableRect.size.height -= resizeValue
+            } else {
+                contralableRect.origin.addPoint(CGPoint(x: 0, y: translation.y))
+                contralableRect.size.width += translation.x
+                contralableRect.size.height -= translation.y
+            }
             break
         case .BottomLeftCorner:
-            contralableRect.origin.addPoint(CGPoint(x: translation.x, y: 0))
-            contralableRect.size.width -= translation.x
-            contralableRect.size.height += translation.y
+            if proportionalResize {
+                let resizeValue = (translation.x+translation.y)/2
+                contralableRect.origin.addPoint(CGPoint(x: translation.x, y: resizeValue))
+                contralableRect.size.width -= resizeValue
+                contralableRect.size.height += resizeValue
+            } else {
+                contralableRect.origin.addPoint(CGPoint(x: translation.x, y: 0))
+                contralableRect.size.width -= translation.x
+                contralableRect.size.height += translation.y
+            }
             break
         case .BottomRightCorner:
-            contralableRect.size.width += translation.x
-            contralableRect.size.height += translation.y
+            if proportionalResize {
+                let resizeValue = (translation.x+translation.y)/2
+                contralableRect.size.width += resizeValue
+                contralableRect.size.height += resizeValue
+            } else {
+                contralableRect.size.width += translation.x
+                contralableRect.size.height += translation.y
+            }
             break
         case .TopSide:
             contralableRect.origin.y += translation.y
             contralableRect.size.height -= translation.y
+            if proportionalResize {
+                contralableRect.size.width -= translation.y
+                contralableRect.origin.x += translation.y/2
+            }
             break
         case .LeftSide:
             contralableRect.origin.addPoint(CGPoint(x: translation.x, y: 0))
             contralableRect.size.width -= translation.x
+            if proportionalResize {
+                contralableRect.size.height -= translation.x
+                contralableRect.origin.y += translation.x/2
+            }
             break
         case .RightSide:
             contralableRect.size.width += translation.x
+            if proportionalResize {
+                contralableRect.size.height += translation.x
+                contralableRect.origin.y -= translation.x/2
+            }
             break
         case .BottomSide:
             contralableRect.size.height += translation.y
+            if proportionalResize {
+                contralableRect.size.width += translation.y
+                contralableRect.origin.x -= translation.y/2
+            }
             break
         case .Center:
             contralableRect.origin.addPoint(translation)
