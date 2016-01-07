@@ -30,9 +30,9 @@ class MovableImageView: MovableView, ImageSettingsDelegate {
         imageView = UIImageView()
 
         imageView.image = image
-        imageView.translatesAutoresizingMaskIntoConstraints = falsej
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(imageView)
-        addAutoLayoutConstraints(imageView)
+//        addAutoLayoutConstraints(imageView)
     }
 
     override func setUpSettingsViewController() {
@@ -63,8 +63,8 @@ class MovableImageView: MovableView, ImageSettingsDelegate {
         
         self.image = image
         // TODO something is going wrong here !
-        frame.size.height = (imageView.bounds.height*heightRatio)+2*touchSize
-        frame.size.width = (imageView.bounds.width*widthRatio)+2*touchSize
+        frame.size.height = (imageView.bounds.height*heightRatio)+2*controlLength
+        frame.size.width = (imageView.bounds.width*widthRatio)+2*controlLength
         movableLayer?.size = frame.size
         saveChanges()
 

@@ -16,7 +16,6 @@ class MovablePlotView: MovableView, PlotSettingsDelegate {
         clipsToBounds = true
         plotView.frame = bounds
         addSubview(plotView)
-        addAutoLayoutConstraints(plotView)
         plotView.layoutIfNeeded()
         plotView.setUpGraph((movableLayer as? PlotLayer)?.function)
     }

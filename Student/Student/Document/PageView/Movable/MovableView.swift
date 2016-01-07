@@ -11,10 +11,7 @@ import UIKit
 class MovableView: TouchControlView {
 
     // TODO Resizing Bug after saving and reloading View
-    // TODO change resizing mode for different classes
     // TODO style
-
-    final let touchSize: CGFloat = 20
 
     var finishedSetup = false
     var lastPinchScale: CGFloat = 0
@@ -24,18 +21,19 @@ class MovableView: TouchControlView {
         self.movableLayer = movableLayer
         super.init(frame: frame)
         backgroundColor = UIColor.clearColor()
+        controlLength = 44
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-
-    func addAutoLayoutConstraints(subview: UIView) {
-        let leftConstraint = NSLayoutConstraint(item: subview, attribute: .Left, relatedBy: .Equal, toItem: self, attribute: .Left, multiplier: 1.0, constant: touchSize)
-        let rightConstraint = NSLayoutConstraint(item: subview, attribute: .Right, relatedBy: .Equal, toItem: self, attribute: .Right, multiplier: 1.0, constant: -touchSize)
-        let bottomConstraint = NSLayoutConstraint(item: subview, attribute: .Bottom, relatedBy: .Equal, toItem: self, attribute: .Bottom, multiplier: 1.0, constant: -touchSize)
-        let topConstraint = NSLayoutConstraint(item: subview, attribute: .Top, relatedBy: .Equal, toItem: self, attribute: .Top, multiplier: 1.0, constant: touchSize)
-
+    
+    override func didAddSubview(subview: UIView) {
+        let leftConstraint = NSLayoutConstraint(item: subview, attribute: .Left, relatedBy: .Equal, toItem: self, attribute: .Left, multiplier: 1.0, constant: controlLength)
+        let rightConstraint = NSLayoutConstraint(item: subview, attribute: .Right, relatedBy: .Equal, toItem: self, attribute: .Right, multiplier: 1.0, constant: -controlLength)
+        let bottomConstraint = NSLayoutConstraint(item: subview, attribute: .Bottom, relatedBy: .Equal, toItem: self, attribute: .Bottom, multiplier: 1.0, constant: -controlLength)
+        let topConstraint = NSLayoutConstraint(item: subview, attribute: .Top, relatedBy: .Equal, toItem: self, attribute: .Top, multiplier: 1.0, constant: controlLength)
+        
         addConstraints([leftConstraint, rightConstraint, bottomConstraint, topConstraint])
         layoutIfNeeded()
     }
@@ -62,6 +60,7 @@ class MovableView: TouchControlView {
         frame = super.handlePanTranslation(translation)
         layoutIfNeeded()
         setNeedsDisplay()
+        print(bounds.size.width/bounds.size.height)
         return frame
     }
 
@@ -71,7 +70,7 @@ class MovableView: TouchControlView {
             movableLayer?.origin = frame.origin
         
             var newSize = frame.size
-            movableLayer?.size = newSize.increaseSize(touchSize * (-2))
+            movableLayer?.size = newSize.increaseSize(controlLength * (-2))
             saveChanges()
         }
     }

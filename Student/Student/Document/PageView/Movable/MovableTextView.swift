@@ -34,7 +34,6 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
         textView.delegate = self
 
         addSubview(textView)
-        addAutoLayoutConstraints(textView)
     }
 
     override func handleDoubleTap(tapGestureRecognizer: UITapGestureRecognizer) {

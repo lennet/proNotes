@@ -54,6 +54,7 @@ class TouchControlView: PageSubView {
             switch panGestureRecognizer.state {
             case .Began:
                 selectedTouchControl = touchedControlRect(panGestureRecognizer.locationInView(self))
+                print(selectedTouchControl)
                 break
             case .Changed:
                 let translation = panGestureRecognizer.translationInView(self)
@@ -122,91 +123,92 @@ class TouchControlView: PageSubView {
     }
     
     func handlePanTranslation(translation: CGPoint) -> CGRect {
-        var contralableRect = getMovableRect()
+        var controlableRect = getMovableRect()
 
         switch selectedTouchControl {
         case .TopLeftCorner:
-            contralableRect.origin.addPoint(translation)
+            controlableRect.origin.addPoint(translation)
             if proportionalResize {
                 let resizeValue = (translation.x+translation.y)/2
-                contralableRect.size.width -= resizeValue
-                contralableRect.size.height -= resizeValue
+                let ratio = controlableRect.size.width / controlableRect.size.height
+                controlableRect.size.width -= resizeValue
+                controlableRect.size.height -= resizeValue
             } else {
-                contralableRect.size.width -= translation.x
-                contralableRect.size.height -= translation.y
+                controlableRect.size.width -= translation.x
+                controlableRect.size.height -= translation.y
             }
             break
         case .TopRightCorner:
             if proportionalResize {
                 let resizeValue = (translation.x+translation.y)/2
-                contralableRect.origin.addPoint(CGPoint(x: resizeValue, y: resizeValue))
-                contralableRect.size.width += resizeValue
-                contralableRect.size.height -= resizeValue
+                controlableRect.origin.addPoint(CGPoint(x: resizeValue, y: resizeValue))
+                controlableRect.size.width += resizeValue
+                controlableRect.size.height -= resizeValue
             } else {
-                contralableRect.origin.addPoint(CGPoint(x: 0, y: translation.y))
-                contralableRect.size.width += translation.x
-                contralableRect.size.height -= translation.y
+                controlableRect.origin.addPoint(CGPoint(x: 0, y: translation.y))
+                controlableRect.size.width += translation.x
+                controlableRect.size.height -= translation.y
             }
             break
         case .BottomLeftCorner:
             if proportionalResize {
                 let resizeValue = (translation.x+translation.y)/2
-                contralableRect.origin.addPoint(CGPoint(x: translation.x, y: resizeValue))
-                contralableRect.size.width -= resizeValue
-                contralableRect.size.height += resizeValue
+                controlableRect.origin.addPoint(CGPoint(x: translation.x, y: resizeValue))
+                controlableRect.size.width -= resizeValue
+                controlableRect.size.height += resizeValue
             } else {
-                contralableRect.origin.addPoint(CGPoint(x: translation.x, y: 0))
-                contralableRect.size.width -= translation.x
-                contralableRect.size.height += translation.y
+                controlableRect.origin.addPoint(CGPoint(x: translation.x, y: 0))
+                controlableRect.size.width -= translation.x
+                controlableRect.size.height += translation.y
             }
             break
         case .BottomRightCorner:
             if proportionalResize {
                 let resizeValue = (translation.x+translation.y)/2
-                contralableRect.size.width += resizeValue
-                contralableRect.size.height += resizeValue
+                controlableRect.size.width += resizeValue
+                controlableRect.size.height += resizeValue
             } else {
-                contralableRect.size.width += translation.x
-                contralableRect.size.height += translation.y
+                controlableRect.size.width += translation.x
+                controlableRect.size.height += translation.y
             }
             break
         case .TopSide:
-            contralableRect.origin.y += translation.y
-            contralableRect.size.height -= translation.y
+            controlableRect.origin.y += translation.y
+            controlableRect.size.height -= translation.y
             if proportionalResize {
-                contralableRect.size.width -= translation.y
-                contralableRect.origin.x += translation.y/2
+                controlableRect.size.width -= translation.y
+                controlableRect.origin.x += translation.y/2
             }
             break
         case .LeftSide:
-            contralableRect.origin.addPoint(CGPoint(x: translation.x, y: 0))
-            contralableRect.size.width -= translation.x
+            controlableRect.origin.addPoint(CGPoint(x: translation.x, y: 0))
+            controlableRect.size.width -= translation.x
             if proportionalResize {
-                contralableRect.size.height -= translation.x
-                contralableRect.origin.y += translation.x/2
+                controlableRect.size.height -= translation.x
+                controlableRect.origin.y += translation.x/2
             }
             break
         case .RightSide:
-            contralableRect.size.width += translation.x
+            controlableRect.size.width += translation.x
             if proportionalResize {
-                contralableRect.size.height += translation.x
-                contralableRect.origin.y -= translation.x/2
+                controlableRect.size.height += translation.x
+                controlableRect.origin.y -= translation.x/2
             }
             break
         case .BottomSide:
-            contralableRect.size.height += translation.y
+            controlableRect.size.height += translation.y
             if proportionalResize {
-                contralableRect.size.width += translation.y
-                contralableRect.origin.x -= translation.y/2
+                controlableRect.size.width += translation.y
+                controlableRect.origin.x -= translation.y/2
             }
             break
         case .Center:
-            contralableRect.origin.addPoint(translation)
+            controlableRect.origin.addPoint(translation)
             break
         case .None:
             break
         }
-        return contralableRect
+        return controlableRect
     }
     
     func handlePanEnded() {

@@ -11,7 +11,7 @@ import UIKit
 class DocumentPage {
     var layers = [DocumentLayer]()
     var index = 0
-    var size = CGSize.dinA4()
+    var size = UIScreen.mainScreen().bounds.size
 
     init(index: Int) {
         self.index = index
@@ -90,7 +90,8 @@ class DocumentPage {
     }
 
     func addImageLayer(image: UIImage) {
-        let imageLayer = ImageLayer(index: layers.count, docPage: self, origin: CGPointZero, size: image.size, image: image)
+        let layerSize = image.sizeToFit(size)
+        let imageLayer = ImageLayer(index: layers.count, docPage: self, origin: CGPointZero, size: layerSize, image: image)
         layers.append(imageLayer)
         DocumentSynchronizer.sharedInstance.updatePage(self, forceReload: false)
     }

@@ -16,4 +16,13 @@ extension UIImage {
         }
         return nil
     }
+    
+    func sizeToFit(size: CGSize) -> CGSize {
+        let widthRatio = self.size.width/size.width
+        let heightRatio = self.size.height/size.height 
+
+        let ratio = widthRatio > heightRatio ? widthRatio : heightRatio
+        
+        return CGSize(width: self.size.width/ratio, height: self.size.height/ratio)
+    }
 }
