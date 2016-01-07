@@ -37,6 +37,7 @@ class TouchControlView: PageSubView {
     }
     
     var proportionalResize = false
+    var widthResizingOnly = false
     
     var selectedTouchControl = TouchControl.None
     
@@ -69,6 +70,9 @@ class TouchControlView: PageSubView {
     func touchedControlRect(touchLocation: CGPoint) -> TouchControl {
         for (touchControl, rect) in getControlRects() {
             if rect.contains(touchLocation) {
+                if widthResizingOnly && touchControl != .LeftSide && touchControl != .RightSide && touchControl != .Center {
+                    return .None
+                }
                 return touchControl
             }
         }
