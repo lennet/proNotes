@@ -16,11 +16,13 @@ class MovableImageView: MovableView, ImageSettingsDelegate {
     init(image: UIImage, frame: CGRect, movableLayer: MovableLayer) {
         self.image = image
         super.init(frame: frame, movableLayer: movableLayer)
+        proportionalResize = true
     }
 
     required init?(coder aDecoder: NSCoder) {
         self.image = UIImage()
         super.init(coder: aDecoder)
+        proportionalResize = true
     }
 
     func setUpImageView() {
@@ -28,8 +30,7 @@ class MovableImageView: MovableView, ImageSettingsDelegate {
         imageView = UIImageView()
 
         imageView.image = image
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.hidden = true
+        imageView.translatesAutoresizingMaskIntoConstraints = falsej
         addSubview(imageView)
         addAutoLayoutConstraints(imageView)
     }

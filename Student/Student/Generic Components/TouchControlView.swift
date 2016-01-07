@@ -82,7 +82,7 @@ class TouchControlView: PageSubView {
     func getControlRects() -> Dictionary<TouchControl, CGRect> {
         var rects = Dictionary<TouchControl, CGRect>()
         let mainRect = getControllableRect()
-        print(mainRect)
+        
         let topLeftRect = CGRect(center: mainRect.origin, width: controlLength * 2, height: controlLength * 2)
         rects[.TopLeftCorner] = topLeftRect
         
@@ -123,7 +123,7 @@ class TouchControlView: PageSubView {
     
     func handlePanTranslation(translation: CGPoint) -> CGRect {
         var contralableRect = getMovableRect()
-        print(selectedTouchControl)
+
         switch selectedTouchControl {
         case .TopLeftCorner:
             contralableRect.origin.addPoint(translation)

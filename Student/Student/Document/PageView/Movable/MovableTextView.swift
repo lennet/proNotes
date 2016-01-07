@@ -16,10 +16,12 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
     init(text: String, frame: CGRect, movableLayer: MovableLayer) {
         self.text = text
         super.init(frame: frame, movableLayer: movableLayer)
+        widthResizingOnly = true
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        widthResizingOnly = true
     }
 
     func setUpTextView() {
