@@ -10,8 +10,8 @@ import UIKit
 
 protocol ImageSettingsDelegate {
     func removeImage()
-
     func getImage() -> UIImage
+    func updateImage(image: UIImage)
 }
 
 class ImageSettingsViewController: UIViewController {
@@ -68,8 +68,7 @@ class ImageSettingsViewController: UIViewController {
             self.finishButton.hidden = !cropMode
             self.cancelButton.hidden = !cropMode
 
-        }
-        )
+        })
     }
 
     // MARK: - Actions
@@ -79,18 +78,21 @@ class ImageSettingsViewController: UIViewController {
     }
 
     @IBAction func handleCancelButtonPressed(sender: AnyObject) {
-        cropImageView.isCropping = false
+        cropImageView.isEditing = false
         updateButtonVisibility(false)
     }
 
     @IBAction func handleCropButtonPressed(sender: AnyObject) {
-        cropImageView.isCropping = true
+        cropImageView.isEditing = true
         updateButtonVisibility(true)
     }
 
     @IBAction func handleFinishButtonPressed(sender: AnyObject) {
         cropImageView.crop()
         updateButtonVisibility(false)
+        if let image = cropImageView.image {
+            ImageSettingsViewController.delegate?.updateImage(image)
+        }
     }
 
 }

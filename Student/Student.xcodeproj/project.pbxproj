@@ -22,6 +22,8 @@
 		98262C121C22D96A00B420A8 /* PageSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98262C111C22D96A00B420A8 /* PageSubView.swift */; };
 		98312D661C0B65E500F3B1CB /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98312D651C0B65E500F3B1CB /* PageView.swift */; };
 		98312D691C0B79F200F3B1CB /* DocumentSynchronizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98312D681C0B79F200F3B1CB /* DocumentSynchronizer.swift */; };
+		984242AB1C3EDD0900F90455 /* TouchControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984242AA1C3EDD0900F90455 /* TouchControlView.swift */; };
+		984242AD1C3EE79900F90455 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984242AC1C3EE79900F90455 /* UIColorExtension.swift */; };
 		986D605B1C2B21140065D71B /* CustomScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986D605A1C2B21140065D71B /* CustomScrollView.swift */; };
 		986D605E1C2C2D700065D71B /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986D605D1C2C2D700065D71B /* CircleView.swift */; };
 		986D60601C2C34BD0065D71B /* CALayerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986D605F1C2C34BD0065D71B /* CALayerExtension.swift */; };
@@ -95,6 +97,8 @@
 		98262C111C22D96A00B420A8 /* PageSubView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageSubView.swift; sourceTree = "<group>"; };
 		98312D651C0B65E500F3B1CB /* PageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
 		98312D681C0B79F200F3B1CB /* DocumentSynchronizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentSynchronizer.swift; sourceTree = "<group>"; };
+		984242AA1C3EDD0900F90455 /* TouchControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchControlView.swift; sourceTree = "<group>"; };
+		984242AC1C3EE79900F90455 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		986D605A1C2B21140065D71B /* CustomScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomScrollView.swift; sourceTree = "<group>"; };
 		986D605D1C2C2D700065D71B /* CircleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		986D605F1C2C34BD0065D71B /* CALayerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CALayerExtension.swift; sourceTree = "<group>"; };
@@ -251,6 +255,7 @@
 				980A3F341C22B2010070C618 /* ColorPicker */,
 				986D605D1C2C2D700065D71B /* CircleView.swift */,
 				986D605A1C2B21140065D71B /* CustomScrollView.swift */,
+				984242AA1C3EDD0900F90455 /* TouchControlView.swift */,
 			);
 			path = "Generic Components";
 			sourceTree = "<group>";
@@ -288,6 +293,7 @@
 				987B570B1C3AF85200141EA5 /* CGRectExtension.swift */,
 				987B570D1C3B10F300141EA5 /* Global.swift */,
 				987B570F1C3B139700141EA5 /* UIImageExtension.swift */,
+				984242AC1C3EE79900F90455 /* UIColorExtension.swift */,
 			);
 			path = Extenstions;
 			sourceTree = "<group>";
@@ -570,6 +576,7 @@
 				98F2E3E71C1A1ED2008A5C6C /* ArrayExtension.swift in Sources */,
 				98101BD71C0A5945001E9555 /* PageTableViewCell.swift in Sources */,
 				98F2E3EE1C1A1EF1008A5C6C /* MovableImageView.swift in Sources */,
+				984242AB1C3EDD0900F90455 /* TouchControlView.swift in Sources */,
 				98E33D4F1C37E8D10065B590 /* CropImageView.swift in Sources */,
 				98F2E3E91C1A1ED2008A5C6C /* CGSizeExtenstion.swift in Sources */,
 				98DBAA0A1C0799CB007EFFE5 /* AppDelegate.swift in Sources */,
@@ -600,6 +607,7 @@
 				986D60601C2C34BD0065D71B /* CALayerExtension.swift in Sources */,
 				98101BD21C0A58AA001E9555 /* PagesOverviewTableViewCell.swift in Sources */,
 				980A3F331C22B1FC0070C618 /* ColorPickerViewController.swift in Sources */,
+				984242AD1C3EE79900F90455 /* UIColorExtension.swift in Sources */,
 				98006AB91C1A1E8D0091E356 /* TextSettingsViewController.swift in Sources */,
 				987B570C1C3AF85200141EA5 /* CGRectExtension.swift in Sources */,
 				987D30741C1B009600FB86CB /* PlotSettingsViewController.swift in Sources */,

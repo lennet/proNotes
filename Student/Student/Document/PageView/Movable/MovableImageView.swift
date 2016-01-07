@@ -11,6 +11,7 @@ import UIKit
 class MovableImageView: MovableView, ImageSettingsDelegate {
 
     var image: UIImage
+    var imageView = UIImageView()
 
     init(image: UIImage, frame: CGRect, movableLayer: MovableLayer) {
         self.image = image
@@ -24,11 +25,11 @@ class MovableImageView: MovableView, ImageSettingsDelegate {
 
     func setUpImageView() {
         clipsToBounds = true
-        let imageView = UIImageView()
+        imageView = UIImageView()
 
         imageView.image = image
-//        imageView.contentMode = .ScaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.hidden = true
         addSubview(imageView)
         addAutoLayoutConstraints(imageView)
     }
@@ -48,6 +49,24 @@ class MovableImageView: MovableView, ImageSettingsDelegate {
 
     func getImage() -> UIImage {
         return image
+    }
+    
+    func updateImage(image: UIImage) {
+        let heightRatio = imageView.bounds.height/self.image.size.height
+        let widthRatio = imageView.bounds.width/self.image.size.height
+        imageView.image = image
+        
+        if let imageLayer = movableLayer as? ImageLayer {
+            imageLayer.image = image
+        }
+        
+        self.image = image
+        // TODO something is going wrong here !
+        frame.size.height = (imageView.bounds.height*heightRatio)+2*touchSize
+        frame.size.width = (imageView.bounds.width*widthRatio)+2*touchSize
+        movableLayer?.size = frame.size
+        saveChanges()
+
     }
 
 }
