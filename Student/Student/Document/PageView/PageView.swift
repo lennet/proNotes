@@ -216,7 +216,6 @@ class PageView: UIView, UIGestureRecognizerDelegate {
         var currentYPos = yOffset
 
         while (currentXPos < rect.width) {
-            print(currentXPos)
             path.moveToPoint(CGPoint(x: currentXPos, y: 0))
             path.addLineToPoint(CGPoint(x: currentXPos, y: rect.height))
 
@@ -224,7 +223,6 @@ class PageView: UIView, UIGestureRecognizerDelegate {
         }
 
         while (currentYPos < rect.height) {
-            print(currentYPos)
             path.moveToPoint(CGPoint(x: 0, y: currentYPos))
             path.addLineToPoint(CGPoint(x: rect.width, y: currentYPos))
             currentYPos += yOffset
@@ -289,6 +287,10 @@ class PageView: UIView, UIGestureRecognizerDelegate {
         if let _ = selectedSubView as? DrawingView {
             return false
         }
+        return true
+    }
+    
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
 

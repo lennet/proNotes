@@ -13,5 +13,9 @@ class CustomScrollView: UIScrollView {
     override func touchesShouldCancelInContentView(view: UIView) -> Bool {
         return false
     }
+    
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
 
 }

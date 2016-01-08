@@ -17,13 +17,23 @@ class PageTableViewCell: UITableViewCell, PDFViewDelegate, UIScrollViewDelegate 
 
     var heightConstraint: NSLayoutConstraint?
     var widthConstraint: NSLayoutConstraint?
+    var tableView: UITableView?
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        backgroundColor = UIColor.clearColor()
+        
         heightConstraint = pageView.getConstraint(.Height)
         widthConstraint = pageView.getConstraint(.Width)
         updateHeight(UIScreen.mainScreen().bounds.height)
-        
+
+        setUpScrollView()
+    }
+    
+    func setUpScrollView() {
+        scrollView.panGestureRecognizer.maximumNumberOfTouches = 2
+        scrollView.panGestureRecognizer.minimumNumberOfTouches = 2
+        scrollView.bounces = false
         scrollView.delegate = self
         scrollView.minimumZoomScale = 1
         scrollView.maximumZoomScale = 3
@@ -50,4 +60,11 @@ class PageTableViewCell: UITableViewCell, PDFViewDelegate, UIScrollViewDelegate 
     func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
         return pageView
     }
+    
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        print(scrollView.contentOffset.x)
+//        tableView?.setContentOffset(CGPoint(x: 0, y: scrollView.contentOffset.y), animated: false)
+    }
+
 }
