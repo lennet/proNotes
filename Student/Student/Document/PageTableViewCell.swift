@@ -8,15 +8,25 @@
 
 import UIKit
 
-class PageTableViewCell: UITableViewCell, PDFViewDelegate {
+class PageTableViewCell: UITableViewCell, PDFViewDelegate, UIScrollViewDelegate {
 
     @IBOutlet weak var pageView: PageView!
-    @IBOutlet weak var heightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var scrollView: UIScrollView!
+    
     static let identifier = "PageTableViewCellIdentifier"
+
+    var heightConstraint: NSLayoutConstraint?
+    var widthConstraint: NSLayoutConstraint?
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        heightConstraint = pageView.getConstraint(.Height)
+        widthConstraint = pageView.getConstraint(.Width)
         updateHeight(UIScreen.mainScreen().bounds.height)
+        
+        scrollView.delegate = self
+        scrollView.minimumZoomScale = 1
+        scrollView.maximumZoomScale = 3
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
@@ -26,12 +36,18 @@ class PageTableViewCell: UITableViewCell, PDFViewDelegate {
     }
 
     func updateHeight(height: CGFloat) {
-        if height != heightConstraint.constant {
-            heightConstraint.constant = height
+        if height != heightConstraint?.constant {
+            heightConstraint?.constant = height
             setNeedsLayout()
             layoutIfNeeded()
             pageView.setNeedsDisplay()
         }
     }
 
+    
+    // MARK: - UIScrollView 
+    
+    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+        return pageView
+    }
 }

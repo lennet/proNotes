@@ -28,7 +28,7 @@ class PagesTableViewController: UITableViewController, DocumentSynchronizerDeleg
         super.viewDidLoad()
         tableView.estimatedRowHeight = 500.0
         tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.panGestureRecognizer.minimumNumberOfTouches = 2
+//        tableView.panGestureRecognizer.minimumNumberOfTouches = 2
         DocumentSynchronizer.sharedInstance.addDelegate(self)
         document = DocumentSynchronizer.sharedInstance.document
     }

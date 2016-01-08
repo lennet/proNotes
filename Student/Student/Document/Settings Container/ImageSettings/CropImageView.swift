@@ -58,9 +58,7 @@ class CropImageView: TouchControlView {
     }
 
     func layout() {
-        for constraint in constraints {
-            if constraint.firstAttribute == .Height {
-
+        if let constraint = getConstraint(.Height) {
                 layoutIfNeeded()
                 let ratio = getImageRatio()
 
@@ -70,7 +68,6 @@ class CropImageView: TouchControlView {
 
                 overlayRect = getImageRect()
                 setNeedsDisplay()
-            }
         }
     }
 

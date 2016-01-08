@@ -35,6 +35,15 @@ extension UIView {
         }
     }
 
+    func getConstraint(attribute: NSLayoutAttribute) -> NSLayoutConstraint? {
+        for constraint in constraints {
+            if constraint.firstAttribute == attribute {
+                return constraint
+            }
+        }
+        return nil
+    }
+    
     var parentViewController: UIViewController? {
         var parentResponder: UIResponder? = self
         while parentResponder != nil {
