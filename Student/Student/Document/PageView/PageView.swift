@@ -14,7 +14,6 @@ class PageView: UIView, UIGestureRecognizerDelegate {
 
     var panGestureRecognizer: UIPanGestureRecognizer?
     var tapGestureRecognizer: UITapGestureRecognizer?
-    var pinchGestureRecognizer: UIPinchGestureRecognizer?
     var doubleTapGestureRecognizer: UITapGestureRecognizer?
 
 
@@ -38,17 +37,13 @@ class PageView: UIView, UIGestureRecognizerDelegate {
         panGestureRecognizer = UIPanGestureRecognizer(target: self, action: Selector("handlePan:"))
         panGestureRecognizer?.cancelsTouchesInView = true
         panGestureRecognizer?.delegate = self
+        panGestureRecognizer?.maximumNumberOfTouches = 1
         addGestureRecognizer(panGestureRecognizer!)
 
         tapGestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("handleTap:"))
         tapGestureRecognizer?.cancelsTouchesInView = true
         tapGestureRecognizer?.delegate = self
         addGestureRecognizer(tapGestureRecognizer!)
-
-        pinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: Selector("handlePinch:"))
-        pinchGestureRecognizer?.cancelsTouchesInView = true
-        pinchGestureRecognizer?.delegate = self
-        addGestureRecognizer(pinchGestureRecognizer!)
 
         doubleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: "handleDoubleTap:")
         doubleTapGestureRecognizer?.numberOfTapsRequired = 2
@@ -271,10 +266,6 @@ class PageView: UIView, UIGestureRecognizerDelegate {
             }
         }
 
-    }
-
-    func handlePinch(pinchGestureRecognizer: UIPinchGestureRecognizer) {
-        selectedSubView?.handlePinch(pinchGestureRecognizer)
     }
 
     func handleDoubleTap(tapGestureRecognizer: UITapGestureRecognizer) {
