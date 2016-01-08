@@ -54,6 +54,16 @@ class PageTableViewCell: UITableViewCell, PDFViewDelegate, UIScrollViewDelegate 
         }
     }
 
+    func centerPage() {
+        let size = scrollView.bounds.size
+        var centredFrame = pageView.frame
+        
+        centredFrame.origin.x = centredFrame.size.width < size.width ? (size.width-centredFrame.size.width)/2 : 0
+        
+        centredFrame.origin.x = centredFrame.size.height < size.height ? (size.height-centredFrame.size.height)/2 : 0
+        
+        pageView.frame = centredFrame
+    }
     
     // MARK: - UIScrollView 
     
@@ -61,10 +71,7 @@ class PageTableViewCell: UITableViewCell, PDFViewDelegate, UIScrollViewDelegate 
         return pageView
     }
     
-    
-    func scrollViewDidScroll(scrollView: UIScrollView) {
-        print(scrollView.contentOffset.x)
-//        tableView?.setContentOffset(CGPoint(x: 0, y: scrollView.contentOffset.y), animated: false)
+    func scrollViewDidZoom(scrollView: UIScrollView) {
+        centerPage()
     }
-
 }
