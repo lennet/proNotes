@@ -16,6 +16,7 @@ class PagesTableViewController: UIViewController, DocumentSynchronizerDelegate, 
     @IBOutlet weak var scrollView: UIScrollView!
     
     var shouldReload = true
+    @IBOutlet weak var tableViewWidth: NSLayoutConstraint?
 
     var document: Document? {
         didSet {
@@ -36,12 +37,15 @@ class PagesTableViewController: UIViewController, DocumentSynchronizerDelegate, 
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        setUpTableView()
         setUpScrollView()
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        setUpTableView()
         loadTableView()
+        print(tableView.frame)
     }
 
     deinit {
@@ -61,12 +65,25 @@ class PagesTableViewController: UIViewController, DocumentSynchronizerDelegate, 
         scrollView.maximumZoomScale = 8
         scrollView.panGestureRecognizer.minimumNumberOfTouches = 2
     }
+    
+    func setUpTableView() {
+        tableViewWidth?.constant = CGSize.dinA4().width;
+        view.layoutSubviews()
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
+    // MARK: - Screen Rotation
+    
+    override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
+        layoutTableView()
+    }
+    
+    // MARK: - Page Handling
+    
     func showPage(pageNumber: Int) {
         let indexPath = NSIndexPath(forRow: pageNumber, inSection: 0)
         DocumentSynchronizer.sharedInstance.currentPage = document?.pages[pageNumber]
@@ -127,7 +144,7 @@ class PagesTableViewController: UIViewController, DocumentSynchronizerDelegate, 
         centredFrame.origin.y = centredFrame.size.height < size.height ? (size.height-centredFrame.size.height)/2 : 0
         
         centredFrame.size.height = scrollView.bounds.height
-
+        
         tableView.frame = centredFrame
     }
     
