@@ -82,6 +82,10 @@ class PagesTableViewController: UIViewController, DocumentSynchronizerDelegate, 
         layoutTableView()
     }
     
+    override func traitCollectionDidChange(previousTraitCollection: UITraitCollection?) {
+        layoutTableView()
+    }
+    
     // MARK: - Page Handling
     
     func showPage(pageNumber: Int) {

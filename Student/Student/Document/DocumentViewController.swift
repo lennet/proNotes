@@ -21,7 +21,6 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
     var pagesOverviewController: PagesOverviewTableViewController?
     var document: Document? = DocumentSynchronizer.sharedInstance.document
 
-
     override func viewDidLoad() {
         super.viewDidLoad()
         DocumentSynchronizer.sharedInstance.addDelegate(self)
@@ -95,6 +94,7 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
         UIView.animateWithDuration(0.2, delay: 0, usingSpringWithDamping: 0.85, initialSpringVelocity: 5, options: .CurveEaseInOut, animations: {
             () -> Void in
             self.view.layoutIfNeeded()
+            PagesTableViewController.sharedInstance?.layoutTableView()
         }, completion: nil)
 
     }
