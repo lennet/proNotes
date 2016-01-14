@@ -8,10 +8,13 @@
 
 import UIKit
 
-class PagesTableViewController: UITableViewController, DocumentSynchronizerDelegate {
+class PagesTableViewController: UIViewController, DocumentSynchronizerDelegate, UIScrollViewDelegate {
 
     static var sharedInstance: PagesTableViewController?
-
+    
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var scrollView: UIScrollView!
+    
     var shouldReload = true
 
     var document: Document? {
@@ -26,13 +29,16 @@ class PagesTableViewController: UITableViewController, DocumentSynchronizerDeleg
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.estimatedRowHeight = 500.0
-        tableView.rowHeight = UITableViewAutomaticDimension
         tableView.panGestureRecognizer.minimumNumberOfTouches = 2
         DocumentSynchronizer.sharedInstance.addDelegate(self)
         document = DocumentSynchronizer.sharedInstance.document
     }
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        setUpScrollView()
+    }
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         loadTableView()
@@ -47,6 +53,13 @@ class PagesTableViewController: UITableViewController, DocumentSynchronizerDeleg
         tableView.setNeedsLayout()
         tableView.layoutIfNeeded()
         tableView.reloadData()
+        layoutTableView()
+    }
+    
+    func setUpScrollView() {
+        scrollView.minimumZoomScale = 0.3
+        scrollView.maximumZoomScale = 8
+        scrollView.panGestureRecognizer.minimumNumberOfTouches = 2
     }
 
     override func didReceiveMemoryWarning() {
@@ -74,18 +87,24 @@ class PagesTableViewController: UITableViewController, DocumentSynchronizerDeleg
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return document?.getNumberOfPages() ?? 0
     }
-
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return UIScreen.mainScreen().bounds.size.height
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(PageTableViewCell.identifier, forIndexPath: indexPath) as! PageTableViewCell
 
         if let currentPage = document?.pages[indexPath.row] {
+            cell.widthConstraint?.constant = currentPage.size.width
+            cell.heightConstraint?.constant = currentPage.size.height
             cell.pageView.page = currentPage
             cell.pageView.setUpLayer()
             cell.pageView.pdfViewDelegate = cell
@@ -98,16 +117,30 @@ class PagesTableViewController: UITableViewController, DocumentSynchronizerDeleg
 
     }
 
-    /*
-    // MARK: - Navigation
+    func layoutTableView() {
+        
+        let size = scrollView.bounds.size
+        var centredFrame = tableView.frame
+        
+        centredFrame.origin.x = centredFrame.size.width < size.width ? (size.width-centredFrame.size.width)/2 : 0
+        
+        centredFrame.origin.y = centredFrame.size.height < size.height ? (size.height-centredFrame.size.height)/2 : 0
+        
+        centredFrame.size.height = scrollView.bounds.height
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        tableView.frame = centredFrame
     }
-    */
-
+    
+    // MARK: - UIScrollViewDelegate
+    
+    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+        return tableView
+    }
+    
+    func scrollViewDidZoom(scrollView: UIScrollView) {
+        layoutTableView()
+    }
+    
     // MARK: - DocumentSynchronizerDelegate
 
     func updateDocument(document: Document, forceReload: Bool) {

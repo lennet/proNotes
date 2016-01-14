@@ -8,10 +8,9 @@
 
 import UIKit
 
-class PageTableViewCell: UITableViewCell, PDFViewDelegate, UIScrollViewDelegate {
+class PageTableViewCell: UITableViewCell, PDFViewDelegate {
 
     @IBOutlet weak var pageView: PageView!
-    @IBOutlet weak var scrollView: UIScrollView!
     
     static let identifier = "PageTableViewCellIdentifier"
 
@@ -27,16 +26,6 @@ class PageTableViewCell: UITableViewCell, PDFViewDelegate, UIScrollViewDelegate 
         widthConstraint = pageView.getConstraint(.Width)
         updateHeight(UIScreen.mainScreen().bounds.height)
 
-        setUpScrollView()
-    }
-    
-    func setUpScrollView() {
-        scrollView.panGestureRecognizer.maximumNumberOfTouches = 2
-        scrollView.panGestureRecognizer.minimumNumberOfTouches = 2
-        scrollView.bounces = false
-        scrollView.delegate = self
-        scrollView.minimumZoomScale = 1
-        scrollView.maximumZoomScale = 3
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
@@ -54,24 +43,4 @@ class PageTableViewCell: UITableViewCell, PDFViewDelegate, UIScrollViewDelegate 
         }
     }
 
-    func centerPage() {
-        let size = scrollView.bounds.size
-        var centredFrame = pageView.frame
-        
-        centredFrame.origin.x = centredFrame.size.width < size.width ? (size.width-centredFrame.size.width)/2 : 0
-        
-        centredFrame.origin.x = centredFrame.size.height < size.height ? (size.height-centredFrame.size.height)/2 : 0
-        
-        pageView.frame = centredFrame
-    }
-    
-    // MARK: - UIScrollView 
-    
-    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
-        return pageView
-    }
-    
-    func scrollViewDidZoom(scrollView: UIScrollView) {
-        centerPage()
-    }
 }

@@ -60,7 +60,6 @@ class MovableView: TouchControlView {
         frame = super.handlePanTranslation(translation)
         layoutIfNeeded()
         setNeedsDisplay()
-        print(bounds.size.width/bounds.size.height)
         return frame
     }
 

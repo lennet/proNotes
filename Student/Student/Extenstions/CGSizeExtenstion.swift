@@ -28,7 +28,7 @@ extension CGSize {
     }
 
     static func dinA4() -> CGSize {
-        return CGSize(width: 2384, height: 3370)
+        return CGSize(width: 2384/3, height: 3370/3)
     }
 
     static func dinA4LandScape() -> CGSize {
@@ -37,7 +37,7 @@ extension CGSize {
     }
 
     static func quadratic() -> CGSize {
-        return CGSize(width: 2384, height: 2384)
+        return CGSize(width: 2384/3, height: 2384/3)
     }
 
     static func paperSizes() -> [CGSize] {
