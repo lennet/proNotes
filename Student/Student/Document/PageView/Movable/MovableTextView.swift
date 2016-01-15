@@ -35,7 +35,13 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
 
         addSubview(textView)
     }
-
+    
+    override func handlePanTranslation(translation: CGPoint) -> CGRect {
+        let rect = super.handlePanTranslation(translation)
+        updateTextView()
+        return rect
+    }
+    
     override func handleDoubleTap(tapGestureRecognizer: UITapGestureRecognizer) {
         textView.becomeFirstResponder()
     }
@@ -86,9 +92,7 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
         super.saveChanges()
     }
 
-    // MARK: - UITextViewDelegate
-
-    func textViewDidChange(textView: UITextView) {
+    func updateTextView() {
         let heightOffset = textView.contentSize.height - textView.bounds.size.height
         if heightOffset > 0 {
             let origin = frame.origin
@@ -98,6 +102,12 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
             layoutIfNeeded()
             setNeedsDisplay()
         }
+    }
+    
+    // MARK: - UITextViewDelegate
+
+    func textViewDidChange(textView: UITextView) {
+        updateTextView()
     }
 
     func textViewDidEndEditing(textView: UITextView) {
