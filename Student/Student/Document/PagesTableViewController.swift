@@ -40,8 +40,12 @@ class PagesTableViewController: UIViewController, DocumentSynchronizerDelegate, 
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-//        loadTableView()
         setUpScrollView()
+        // FIXME doubled setUpScrollView call && animated Appearance beacuse of a layouting bug 
+        UIView.animateWithDuration(0.2, delay: 0, usingSpringWithDamping: 0.85, initialSpringVelocity: 5, options: .CurveEaseInOut, animations: {
+            () -> Void in
+            self.scrollView.alpha = 1
+            }, completion: nil)
     }
 
     deinit {
@@ -175,15 +179,10 @@ class PagesTableViewController: UIViewController, DocumentSynchronizerDelegate, 
         layoutTableView()
     }
     
-    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-        updateTableViewHeight()
-    }
-    
     func scrollViewDidScroll(scrollView: UIScrollView) {
         // only update tableview height if scrollview is'nt bouncing
         if !(scrollView.contentOffset.y > scrollView.contentSize.height - scrollView.bounds.height
             && scrollView.contentSize.height > scrollView.bounds.height) && !(scrollView.contentOffset.y < 0) {
-                print(scrollView.contentOffset)
             updateTableViewHeight()
         }
     }

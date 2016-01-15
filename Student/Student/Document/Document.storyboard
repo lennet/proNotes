@@ -1084,7 +1084,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="180" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2z1-xO-aEk" customClass="CustomScrollView" customModule="Student" customModuleProvider="target">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.0" contentMode="scaleToFill" bounces="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2z1-xO-aEk" customClass="CustomScrollView" customModule="Student" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="180" height="536"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C2x-L0-crG">
@@ -1106,8 +1106,8 @@
                                                             <rect key="frame" x="0.0" y="0.0" width="480" height="120"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
-                                                                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EAC-hF-dGJ" customClass="PageView" customModule="Student" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="8" width="480" height="104"/>
+                                                                <view clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EAC-hF-dGJ" customClass="PageView" customModule="Student" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="-7" width="480" height="104"/>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 </view>
                                                             </subviews>
