@@ -10,7 +10,6 @@ import UIKit
 
 class MovableView: TouchControlView {
 
-    // TODO Resizing Bug after saving and reloading View
     // TODO style
 
     var finishedSetup = false
@@ -19,9 +18,10 @@ class MovableView: TouchControlView {
 
     init(frame: CGRect, movableLayer: MovableLayer) {
         self.movableLayer = movableLayer
-        super.init(frame: frame)
+        let newControlLength: CGFloat = 44
+        super.init(frame: CGRect(origin: frame.origin, size: CGSize(width: frame.size.width+newControlLength*2, height: frame.size.height+newControlLength*2)))
+        controlLength = newControlLength
         backgroundColor = UIColor.clearColor()
-        controlLength = 44
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -79,7 +79,7 @@ class MovableView: TouchControlView {
         if isEditing {
             let context = UIGraphicsGetCurrentContext()
             for touchRect in getControlRects().values {
-                UIColor.randomColor().setFill()
+                UIColor.randomColor().colorWithAlphaComponent(0.5).setFill()
                 CGContextFillRect(context, touchRect)
             }
         }
