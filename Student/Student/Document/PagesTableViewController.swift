@@ -155,9 +155,14 @@ class PagesTableViewController: UIViewController, DocumentSynchronizerDelegate, 
         
         centredFrame.origin.y = centredFrame.size.height < size.height ? (size.height-centredFrame.size.height)/2 : 0
         
-        centredFrame.size.height = scrollView.bounds.height
-        
         tableView.frame = centredFrame
+        updateTableViewHeight()
+    }
+    
+    func updateTableViewHeight() {
+        var frame = tableView.frame
+        frame.size.height = scrollView.bounds.height
+        tableView.frame = frame
     }
     
     // MARK: - UIScrollViewDelegate
@@ -168,6 +173,19 @@ class PagesTableViewController: UIViewController, DocumentSynchronizerDelegate, 
     
     func scrollViewDidZoom(scrollView: UIScrollView) {
         layoutTableView()
+    }
+    
+    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        updateTableViewHeight()
+    }
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        // only update tableview height if scrollview is'nt bouncing
+        if !(scrollView.contentOffset.y > scrollView.contentSize.height - scrollView.bounds.height
+            && scrollView.contentSize.height > scrollView.bounds.height) && !(scrollView.contentOffset.y < 0) {
+                print(scrollView.contentOffset)
+            updateTableViewHeight()
+        }
     }
     
     // MARK: - DocumentSynchronizerDelegate
