@@ -91,11 +91,19 @@ class PagesTableViewController: UIViewController, DocumentSynchronizerDelegate, 
     // MARK: - Screen Rotation
     
     override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
-        layoutTableView()
+        layoutDidChange()
     }
     
-    override func traitCollectionDidChange(previousTraitCollection: UITraitCollection?) {
-        layoutTableView()
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        coordinator.animateAlongsideTransition({ (context) -> Void in
+                self.layoutDidChange()
+            }) { (context) -> Void in
+
+        }
+
+    }
+    override func willTransitionToTraitCollection(newCollection: UITraitCollection, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+
     }
     
     // MARK: - Page Handling
@@ -169,6 +177,13 @@ class PagesTableViewController: UIViewController, DocumentSynchronizerDelegate, 
         tableView.frame = frame
     }
     
+    func layoutDidChange() {
+        layoutTableView()
+        var frame = tableView.frame
+        frame.origin = CGPoint(x: frame.origin.x, y: 0)
+        tableView.frame = frame
+    }
+    
     // MARK: - UIScrollViewDelegate
     
     func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
@@ -176,7 +191,7 @@ class PagesTableViewController: UIViewController, DocumentSynchronizerDelegate, 
     }
     
     func scrollViewDidZoom(scrollView: UIScrollView) {
-        layoutTableView()
+        layoutDidChange()
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {

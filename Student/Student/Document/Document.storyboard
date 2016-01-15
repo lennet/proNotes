@@ -158,7 +158,7 @@
                             </barButtonItem>
                         </leftBarButtonItems>
                         <rightBarButtonItems>
-                            <barButtonItem title="Fullscreen" id="nxV-hM-aPD">
+                            <barButtonItem image="fullscreenOn" id="nxV-hM-aPD">
                                 <connections>
                                     <action selector="handleFullscreenToggleButtonPressed:" destination="mNn-FC-EJF" id="KM3-lV-VkZ"/>
                                 </connections>
@@ -1396,6 +1396,7 @@
         <image name="deleteIcon" width="12" height="19"/>
         <image name="eraserIcon" width="27" height="55"/>
         <image name="finishIcon" width="34" height="25"/>
+        <image name="fullscreenOn" width="25" height="25"/>
         <image name="justifiedAlignment" width="31" height="32"/>
         <image name="leftAlignment" width="31" height="32"/>
         <image name="markerIcon" width="30" height="55"/>

@@ -13,6 +13,7 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
     @IBOutlet weak var settingsWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var pagesOverviewWidthConstraint: NSLayoutConstraint!
 
+    
     final let defaultSettingsWidth: CGFloat = 240
     final let defaultPagesOverViewWidth: CGFloat = 180
 
@@ -40,7 +41,7 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
     override func canBecomeFirstResponder() -> Bool {
         return true
     }
-
+    
     // MARK: - Actions
 
     @IBAction func handleAddPageButtonPressed(sender: AnyObject) {
@@ -79,22 +80,23 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
         SettingsViewController.sharedInstance?.currentSettingsType = .PageInfo
     }
 
-    @IBAction func handleFullscreenToggleButtonPressed(sender: AnyObject) {
-        // TODO Change BarButtonIcon
+    @IBAction func handleFullscreenToggleButtonPressed(sender: UIBarButtonItem) {
         if isFullScreen {
             settingsWidthConstraint.constant = defaultSettingsWidth
             pagesOverviewWidthConstraint.constant = defaultPagesOverViewWidth
             isFullScreen = false
+            sender.image = UIImage(named: "fullscreenOn")
         } else {
             settingsWidthConstraint.constant = 0
             pagesOverviewWidthConstraint.constant = 0
             isFullScreen = true
+            sender.image = UIImage(named: "fullscreenOff")
         }
 
         UIView.animateWithDuration(0.2, delay: 0, usingSpringWithDamping: 0.85, initialSpringVelocity: 5, options: .CurveEaseInOut, animations: {
             () -> Void in
             self.view.layoutIfNeeded()
-            PagesTableViewController.sharedInstance?.layoutTableView()
+            PagesTableViewController.sharedInstance?.layoutDidChange()
         }, completion: nil)
 
     }
