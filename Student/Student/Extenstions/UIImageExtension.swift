@@ -32,13 +32,14 @@ extension UIImage {
             // nothig to do
             break
         }
-        
-        UIGraphicsBeginImageContext(newSize)
-        UIImage(CGImage: CGImage, scale: self.scale, orientation: rotation).drawAtPoint(CGPointZero)
-        let rotatedImage = UIGraphicsGetImageFromCurrentImageContext()
+
+        let rotatedImage = UIImage(CGImage: CGImage, scale: self.scale, orientation: rotation)
+        UIGraphicsBeginImageContext(rotatedImage.size)
+        rotatedImage.drawAtPoint(CGPointZero)
+        let resultImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
-        return rotatedImage
+        return resultImage
     }
     
     func sizeToFit(size: CGSize) -> CGSize {
