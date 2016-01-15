@@ -10,16 +10,18 @@ import UIKit
 
 class SettingsViewController: UIViewController {
 
-    enum SettingsViewController: String {
+    static var sharedInstance: SettingsViewController?
+    
+    enum SettingsViewControllerType: String {
         case Drawing = "DrawingSettingsIdentifier"
         case Image = "ImageSettingsIdentifier"
         case PageInfo = "PageInfoSettingsIdentifier"
         case Text = "TextSettingsIdentifier"
         case Plot = "PlotSettingsIdentifier"
     }
-
+    
     var currentChildViewController: UIViewController?
-    var currentSettingsType: SettingsViewController = .PageInfo {
+    var currentSettingsType: SettingsViewControllerType = .PageInfo {
         didSet {
             if oldValue != currentSettingsType {
                 setUpChildViewController(currentSettingsType)
@@ -27,10 +29,9 @@ class SettingsViewController: UIViewController {
         }
     }
 
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        DocumentSynchronizer.sharedInstance.settingsViewController = self
+        SettingsViewController.sharedInstance = self
         setUpChildViewController(currentSettingsType)
 
         view.layer.setUpDefaultBorder()
@@ -41,7 +42,7 @@ class SettingsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    func setUpChildViewController(settingsViewController: SettingsViewController) {
+    func setUpChildViewController(settingsViewController: SettingsViewControllerType) {
 //UIView.transitionFromView(<#T##fromView: UIView##UIView#>, toView: <#T##UIView#>, duration: <#T##NSTimeInterval#>, options: <#T##UIViewAnimationOptions#>, completion: <#T##((Bool) -> Void)?##((Bool) -> Void)?##(Bool) -> Void#>)
         // TODO Animate!
         self.currentChildViewController?.willMoveToParentViewController(nil)

@@ -36,6 +36,7 @@ class TouchControlView: PageSubView {
         }
     }
     
+    // FIXME fix proportionalResize
     var proportionalResize = false
     var widthResizingOnly = false
     
@@ -124,7 +125,7 @@ class TouchControlView: PageSubView {
     
     func handlePanTranslation(translation: CGPoint) -> CGRect {
         var controlableRect = getMovableRect()
-
+        
         switch selectedTouchControl {
         case .TopLeftCorner:
             controlableRect.origin.addPoint(translation)

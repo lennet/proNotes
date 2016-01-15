@@ -17,6 +17,6 @@ class CustomScrollView: UIScrollView {
     // MARK: - UIGestureRecognizerDelegate
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
+        return !( gestureRecognizer.isKindOfClass(UIPinchGestureRecognizer) && otherGestureRecognizer.isKindOfClass(UIPanGestureRecognizer))
     }
 }

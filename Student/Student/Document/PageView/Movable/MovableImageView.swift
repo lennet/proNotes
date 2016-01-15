@@ -37,7 +37,7 @@ class MovableImageView: MovableView, ImageSettingsDelegate {
 
     override func setUpSettingsViewController() {
         ImageSettingsViewController.delegate = self
-        DocumentSynchronizer.sharedInstance.settingsViewController?.currentSettingsType = .Image
+         SettingsViewController.sharedInstance?.currentSettingsType = .Image
     }
 
     // MARK: - ImageSettingsDelegate
@@ -45,7 +45,7 @@ class MovableImageView: MovableView, ImageSettingsDelegate {
     func removeImage() {
         removeFromSuperview()
         movableLayer?.removeFromPage()
-        DocumentSynchronizer.sharedInstance.settingsViewController?.currentSettingsType = .PageInfo
+         SettingsViewController.sharedInstance?.currentSettingsType = .PageInfo
     }
 
     func getImage() -> UIImage {

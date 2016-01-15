@@ -50,7 +50,7 @@ class MovableView: TouchControlView {
 
         } else {
             setDeselected()
-            DocumentSynchronizer.sharedInstance.settingsViewController?.currentSettingsType = .PageInfo
+            SettingsViewController.sharedInstance?.currentSettingsType = .PageInfo
         }
 
         setNeedsDisplay()

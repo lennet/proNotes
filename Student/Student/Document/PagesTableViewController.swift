@@ -80,6 +80,10 @@ class PagesTableViewController: UIViewController, DocumentSynchronizerDelegate, 
         // Dispose of any resources that can be recreated.
     }
 
+    func scroll(down: Bool) {
+        tableView.setContentOffset(CGPoint(x: 0, y: tableView.contentOffset.y+75*(down ? 1 : -1)), animated: true)
+    }
+    
     // MARK: - Screen Rotation
     
     override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {

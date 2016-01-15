@@ -76,7 +76,7 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
 
     @IBAction func handlePageInfoButtonPressed(sender: AnyObject) {
         PagesTableViewController.sharedInstance?.currentPageView()?.deselectSelectedSubview()
-        DocumentSynchronizer.sharedInstance.settingsViewController?.currentSettingsType = .PageInfo
+        SettingsViewController.sharedInstance?.currentSettingsType = .PageInfo
     }
 
     @IBAction func handleFullscreenToggleButtonPressed(sender: AnyObject) {
@@ -114,7 +114,7 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
 
     func showPage(index: Int) {
         PagesTableViewController.sharedInstance?.showPage(index)
-        DocumentSynchronizer.sharedInstance.settingsViewController?.setUpChildViewController(.PageInfo)
+         SettingsViewController.sharedInstance?.setUpChildViewController(.PageInfo)
     }
 
     // MARK: - DocumentSynchronizerDelegate
@@ -140,16 +140,69 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
 
     // MARK: - UIKeyCommands
 
+
+    
     // TODO add more commands
     override var keyCommands: [UIKeyCommand]? {
-        return [
-                UIKeyCommand(input: "+", modifierFlags: .Command, action: "handleAddPageButtonPressed:", discoverabilityTitle: "Add Page"),
-        ]
+        var commands = [                UIKeyCommand(input: UIKeyInputDownArrow, modifierFlags: .Command, action: "handleDownKeyPressed:", discoverabilityTitle: "Scroll Down"),
+            UIKeyCommand(input: UIKeyInputUpArrow, modifierFlags: .Command, action: "handleUpKeyPressed:", discoverabilityTitle: "Scroll Up")]
+        
+        if let settingsViewController = SettingsViewController.sharedInstance {
+            switch settingsViewController.currentSettingsType {
+            case .Image:
+                commands.append(UIKeyCommand(input: UIKeyInputRightArrow, modifierFlags: .Control, action: "handleRotateImageKeyPressed:", discoverabilityTitle: "Rotate Image Right"))
+                commands.append(UIKeyCommand(input: UIKeyInputLeftArrow, modifierFlags: .Control, action: "handleRotateImageKeyPressed:", discoverabilityTitle: "Rotate Image Left"))
+                break
+            default:
+                break
+            }
+        }
+        
+        if let _ = PagesTableViewController.sharedInstance?.currentPageView()?.selectedSubView as? MovableView {
+            commands.append(UIKeyCommand(input: UIKeyInputRightArrow, modifierFlags: .Command, action: "handleMoveMovableViewKeyPressed:", discoverabilityTitle: "Move Right"))
+            commands.append(UIKeyCommand(input: UIKeyInputLeftArrow, modifierFlags: .Command, action: "handleMoveMovableViewKeyPressed:", discoverabilityTitle: "Move Left"))
+            commands.append(UIKeyCommand(input: UIKeyInputUpArrow, modifierFlags: .Command, action: "handleMoveMovableViewKeyPressed:", discoverabilityTitle: "Move Up"))
+            commands.append(UIKeyCommand(input: UIKeyInputDownArrow, modifierFlags: .Command, action: "handleMoveMovableViewKeyPressed:", discoverabilityTitle: "Move Down"))
+        }
+        
+        return commands
     }
-
-    func selectTab(sender: UIKeyCommand) {
-        let selectedTab = sender.input
-        print(selectedTab)
+    
+    func handleRotateImageKeyPressed(sender: UIKeyCommand) {
+        if let imageSettingsViewController = SettingsViewController.sharedInstance?.currentChildViewController as? ImageSettingsViewController {
+            imageSettingsViewController.rotateImage(sender.input == UIKeyInputRightArrow ? .Right : .Left)
+        }
     }
-
+    
+    func handleDownKeyPressed(sender: UIKeyCommand) {
+        PagesTableViewController.sharedInstance?.scroll(true)
+    }
+    
+    func handleUpKeyPressed(sender: UIKeyCommand) {
+        PagesTableViewController.sharedInstance?.scroll(false)
+    }
+    
+    func handleMoveMovableViewKeyPressed(sender: UIKeyCommand) {
+        guard let movableView = PagesTableViewController.sharedInstance?.currentPageView()?.selectedSubView as? MovableView else {
+            return
+        }
+        var translation = CGPointZero
+        switch sender.input {
+        case UIKeyInputRightArrow:
+            translation = CGPoint(x: 10, y: 0)
+            break
+        case UIKeyInputLeftArrow:
+            translation = CGPoint(x: -10, y: 0)
+            break
+        case UIKeyInputDownArrow:
+            break
+        case UIKeyInputUpArrow:
+            break
+        default:
+            break
+        }
+        movableView.selectedTouchControl = .Center
+        movableView.handlePanTranslation(translation)
+        movableView.handlePanEnded()
+    }
 }

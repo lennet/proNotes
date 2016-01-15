@@ -19,9 +19,6 @@ class DocumentSynchronizer: NSObject {
     static let sharedInstance = DocumentSynchronizer()
     var delegates = [DocumentSynchronizerDelegate]()
 
-    // TODO Use inout functions instead of having multiple document objects!
-
-    var settingsViewController: SettingsViewController?
     var currentPage: DocumentPage? {
         didSet {
             if currentPage != nil {
