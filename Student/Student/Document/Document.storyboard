@@ -486,13 +486,6 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5OQ-aF-b80" userLabel="cropButton">
-                                                <rect key="frame" x="283" y="128" width="34" height="34"/>
-                                                <state key="normal" image="cropIcon"/>
-                                                <connections>
-                                                    <action selector="handleCropButtonPressed:" destination="iBA-lP-0Ke" eventType="touchUpInside" id="tm9-By-cX4"/>
-                                                </connections>
-                                            </button>
                                             <button hidden="YES" opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zYc-iz-mXQ" userLabel="cancelButton">
                                                 <rect key="frame" x="284" y="128" width="32" height="32"/>
                                                 <state key="normal" image="cancel"/>
@@ -507,23 +500,80 @@
                                                     <action selector="handleFinishButtonPressed:" destination="iBA-lP-0Ke" eventType="touchUpInside" id="9dg-y8-vSJ"/>
                                                 </connections>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5OQ-aF-b80" userLabel="cropButton">
+                                                <rect key="frame" x="283" y="128" width="34" height="34"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="34" id="4Kb-gd-6Xl"/>
+                                                    <constraint firstAttribute="width" constant="34" id="BMn-0T-dUz"/>
+                                                </constraints>
+                                                <state key="normal" image="cropIcon"/>
+                                                <variation key="default">
+                                                    <mask key="constraints">
+                                                        <exclude reference="4Kb-gd-6Xl"/>
+                                                        <exclude reference="BMn-0T-dUz"/>
+                                                    </mask>
+                                                </variation>
+                                                <connections>
+                                                    <action selector="handleCropButtonPressed:" destination="iBA-lP-0Ke" eventType="touchUpInside" id="tm9-By-cX4"/>
+                                                </connections>
+                                            </button>
+                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QAq-aM-Twn" userLabel="rightLayoutHelper">
+                                                <rect key="frame" x="317" y="128" width="283" height="0.0"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" id="Uqd-jl-hUU"/>
+                                                </constraints>
+                                            </view>
+                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="03Z-Os-Q4s" userLabel="leftLayoutHelper">
+                                                <rect key="frame" x="0.0" y="128" width="283" height="0.0"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" id="Z6d-u6-AeX"/>
+                                                </constraints>
+                                            </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qpX-Me-Dc9">
+                                                <rect key="frame" x="126.5" y="128" width="30" height="33"/>
+                                                <state key="normal" image="rotateLeft"/>
+                                                <connections>
+                                                    <action selector="handleRotateLeftButtonPressed:" destination="iBA-lP-0Ke" eventType="touchUpInside" id="pJW-mO-Q6v"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ehb-yg-ySO">
+                                                <rect key="frame" x="444.5" y="128" width="29" height="33"/>
+                                                <state key="normal" image="rotateRight"/>
+                                                <connections>
+                                                    <action selector="handleRotateRightButtonPressed:" destination="iBA-lP-0Ke" eventType="touchUpInside" id="x3d-uF-YzX"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="5OQ-aF-b80" firstAttribute="centerX" secondItem="BFX-Yb-7P9" secondAttribute="centerX" id="50Z-lZ-KIs"/>
+                                            <constraint firstItem="5OQ-aF-b80" firstAttribute="leading" secondItem="03Z-Os-Q4s" secondAttribute="trailing" id="4kk-Ll-JRf"/>
                                             <constraint firstItem="zYc-iz-mXQ" firstAttribute="centerX" secondItem="BFX-Yb-7P9" secondAttribute="centerX" id="5ZS-K6-Nba"/>
+                                            <constraint firstItem="QAq-aM-Twn" firstAttribute="top" secondItem="5OQ-aF-b80" secondAttribute="top" id="5pm-nw-fb1"/>
+                                            <constraint firstItem="qpX-Me-Dc9" firstAttribute="centerY" secondItem="5OQ-aF-b80" secondAttribute="centerY" id="7Oe-tI-QjJ"/>
+                                            <constraint firstAttribute="trailing" secondItem="QAq-aM-Twn" secondAttribute="trailing" id="AqO-21-mAV"/>
                                             <constraint firstItem="BFX-Yb-7P9" firstAttribute="top" secondItem="85W-US-ydQ" secondAttribute="top" id="FSD-Dg-XUr"/>
+                                            <constraint firstAttribute="trailing" secondItem="03Z-Os-Q4s" secondAttribute="trailing" id="Fjx-mg-OgP"/>
+                                            <constraint firstItem="03Z-Os-Q4s" firstAttribute="top" secondItem="5OQ-aF-b80" secondAttribute="top" id="H2o-bJ-1bu"/>
                                             <constraint firstItem="5OQ-aF-b80" firstAttribute="centerX" secondItem="BFX-Yb-7P9" secondAttribute="centerX" id="LQq-bh-b1t"/>
+                                            <constraint firstItem="QAq-aM-Twn" firstAttribute="leading" secondItem="5OQ-aF-b80" secondAttribute="trailing" id="Nhf-GL-6TI"/>
                                             <constraint firstItem="0r9-Fp-Ker" firstAttribute="top" secondItem="BFX-Yb-7P9" secondAttribute="bottom" id="Ov6-RL-ME4"/>
+                                            <constraint firstItem="ehb-yg-ySO" firstAttribute="centerY" secondItem="5OQ-aF-b80" secondAttribute="centerY" id="Xf8-Fr-5a2"/>
+                                            <constraint firstItem="ehb-yg-ySO" firstAttribute="centerX" secondItem="QAq-aM-Twn" secondAttribute="centerX" id="YV1-sx-Jyo"/>
                                             <constraint firstItem="5OQ-aF-b80" firstAttribute="top" secondItem="BFX-Yb-7P9" secondAttribute="bottom" id="Zjv-YC-cWw"/>
                                             <constraint firstItem="0r9-Fp-Ker" firstAttribute="centerX" secondItem="BFX-Yb-7P9" secondAttribute="centerX" id="eSa-XM-ANP"/>
+                                            <constraint firstItem="qpX-Me-Dc9" firstAttribute="centerX" secondItem="03Z-Os-Q4s" secondAttribute="centerX" id="od7-Sl-qTb"/>
                                             <constraint firstItem="zYc-iz-mXQ" firstAttribute="top" secondItem="BFX-Yb-7P9" secondAttribute="bottom" id="pRx-Sl-g5P"/>
+                                            <constraint firstItem="03Z-Os-Q4s" firstAttribute="leading" secondItem="85W-US-ydQ" secondAttribute="leading" id="pe5-3C-goT"/>
                                             <constraint firstAttribute="trailing" secondItem="BFX-Yb-7P9" secondAttribute="trailing" id="qsQ-iA-shk"/>
+                                            <constraint firstItem="qpX-Me-Dc9" firstAttribute="centerY" secondItem="03Z-Os-Q4s" secondAttribute="centerY" id="yea-Yw-pu7"/>
                                             <constraint firstItem="BFX-Yb-7P9" firstAttribute="leading" secondItem="85W-US-ydQ" secondAttribute="leading" id="zoT-rV-ax7"/>
                                         </constraints>
                                         <variation key="default">
                                             <mask key="constraints">
-                                                <exclude reference="50Z-lZ-KIs"/>
+                                                <exclude reference="Fjx-mg-OgP"/>
+                                                <exclude reference="yea-Yw-pu7"/>
                                             </mask>
                                         </variation>
                                     </view>
@@ -555,6 +605,8 @@
                         <outlet property="finishButton" destination="0r9-Fp-Ker" id="iag-Rw-Bd2"/>
                         <outlet property="finishButtonConstraint" destination="eSa-XM-ANP" id="nm5-pu-HOi"/>
                         <outlet property="imageViewHeightConstraint" destination="MNs-8f-Yg9" id="LWj-HK-zRP"/>
+                        <outlet property="rotateLeftButton" destination="qpX-Me-Dc9" id="zHB-aD-57x"/>
+                        <outlet property="rotateRightButton" destination="ehb-yg-ySO" id="N1d-Tw-Pfo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TCI-vs-m9q" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1106,7 +1158,7 @@
                                 </connections>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                        <color key="backgroundColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="2z1-xO-aEk" secondAttribute="trailing" id="620-OW-Pxp"/>
                             <constraint firstItem="2z1-xO-aEk" firstAttribute="leading" secondItem="Y5X-wn-dN3" secondAttribute="leading" id="XEi-Zm-UwT"/>
@@ -1349,6 +1401,8 @@
         <image name="markerIcon" width="30" height="55"/>
         <image name="penIcon" width="27" height="56"/>
         <image name="rightAlignment" width="31" height="32"/>
+        <image name="rotateLeft" width="30" height="33"/>
+        <image name="rotateRight" width="29" height="33"/>
         <image name="visibleIcon" width="21" height="14"/>
     </resources>
     <inferredMetricsTieBreakers>

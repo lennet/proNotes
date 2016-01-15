@@ -17,6 +17,30 @@ extension UIImage {
         return nil
     }
     
+    func rotateImage(rotation: UIImageOrientation) -> UIImage? {
+        guard let CGImage = self.CGImage else {
+            return nil
+        }
+        
+        var newSize = size
+        
+        switch rotation {
+        case .Left, .Right:
+            newSize = CGSize(width: newSize.height, height: newSize.width)
+            break
+        default:
+            // nothig to do
+            break
+        }
+        
+        UIGraphicsBeginImageContext(newSize)
+        UIImage(CGImage: CGImage, scale: self.scale, orientation: rotation).drawAtPoint(CGPointZero)
+        let rotatedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return rotatedImage
+    }
+    
     func sizeToFit(size: CGSize) -> CGSize {
         let widthRatio = self.size.width/size.width
         let heightRatio = self.size.height/size.height 

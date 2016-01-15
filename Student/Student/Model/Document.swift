@@ -37,7 +37,7 @@ class Document: UIDocument {
 
             if let directoryFileWrapper = NSKeyedUnarchiver.unarchiveObjectWithData(directoryData) as? NSFileWrapper {
                 guard let fileWrappers = directoryFileWrapper.fileWrappers else {
-                    // todo handle Error
+                    // TODO handle Error
                     return
                 }
                 for fileWrapper in fileWrappers {

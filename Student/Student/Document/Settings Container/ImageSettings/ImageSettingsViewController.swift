@@ -22,7 +22,8 @@ class ImageSettingsViewController: UIViewController {
     @IBOutlet weak var finishButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var cropButton: UIButton!
-
+    @IBOutlet weak var rotateRightButton: UIButton! 
+    @IBOutlet weak var rotateLeftButton: UIButton!
     @IBOutlet weak var cancelButtonConstraint: NSLayoutConstraint!
     @IBOutlet weak var finishButtonConstraint: NSLayoutConstraint!
 
@@ -54,6 +55,8 @@ class ImageSettingsViewController: UIViewController {
             cancelButton.hidden = false
         } else {
             cropButton.hidden = true
+            rotateLeftButton.hidden = true
+            rotateRightButton.hidden = true
         }
 
         UIView.animateWithDuration(0.2, delay: 0, usingSpringWithDamping: 0.85, initialSpringVelocity: 5, options: .CurveEaseInOut, animations: {
@@ -62,13 +65,24 @@ class ImageSettingsViewController: UIViewController {
             self.finishButton.alpha = cropMode ? 1 : 0
             self.cancelButton.alpha = cropMode ? 1 : 0
             self.cropButton.alpha = cropMode ? 0 : 1
+            self.rotateRightButton.alpha = cropMode ? 0 : 1
+            self.rotateLeftButton.alpha = cropMode ? 0 : 1
         }, completion: {
             (Bool) -> Void in
             self.cropButton.hidden = cropMode
+            self.rotateLeftButton.hidden = cropMode
+            self.rotateRightButton.hidden = cropMode
             self.finishButton.hidden = !cropMode
             self.cancelButton.hidden = !cropMode
 
         })
+    }
+    
+    func rotateImage(rotation: UIImageOrientation) {
+        if let image = cropImageView.image?.rotateImage(rotation) {
+            cropImageView.image = image
+            ImageSettingsViewController.delegate?.updateImage(image)
+        }
     }
 
     // MARK: - Actions
@@ -82,6 +96,14 @@ class ImageSettingsViewController: UIViewController {
         updateButtonVisibility(false)
     }
 
+    @IBAction func handleRotateLeftButtonPressed(sender: AnyObject) {
+        rotateImage(.Left)
+    }
+    
+    @IBAction func handleRotateRightButtonPressed(sender: AnyObject) {
+        rotateImage(.Right)
+    }
+    
     @IBAction func handleCropButtonPressed(sender: AnyObject) {
         cropImageView.isEditing = true
         updateButtonVisibility(true)

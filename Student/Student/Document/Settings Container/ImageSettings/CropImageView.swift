@@ -52,6 +52,7 @@ class CropImageView: TouchControlView {
     }
 
     var overlayRect: CGRect = CGRectZero
+    var animateLayoutChanges = true
 
     override func setUpEditMode() {
         setUpPanRecognizer()
@@ -63,8 +64,12 @@ class CropImageView: TouchControlView {
                 let ratio = getImageRatio()
 
                 constraint.constant = (image!.size.height * ratio) + topPadding + bottomPadding
-                layoutIfNeeded()
-                superview?.layoutIfNeeded()
+
+                UIView.animateWithDuration((animateLayoutChanges ? 0.2 : 0), delay: 0, usingSpringWithDamping: 0.85, initialSpringVelocity: 5, options: .CurveEaseInOut, animations: {
+                () -> Void in
+                    self.layoutIfNeeded()
+                    self.superview?.layoutIfNeeded()
+                }, completion: nil)
 
                 overlayRect = getImageRect()
                 setNeedsDisplay()

@@ -54,20 +54,19 @@ class MovableImageView: MovableView, ImageSettingsDelegate {
     
     func updateImage(image: UIImage) {
         let heightRatio = imageView.bounds.height/self.image.size.height
-        let widthRatio = imageView.bounds.width/self.image.size.height
+        let widthRatio = imageView.bounds.width/self.image.size.width
         imageView.image = image
         
         if let imageLayer = movableLayer as? ImageLayer {
             imageLayer.image = image
         }
-        
-        self.image = image
-        // TODO something is going wrong here !
-        frame.size.height = (imageView.bounds.height*heightRatio)+2*controlLength
-        frame.size.width = (imageView.bounds.width*widthRatio)+2*controlLength
-        movableLayer?.size = frame.size
-        saveChanges()
 
+        self.image = image
+        frame.size.height = (image.size.height*heightRatio)+2*controlLength
+        frame.size.width = (image.size.width*widthRatio)+2*controlLength
+        movableLayer?.size = frame.size
+        
+        saveChanges()
     }
 
 }

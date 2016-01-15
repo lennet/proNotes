@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PagesTableViewController: UIViewController, DocumentSynchronizerDelegate, UIScrollViewDelegate {
+class PagesTableViewController: UIViewController, DocumentSynchronizerDelegate, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource {
 
     static var sharedInstance: PagesTableViewController?
     
@@ -33,19 +33,15 @@ class PagesTableViewController: UIViewController, DocumentSynchronizerDelegate, 
         tableView.panGestureRecognizer.minimumNumberOfTouches = 2
         DocumentSynchronizer.sharedInstance.addDelegate(self)
         document = DocumentSynchronizer.sharedInstance.document
-    }
-
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
         setUpTableView()
+        loadTableView()
         setUpScrollView()
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        setUpTableView()
-        loadTableView()
-        print(tableView.frame)
+//        loadTableView()
+        setUpScrollView()
     }
 
     deinit {
@@ -61,12 +57,20 @@ class PagesTableViewController: UIViewController, DocumentSynchronizerDelegate, 
     }
     
     func setUpScrollView() {
-        scrollView.minimumZoomScale = 0.3
-        scrollView.maximumZoomScale = 8
+        let minZoomScale = scrollView.bounds.width/tableView.bounds.width*0.9
+        print(minZoomScale)
+        scrollView.minimumZoomScale = minZoomScale
+        scrollView.maximumZoomScale = minZoomScale*5
+        scrollView.zoomScale = minZoomScale
         scrollView.panGestureRecognizer.minimumNumberOfTouches = 2
     }
     
     func setUpTableView() {
+//        tableView = UITableView(frame: CGRect(origin: CGPointZero, size: CGSize.dinA4())) //TODO add default padding
+//        tableView.dataSource = self
+//        tableView.delegate = self
+//        scrollView.addSubview(tableView)
+        
         tableViewWidth?.constant = CGSize.dinA4().width;
         view.layoutSubviews()
     }

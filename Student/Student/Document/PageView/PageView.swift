@@ -252,7 +252,7 @@ class PageView: UIView, UIGestureRecognizerDelegate {
 
     func handleTap(tapGestureRecognizer: UITapGestureRecognizer) {
         if selectedSubView != nil {
-            // todo improve
+            // TODO improve
             deselectSelectedSubview()
         } else {
             let location = tapGestureRecognizer.locationInView(self)
