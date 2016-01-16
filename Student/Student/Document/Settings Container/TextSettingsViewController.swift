@@ -22,6 +22,8 @@ protocol TextSettingsDelegate {
     func disableAutoCorrect(disable: Bool)
 }
 
+// TODO finish styling
+
 class TextSettingsViewController: SettingsBaseViewController, UIPickerViewDataSource, UIPickerViewDelegate {
 
     enum FontPickerRows: Int{
@@ -75,8 +77,6 @@ class TextSettingsViewController: SettingsBaseViewController, UIPickerViewDataSo
     }
 
     // MARK: - UIPickerViewDataSource
-
-    // TODO use enums instead of hardcoded rows
 
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return FontPickerRows.allValues.count

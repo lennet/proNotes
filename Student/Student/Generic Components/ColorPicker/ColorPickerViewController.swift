@@ -74,7 +74,6 @@ class ColorPickerViewController: UIViewController, UICollectionViewDataSource, U
         return CGSizeMake(collectionView.bounds.height / 1.5, collectionView.bounds.height / 1.5)
     }
 
-
     // MARK: - UICollectionViewDelegate
 
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {

@@ -113,6 +113,11 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
         }
     }
 
+    @IBAction func unwind(sender: AnyObject) {
+    
+        navigationController?.popViewControllerAnimated(true)
+    }
+
     // MARK: - PagesOverViewDelegate
 
     func showPage(index: Int) {

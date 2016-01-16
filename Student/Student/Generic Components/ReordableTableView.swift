@@ -59,7 +59,6 @@ class ReordableTableView: UITableView {
             center.y = location.y
             currentSnapShowView.center = center
             if !indexPath.isEqual(sourceIndexPath) {
-                // TODO move changes to extra method
                 reordableDelegate?.didSwapElements((sourceIndexPath?.row)!, secondIndex: indexPath.row)
                 moveRowAtIndexPath(sourceIndexPath!, toIndexPath: indexPath)
                 sourceIndexPath = indexPath
