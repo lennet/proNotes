@@ -54,10 +54,7 @@ class PagesTableViewController: UIViewController, DocumentSynchronizerDelegate, 
 
     func loadTableView() {
         tableView.reloadData()
-        tableView.setNeedsLayout()
-        tableView.layoutIfNeeded()
-        tableView.reloadData()
-        layoutTableView()
+        layoutDidChange()
     }
     
     func setUpScrollView() {
