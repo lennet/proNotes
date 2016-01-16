@@ -77,6 +77,10 @@ class DocumentSynchronizer: NSObject {
         }
     }
 
+    func save() {
+        document?.updateChangeCount(.Done)
+    }
+    
     // MARK: - Delegate Handling
 
     func addDelegate(delegate: DocumentSynchronizerDelegate) {
@@ -90,7 +94,7 @@ class DocumentSynchronizer: NSObject {
     }
 
     func informDelegateToUpdateDocument(document: Document, forceReload: Bool) {
-        document.updateChangeCount(.Done)
+        save()
         for delegate in delegates {
             delegate.updateDocument(document, forceReload: forceReload)
         }

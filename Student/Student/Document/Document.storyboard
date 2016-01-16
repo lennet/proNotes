@@ -9,7 +9,7 @@
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
-        <!--Title-->
+        <!--Document View Controller-->
         <scene sceneID="rpx-2t-i6L">
             <objects>
                 <viewController id="mNn-FC-EJF" customClass="DocumentViewController" customModule="Student" customModuleProvider="target" sceneMemberID="viewController">
@@ -68,7 +68,8 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="Title" id="kk1-F7-vWG">
+                    <navigationItem key="navigationItem" id="kk1-F7-vWG">
+                        <nil key="title"/>
                         <leftBarButtonItems>
                             <barButtonItem title="Documents" id="vAj-VS-OJp">
                                 <connections>
@@ -101,6 +102,27 @@
                                 </connections>
                             </barButtonItem>
                         </leftBarButtonItems>
+                        <view key="titleView" contentMode="scaleToFill" id="DCF-1C-qNS">
+                            <rect key="frame" x="387" y="5.5" width="87" height="33"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Title" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DeR-PR-STL">
+                                    <rect key="frame" x="0.0" y="0.0" width="87" height="33"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                    <connections>
+                                        <outlet property="delegate" destination="mNn-FC-EJF" id="W1o-ds-MqE"/>
+                                    </connections>
+                                </textField>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="DeR-PR-STL" secondAttribute="trailing" id="4yH-Rj-c5j"/>
+                                <constraint firstAttribute="bottom" secondItem="DeR-PR-STL" secondAttribute="bottom" id="dvA-3V-crE"/>
+                                <constraint firstItem="DeR-PR-STL" firstAttribute="top" secondItem="DCF-1C-qNS" secondAttribute="top" id="jqP-t5-G7O"/>
+                                <constraint firstItem="DeR-PR-STL" firstAttribute="leading" secondItem="DCF-1C-qNS" secondAttribute="leading" id="lRP-On-aPX"/>
+                            </constraints>
+                        </view>
                         <rightBarButtonItems>
                             <barButtonItem image="fullscreenOn" id="nxV-hM-aPD">
                                 <connections>
@@ -120,6 +142,7 @@
                     <connections>
                         <outlet property="pagesOverviewWidthConstraint" destination="ISp-dr-FCw" id="Kh0-oa-KXW"/>
                         <outlet property="settingsWidthConstraint" destination="8cS-CW-1xo" id="VCP-X2-Sod"/>
+                        <outlet property="titleTextField" destination="DeR-PR-STL" id="sPx-kb-eA2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QeH-aA-dmU" userLabel="First Responder" sceneMemberID="firstResponder"/>

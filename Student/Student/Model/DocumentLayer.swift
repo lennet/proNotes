@@ -16,7 +16,6 @@ enum DocumentLayerType: Int {
     case Plot = 5
 }
 
-
 class DocumentLayer {
     var index: Int
     var type: DocumentLayerType

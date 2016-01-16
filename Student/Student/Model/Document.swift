@@ -10,7 +10,7 @@ import UIKit
 
 class Document: UIDocument {
 
-    var name = ""
+    var name = "Title"
     var pages = [DocumentPage]()
     var url: NSURL
 
@@ -19,11 +19,23 @@ class Document: UIDocument {
         super.init(fileURL: url)
     }
 
+    func getPropertiesDict() -> [String:AnyObject] {
+        return ["name": name]
+    }
+    
+    // TODO Cleanup
+    
     override func contentsForType(typeName: String) throws -> AnyObject {
-        var fileWrappers: [String:NSFileWrapper] = [String: NSFileWrapper]()
+        var pageWrappers: [String:NSFileWrapper] = [String: NSFileWrapper]()
         for page in pages {
-            fileWrappers[String(page.index)] = page.getFileWrapper()
+            pageWrappers[String(page.index)] = page.getFileWrapper()
         }
+        let pagesData = NSKeyedArchiver.archivedDataWithRootObject(pageWrappers)
+        
+        let propertiesData = NSKeyedArchiver.archivedDataWithRootObject(getPropertiesDict())
+        
+        let fileWrappers :[String: NSFileWrapper] = ["pages": NSFileWrapper(regularFileWithContents: pagesData), "properties": NSFileWrapper(regularFileWithContents: propertiesData)]
+        
         let contents = NSFileWrapper(directoryWithFileWrappers: fileWrappers)
         let directoryData = NSKeyedArchiver.archivedDataWithRootObject(contents)
 //        let compressedData = directoryData.compress(.Compress)
@@ -40,20 +52,38 @@ class Document: UIDocument {
                     // TODO handle Error
                     return
                 }
+                
                 for fileWrapper in fileWrappers {
-                    let page = DocumentPage(fileWrapper: fileWrapper.1, index: Int(fileWrapper.0)!)
-                    pages.append(page)
-                    // TODO handle Corrupt Page Indexes
+                    if fileWrapper.0 == "properties" {
+                        if let propertiesData = fileWrapper.1.regularFileContents {
+                            if let properties = NSKeyedUnarchiver.unarchiveObjectWithData(propertiesData) as?   [String:AnyObject] {
+                                setUpDocumentWithProperties(properties)
+                            }
+                        }
+                    } else if fileWrapper.0 == "pages" {
+                        if let pagesData = fileWrapper.1.regularFileContents {
+                            if let pageWrappers = NSKeyedUnarchiver.unarchiveObjectWithData(pagesData) as? [String : NSFileWrapper]{
+                                for pageWrapper in pageWrappers {
+                                    let page = DocumentPage(fileWrapper: pageWrapper.1, index: Int(pageWrapper.0)!)
+                                    pages.append(page)
+                                    // TODO handle Corrupt Page Indexes
+                                }
+                            }
+                        }
+                    }
                 }
                 pages.sortInPlace({
                     (firstPage, secondPage) -> Bool in
                     return firstPage.index < secondPage.index
                 })
-
             } else {
                 _ = NSKeyedUnarchiver.unarchiveObjectWithData(directoryData)
             }
         }
+    }
+    
+    func setUpDocumentWithProperties(properties: [String: AnyObject]){
+        name = (properties["name"] as? String) ?? name
     }
 
     func addPDF(url: NSURL) {

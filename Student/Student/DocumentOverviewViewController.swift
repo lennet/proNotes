@@ -34,6 +34,9 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
         
         urls = try! NSFileManager.defaultManager().contentsOfDirectoryAtURL(documentUrl, includingPropertiesForKeys: nil, options: .SkipsHiddenFiles)
         
+        if urls.count == 0 {
+            handleNewButtonPressed(self)
+        }
     }
     
     
@@ -82,7 +85,7 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
                 DocumentSynchronizer.sharedInstance.document = document
             }
         }
-        performSegueWithIdentifier("test", sender: nil)
+        recentlyUsedCollectionView.reloadData()
     }
     
     // MARK: UICollectionViewDataSource

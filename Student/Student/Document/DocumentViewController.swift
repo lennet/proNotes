@@ -8,11 +8,11 @@
 
 import UIKit
 
-class DocumentViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, PagesOverviewTableViewCellDelegate, DocumentSynchronizerDelegate {
+class DocumentViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, PagesOverviewTableViewCellDelegate, DocumentSynchronizerDelegate, UITextFieldDelegate {
 
     @IBOutlet weak var settingsWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var pagesOverviewWidthConstraint: NSLayoutConstraint!
-
+    @IBOutlet weak var titleTextField: UITextField!
     
     final let defaultSettingsWidth: CGFloat = 240
     final let defaultPagesOverViewWidth: CGFloat = 180
@@ -27,6 +27,7 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
         DocumentSynchronizer.sharedInstance.addDelegate(self)
         document = DocumentSynchronizer.sharedInstance.document
         PagesTableViewController.sharedInstance?.document = document
+        titleTextField.text = document?.name
     }
 
     deinit {
@@ -128,6 +129,7 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
     // MARK: - DocumentSynchronizerDelegate
     func updateDocument(document: Document, forceReload: Bool) {
         self.document = document
+        titleTextField.text = document.name
     }
 
     func currentPageDidChange(page: DocumentPage) {
@@ -212,5 +214,22 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
         movableView.selectedTouchControl = .Center
         movableView.handlePanTranslation(translation)
         movableView.handlePanEnded()
+    }
+    
+    // MARK - UITextfieldDelegate
+    
+    func textFieldDidBeginEditing(textField: UITextField) {
+        textField.borderStyle = .RoundedRect
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func textFieldDidEndEditing(textField: UITextField) {
+        DocumentSynchronizer.sharedInstance.document?.name = textField.text ?? DocumentSynchronizer.sharedInstance.document!.name
+        DocumentSynchronizer.sharedInstance.save()
+        textField.borderStyle = .None
     }
 }
