@@ -24,6 +24,14 @@ protocol TextSettingsDelegate {
 
 class TextSettingsViewController: SettingsBaseViewController, UIPickerViewDataSource, UIPickerViewDelegate {
 
+    enum FontPickerRows: Int{
+        case Families
+        case Names
+        case Sizes
+        
+        static let allValues = [Families, Names, Sizes]
+    }
+    
     @IBOutlet weak var fontPicker: UIPickerView!
     static var delegate: TextSettingsDelegate?
 
@@ -71,48 +79,55 @@ class TextSettingsViewController: SettingsBaseViewController, UIPickerViewDataSo
     // TODO use enums instead of hardcoded rows
 
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
-        return 3
+        return FontPickerRows.allValues.count
     }
 
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        switch component {
-        case 0:
-            return fontFamilies.count
-        case 1:
-            return fontNames.count
-        case 2:
-            return fontSizes.count
-        default:
-            return 0
+        if let fontPickerRow = FontPickerRows(rawValue: component) {
+            switch fontPickerRow {
+            case .Families:
+                return fontFamilies.count
+            case .Names:
+                return fontNames.count
+            case .Sizes:
+                return fontSizes.count
+            }
         }
-
+        print("Not supported compontentnumber for Fontpicker: \(component)")
+        return 0
     }
 
     func getTitle(row: Int, forComponent component: Int) -> String {
-        switch component {
-        case 0:
-            return fontFamilies[row]
-        case 1:
-            return fontNames[row].stringByReplacingOccurrencesOfString(fontFamilies[selectedRow], withString: "")
-        case 2:
-            return String(fontSizes[row])
-        default:
-            return ""
+        if let fontPickerRow = FontPickerRows(rawValue: component) {
+            switch fontPickerRow {
+            case .Families:
+                return fontFamilies[row]
+            case .Names:
+                return fontNames[row].stringByReplacingOccurrencesOfString(fontFamilies[selectedRow], withString: "")
+            case .Sizes:
+                return String(fontSizes[row])
+            }
         }
+        print("Not supported compontentnumber for Fontpicker: \(component)")
+        return ""
     }
 
     func getFont(row: Int, forComponent component: Int) -> UIFont {
         let fontSize = UIFont.systemFontSize()
-        switch component {
-        case 0:
-            let fontName = fontFamilies[row]
-            return UIFont(name: fontName, size: fontSize)!
-        case 1:
-            let fontName = fontNames[row]
-            return UIFont(name: fontName, size: fontSize)!
-        default:
-            return UIFont.systemFontOfSize(fontSize)
+        if let fontPickerRow = FontPickerRows(rawValue: component) {
+            switch fontPickerRow {
+            case .Families:
+                let fontName = fontFamilies[row]
+                return UIFont(name: fontName, size: fontSize)!
+            case .Names:
+                let fontName = fontNames[row]
+                return UIFont(name: fontName, size: fontSize)!
+            default:
+                return UIFont.systemFontOfSize(fontSize)
+            }
         }
+        print("Not supported compontentnumber for Fontpicker: \(component)")
+        return UIFont.systemFontOfSize(fontSize)
     }
 
     func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView?) -> UIView {

@@ -45,6 +45,7 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
     // MARK: - Actions
 
     @IBAction func handleAddPageButtonPressed(sender: AnyObject) {
+        // TODO only reload last index, not full tableview
         document?.addEmptyPage()
         DocumentSynchronizer.sharedInstance.document = document
     }
