@@ -163,7 +163,7 @@
                                     <action selector="handleFullscreenToggleButtonPressed:" destination="mNn-FC-EJF" id="KM3-lV-VkZ"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Info" id="fcn-g7-TEP">
+                            <barButtonItem image="layerIcon" id="fcn-g7-TEP">
                                 <connections>
                                     <action selector="handlePageInfoButtonPressed:" destination="mNn-FC-EJF" id="XQ1-8D-Jx9"/>
                                 </connections>
@@ -213,7 +213,7 @@
                                                     </mask>
                                                 </variation>
                                             </label>
-                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="58" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="CRY-IR-5Ou">
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="58" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="CRY-IR-5Ou" customClass="ReordableTableView" customModule="Student" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="282" width="600" height="128"/>
                                                 <color key="backgroundColor" red="0.8784313725490196" green="0.8784313725490196" blue="0.8784313725490196" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
@@ -839,7 +839,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pmq-9h-XHr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1437" y="526"/>
+            <point key="canvasLocation" x="1474" y="483"/>
         </scene>
         <!--Drawing Settings View Controller-->
         <scene sceneID="2wg-7O-rWI">
@@ -1106,8 +1106,8 @@
                                                             <rect key="frame" x="0.0" y="0.0" width="480" height="120"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
-                                                                <view clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EAC-hF-dGJ" customClass="PageView" customModule="Student" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="-7" width="480" height="104"/>
+                                                                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EAC-hF-dGJ" customClass="PageView" customModule="Student" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="8" width="480" height="104"/>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 </view>
                                                             </subviews>
@@ -1182,7 +1182,7 @@
         <scene sceneID="nUp-gk-Tms">
             <objects>
                 <tableViewController id="Opm-Dr-mgF" customClass="PagesOverviewTableViewController" customModule="Student" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="127" sectionHeaderHeight="28" sectionFooterHeight="28" id="thq-kh-QdA">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="127" sectionHeaderHeight="28" sectionFooterHeight="28" id="thq-kh-QdA" customClass="ReordableTableView" customModule="Student" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="180" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
@@ -1398,6 +1398,7 @@
         <image name="finishIcon" width="34" height="25"/>
         <image name="fullscreenOn" width="25" height="25"/>
         <image name="justifiedAlignment" width="31" height="32"/>
+        <image name="layerIcon" width="34" height="25"/>
         <image name="leftAlignment" width="31" height="32"/>
         <image name="markerIcon" width="30" height="55"/>
         <image name="penIcon" width="27" height="56"/>

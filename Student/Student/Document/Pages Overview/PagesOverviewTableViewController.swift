@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PagesOverviewTableViewController: UITableViewController, DocumentSynchronizerDelegate {
+class PagesOverviewTableViewController: UITableViewController, DocumentSynchronizerDelegate, ReordableTableViewDelegate {
 
     var shouldReload = true
 
@@ -26,6 +26,7 @@ class PagesOverviewTableViewController: UITableViewController, DocumentSynchroni
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        (tableView as? ReordableTableView)?.reordableDelegate = self
         DocumentSynchronizer.sharedInstance.addDelegate(self)
     }
 
@@ -38,6 +39,12 @@ class PagesOverviewTableViewController: UITableViewController, DocumentSynchroni
         // Dispose of any resources that can be recreated.
     }
 
+    // MARK: - ReordableTableViewDelegate
+    
+    func didSwapElements(firstIndex: Int, secondIndex: Int) {
+        // TODO
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
