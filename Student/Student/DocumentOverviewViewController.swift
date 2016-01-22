@@ -13,6 +13,8 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
     @IBOutlet weak var recentlyUsedCollectionView: UICollectionView!
     @IBOutlet weak var allDocumentsCollectionView: UICollectionView!
     
+    private final let showDocumentSegueIdentifier = "showDocumentSegue"
+    
     var fileManager: FileManager {
         get {
             return FileManager.sharedInstance
@@ -36,30 +38,7 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
     }
     
 
-    // MARK: - Navigation
-    
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let cell = sender as? UICollectionViewCell {
-            var indexPath = recentlyUsedCollectionView.indexPathForCell(cell)
-            if indexPath == nil {
-                indexPath = allDocumentsCollectionView.indexPathForCell(cell)
-            }
-            
-            guard let finalIndexPath = indexPath else {
-                return
-            }
-            
-            let fileUrl = fileManager.objects[finalIndexPath.row].fileURL
-            let document = Document(fileURL: fileUrl)
-            document.openWithCompletionHandler({
-                (success) -> Void in
-                if success {
-                    DocumentSynchronizer.sharedInstance.document = document
-                }
-            })            
-        }
-    }
+    // MARK: - Actions
     
     @IBAction func handleImportButtonPressed(sender: AnyObject) {
         let documentPicker = UIDocumentPickerViewController(documentTypes: ["com.adobe.pdf"], inMode: .Import)
@@ -91,19 +70,23 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
         
         let object = fileManager.objects[indexPath.row]
         cell.nameLabel.text = object.description
-        do {
-            let attr: NSDictionary? = try NSFileManager.defaultManager().attributesOfItemAtPath(object.fileURL.path!)
-            
-            if let _attr = attr {
-                let fileSize = Int64(_attr.fileSize())
-                
-                let sizeString = NSByteCountFormatter.stringFromByteCount(fileSize, countStyle: .Binary)
-                cell.nameLabel.text = sizeString + object.description
-            }
-        } catch {
-            print("Error: \(error)")
-        }
+        cell.downloadIndicator.hidden = object.downloaded
         
+        
+        if object.downloaded {
+            do {
+                let attr: NSDictionary? = try NSFileManager.defaultManager().attributesOfItemAtPath(object.fileURL.path!)
+                
+                if let _attr = attr {
+                    let fileSize = Int64(_attr.fileSize())
+                    
+                    let sizeString = NSByteCountFormatter.stringFromByteCount(fileSize, countStyle: .Binary)
+                    cell.nameLabel.text = sizeString + object.description
+                }
+            } catch {
+                print("Error: \(error)")
+            }
+        }
         
         return cell
     }
@@ -111,6 +94,24 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
     
     
     // MARK: UICollectionViewDelegate
+
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        let selectedObject = fileManager.objects[indexPath.row]
+        if selectedObject.downloaded {
+            let document = Document(fileURL: selectedObject.fileURL)
+            document.openWithCompletionHandler({
+                (success) -> Void in
+                if success {
+                    DocumentSynchronizer.sharedInstance.document = document
+                    self.performSegueWithIdentifier(self.showDocumentSegueIdentifier, sender: nil)
+                } else {
+                    // TODO show error
+                }
+            })
+        } else {
+            // TODO download selectedObject
+        }
+    }
     
     /*
     // Uncomment this method to specify if the specified item should be highlighted during tracking
@@ -151,7 +152,7 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
         let document = Document(fileURL: fileURL)
         document.addPDF(url)
         DocumentSynchronizer.sharedInstance.document = document
-        performSegueWithIdentifier("test", sender: nil)
+        performSegueWithIdentifier(showDocumentSegueIdentifier, sender: nil)
     }
     
     // MARK: - FileManagerDelegate 

@@ -14,4 +14,6 @@ class DocumentOverviewCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     
     @IBOutlet weak var dateLabel: UILabel!
+    
+    @IBOutlet weak var downloadIndicator: CloudDownloadingIndicator!
 }
