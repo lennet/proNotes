@@ -8,6 +8,8 @@
 
 import UIKit
 
+// TODO Error Handling for Decoding Problems
+
 enum DocumentLayerType: Int {
     case PDF = 1
     case Drawing = 2
@@ -16,10 +18,10 @@ enum DocumentLayerType: Int {
     case Plot = 5
 }
 
-class DocumentLayer {
+class DocumentLayer: NSObject, NSCoding {
     var index: Int
     var type: DocumentLayerType
-    var docPage: DocumentPage
+    var docPage: DocumentPage!
     var hidden = false
 
     init(index: Int, type: DocumentLayerType, docPage: DocumentPage) {
@@ -34,44 +36,26 @@ class DocumentLayer {
         self.docPage = docPage
     }
 
-    init(page: DocumentPage, properties: [String:AnyObject], type: DocumentLayerType) {
-        self.docPage = page
-        self.index = properties["index"] as? Int ?? page.layers.count
-        self.hidden = properties["hidden"] as? Bool ?? false
-        self.type = type
+    required init(coder aDecoder: NSCoder) {
+        self.index = aDecoder.decodeIntegerForKey(indexKey)
+        self.type = DocumentLayerType(rawValue: aDecoder.decodeIntegerForKey(typeRawValueKey))!
+        self.hidden = aDecoder.decodeBoolForKey(hiddenKey)
+        super.init()
     }
-
+    
+    final let indexKey = "index"
+    final let typeRawValueKey = "type"
+    final let hiddenKey = "key"
+    
+    func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeInteger(index, forKey: indexKey)
+        aCoder.encodeInteger(type.rawValue, forKey: typeRawValueKey)
+        aCoder.encodeBool(hidden, forKey: hiddenKey)
+    }
+    
     func removeFromPage() {
         self.docPage.removeLayer(self, forceReload: false)
     }
-
-    func getFileWrapper() -> NSFileWrapper {
-        let properties = getPropertiesDict()
-        let data = NSKeyedArchiver.archivedDataWithRootObject(properties)
-        let propertiesFileWrapper = NSFileWrapper(regularFileWithContents: data)
-        var fileWrappers = ["properties": propertiesFileWrapper]
-
-        if let contentFileWrapper = getContentFileWrapper() {
-            fileWrappers["content"] = contentFileWrapper
-        }
-
-        return NSFileWrapper(directoryWithFileWrappers: fileWrappers)
-    }
-
-    func getPropertiesDict() -> [String:AnyObject] {
-        return ["index": index,
-                "type": type.rawValue,
-                "hidden": hidden]
-    }
-
-    func getContentFileWrapper() -> NSFileWrapper? {
-        return nil
-    }
-
-    func handleContentData(data: NSData) {
-        // Empty base implementation
-    }
-
 }
 
 class MovableLayer: DocumentLayer {
@@ -85,28 +69,19 @@ class MovableLayer: DocumentLayer {
         super.init(index: index, type: type, docPage: docPage)
     }
 
-    init(docPage: DocumentPage, properties: [String:AnyObject], type: DocumentLayerType) {
-
-        if let originValue = properties["origin"] as? NSValue {
-            origin = originValue.CGPointValue()
-        } else {
-            origin = CGPointZero
-        }
-
-        if let sizeValue = properties["size"] as? NSValue {
-            size = sizeValue.CGSizeValue()
-        } else {
-            size = CGSizeZero
-        }
-
-        super.init(page: docPage, properties: properties, type: type)
+    required init(coder aDecoder: NSCoder) {
+        origin = aDecoder.decodeCGPointForKey(originKey)
+        size = aDecoder.decodeCGSizeForKey(sizeKey)
+        super.init(coder: aDecoder)
     }
-
-    override func getPropertiesDict() -> [String:AnyObject] {
-        var properties = super.getPropertiesDict()
-        properties["origin"] = NSValue(CGPoint: origin)
-        properties["size"] = NSValue(CGSize: size)
-        return properties
+    
+    final let sizeKey = "size"
+    final let originKey = "origin"
+    
+    override func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeCGPoint(origin, forKey: originKey)
+        aCoder.encodeCGSize(size, forKey: sizeKey)
+        super.encodeWithCoder(aCoder)
     }
 }
 
@@ -118,23 +93,27 @@ class ImageLayer: MovableLayer {
         super.init(index: index, type: .Image, docPage: docPage, origin: origin, size: size ?? image.size)
     }
 
-    init(docPage: DocumentPage, properties: [String:AnyObject]) {
-        self.image = UIImage()
-        super.init(docPage: docPage, properties: properties, type: .Image)
+    required init(coder aDecoder: NSCoder) {
+        if let imageData = aDecoder.decodeObjectForKey(imageDataKey) as? NSData {
+            image = UIImage(data: imageData)!
+        } else {
+            image = UIImage()
+        }
+        
+        super.init(coder: aDecoder)
     }
-
-    override func getContentFileWrapper() -> NSFileWrapper? {
+    
+    final let imageDataKey = "imageData"
+    
+    override func encodeWithCoder(aCoder: NSCoder) {
         if let imageData = UIImagePNGRepresentation(image) {
-            return NSFileWrapper(regularFileWithContents: imageData)
+            aCoder.encodeObject(imageData, forKey: imageDataKey)
+        } else {
+            print("Could not save drawing Image")
         }
-        return nil
+        super.encodeWithCoder(aCoder)
     }
 
-    override func handleContentData(data: NSData) {
-        if let image = UIImage(data: data) {
-            self.image = image
-        }
-    }
 }
 
 class TextLayer: MovableLayer {
@@ -145,19 +124,16 @@ class TextLayer: MovableLayer {
         super.init(index: index, type: .Text, docPage: docPage, origin: origin, size: size)
     }
 
-    init(docPage: DocumentPage, properties: [String:AnyObject]) {
-        if let text = properties["text"] as? String {
-            self.text = text
-        } else {
-            text = ""
-        }
-        super.init(docPage: docPage, properties: properties, type: .Text)
+    required init(coder aDecoder: NSCoder) {
+        text = aDecoder.decodeObjectForKey(textKey) as! String
+        super.init(coder: aDecoder)
     }
-
-    override func getPropertiesDict() -> [String:AnyObject] {
-        var properties = super.getPropertiesDict()
-        properties["text"] = text
-        return properties
+    
+    final let textKey = "text"
+    
+    override func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeObject(text, forKey: textKey)
+        super.encodeWithCoder(aCoder)
     }
 }
 
@@ -168,28 +144,23 @@ class PlotLayer: MovableLayer {
         super.init(index: index, type: .Plot, docPage: docPage, origin: origin, size: size)
     }
 
-    init(docPage: DocumentPage, properties: [String:AnyObject]) {
-        if let function = properties["function"] as? String {
-            self.function = function
-        } else {
-            self.function = "cos($x)"
-        }
-        super.init(docPage: docPage, properties: properties, type: .Plot)
-    }
-
-    override func getPropertiesDict() -> [String:AnyObject] {
-        var properties = super.getPropertiesDict()
-        properties["function"] = function
-        return properties
+    required init(coder aDecoder: NSCoder) {
+        self.function = ""
+       super.init(coder: aDecoder)
     }
 
 }
 
 class DocumentPDFLayer: DocumentLayer {
-    var page: CGPDFPage
+    var page: CGPDFPage?
     init(index: Int, page: CGPDFPage, docPage: DocumentPage) {
         self.page = page
         super.init(index: index, type: .PDF, docPage: docPage)
+    }
+
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        // TODO!
     }
 }
 
@@ -199,23 +170,24 @@ class DocumentDrawLayer: DocumentLayer {
         super.init(index: index, type: .Drawing, docPage: docPage)
     }
 
-    init(docPage: DocumentPage, properties: [String:AnyObject]) {
-        super.init(page: docPage, properties: properties, type: .Drawing)
+    required init(coder aDecoder: NSCoder) {
+        if let imageData = aDecoder.decodeObjectForKey(imageDataKey) as? NSData {
+            image = UIImage(data: imageData)
+        }
+        super.init(coder: aDecoder)
     }
-
-    override func getContentFileWrapper() -> NSFileWrapper? {
+    
+    final let imageDataKey = "imageData"
+    
+    override func encodeWithCoder(aCoder: NSCoder) {
         if image != nil {
             if let imageData = UIImagePNGRepresentation(image!) {
-                return NSFileWrapper(regularFileWithContents: imageData)
+                aCoder.encodeObject(imageData, forKey: imageDataKey)
+            } else {
+                print("Could not save drawing Image")
             }
         }
-        return nil
-    }
-
-    override func handleContentData(data: NSData) {
-        if let image = UIImage(data: data) {
-            self.image = image
-        }
+        super.encodeWithCoder(aCoder)
     }
 }
 

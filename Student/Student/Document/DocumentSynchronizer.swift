@@ -34,7 +34,6 @@ class DocumentSynchronizer: NSObject {
                 if oldValue == nil {
                     currentPage = document?.pages.first
                 }
-                document?.autosaveWithCompletionHandler(nil)
             }
         }
     }
@@ -78,7 +77,7 @@ class DocumentSynchronizer: NSObject {
     }
 
     func save() {
-        document?.updateChangeCount(.Done)
+        document?.saveToURL(document!.fileURL, forSaveOperation: .ForOverwriting, completionHandler: nil)
     }
     
     // MARK: - Delegate Handling
@@ -94,7 +93,6 @@ class DocumentSynchronizer: NSObject {
     }
 
     func informDelegateToUpdateDocument(document: Document, forceReload: Bool) {
-        save()
         for delegate in delegates {
             delegate.updateDocument(document, forceReload: forceReload)
         }

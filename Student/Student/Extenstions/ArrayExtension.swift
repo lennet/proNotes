@@ -8,6 +8,20 @@
 
 import UIKit
 
+extension Array where Element : Comparable {
+   
+    func index(object: Element) -> Int? {
+
+        for (index, currentObject) in self.enumerate() {
+            if currentObject == object {
+                return index
+            }
+        }
+        return nil
+    }
+    
+}
+
 extension Array {
 
     func indexOfObject(object: Element) -> NSInteger {

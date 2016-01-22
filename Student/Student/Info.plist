@@ -2,7 +2,18 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleDevelopmentRegion</key>
+    <key>NSUbiquitousContainers</key>
+    <dict>
+        <key>iCloud.com.lt.ProNotes</key>
+        <dict>
+            <key>NSUbiquitousContainerIsDocumentScopePublic</key>
+            <true/>
+            <key>NSUbiquitousContainerSupportedFolderLevels</key>
+            <string>Any</string>
+            <key>NSUbiquitousContainerName</key>
+            <string>Pro Notes</string>
+        </dict>
+    </dict>	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDocumentTypes</key>
 	<array>
@@ -62,10 +73,34 @@
 	<key>UTExportedTypeDeclarations</key>
 	<array>
 		<dict>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
+			<key>LSTypelsPackage</key>
+			<string>YES</string>
 			<key>UTTypeDescription</key>
-			<string>Student Document</string>
+			<string>Pro Notes</string>
 			<key>UTTypeIdentifier</key>
-			<string>studentDoc.document</string>
+			<string>com.lt.pronotes.doc</string>
+		</dict>
+	</array>
+	<key>UTImportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>com.apple.package</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Pro Notes</string>
+			<key>UTTypeIdentifier</key>
+			<string>com.lt.pronotes.doc</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-exteions</key>
+				<array>
+					<string>proNote</string>
+				</array>
+			</dict>
 		</dict>
 	</array>
 </dict>

@@ -8,35 +8,25 @@
 
 import UIKit
 
-class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIDocumentPickerDelegate {
+class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIDocumentPickerDelegate, FileManagerDelegate {
 
     @IBOutlet weak var recentlyUsedCollectionView: UICollectionView!
-    
     @IBOutlet weak var allDocumentsCollectionView: UICollectionView!
+    
+    var fileManager: FileManager {
+        get {
+            return FileManager.sharedInstance
+        }
+    }
     
     enum OverViewSection: Int {
         case RecentlyUsed = 0
         case AllDocuments = 1
     }
-    
-    @IBAction func handleImportButtonPressed(sender: AnyObject) {
-        let documentPicker = UIDocumentPickerViewController(documentTypes: ["com.adobe.pdf"], inMode: .Import)
-        documentPicker.delegate = self;
-        documentPicker.modalPresentationStyle = .PageSheet
-        self.presentViewController(documentPicker, animated: true, completion: nil)
-    }
-    
-    var urls = [NSURL]()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        let documentUrl = try! NSFileManager().URLForDirectory(.DocumentDirectory, inDomain: .UserDomainMask, appropriateForURL: nil, create: true)
-        
-        urls = try! NSFileManager.defaultManager().contentsOfDirectoryAtURL(documentUrl, includingPropertiesForKeys: nil, options: .SkipsHiddenFiles)
-        
-        if urls.count == 0 {
-            handleNewButtonPressed(self)
-        }
+        fileManager.delegate = self
     }
     
     
@@ -60,8 +50,8 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
                 return
             }
             
-            let url = urls[finalIndexPath.row]
-            let document = Document(fileURL: url)
+            let fileUrl = fileManager.objects[finalIndexPath.row].fileURL
+            let document = Document(fileURL: fileUrl)
             document.openWithCompletionHandler({
                 (success) -> Void in
                 if success {
@@ -71,21 +61,15 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
         }
     }
     
+    @IBAction func handleImportButtonPressed(sender: AnyObject) {
+        let documentPicker = UIDocumentPickerViewController(documentTypes: ["com.adobe.pdf"], inMode: .Import)
+        documentPicker.delegate = self;
+        documentPicker.modalPresentationStyle = .PageSheet
+        self.presentViewController(documentPicker, animated: true, completion: nil)
+    }
+    
     @IBAction func handleNewButtonPressed(sender: AnyObject) {
-        let documentUrl = try! NSFileManager().URLForDirectory(.DocumentDirectory, inDomain: .UserDomainMask, appropriateForURL: nil, create: true)
-        
-        let fileExtension = String(NSDate().timeIntervalSinceReferenceDate) + "test.studentDoc"
-        let fileURL = documentUrl.URLByAppendingPathComponent(fileExtension)
-        let document = Document(fileURL: fileURL)
-        document.addEmptyPage()
-        document.saveToURL(fileURL, forSaveOperation: .ForCreating) {
-            (success) -> Void in
-            document.savePresentedItemChangesWithCompletionHandler {
-                (error) -> Void in
-                DocumentSynchronizer.sharedInstance.document = document
-            }
-        }
-        recentlyUsedCollectionView.reloadData()
+        fileManager.createDocument()
     }
     
     // MARK: UICollectionViewDataSource
@@ -95,7 +79,7 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return urls.count
+        return fileManager.objects.count
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
@@ -105,16 +89,16 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(DocumentOverviewCollectionViewCell.reusableIdentifier, forIndexPath: indexPath) as! DocumentOverviewCollectionViewCell
         
-        
-        cell.nameLabel.text = urls[indexPath.row].pathComponents?.last
+        let object = fileManager.objects[indexPath.row]
+        cell.nameLabel.text = object.description
         do {
-            let attr: NSDictionary? = try NSFileManager.defaultManager().attributesOfItemAtPath(self.urls[indexPath.row].path!)
+            let attr: NSDictionary? = try NSFileManager.defaultManager().attributesOfItemAtPath(object.fileURL.path!)
             
             if let _attr = attr {
                 let fileSize = Int64(_attr.fileSize())
                 
                 let sizeString = NSByteCountFormatter.stringFromByteCount(fileSize, countStyle: .Binary)
-                cell.dateLabel.text = sizeString
+                cell.nameLabel.text = sizeString + object.description
             }
         } catch {
             print("Error: \(error)")
@@ -168,6 +152,13 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
         document.addPDF(url)
         DocumentSynchronizer.sharedInstance.document = document
         performSegueWithIdentifier("test", sender: nil)
+    }
+    
+    // MARK: - FileManagerDelegate 
+    
+    func reloadObjects() {
+        recentlyUsedCollectionView.reloadData()
+        allDocumentsCollectionView.reloadData()
     }
     
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DocumentPage {
+class DocumentPage: NSObject, NSCoding {
     var layers = [DocumentLayer]()
     var index = 0
     var size = CGSize.dinA4()
@@ -18,65 +18,31 @@ class DocumentPage {
     }
 
     init(PDF: CGPDFPage, index: Int) {
+        super.init()
         self.index = index
         addPDFLayer(PDF)
     }
-
-    init(fileWrapper: NSFileWrapper, index: Int) {
-        self.index = index
-        if let contents = fileWrapper.fileWrappers {
-            for wrapper in contents {
-                if let innerWrappers = wrapper.1.fileWrappers {
-                    var propertiesWrapper: NSFileWrapper?
-                    var contentWrapper: NSFileWrapper?
-                    for innerWrapper in innerWrappers {
-                        if innerWrapper.0 == "properties" {
-                            propertiesWrapper = innerWrapper.1
-                        } else if innerWrapper.0 == "content" {
-                            contentWrapper = innerWrapper.1
-                        }
-                    }
-                    if propertiesWrapper != nil {
-                        if let propertiesData = propertiesWrapper!.regularFileContents {
-                            if let properties = NSKeyedUnarchiver.unarchiveObjectWithData(propertiesData) as? [String:AnyObject] {
-
-                                switch DocumentLayerType(rawValue: properties["type"] as! Int)! {
-                                case .Drawing:
-                                    let layer = DocumentDrawLayer(docPage: self, properties: properties)
-                                    if contentWrapper != nil {
-                                        if let contentData = contentWrapper!.regularFileContents {
-                                            layer.handleContentData(contentData)
-                                        }
-                                    }
-                                    layers.append(layer)
-                                    break
-                                case .Image:
-                                    let layer = ImageLayer(docPage: self, properties: properties)
-                                    if contentWrapper != nil {
-                                        if let contentData = contentWrapper!.regularFileContents {
-                                            layer.handleContentData(contentData)
-                                        }
-                                    }
-                                    layers.append(layer)
-                                case .Text:
-                                    let layer = TextLayer(docPage: self, properties: properties)
-                                    layers.append(layer)
-                                    break
-                                case .Plot:
-                                    let layer = PlotLayer(docPage: self, properties: properties)
-                                    layers.append(layer)
-                                default:
-                                    break
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+    
+    required init(coder aDecoder: NSCoder) {
+        size = aDecoder.decodeCGSizeForKey(sizeKey)
+        index = aDecoder.decodeIntegerForKey(indexKey)
+        layers = aDecoder.decodeObjectForKey(layersKey) as! [DocumentLayer]
+        super.init()
+        for layer in layers {
+            layer.docPage = self
         }
-        updateLayerIndex()
     }
 
+    final let indexKey = "index"
+    final let sizeKey = "size"
+    final let layersKey = "layers"
+    
+    func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeInteger(index, forKey: indexKey)
+        aCoder.encodeObject(layers, forKey: layersKey)
+        aCoder.encodeCGSize(size, forKey: sizeKey)
+    }
+    
     func addDrawingLayer(image: UIImage?) -> DocumentDrawLayer {
         let drawLayer = DocumentDrawLayer(index: layers.count, image: image, docPage: self)
         layers.append(drawLayer)
@@ -139,16 +105,6 @@ class DocumentPage {
         for (index, currentLayer) in layers.enumerate() {
             currentLayer.index = index
         }
-    }
-
-    func getFileWrapper() -> NSFileWrapper {
-        var fileWrappers: [String:NSFileWrapper] = [String: NSFileWrapper]()
-
-        for layer in layers {
-            fileWrappers[String(layer.index)] = layer.getFileWrapper()
-        }
-        let contents = NSFileWrapper(directoryWithFileWrappers: fileWrappers)
-        return contents
     }
 
 }

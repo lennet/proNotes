@@ -10,12 +10,13 @@ import UIKit
 
 class Document: UIDocument {
 
+    final let fileExtension = "ProNote"
+    final let metaDataFileName = "note.metaData"
+    final let pagesDataFileName = "note.pagesData"
     var name = "Title"
-    var pages = [DocumentPage]()
-    var url: NSURL
+    var fileWrapper: NSFileWrapper?
 
     override init(fileURL url: NSURL) {
-        self.url = url
         super.init(fileURL: url)
     }
 
@@ -23,63 +24,99 @@ class Document: UIDocument {
         return ["name": name]
     }
     
-    // TODO Cleanup
+    override var description: String {
+        get {
+            return fileURL.fileName() ?? super.description
+        }
+    }
+    
+    var _metaData :DocumentMetaData?
+    var metaData: DocumentMetaData? {
+        get {
+            if fileWrapper != nil {
+                _metaData = decodeObject(metaDataFileName) as? DocumentMetaData
+            }
+            if _metaData == nil {
+                _metaData = DocumentMetaData()
+            }
+            return _metaData
+        }
+        
+        set {
+            _metaData = newValue
+        }
+    }
+    
+    var _pages: [DocumentPage]?
+    var pages: [DocumentPage] {
+        get {
+            if _pages == nil {
+                if fileWrapper != nil {
+                    _pages = decodeObject(pagesDataFileName) as? [DocumentPage]
+                }
+                if _pages == nil {
+                    _pages = [DocumentPage]()
+                }
+            }
+            return _pages!
+        }
+        
+        set {
+            _pages = newValue
+        }
+    }
+    
+    func decodeObject(fileName: String) -> AnyObject? {
+        guard let wrapper = fileWrapper?.fileWrappers?[fileName] else {
+            return nil
+        }
+        guard let data =  wrapper.regularFileContents else {
+            return nil
+        }
+        
+        return decodeData(data)
+    }
+    
+    func decodeData(data: NSData) -> AnyObject? {
+        let unarchiver = NSKeyedUnarchiver(forReadingWithData: data)
+        return unarchiver.decodeObjectForKey("data")
+    }
+    
+    func encodeObject(object: NSObject, prefferedFileName: String, inout wrappers:[String: NSFileWrapper]){
+        let data = encodeObject(object)
+        let wrapper = NSFileWrapper(regularFileWithContents: data)
+        wrappers[prefferedFileName] = wrapper
+    }
+    
+    func encodeObject(object: NSObject) -> NSData {
+        let data = NSMutableData()
+        let archiver = NSKeyedArchiver(forWritingWithMutableData: data)
+        archiver.encodeObject(object, forKey: "data")
+        archiver.finishEncoding()
+
+        return data
+    }
     
     override func contentsForType(typeName: String) throws -> AnyObject {
-        var pageWrappers: [String:NSFileWrapper] = [String: NSFileWrapper]()
-        for page in pages {
-            pageWrappers[String(page.index)] = page.getFileWrapper()
+        if metaData == nil {
+            return NSData()
         }
-        let pagesData = NSKeyedArchiver.archivedDataWithRootObject(pageWrappers)
         
-        let propertiesData = NSKeyedArchiver.archivedDataWithRootObject(getPropertiesDict())
+        var wrappers = [String: NSFileWrapper]()
+        encodeObject(metaData!, prefferedFileName: metaDataFileName, wrappers: &wrappers)
+        encodeObject(pages, prefferedFileName: pagesDataFileName, wrappers: &wrappers)
         
-        let fileWrappers :[String: NSFileWrapper] = ["pages": NSFileWrapper(regularFileWithContents: pagesData), "properties": NSFileWrapper(regularFileWithContents: propertiesData)]
-        
-        let contents = NSFileWrapper(directoryWithFileWrappers: fileWrappers)
-        let directoryData = NSKeyedArchiver.archivedDataWithRootObject(contents)
-//        let compressedData = directoryData.compress(.Compress)
-        return directoryData
+        let fileWrapper = NSFileWrapper(directoryWithFileWrappers: wrappers)
+        return encodeObject(fileWrapper)
     }
 
     override func loadFromContents(contents: AnyObject, ofType typeName: String?) throws {
-        if let compressedData = contents as? NSData {
-//            let directoryData = compressedData.compress(.Decompress)
-            let directoryData = compressedData
-
-            if let directoryFileWrapper = NSKeyedUnarchiver.unarchiveObjectWithData(directoryData) as? NSFileWrapper {
-                guard let fileWrappers = directoryFileWrapper.fileWrappers else {
-                    // TODO handle Error
-                    return
-                }
-                
-                for fileWrapper in fileWrappers {
-                    if fileWrapper.0 == "properties" {
-                        if let propertiesData = fileWrapper.1.regularFileContents {
-                            if let properties = NSKeyedUnarchiver.unarchiveObjectWithData(propertiesData) as?   [String:AnyObject] {
-                                setUpDocumentWithProperties(properties)
-                            }
-                        }
-                    } else if fileWrapper.0 == "pages" {
-                        if let pagesData = fileWrapper.1.regularFileContents {
-                            if let pageWrappers = NSKeyedUnarchiver.unarchiveObjectWithData(pagesData) as? [String : NSFileWrapper]{
-                                for pageWrapper in pageWrappers {
-                                    let page = DocumentPage(fileWrapper: pageWrapper.1, index: Int(pageWrapper.0)!)
-                                    pages.append(page)
-                                    // TODO handle Corrupt Page Indexes
-                                }
-                            }
-                        }
-                    }
-                }
-                pages.sortInPlace({
-                    (firstPage, secondPage) -> Bool in
-                    return firstPage.index < secondPage.index
-                })
-            } else {
-                _ = NSKeyedUnarchiver.unarchiveObjectWithData(directoryData)
-            }
+        if let wrapper = decodeData(contents as! NSData) as? NSFileWrapper {
+            fileWrapper = wrapper
+        } else {
+            print(contents)
         }
+        
     }
     
     func setUpDocumentWithProperties(properties: [String: AnyObject]){

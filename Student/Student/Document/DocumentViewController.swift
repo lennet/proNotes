@@ -28,6 +28,7 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
         document = DocumentSynchronizer.sharedInstance.document
         PagesTableViewController.sharedInstance?.document = document
         titleTextField.text = document?.name
+        titleTextField.sizeToFit()
     }
 
     deinit {
@@ -41,6 +42,13 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
 
     override func canBecomeFirstResponder() -> Bool {
         return true
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        DocumentSynchronizer.sharedInstance.save()
+        document?.closeWithCompletionHandler({ (Bool) -> Void in
+        })
     }
     
     // MARK: - Actions
