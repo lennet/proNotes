@@ -224,11 +224,11 @@ class FileManager: NSObject {
         return documentsRootURL.URLByAppendingPathComponent(uniqueName)
     }
     
-    func getUniqueFileName(fileName: String) -> String {
+    func getUniqueFileName(fileName: String, var attemptCounter: Int = 0) -> String {
         fileName
-        // TODO improve
         if fileNameExistsInObjects(fileName) {
-            return getUniqueFileName(fileName+String(objects.count))
+            attemptCounter++
+            return getUniqueFileName(fileName+String(attemptCounter), attemptCounter: attemptCounter)
         }
         return fileName
     }
