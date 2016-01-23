@@ -150,7 +150,8 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
         let indexPath = NSIndexPath(forItem: index, inSection: 0)
         
         guard indexPath.row+1 > allDocumentsCollectionView.numberOfItemsInSection(0) else {
-           return
+            reloadObjects()
+            return
         }
         
         recentlyUsedCollectionView.reloadItemsAtIndexPaths([indexPath])
