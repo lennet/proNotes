@@ -59,6 +59,61 @@ class FileManager: NSObject {
         }
     }
     
+    func checkFiles() {
+        query?.disableUpdates()
+        
+        
+        guard let results = query?.results as? [NSMetadataItem] else {
+            query?.enableUpdates()
+            return
+        }
+        
+        for result in results {
+            if let fileURL = result.fileURL {
+                let newObject = DocumentsOverviewObject(fileURL: fileURL)
+                if result.isLocalAvailable() {
+                    do {
+                        var resource: AnyObject?
+                        try fileURL.getResourceValue(&resource, forKey:NSURLIsHiddenKey )
+                        if let isHidden = resource as? NSNumber {
+                            if !isHidden.boolValue {
+                                newObject.downloaded = true
+                                updateObject(newObject)
+                            }
+                        }
+                    } catch {
+                        print("Error: \(error)")
+                    }
+                    
+                } else {
+                    newObject.downloaded = false
+                    print(result.valueForAttribute(NSMetadataUbiquitousItemPercentDownloadedKey))
+                    // TODO check if file is available
+                    updateObject(newObject)
+                }
+            }
+        }
+        
+        delegate?.reloadObjects()
+        
+        query?.enableUpdates()
+    }
+    
+    func useiCloud() -> Bool{
+        return true
+    }
+    
+    func downloadObject(object: DocumentsOverviewObject) {
+        do {
+            try NSFileManager.defaultManager().startDownloadingUbiquitousItemAtURL(object.fileURL)
+        } catch {
+            print("Error: \(error)")
+        }
+    }
+    
+    
+    // MARK - CRUD
+    
     func createDocument() {
         let fileUrl = getDocumentURL(defaultName)
         
@@ -75,46 +130,39 @@ class FileManager: NSObject {
             
             document.closeWithCompletionHandler({ (sucess) -> Void in
                 dispatch_async(dispatch_get_main_queue(),{
-                    self.addObject(fileURL, metaData: metaData, state: state, version: version)
+                    self.updateObject(fileURL, metaData: metaData, state: state, version: version, downloaded: true)
                 })
             })
         }
     }
     
-    func getObject(fileUrl:NSURL) {
-        let document = Document(fileURL: fileUrl)
-        document.openWithCompletionHandler { (success) -> Void in
-            if (!success) {
-                print("Couldn't open Document: \(document.description)")
-                return
+    func updateMetadata(fileURL: NSURL) {
+        guard let path = fileURL.path else {
+            return
+        }
+        if NSFileManager.defaultManager().fileExistsAtPath(path){
+            let document = Document(fileURL: fileURL)
+            document.openWithCompletionHandler { (success) -> Void in
+                if (!success) {
+                    print("Couldn't open Document: \(document.description)")
+                    return
+                }
+                
+                let metaData = document.metaData
+                let fileURL = document.fileURL
+                let state = document.documentState
+                let version = NSFileVersion.currentVersionOfItemAtURL(fileURL)
+                
+                document.closeWithCompletionHandler({ (sucess) -> Void in
+                    dispatch_async(dispatch_get_main_queue(),{
+                        self.updateObject(fileURL, metaData: metaData, state: state, version: version,downloaded: true)
+                    })
+                })
             }
-            
-            let metaData = document.metaData
-            let fileURL = document.fileURL
-            let state = document.documentState
-            let version = NSFileVersion.currentVersionOfItemAtURL(fileUrl)
-            
-            document.closeWithCompletionHandler({ (sucess) -> Void in
-                dispatch_async(dispatch_get_main_queue(),{
-                    self.addObject(fileURL, metaData: metaData, state: state, version: version)
-                })
-            })
-        }
-    }
-    
-    
-    func addObject(fileURL: NSURL, metaData: DocumentMetaData?, state: UIDocumentState, version: NSFileVersion?) {
-        if let index = indexOf(fileURL) {
-            let entry = objects[index]
-            entry.metaData = metaData
-            entry.version = version
-            entry.state = state
-            delegate?.reloadObjects()
         } else {
-            let entry = DocumentsOverviewObject(fileURL: fileURL, state: state, metaData: metaData, version: version)
-            objects.append(entry)
-            delegate?.reloadObjects()
+            
         }
+
     }
     
     func deleteObject(object: DocumentsOverviewObject) {
@@ -128,10 +176,32 @@ class FileManager: NSObject {
             
         }
         
-        removeObject(object.fileURL)
+        removeObjectFromArray(object.fileURL)
     }
     
-    func removeObject(fileURL: NSURL) {
+    // MARK: - Array Handling
+    
+    func updateObject(object: DocumentsOverviewObject) {
+        updateObject(object.fileURL, metaData: nil, state: nil, version: nil,downloaded: object.downloaded)
+    }
+    
+    func updateObject(fileURL: NSURL, metaData: DocumentMetaData?, state: UIDocumentState?, version: NSFileVersion?, downloaded: Bool) {
+        if let index = indexOf(fileURL) {
+            let entry = objects[index]
+            entry.metaData = metaData
+            entry.version = version
+            entry.state = state
+            entry.downloaded = downloaded
+            delegate?.reloadObjects()
+        } else {
+            let entry = DocumentsOverviewObject(fileURL: fileURL, state: state, metaData: metaData, version: version)
+            entry.downloaded = downloaded
+            objects.append(entry)
+            delegate?.reloadObjects()
+        }
+    }
+    
+    func removeObjectFromArray(fileURL: NSURL) {
         guard let index = indexOf(fileURL) else {
             // file does not exists
             return
@@ -200,9 +270,9 @@ class FileManager: NSObject {
     func startQuery() {
         stopQuery()
         
-        query = documentQuery()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "queryDidFinish:", name: NSMetadataQueryDidFinishGatheringNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "queryDidUpdate:", name: NSMetadataQueryDidUpdateNotification, object: nil)
+        query = documentQuery
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleQueryNotification:", name: NSMetadataQueryDidFinishGatheringNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleQueryNotification:", name: NSMetadataQueryDidUpdateNotification, object: nil)
         query?.startQuery()
         
     }
@@ -215,68 +285,31 @@ class FileManager: NSObject {
         query = nil
     }
     
-    func queryDidUpdate(notification: NSNotification) {
-        if let results = query?.results as? [NSMetadataItem]{
-            for result in results{
-                result.printAttributes()
+    func handleQueryNotification(notification: NSNotification) {
+        if let userInfo = notification.userInfo {
+            for item in (userInfo[NSMetadataQueryUpdateRemovedItemsKey] as? [NSMetadataItem]) ?? [NSMetadataItem]() where item.fileURL != nil {
+                removeObjectFromArray(item.fileURL!)
             }
-        }
-    }
-    
-    func queryDidFinish(notification: NSNotification) {
-        checkFiles()
-    }
-    
-    func checkFiles() {
-        query?.disableUpdates()
-        // TODO don't delete all objects check for updates
-        objects.removeAll()
-
-        
-        guard let results = query?.results as? [NSMetadataItem] else {
-            query?.enableUpdates()
-            return
-        }
-        
-        for result in results {
-            if let fileURL = result.fileURL {
-                let newObject = DocumentsOverviewObject(fileURL: fileURL)
-                if result.isLocalAvailable() {
-                    do {
-                        var resource: AnyObject?
-                        try fileURL.getResourceValue(&resource, forKey:NSURLIsHiddenKey )
-                        if let isHidden = resource as? NSNumber {
-                            if !isHidden.boolValue {
-                                newObject.downloaded = true
-                                objects.append(newObject)
-                            }
-                        }
-                    } catch {
-                        print("Error: \(error)")
-                    }
-
-                } else {
-                    newObject.downloaded = false
-                    objects.append(newObject)
-                }
+            for item in (userInfo[NSMetadataQueryUpdateAddedItemsKey] as? [NSMetadataItem]) ?? [NSMetadataItem]() where item.fileURL != nil {
+                updateMetadata(item.fileURL!)
             }
+            for item in (userInfo[NSMetadataQueryUpdateChangedItemsKey] as? [NSMetadataItem]) ?? [NSMetadataItem]() where item.fileURL != nil {
+                updateMetadata(item.fileURL!)
+            }
+        } else {
+            checkFiles()
         }
-
-        delegate?.reloadObjects()
-        
-        query?.enableUpdates()
     }
     
-    func documentQuery() -> NSMetadataQuery {
-        let query = NSMetadataQuery()
-        query.searchScopes = [NSMetadataQueryUbiquitousDocumentsScope]
-        let filePattern = "*."+fileExtension
-        query.predicate = NSPredicate(format: "%K Like %@", NSMetadataItemFSNameKey, filePattern)
-        return query
+    var documentQuery: NSMetadataQuery {
+        get {
+            let query = NSMetadataQuery()
+            query.searchScopes = [NSMetadataQueryUbiquitousDocumentsScope]
+            let filePattern = "*."+fileExtension
+            query.predicate = NSPredicate(format: "%K Like %@", NSMetadataItemFSNameKey, filePattern)
+            return query
+        }
     }
     
-    func useiCloud() -> Bool{
-        return true
-    }
 }
 

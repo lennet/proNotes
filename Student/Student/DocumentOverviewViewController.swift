@@ -72,22 +72,6 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
         cell.nameLabel.text = object.description
         cell.downloadIndicator.hidden = object.downloaded
         
-        
-        if object.downloaded {
-            do {
-                let attr: NSDictionary? = try NSFileManager.defaultManager().attributesOfItemAtPath(object.fileURL.path!)
-                
-                if let _attr = attr {
-                    let fileSize = Int64(_attr.fileSize())
-                    
-                    let sizeString = NSByteCountFormatter.stringFromByteCount(fileSize, countStyle: .Binary)
-                    cell.nameLabel.text = sizeString + object.description
-                }
-            } catch {
-                print("Error: \(error)")
-            }
-        }
-        
         return cell
     }
     
@@ -109,7 +93,7 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
                 }
             })
         } else {
-            // TODO download selectedObject
+            fileManager.downloadObject(selectedObject)
         }
     }
     

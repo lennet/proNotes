@@ -16,7 +16,7 @@ class DocumentsOverviewObject: NSObject {
     var metaData: DocumentMetaData?
     var downloaded = false
     
-    init(fileURL: NSURL, state: UIDocumentState, metaData: DocumentMetaData?, version: NSFileVersion?){
+    init(fileURL: NSURL, state: UIDocumentState?, metaData: DocumentMetaData?, version: NSFileVersion?){
         self.fileURL = fileURL
         self.state = state
         self.version = version
