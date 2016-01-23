@@ -146,4 +146,27 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
         allDocumentsCollectionView.reloadData()
     }
     
+    func reloadObjectAtIndex(index: Int) {
+        let indexPath = NSIndexPath(forItem: index, inSection: 0)
+        
+        guard indexPath.row+1 > allDocumentsCollectionView.numberOfItemsInSection(0) else {
+           return
+        }
+        
+        recentlyUsedCollectionView.reloadItemsAtIndexPaths([indexPath])
+        allDocumentsCollectionView.reloadItemsAtIndexPaths([indexPath])
+        
+    }
+    
+    func insertObjectAtIndex(index: Int) {
+        let indexPath = NSIndexPath(forItem: index, inSection: 0)
+        allDocumentsCollectionView.insertItemsAtIndexPaths([indexPath])
+        recentlyUsedCollectionView.insertItemsAtIndexPaths([indexPath])
+    }
+    
+    func removeObjectAtIndex(index: Int) {
+        // maybe add a fancy animtaion in the futur
+        reloadObjectAtIndex(index)
+    }
+    
 }

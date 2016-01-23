@@ -10,6 +10,9 @@ import UIKit
 
 protocol FileManagerDelegate {
     func reloadObjects()
+    func reloadObjectAtIndex(index: Int)
+    func insertObjectAtIndex(index: Int)
+    func removeObjectAtIndex(index: Int)
 }
 
 class FileManager: NSObject {
@@ -70,15 +73,13 @@ class FileManager: NSObject {
         
         for result in results {
             if let fileURL = result.fileURL {
-                let newObject = DocumentsOverviewObject(fileURL: fileURL)
                 if result.isLocalAvailable() {
                     do {
                         var resource: AnyObject?
                         try fileURL.getResourceValue(&resource, forKey:NSURLIsHiddenKey )
                         if let isHidden = resource as? NSNumber {
                             if !isHidden.boolValue {
-                                newObject.downloaded = true
-                                updateObject(newObject)
+                                updateMetadata(fileURL)
                             }
                         }
                     } catch {
@@ -86,15 +87,10 @@ class FileManager: NSObject {
                     }
                     
                 } else {
-                    newObject.downloaded = false
-                    print(result.valueForAttribute(NSMetadataUbiquitousItemPercentDownloadedKey))
-                    // TODO check if file is available
-                    updateObject(newObject)
+                    updateObject(fileURL, metaData: nil, state: nil, version: nil, downloaded: false)
                 }
             }
         }
-        
-        delegate?.reloadObjects()
         
         query?.enableUpdates()
     }
@@ -181,10 +177,6 @@ class FileManager: NSObject {
     
     // MARK: - Array Handling
     
-    func updateObject(object: DocumentsOverviewObject) {
-        updateObject(object.fileURL, metaData: nil, state: nil, version: nil,downloaded: object.downloaded)
-    }
-    
     func updateObject(fileURL: NSURL, metaData: DocumentMetaData?, state: UIDocumentState?, version: NSFileVersion?, downloaded: Bool) {
         if let index = indexOf(fileURL) {
             let entry = objects[index]
@@ -192,12 +184,12 @@ class FileManager: NSObject {
             entry.version = version
             entry.state = state
             entry.downloaded = downloaded
-            delegate?.reloadObjects()
+            delegate?.reloadObjectAtIndex(index)
         } else {
             let entry = DocumentsOverviewObject(fileURL: fileURL, state: state, metaData: metaData, version: version)
             entry.downloaded = downloaded
             objects.append(entry)
-            delegate?.reloadObjects()
+            delegate?.insertObjectAtIndex(objects.count-1)
         }
     }
     
@@ -208,7 +200,7 @@ class FileManager: NSObject {
         }
 
         objects.removeAtIndex(index)
-        delegate?.reloadObjects()
+        delegate?.removeObjectAtIndex(index)
     }
     
     func indexOf(fileURL: NSURL) -> Int? {
