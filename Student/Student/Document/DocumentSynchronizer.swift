@@ -37,6 +37,23 @@ class DocumentSynchronizer: NSObject {
             }
         }
     }
+    
+    func renameDocument(newName: String){
+        guard document != nil else {
+            return
+        }
+        
+        guard newName != document?.name else {
+            return
+        }
+        
+        let oldURL = document!.fileURL
+        
+        let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
+        dispatch_async(dispatch_get_global_queue(priority, 0)) {
+            FileManager.sharedInstance.renameObject(oldURL, fileName: newName,completionHandler: nil)
+        }
+    }
 
     func updatePage(page: DocumentPage, forceReload: Bool) {
         if document != nil {

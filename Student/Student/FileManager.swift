@@ -19,8 +19,8 @@ class FileManager: NSObject {
     
     static let sharedInstance = FileManager()
     
-    final let fileExtension = "ProNote"
-    final let defaultName = "Note"
+    private final let fileExtension = "ProNote"
+    private final let defaultName = "Note"
 
     var delegate: FileManagerDelegate?
     
@@ -107,8 +107,49 @@ class FileManager: NSObject {
         }
     }
     
-    
     // MARK - CRUD
+    
+    func renameObject(fileURL: NSURL, fileName: String, completionHandler: ((Bool) -> Void)?) {
+        // TODO improve error handling
+        guard let index = indexOf(fileURL) else {
+            completionHandler?(false)
+            return
+        }
+        let object = objects[index]
+        
+        if object.description == fileName {
+            // nothing changed
+            completionHandler?(true)
+            return
+        }
+        
+        let newName = getUniqueFileName(fileName)
+        let newURL = getDocumentURL(newName)
+        
+        let fileCoordinator = NSFileCoordinator(filePresenter: nil)
+        var error: NSError?
+        
+        fileCoordinator.coordinateWritingItemAtURL(fileURL, options: .ForMoving, writingItemAtURL: newURL, options: .ForReplacing, error: &error) { (newURL1, newURL2) -> Void in
+          
+            fileCoordinator.itemAtURL(fileURL, willMoveToURL: newURL)
+            do {
+                try NSFileManager.defaultManager().moveItemAtURL(fileURL, toURL: newURL)
+            } catch {
+                print("Error: \(error)")
+                completionHandler?(false)
+            }
+            fileCoordinator.itemAtURL(fileURL, didMoveToURL: newURL)
+        }
+        
+        if error == nil {
+            removeObjectFromArray(fileURL)
+            updateObject(newURL, metaData: object.metaData, state: object.state, version: object.version, downloaded: object.downloaded)
+            completionHandler?(true)
+        } else {
+            completionHandler?(false)
+        }
+
+    }
     
     func createDocument() {
         let fileUrl = getDocumentURL(defaultName)
@@ -132,7 +173,7 @@ class FileManager: NSObject {
         }
     }
     
-    func updateMetadata(fileURL: NSURL) {
+    private func updateMetadata(fileURL: NSURL) {
         guard let path = fileURL.path else {
             return
         }
@@ -177,7 +218,7 @@ class FileManager: NSObject {
     
     // MARK: - Array Handling
     
-    func updateObject(fileURL: NSURL, metaData: DocumentMetaData?, state: UIDocumentState?, version: NSFileVersion?, downloaded: Bool) {
+    private func updateObject(fileURL: NSURL, metaData: DocumentMetaData?, state: UIDocumentState?, version: NSFileVersion?, downloaded: Bool) {
         if let index = indexOf(fileURL) {
             let entry = objects[index]
             entry.metaData = metaData
@@ -193,7 +234,7 @@ class FileManager: NSObject {
         }
     }
     
-    func removeObjectFromArray(fileURL: NSURL) {
+    private func removeObjectFromArray(fileURL: NSURL) {
         guard let index = indexOf(fileURL) else {
             // file does not exists
             return
@@ -203,7 +244,7 @@ class FileManager: NSObject {
         delegate?.removeObjectAtIndex(index)
     }
     
-    func indexOf(fileURL: NSURL) -> Int? {
+    private func indexOf(fileURL: NSURL) -> Int? {
         for (index, object) in objects.enumerate() {
             if object.fileURL == fileURL {
                 return index
@@ -244,7 +285,7 @@ class FileManager: NSObject {
     
     // MARK - iCloud Query
     
-    func initializeiCLoud(completion: (success :Bool) ->()) {
+    private func initializeiCLoud(completion: (success :Bool) ->()) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) { () -> Void in
             self.iCloudRootURL = NSFileManager.defaultManager().URLForUbiquityContainerIdentifier(nil)
             if self.iCloudRootURL != nil {
@@ -259,7 +300,7 @@ class FileManager: NSObject {
         }
     }
     
-    func startQuery() {
+    private func startQuery() {
         stopQuery()
         
         query = documentQuery
@@ -269,7 +310,7 @@ class FileManager: NSObject {
         
     }
     
-    func stopQuery() {
+    private func stopQuery() {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: NSMetadataQueryDidFinishGatheringNotification, object: nil)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: NSMetadataQueryDidUpdateNotification, object: nil)
     
@@ -293,7 +334,7 @@ class FileManager: NSObject {
         }
     }
     
-    var documentQuery: NSMetadataQuery {
+    private var documentQuery: NSMetadataQuery {
         get {
             let query = NSMetadataQuery()
             query.searchScopes = [NSMetadataQueryUbiquitousDocumentsScope]

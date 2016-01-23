@@ -14,8 +14,8 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
     @IBOutlet weak var pagesOverviewWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var titleTextField: UITextField!
     
-    final let defaultSettingsWidth: CGFloat = 240
-    final let defaultPagesOverViewWidth: CGFloat = 180
+    private final let defaultSettingsWidth: CGFloat = 240
+    private final let defaultPagesOverViewWidth: CGFloat = 180
 
     var isFullScreen = false
 
@@ -236,8 +236,9 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
     }
     
     func textFieldDidEndEditing(textField: UITextField) {
-        DocumentSynchronizer.sharedInstance.document?.name = textField.text ?? DocumentSynchronizer.sharedInstance.document!.name
-        DocumentSynchronizer.sharedInstance.save()
+        if let newName = textField.text {
+            DocumentSynchronizer.sharedInstance.renameDocument(newName)
+        }
         textField.borderStyle = .None
     }
 }

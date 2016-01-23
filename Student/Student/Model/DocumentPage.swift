@@ -33,9 +33,9 @@ class DocumentPage: NSObject, NSCoding {
         }
     }
 
-    final let indexKey = "index"
-    final let sizeKey = "size"
-    final let layersKey = "layers"
+    private final let indexKey = "index"
+    private final let sizeKey = "size"
+    private final let layersKey = "layers"
     
     func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeInteger(index, forKey: indexKey)

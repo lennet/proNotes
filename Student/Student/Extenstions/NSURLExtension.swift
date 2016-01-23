@@ -10,7 +10,7 @@ import UIKit
 
 extension NSURL {
 
-    func fileName()-> String? {
+    func fileName() -> String? {
         guard let lastPathComponent = URLByDeletingPathExtension?.lastPathComponent else {
             return nil
         }

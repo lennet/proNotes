@@ -16,7 +16,7 @@ class PageInfoViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var formatSelectionCollectionView: UICollectionView!
     @IBOutlet weak var layerTableViewHeightConstraint: NSLayoutConstraint!
 
-    final let collectionViewCellIdentifier = "UICollectionViewCellIdentifier"
+    private final let collectionViewCellIdentifier = "UICollectionViewCellIdentifier"
 
     let paperSizes = CGSize.paperSizes()
 

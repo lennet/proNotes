@@ -43,9 +43,9 @@ class DocumentLayer: NSObject, NSCoding {
         super.init()
     }
     
-    final let indexKey = "index"
-    final let typeRawValueKey = "type"
-    final let hiddenKey = "key"
+    private final let indexKey = "index"
+    private final let typeRawValueKey = "type"
+    private final let hiddenKey = "key"
     
     func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeInteger(index, forKey: indexKey)
@@ -75,8 +75,8 @@ class MovableLayer: DocumentLayer {
         super.init(coder: aDecoder)
     }
     
-    final let sizeKey = "size"
-    final let originKey = "origin"
+    private final let sizeKey = "size"
+    private final let originKey = "origin"
     
     override func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeCGPoint(origin, forKey: originKey)
@@ -103,7 +103,7 @@ class ImageLayer: MovableLayer {
         super.init(coder: aDecoder)
     }
     
-    final let imageDataKey = "imageData"
+    private final let imageDataKey = "imageData"
     
     override func encodeWithCoder(aCoder: NSCoder) {
         if let imageData = UIImagePNGRepresentation(image) {
@@ -129,7 +129,7 @@ class TextLayer: MovableLayer {
         super.init(coder: aDecoder)
     }
     
-    final let textKey = "text"
+    private final let textKey = "text"
     
     override func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeObject(text, forKey: textKey)
@@ -177,7 +177,7 @@ class DocumentDrawLayer: DocumentLayer {
         super.init(coder: aDecoder)
     }
     
-    final let imageDataKey = "imageData"
+    private final let imageDataKey = "imageData"
     
     override func encodeWithCoder(aCoder: NSCoder) {
         if image != nil {

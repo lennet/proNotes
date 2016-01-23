@@ -25,12 +25,16 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
         case RecentlyUsed = 0
         case AllDocuments = 1
     }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         fileManager.delegate = self
     }
     
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        fileManager.delegate = nil
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -75,8 +79,6 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
         return cell
     }
     
-    
-    
     // MARK: UICollectionViewDelegate
 
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
@@ -96,36 +98,6 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
             fileManager.downloadObject(selectedObject)
         }
     }
-    
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(collectionView: UICollectionView, shouldHighlightItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-    return true
-    }
-    */
-    
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-    return true
-    }
-    */
-    
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(collectionView: UICollectionView, shouldShowMenuForItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-    return false
-    }
-    
-    override func collectionView(collectionView: UICollectionView, canPerformAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) -> Bool {
-    return false
-    }
-    
-    override func collectionView(collectionView: UICollectionView, performAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) {
-    
-    }
-    */
-    
     
     //  MARK: - UIDocumenPicker
     
@@ -156,7 +128,6 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
         
         recentlyUsedCollectionView.reloadItemsAtIndexPaths([indexPath])
         allDocumentsCollectionView.reloadItemsAtIndexPaths([indexPath])
-        
     }
     
     func insertObjectAtIndex(index: Int) {
@@ -166,7 +137,7 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
     }
     
     func removeObjectAtIndex(index: Int) {
-        // maybe add a fancy animtaion in the futur
+        // maybe add a fancy animtaion in the future
         reloadObjectAtIndex(index)
     }
     

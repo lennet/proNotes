@@ -10,18 +10,20 @@ import UIKit
 
 class Document: UIDocument {
 
-    final let fileExtension = "ProNote"
-    final let metaDataFileName = "note.metaData"
-    final let pagesDataFileName = "note.pagesData"
-    var name = "Title"
+    private final let fileExtension = "ProNote"
+    private final let metaDataFileName = "note.metaData"
+    private final let pagesDataFileName = "note.pagesData"
+    
+    var name: String {
+        get {
+            return fileURL.fileName() ?? ""
+        }
+    }
+    
     var fileWrapper: NSFileWrapper?
 
     override init(fileURL url: NSURL) {
         super.init(fileURL: url)
-    }
-
-    func getPropertiesDict() -> [String:AnyObject] {
-        return ["name": name]
     }
     
     override var description: String {
@@ -66,6 +68,16 @@ class Document: UIDocument {
         }
     }
     
+    // MARK - Load Document
+    
+    override func loadFromContents(contents: AnyObject, ofType typeName: String?) throws {
+        if let wrapper = decodeData(contents as! NSData) as? NSFileWrapper {
+            fileWrapper = wrapper
+        } else {
+            print(contents)
+        }
+    }
+    
     func decodeObject(fileName: String) -> AnyObject? {
         guard let wrapper = fileWrapper?.fileWrappers?[fileName] else {
             return nil
@@ -82,6 +94,21 @@ class Document: UIDocument {
         return unarchiver.decodeObjectForKey("data")
     }
     
+    // MARK - Store Document
+    
+    override func contentsForType(typeName: String) throws -> AnyObject {
+        if metaData == nil {
+            return NSData()
+        }
+        
+        var wrappers = [String: NSFileWrapper]()
+        encodeObject(metaData!, prefferedFileName: metaDataFileName, wrappers: &wrappers)
+        encodeObject(pages, prefferedFileName: pagesDataFileName, wrappers: &wrappers)
+        
+        let fileWrapper = NSFileWrapper(directoryWithFileWrappers: wrappers)
+        return encodeObject(fileWrapper)
+    }
+    
     func encodeObject(object: NSObject, prefferedFileName: String, inout wrappers:[String: NSFileWrapper]){
         let data = encodeObject(object)
         let wrapper = NSFileWrapper(regularFileWithContents: data)
@@ -96,33 +123,10 @@ class Document: UIDocument {
 
         return data
     }
-    
-    override func contentsForType(typeName: String) throws -> AnyObject {
-        if metaData == nil {
-            return NSData()
-        }
-        
-        var wrappers = [String: NSFileWrapper]()
-        encodeObject(metaData!, prefferedFileName: metaDataFileName, wrappers: &wrappers)
-        encodeObject(pages, prefferedFileName: pagesDataFileName, wrappers: &wrappers)
-        
-        let fileWrapper = NSFileWrapper(directoryWithFileWrappers: wrappers)
-        return encodeObject(fileWrapper)
-    }
 
-    override func loadFromContents(contents: AnyObject, ofType typeName: String?) throws {
-        if let wrapper = decodeData(contents as! NSData) as? NSFileWrapper {
-            fileWrapper = wrapper
-        } else {
-            print(contents)
-        }
-        
-    }
+    // MARK - Pages Manipulation
+    // export to custom object ?
     
-    func setUpDocumentWithProperties(properties: [String: AnyObject]){
-        name = (properties["name"] as? String) ?? name
-    }
-
     func addPDF(url: NSURL) {
         let pdf = CGPDFDocumentCreateWithURL(url as CFURLRef)
         for var i = 1; i <= CGPDFDocumentGetNumberOfPages(pdf); i++ {
@@ -162,5 +166,4 @@ class Document: UIDocument {
     func getNumberOfPages() -> Int {
         return pages.count;
     }
-
 }
