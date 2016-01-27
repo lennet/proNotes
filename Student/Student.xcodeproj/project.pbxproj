@@ -225,7 +225,7 @@
 				981CF9AD1C4AC3BE003BA892 /* DocumentOverviewViewController.swift */,
 				98E0D3FF1C4C087700EF49FD /* FileManager.swift */,
 			);
-			name = DocumentOverview;
+			path = DocumentOverview;
 			sourceTree = "<group>";
 		};
 		982FD9EC1C18C92F00058BCF /* Pages Overview */ = {
@@ -267,10 +267,10 @@
 			children = (
 				980A3F341C22B2010070C618 /* ColorPicker */,
 				986D605D1C2C2D700065D71B /* CircleView.swift */,
-				986D605A1C2B21140065D71B /* CustomScrollView.swift */,
-				984242AA1C3EDD0900F90455 /* TouchControlView.swift */,
-				98AD15E81C49BBDC00EE94A1 /* ReordableTableView.swift */,
 				9854310E1C52C4EE0098DAC1 /* CloudDownloadingIndicator.swift */,
+				986D605A1C2B21140065D71B /* CustomScrollView.swift */,
+				98AD15E81C49BBDC00EE94A1 /* ReordableTableView.swift */,
+				984242AA1C3EDD0900F90455 /* TouchControlView.swift */,
 			);
 			path = "Generic Components";
 			sourceTree = "<group>";
@@ -280,9 +280,9 @@
 			children = (
 				98D8C0B61C0B116F0026EECE /* Document.swift */,
 				98A57C3C1C1DB2A400E6C5DF /* DocumentLayer.swift */,
+				98E0D4071C4C0F5500EF49FD /* DocumentMetaData.swift */,
 				98A57C3E1C1DB2BC00E6C5DF /* DocumentPage.swift */,
 				98E0D4031C4C0CA700EF49FD /* DocumentsOverviewObject.swift */,
-				98E0D4071C4C0F5500EF49FD /* DocumentMetaData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -303,15 +303,15 @@
 				98F2E3E31C1A1ED2008A5C6C /* ArrayExtension.swift */,
 				986D605F1C2C34BD0065D71B /* CALayerExtension.swift */,
 				98F2E3E41C1A1ED2008A5C6C /* CGPointExtension.swift */,
+				987B570B1C3AF85200141EA5 /* CGRectExtension.swift */,
 				98F2E3E51C1A1ED2008A5C6C /* CGSizeExtenstion.swift */,
+				987B570D1C3B10F300141EA5 /* Global.swift */,
+				9854310C1C52C00F0098DAC1 /* NSMetadataItemExtension.swift */,
+				98E0D4051C4C0D3C00EF49FD /* NSURLExtension.swift */,
+				984242AC1C3EE79900F90455 /* UIColorExtension.swift */,
+				987B570F1C3B139700141EA5 /* UIImageExtension.swift */,
 				98F2E3E61C1A1ED2008A5C6C /* UIStoryboardExtension.swift */,
 				98BABB911C1B4D9300D9C938 /* UIViewExtension.swift */,
-				987B570B1C3AF85200141EA5 /* CGRectExtension.swift */,
-				987B570D1C3B10F300141EA5 /* Global.swift */,
-				987B570F1C3B139700141EA5 /* UIImageExtension.swift */,
-				984242AC1C3EE79900F90455 /* UIColorExtension.swift */,
-				98E0D4051C4C0D3C00EF49FD /* NSURLExtension.swift */,
-				9854310C1C52C00F0098DAC1 /* NSMetadataItemExtension.swift */,
 			);
 			path = Extenstions;
 			sourceTree = "<group>";
@@ -349,8 +349,8 @@
 		98DBAA081C0799CB007EFFE5 /* Student */ = {
 			isa = PBXGroup;
 			children = (
-				981CF9A61C4AB034003BA892 /* DocumentOverview */,
 				98101BCB1C0A5873001E9555 /* Document */,
+				981CF9A61C4AB034003BA892 /* DocumentOverview */,
 				98AFFE721C14AEC9003A4A79 /* Extenstions */,
 				986D605C1C2C2D410065D71B /* Generic Components */,
 				98A57C3B1C1DB29200E6C5DF /* Model */,
@@ -358,9 +358,9 @@
 				98DBAA131C0799CB007EFFE5 /* Assets.xcassets */,
 				98DBAA181C0799CB007EFFE5 /* Info.plist */,
 				98DBAA151C0799CB007EFFE5 /* LaunchScreen.storyboard */,
+				98E0D4011C4C093900EF49FD /* Preferences.swift */,
 				98D8C0BE1C0B16610026EECE /* Student.entitlements */,
 				98DBAA101C0799CB007EFFE5 /* Student.xcdatamodeld */,
-				98E0D4011C4C093900EF49FD /* Preferences.swift */,
 			);
 			path = Student;
 			sourceTree = "<group>";
