@@ -57,7 +57,6 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
     }
     
     func setUpTitle() {
-        print(document?.name)
         titleTextField.text = document?.name
         titleTextField.sizeToFit()
     }
