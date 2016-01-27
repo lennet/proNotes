@@ -56,7 +56,7 @@ class PageInfoViewController: UIViewController, UITableViewDataSource, UITableVi
 
         PagesTableViewController.sharedInstance?.currentPageView()?.setLayerSelected(indexPath.row)
     }
-    
+
     // MARK: - UITableViewDataSource
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -113,7 +113,7 @@ class PageInfoViewController: UIViewController, UITableViewDataSource, UITableVi
             return size
         }
     }
-    
+
     // MARK: - ReordableTableViewDelegate
 
     func didSwapElements(firstIndex: Int, secondIndex: Int) {

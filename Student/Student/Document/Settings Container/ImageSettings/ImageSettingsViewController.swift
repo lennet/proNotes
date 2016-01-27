@@ -10,7 +10,9 @@ import UIKit
 
 protocol ImageSettingsDelegate {
     func removeImage()
+
     func getImage() -> UIImage
+
     func updateImage(image: UIImage)
 }
 
@@ -22,7 +24,7 @@ class ImageSettingsViewController: UIViewController {
     @IBOutlet weak var finishButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var cropButton: UIButton!
-    @IBOutlet weak var rotateRightButton: UIButton! 
+    @IBOutlet weak var rotateRightButton: UIButton!
     @IBOutlet weak var rotateLeftButton: UIButton!
     @IBOutlet weak var cancelButtonConstraint: NSLayoutConstraint!
     @IBOutlet weak var finishButtonConstraint: NSLayoutConstraint!
@@ -77,7 +79,7 @@ class ImageSettingsViewController: UIViewController {
 
         })
     }
-    
+
     func rotateImage(rotation: UIImageOrientation) {
         if let image = cropImageView.image?.rotateImage(rotation) {
             cropImageView.image = image
@@ -99,11 +101,11 @@ class ImageSettingsViewController: UIViewController {
     @IBAction func handleRotateLeftButtonPressed(sender: AnyObject) {
         rotateImage(.Left)
     }
-    
+
     @IBAction func handleRotateRightButtonPressed(sender: AnyObject) {
         rotateImage(.Right)
     }
-    
+
     @IBAction func handleCropButtonPressed(sender: AnyObject) {
         cropImageView.isEditing = true
         updateButtonVisibility(true)

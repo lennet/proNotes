@@ -11,14 +11,14 @@ import UIKit
 class DocumentMetaData: NSObject, NSCoding {
 
     override init() {
-        super.init()    
+        super.init()
     }
-    
+
     required init(coder aDecoder: NSCoder) {
-    
+
     }
-    
+
     func encodeWithCoder(aCoder: NSCoder) {
-        
+
     }
 }

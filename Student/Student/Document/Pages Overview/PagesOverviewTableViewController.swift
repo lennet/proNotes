@@ -40,11 +40,11 @@ class PagesOverviewTableViewController: UITableViewController, DocumentSynchroni
     }
 
     // MARK: - ReordableTableViewDelegate
-    
+
     func didSwapElements(firstIndex: Int, secondIndex: Int) {
         // TODO
     }
-    
+
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {

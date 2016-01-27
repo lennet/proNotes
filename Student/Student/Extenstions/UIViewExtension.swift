@@ -43,7 +43,7 @@ extension UIView {
         }
         return nil
     }
-    
+
     var parentViewController: UIViewController? {
         var parentResponder: UIResponder? = self
         while parentResponder != nil {

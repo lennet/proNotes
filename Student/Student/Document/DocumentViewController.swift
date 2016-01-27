@@ -13,7 +13,7 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
     @IBOutlet weak var settingsWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var pagesOverviewWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var titleTextField: UITextField!
-    
+
     private final let defaultSettingsWidth: CGFloat = 240
     private final let defaultPagesOverViewWidth: CGFloat = 180
 
@@ -34,15 +34,16 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
         super.viewDidAppear(animated)
         titleTextField.delegate = self
     }
-    
+
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         titleTextField.delegate = nil
         DocumentSynchronizer.sharedInstance.save()
-        document?.closeWithCompletionHandler({ (Bool) -> Void in
+        document?.closeWithCompletionHandler({
+            (Bool) -> Void in
         })
     }
-    
+
     deinit {
         DocumentSynchronizer.sharedInstance.removeDelegate(self)
     }
@@ -55,12 +56,12 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
     override func canBecomeFirstResponder() -> Bool {
         return true
     }
-    
+
     func setUpTitle() {
         titleTextField.text = document?.name
         titleTextField.sizeToFit()
     }
-    
+
     // MARK: - Actions
 
     @IBAction func handleAddPageButtonPressed(sender: AnyObject) {
@@ -133,7 +134,7 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
     }
 
     @IBAction func unwind(sender: AnyObject) {
-    
+
         navigationController?.popViewControllerAnimated(true)
     }
 
@@ -141,7 +142,7 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
 
     func showPage(index: Int) {
         PagesTableViewController.sharedInstance?.showPage(index)
-         SettingsViewController.sharedInstance?.setUpChildViewController(.PageInfo)
+        SettingsViewController.sharedInstance?.setUpChildViewController(.PageInfo)
     }
 
     // MARK: - DocumentSynchronizerDelegate
@@ -169,12 +170,12 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
     // MARK: - UIKeyCommands
 
 
-    
+
     // TODO add more commands
     override var keyCommands: [UIKeyCommand]? {
-        var commands = [                UIKeyCommand(input: UIKeyInputDownArrow, modifierFlags: .Command, action: "handleDownKeyPressed:", discoverabilityTitle: "Scroll Down"),
-            UIKeyCommand(input: UIKeyInputUpArrow, modifierFlags: .Command, action: "handleUpKeyPressed:", discoverabilityTitle: "Scroll Up")]
-        
+        var commands = [UIKeyCommand(input: UIKeyInputDownArrow, modifierFlags: .Command, action: "handleDownKeyPressed:", discoverabilityTitle: "Scroll Down"),
+                        UIKeyCommand(input: UIKeyInputUpArrow, modifierFlags: .Command, action: "handleUpKeyPressed:", discoverabilityTitle: "Scroll Up")]
+
         if let settingsViewController = SettingsViewController.sharedInstance {
             switch settingsViewController.currentSettingsType {
             case .Image:
@@ -185,31 +186,31 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
                 break
             }
         }
-        
+
         if let _ = PagesTableViewController.sharedInstance?.currentPageView()?.selectedSubView as? MovableView {
             commands.append(UIKeyCommand(input: UIKeyInputRightArrow, modifierFlags: .Command, action: "handleMoveMovableViewKeyPressed:", discoverabilityTitle: "Move Right"))
             commands.append(UIKeyCommand(input: UIKeyInputLeftArrow, modifierFlags: .Command, action: "handleMoveMovableViewKeyPressed:", discoverabilityTitle: "Move Left"))
             commands.append(UIKeyCommand(input: UIKeyInputUpArrow, modifierFlags: .Command, action: "handleMoveMovableViewKeyPressed:", discoverabilityTitle: "Move Up"))
             commands.append(UIKeyCommand(input: UIKeyInputDownArrow, modifierFlags: .Command, action: "handleMoveMovableViewKeyPressed:", discoverabilityTitle: "Move Down"))
         }
-        
+
         return commands
     }
-    
+
     func handleRotateImageKeyPressed(sender: UIKeyCommand) {
         if let imageSettingsViewController = SettingsViewController.sharedInstance?.currentChildViewController as? ImageSettingsViewController {
             imageSettingsViewController.rotateImage(sender.input == UIKeyInputRightArrow ? .Right : .Left)
         }
     }
-    
+
     func handleDownKeyPressed(sender: UIKeyCommand) {
         PagesTableViewController.sharedInstance?.scroll(true)
     }
-    
+
     func handleUpKeyPressed(sender: UIKeyCommand) {
         PagesTableViewController.sharedInstance?.scroll(false)
     }
-    
+
     func handleMoveMovableViewKeyPressed(sender: UIKeyCommand) {
         guard let movableView = PagesTableViewController.sharedInstance?.currentPageView()?.selectedSubView as? MovableView else {
             return
@@ -233,28 +234,29 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
         movableView.handlePanTranslation(translation)
         movableView.handlePanEnded()
     }
-    
+
     // MARK - UITextfieldDelegate
-    
+
     func textFieldDidBeginEditing(textField: UITextField) {
         textField.borderStyle = .RoundedRect
     }
-    
+
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
-    
+
     func textFieldDidEndEditing(textField: UITextField) {
         if let newName = textField.text {
-            DocumentSynchronizer.sharedInstance.renameDocument(newName, forceOverWrite: false, viewController: self, completion: { (success) -> Void in
+            DocumentSynchronizer.sharedInstance.renameDocument(newName, forceOverWrite: false, viewController: self, completion: {
+                (success) -> Void in
                 if !success {
-                    dispatch_async(dispatch_get_main_queue(),{
+                    dispatch_async(dispatch_get_main_queue(), {
                         self.setUpTitle()
                     })
                 }
             })
-        textField.borderStyle = .None
+            textField.borderStyle = .None
         }
     }
 }

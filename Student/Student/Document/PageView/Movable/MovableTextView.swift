@@ -35,13 +35,13 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
 
         addSubview(textView)
     }
-    
+
     override func handlePanTranslation(translation: CGPoint) -> CGRect {
         let rect = super.handlePanTranslation(translation)
         updateTextView()
         return rect
     }
-    
+
     override func handleDoubleTap(tapGestureRecognizer: UITapGestureRecognizer) {
         textView.becomeFirstResponder()
     }
@@ -103,7 +103,7 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
             setNeedsDisplay()
         }
     }
-    
+
     // MARK: - UITextViewDelegate
 
     func textViewDidChange(textView: UITextView) {

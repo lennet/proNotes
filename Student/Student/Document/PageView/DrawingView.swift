@@ -134,7 +134,7 @@ class DrawingView: PageSubView, DrawingSettingsDelegate {
     }
 
     override func setSelected() {
-         SettingsViewController.sharedInstance?.currentSettingsType = .Drawing
+        SettingsViewController.sharedInstance?.currentSettingsType = .Drawing
         DrawingSettingsViewController.delegate = self
     }
 
@@ -147,7 +147,7 @@ class DrawingView: PageSubView, DrawingSettingsDelegate {
 
     func removeLayer() {
         drawLayer?.removeFromPage()
-         SettingsViewController.sharedInstance?.currentSettingsType = .PageInfo
+        SettingsViewController.sharedInstance?.currentSettingsType = .PageInfo
     }
 
     func didSelectColor(color: UIColor) {

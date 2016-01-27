@@ -15,13 +15,13 @@ extension NSMetadataItem {
             return valueForAttribute(NSMetadataItemURLKey) as? NSURL
         }
     }
-    
+
     func printAttributes() {
         for attribute in attributes {
             print("\(attribute): \(valueForAttribute(attribute))")
         }
     }
-    
+
     func isLocalAvailable() -> Bool {
         guard let path = fileURL?.path else {
             return false

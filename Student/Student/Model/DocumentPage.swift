@@ -22,7 +22,7 @@ class DocumentPage: NSObject, NSCoding {
         self.index = index
         addPDFLayer(PDF)
     }
-    
+
     required init(coder aDecoder: NSCoder) {
         size = aDecoder.decodeCGSizeForKey(sizeKey)
         index = aDecoder.decodeIntegerForKey(indexKey)
@@ -36,13 +36,13 @@ class DocumentPage: NSObject, NSCoding {
     private final let indexKey = "index"
     private final let sizeKey = "size"
     private final let layersKey = "layers"
-    
+
     func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeInteger(index, forKey: indexKey)
         aCoder.encodeObject(layers, forKey: layersKey)
         aCoder.encodeCGSize(size, forKey: sizeKey)
     }
-    
+
     func addDrawingLayer(image: UIImage?) -> DocumentDrawLayer {
         let drawLayer = DocumentDrawLayer(index: layers.count, image: image, docPage: self)
         layers.append(drawLayer)

@@ -16,14 +16,14 @@ extension UIImage {
         }
         return nil
     }
-    
+
     func rotateImage(rotation: UIImageOrientation) -> UIImage? {
         guard let CGImage = self.CGImage else {
             return nil
         }
-        
+
         var newSize = size
-        
+
         switch rotation {
         case .Left, .Right:
             newSize = CGSize(width: newSize.height, height: newSize.width)
@@ -38,16 +38,16 @@ extension UIImage {
         rotatedImage.drawAtPoint(CGPointZero)
         let resultImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        
+
         return resultImage
     }
-    
+
     func sizeToFit(size: CGSize) -> CGSize {
-        let widthRatio = self.size.width/size.width
-        let heightRatio = self.size.height/size.height 
+        let widthRatio = self.size.width / size.width
+        let heightRatio = self.size.height / size.height
 
         let ratio = widthRatio > heightRatio ? widthRatio : heightRatio
-        
-        return CGSize(width: self.size.width/ratio, height: self.size.height/ratio)
+
+        return CGSize(width: self.size.width / ratio, height: self.size.height / ratio)
     }
 }

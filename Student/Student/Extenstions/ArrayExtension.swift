@@ -8,8 +8,8 @@
 
 import UIKit
 
-extension Array where Element : Comparable {
-   
+extension Array where Element:Comparable {
+
     func index(object: Element) -> Int? {
 
         for (index, currentObject) in self.enumerate() {
@@ -19,7 +19,7 @@ extension Array where Element : Comparable {
         }
         return nil
     }
-    
+
 }
 
 extension Array {

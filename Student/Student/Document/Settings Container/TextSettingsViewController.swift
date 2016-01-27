@@ -26,14 +26,14 @@ protocol TextSettingsDelegate {
 
 class TextSettingsViewController: SettingsBaseViewController, UIPickerViewDataSource, UIPickerViewDelegate {
 
-    enum FontPickerRows: Int{
+    enum FontPickerRows: Int {
         case Families
         case Names
         case Sizes
-        
+
         static let allValues = [Families, Names, Sizes]
     }
-    
+
     @IBOutlet weak var fontPicker: UIPickerView!
     static var delegate: TextSettingsDelegate?
 

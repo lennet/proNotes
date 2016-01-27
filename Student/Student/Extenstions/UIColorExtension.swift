@@ -9,7 +9,7 @@
 import UIKit
 
 extension UIColor {
-    
+
     class func randomColor() -> UIColor {
         return UIColor(red: CGFloat(drand48()), green: CGFloat(drand48()), blue: CGFloat(drand48()), alpha: 1.0)
     }

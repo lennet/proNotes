@@ -24,5 +24,5 @@ extension NSURL {
             return components.joinWithSeparator(".")
         }
     }
-    
+
 }

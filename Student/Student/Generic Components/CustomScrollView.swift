@@ -13,10 +13,10 @@ class CustomScrollView: UIScrollView {
     override func touchesShouldCancelInContentView(view: UIView) -> Bool {
         return false
     }
-    
+
     // MARK: - UIGestureRecognizerDelegate
-    
+
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return !( gestureRecognizer.isKindOfClass(UIPinchGestureRecognizer) && otherGestureRecognizer.isKindOfClass(UIPanGestureRecognizer))
+        return !(gestureRecognizer.isKindOfClass(UIPinchGestureRecognizer) && otherGestureRecognizer.isKindOfClass(UIPanGestureRecognizer))
     }
 }

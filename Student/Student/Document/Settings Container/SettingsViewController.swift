@@ -11,7 +11,7 @@ import UIKit
 class SettingsViewController: UIViewController {
 
     static var sharedInstance: SettingsViewController?
-    
+
     enum SettingsViewControllerType: String {
         case Drawing = "DrawingSettingsIdentifier"
         case Image = "ImageSettingsIdentifier"
@@ -19,7 +19,7 @@ class SettingsViewController: UIViewController {
         case Text = "TextSettingsIdentifier"
         case Plot = "PlotSettingsIdentifier"
     }
-    
+
     var currentChildViewController: UIViewController?
     var currentSettingsType: SettingsViewControllerType = .PageInfo {
         didSet {

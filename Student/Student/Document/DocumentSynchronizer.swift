@@ -37,45 +37,49 @@ class DocumentSynchronizer: NSObject {
             }
         }
     }
-    
-    func renameDocument(newName: String, forceOverWrite: Bool,viewController: UIViewController?, completion: ((Bool) -> Void)?){
+
+    func renameDocument(newName: String, forceOverWrite: Bool, viewController: UIViewController?, completion: ((Bool) -> Void)?) {
         guard document != nil else {
             return
         }
-        
+
         guard newName != document?.name else {
             return
         }
-        
+
         guard let oldURL = document?.fileURL else {
             return
         }
-        
+
         let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
         dispatch_async(dispatch_get_global_queue(priority, 0)) {
-            FileManager.sharedInstance.renameObject(oldURL, fileName: newName, forceOverWrite: false, completion: { (success, error) -> Void in
+            FileManager.sharedInstance.renameObject(oldURL, fileName: newName, forceOverWrite: false, completion: {
+                (success, error) -> Void in
                 if success {
                     completion?(true)
                 } else if error != nil {
                     switch error! {
                     case RenameError.AlreadyExists:
-                        dispatch_async(dispatch_get_main_queue(),{
+                        dispatch_async(dispatch_get_main_queue(), {
                             let alertView = UIAlertController(title: nil, message: "Filename already exists", preferredStyle: .Alert)
-                            alertView.addAction(UIAlertAction(title: "Override", style: .Destructive, handler: { (action) -> Void in
-                                self.renameDocument(newName,forceOverWrite:true ,viewController: viewController, completion: completion)
+                            alertView.addAction(UIAlertAction(title: "Override", style: .Destructive, handler: {
+                                (action) -> Void in
+                                self.renameDocument(newName, forceOverWrite: true, viewController: viewController, completion: completion)
                             }))
-                            alertView.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: { (action) -> Void in
+                            alertView.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: {
+                                (action) -> Void in
                                 completion?(false)
                             }))
-                            
+
                             viewController?.presentViewController(alertView, animated: true, completion: nil)
                         })
                         break
                     default:
-                        dispatch_async(dispatch_get_main_queue(),{
+                        dispatch_async(dispatch_get_main_queue(), {
                             let alertView = UIAlertController(title: nil, message: "Try again later", preferredStyle: .Alert)
                             viewController?.presentViewController(alertView, animated: true, completion: nil)
-                            alertView.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action) -> Void in
+                            alertView.addAction(UIAlertAction(title: "Ok", style: .Default, handler: {
+                                (action) -> Void in
                                 completion?(false)
                             }))
                         })
@@ -129,7 +133,7 @@ class DocumentSynchronizer: NSObject {
     func save() {
         document?.saveToURL(document!.fileURL, forSaveOperation: .ForOverwriting, completionHandler: nil)
     }
-    
+
     // MARK: - Delegate Handling
 
     func addDelegate(delegate: DocumentSynchronizerDelegate) {

@@ -10,10 +10,10 @@ import UIKit
 
 class DocumentOverviewCollectionViewCell: UICollectionViewCell {
     static let reusableIdentifier = "DocumentOverviewCollectionViewCellIdentifier"
-    
+
     @IBOutlet weak var nameLabel: UILabel!
-    
+
     @IBOutlet weak var dateLabel: UILabel!
-    
+
     @IBOutlet weak var downloadIndicator: CloudDownloadingIndicator!
 }

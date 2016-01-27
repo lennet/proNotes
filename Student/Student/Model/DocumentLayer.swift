@@ -42,17 +42,17 @@ class DocumentLayer: NSObject, NSCoding {
         self.hidden = aDecoder.decodeBoolForKey(hiddenKey)
         super.init()
     }
-    
+
     private final let indexKey = "index"
     private final let typeRawValueKey = "type"
     private final let hiddenKey = "key"
-    
+
     func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeInteger(index, forKey: indexKey)
         aCoder.encodeInteger(type.rawValue, forKey: typeRawValueKey)
         aCoder.encodeBool(hidden, forKey: hiddenKey)
     }
-    
+
     func removeFromPage() {
         self.docPage.removeLayer(self, forceReload: false)
     }
@@ -74,10 +74,10 @@ class MovableLayer: DocumentLayer {
         size = aDecoder.decodeCGSizeForKey(sizeKey)
         super.init(coder: aDecoder)
     }
-    
+
     private final let sizeKey = "size"
     private final let originKey = "origin"
-    
+
     override func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeCGPoint(origin, forKey: originKey)
         aCoder.encodeCGSize(size, forKey: sizeKey)
@@ -99,12 +99,12 @@ class ImageLayer: MovableLayer {
         } else {
             image = UIImage()
         }
-        
+
         super.init(coder: aDecoder)
     }
-    
+
     private final let imageDataKey = "imageData"
-    
+
     override func encodeWithCoder(aCoder: NSCoder) {
         if let imageData = UIImagePNGRepresentation(image) {
             aCoder.encodeObject(imageData, forKey: imageDataKey)
@@ -128,9 +128,9 @@ class TextLayer: MovableLayer {
         text = aDecoder.decodeObjectForKey(textKey) as! String
         super.init(coder: aDecoder)
     }
-    
+
     private final let textKey = "text"
-    
+
     override func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeObject(text, forKey: textKey)
         super.encodeWithCoder(aCoder)
@@ -146,7 +146,7 @@ class PlotLayer: MovableLayer {
 
     required init(coder aDecoder: NSCoder) {
         self.function = ""
-       super.init(coder: aDecoder)
+        super.init(coder: aDecoder)
     }
 
 }
@@ -176,9 +176,9 @@ class DocumentDrawLayer: DocumentLayer {
         }
         super.init(coder: aDecoder)
     }
-    
+
     private final let imageDataKey = "imageData"
-    
+
     override func encodeWithCoder(aCoder: NSCoder) {
         if image != nil {
             if let imageData = UIImagePNGRepresentation(image!) {

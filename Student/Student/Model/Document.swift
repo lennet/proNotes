@@ -13,26 +13,26 @@ class Document: UIDocument {
     private final let fileExtension = "ProNote"
     private final let metaDataFileName = "note.metaData"
     private final let pagesDataFileName = "note.pagesData"
-    
+
     var name: String {
         get {
             return fileURL.fileName(true) ?? ""
         }
     }
-    
+
     var fileWrapper: NSFileWrapper?
 
     override init(fileURL url: NSURL) {
         super.init(fileURL: url)
     }
-    
+
     override var description: String {
         get {
             return fileURL.fileName(true) ?? super.description
         }
     }
-    
-    var _metaData :DocumentMetaData?
+
+    var _metaData: DocumentMetaData?
     var metaData: DocumentMetaData? {
         get {
             if fileWrapper != nil {
@@ -43,12 +43,12 @@ class Document: UIDocument {
             }
             return _metaData
         }
-        
+
         set {
             _metaData = newValue
         }
     }
-    
+
     var _pages: [DocumentPage]?
     var pages: [DocumentPage] {
         get {
@@ -62,14 +62,14 @@ class Document: UIDocument {
             }
             return _pages!
         }
-        
+
         set {
             _pages = newValue
         }
     }
-    
+
     // MARK - Load Document
-    
+
     override func loadFromContents(contents: AnyObject, ofType typeName: String?) throws {
         if let wrapper = decodeData(contents as! NSData) as? NSFileWrapper {
             fileWrapper = wrapper
@@ -77,44 +77,44 @@ class Document: UIDocument {
             print(contents)
         }
     }
-    
+
     func decodeObject(fileName: String) -> AnyObject? {
         guard let wrapper = fileWrapper?.fileWrappers?[fileName] else {
             return nil
         }
-        guard let data =  wrapper.regularFileContents else {
+        guard let data = wrapper.regularFileContents else {
             return nil
         }
-        
+
         return decodeData(data)
     }
-    
+
     func decodeData(data: NSData) -> AnyObject? {
         let unarchiver = NSKeyedUnarchiver(forReadingWithData: data)
         return unarchiver.decodeObjectForKey("data")
     }
-    
+
     // MARK - Store Document
-    
+
     override func contentsForType(typeName: String) throws -> AnyObject {
         if metaData == nil {
             return NSData()
         }
-        
+
         var wrappers = [String: NSFileWrapper]()
         encodeObject(metaData!, prefferedFileName: metaDataFileName, wrappers: &wrappers)
         encodeObject(pages, prefferedFileName: pagesDataFileName, wrappers: &wrappers)
-        
+
         let fileWrapper = NSFileWrapper(directoryWithFileWrappers: wrappers)
         return encodeObject(fileWrapper)
     }
-    
-    func encodeObject(object: NSObject, prefferedFileName: String, inout wrappers:[String: NSFileWrapper]){
+
+    func encodeObject(object: NSObject, prefferedFileName: String, inout wrappers: [String:NSFileWrapper]) {
         let data = encodeObject(object)
         let wrapper = NSFileWrapper(regularFileWithContents: data)
         wrappers[prefferedFileName] = wrapper
     }
-    
+
     func encodeObject(object: NSObject) -> NSData {
         let data = NSMutableData()
         let archiver = NSKeyedArchiver(forWritingWithMutableData: data)
@@ -126,7 +126,7 @@ class Document: UIDocument {
 
     // MARK - Pages Manipulation
     // export to custom object ?
-    
+
     func addPDF(url: NSURL) {
         let pdf = CGPDFDocumentCreateWithURL(url as CFURLRef)
         for var i = 1; i <= CGPDFDocumentGetNumberOfPages(pdf); i++ {

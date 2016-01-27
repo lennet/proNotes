@@ -11,7 +11,7 @@ import UIKit
 class PageTableViewCell: UITableViewCell, PDFViewDelegate {
 
     @IBOutlet weak var pageView: PageView!
-    
+
     static let identifier = "PageTableViewCellIdentifier"
 
     var heightConstraint: NSLayoutConstraint?
@@ -21,7 +21,7 @@ class PageTableViewCell: UITableViewCell, PDFViewDelegate {
     override func awakeFromNib() {
         super.awakeFromNib()
         backgroundColor = UIColor.clearColor()
-        
+
         heightConstraint = pageView.getConstraint(.Height)
         widthConstraint = pageView.getConstraint(.Width)
         updateHeight(UIScreen.mainScreen().bounds.height)

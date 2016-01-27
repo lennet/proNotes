@@ -37,7 +37,7 @@ class MovableImageView: MovableView, ImageSettingsDelegate {
 
     override func setUpSettingsViewController() {
         ImageSettingsViewController.delegate = self
-         SettingsViewController.sharedInstance?.currentSettingsType = .Image
+        SettingsViewController.sharedInstance?.currentSettingsType = .Image
     }
 
     // MARK: - ImageSettingsDelegate
@@ -45,27 +45,27 @@ class MovableImageView: MovableView, ImageSettingsDelegate {
     func removeImage() {
         removeFromSuperview()
         movableLayer?.removeFromPage()
-         SettingsViewController.sharedInstance?.currentSettingsType = .PageInfo
+        SettingsViewController.sharedInstance?.currentSettingsType = .PageInfo
     }
 
     func getImage() -> UIImage {
         return image
     }
-    
+
     func updateImage(image: UIImage) {
-        let heightRatio = imageView.bounds.height/self.image.size.height
-        let widthRatio = imageView.bounds.width/self.image.size.width
+        let heightRatio = imageView.bounds.height / self.image.size.height
+        let widthRatio = imageView.bounds.width / self.image.size.width
         imageView.image = image
-        
+
         if let imageLayer = movableLayer as? ImageLayer {
             imageLayer.image = image
         }
 
         self.image = image
-        frame.size.height = (image.size.height*heightRatio)+2*controlLength
-        frame.size.width = (image.size.width*widthRatio)+2*controlLength
+        frame.size.height = (image.size.height * heightRatio) + 2 * controlLength
+        frame.size.width = (image.size.width * widthRatio) + 2 * controlLength
         movableLayer?.size = frame.size
-        
+
         saveChanges()
     }
 

@@ -14,8 +14,8 @@ extension CGRect {
         size = CGSize(width: width, height: height)
         origin = CGPoint(x: center.x - width / 2, y: center.y - height / 2)
     }
-    
-    init(center: CGPoint, size: CGSize){
+
+    init(center: CGPoint, size: CGSize) {
         self.size = size
         origin = CGPoint(x: center.x - size.width / 2, y: center.y - size.height / 2)
     }
