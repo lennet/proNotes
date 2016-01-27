@@ -96,14 +96,9 @@
                                     <action selector="handleTextButtonPressed:" destination="mNn-FC-EJF" id="GMS-xf-Qgz"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem image="PlotIcon" id="xhq-m4-TQP">
-                                <connections>
-                                    <action selector="handlePlotButtonPressed:" destination="mNn-FC-EJF" id="uQV-EZ-q74"/>
-                                </connections>
-                            </barButtonItem>
                         </leftBarButtonItems>
                         <view key="titleView" contentMode="scaleToFill" id="DCF-1C-qNS">
-                            <rect key="frame" x="387" y="5.5" width="87" height="33"/>
+                            <rect key="frame" x="356.5" y="5.5" width="87" height="33"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Title" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DeR-PR-STL">
@@ -1338,7 +1333,6 @@
     <resources>
         <image name="DrawIcon" width="25" height="25"/>
         <image name="ImageViewIcon" width="31" height="25"/>
-        <image name="PlotIcon" width="27" height="25"/>
         <image name="TextViewIcon" width="22" height="25"/>
         <image name="cancel" width="32" height="32"/>
         <image name="centerAlignment" width="31" height="32"/>
@@ -1358,6 +1352,6 @@
         <image name="visibleIcon" width="21" height="14"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="TwW-HK-FwZ"/>
+        <segue reference="LCC-YW-Uy0"/>
     </inferredMetricsTieBreakers>
 </document>

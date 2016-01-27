@@ -92,10 +92,6 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
         }
     }
 
-    @IBAction func handlePlotButtonPressed(sender: AnyObject) {
-        document?.addPlotToPage(0)
-    }
-
     @IBAction func handlePageInfoButtonPressed(sender: AnyObject) {
         PagesTableViewController.sharedInstance?.currentPageView()?.deselectSelectedSubview()
         SettingsViewController.sharedInstance?.currentSettingsType = .PageInfo

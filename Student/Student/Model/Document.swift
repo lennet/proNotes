@@ -156,13 +156,6 @@ class Document: UIDocument {
         }
     }
 
-    func addPlotToPage(pageIndex: Int) {
-        if pages.count > pageIndex {
-            pages[pageIndex].addPlotLayer()
-            DocumentSynchronizer.sharedInstance.document = self
-        }
-    }
-
     func getNumberOfPages() -> Int {
         return pages.count;
     }

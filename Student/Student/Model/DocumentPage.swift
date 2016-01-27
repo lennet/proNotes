@@ -69,12 +69,6 @@ class DocumentPage: NSObject, NSCoding {
         return textLayer
     }
 
-    func addPlotLayer() {
-        let plotLayer = PlotLayer(index: layers.count, docPage: self, origin: CGPointZero, size: CGSize(width: 500, height: 300))
-        layers.append(plotLayer)
-        DocumentSynchronizer.sharedInstance.updatePage(self, forceReload: false)
-    }
-
     func changeLayerVisibility(hidden: Bool, layer: DocumentLayer) {
         if layer.index < layers.count {
             layer.hidden = hidden

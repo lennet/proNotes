@@ -74,9 +74,6 @@ class PageView: UIView, UIGestureRecognizerDelegate {
             case .Text:
                 addTextLayer(layer as! TextLayer)
                 break
-            case .Plot:
-                addPlotLayer(layer as! PlotLayer)
-                break
             }
         }
 //        setNeedsDisplay()
@@ -111,14 +108,6 @@ class PageView: UIView, UIGestureRecognizerDelegate {
         view.hidden = textLayer.hidden
         addSubview(view)
         view.setUpTextView()
-    }
-
-    func addPlotLayer(plotLayer: PlotLayer) {
-        let frame = CGRect(origin: plotLayer.origin, size: plotLayer.size)
-        let view = MovablePlotView(frame: frame, movableLayer: plotLayer)
-        view.hidden = plotLayer.hidden
-        addSubview(view)
-        view.setUpPlotView()
     }
 
     func getDrawingViews() -> [DrawingView] {

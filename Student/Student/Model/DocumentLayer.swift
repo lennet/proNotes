@@ -15,7 +15,6 @@ enum DocumentLayerType: Int {
     case Drawing = 2
     case Image = 3
     case Text = 4
-    case Plot = 5
 }
 
 class DocumentLayer: NSObject, NSCoding {
@@ -135,20 +134,6 @@ class TextLayer: MovableLayer {
         aCoder.encodeObject(text, forKey: textKey)
         super.encodeWithCoder(aCoder)
     }
-}
-
-class PlotLayer: MovableLayer {
-    var function: String
-    init(index: Int, docPage: DocumentPage, origin: CGPoint, size: CGSize) {
-        function = "cos($x)"
-        super.init(index: index, type: .Plot, docPage: docPage, origin: origin, size: size)
-    }
-
-    required init(coder aDecoder: NSCoder) {
-        self.function = ""
-        super.init(coder: aDecoder)
-    }
-
 }
 
 class DocumentPDFLayer: DocumentLayer {
