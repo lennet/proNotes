@@ -110,9 +110,6 @@
                                     <rect key="frame" x="0.0" y="0.0" width="87" height="33"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
-                                    <connections>
-                                        <outlet property="delegate" destination="mNn-FC-EJF" id="W1o-ds-MqE"/>
-                                    </connections>
                                 </textField>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

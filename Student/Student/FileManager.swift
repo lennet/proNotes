@@ -8,6 +8,13 @@
 
 import UIKit
 
+enum RenameError: ErrorType {
+    case AlreadyExists
+    case ObjectNotFound
+    case WritingError
+    case OverwritingError
+}
+
 protocol FileManagerDelegate {
     func reloadObjects()
     func reloadObjectAtIndex(index: Int)
@@ -65,7 +72,6 @@ class FileManager: NSObject {
     func checkFiles() {
         query?.disableUpdates()
         
-        
         guard let results = query?.results as? [NSMetadataItem] else {
             query?.enableUpdates()
             return
@@ -109,34 +115,47 @@ class FileManager: NSObject {
     
     // MARK - CRUD
     
-    func renameObject(fileURL: NSURL, fileName: String, completionHandler: ((Bool) -> Void)?) {
-        // TODO improve error handling
+    func renameObject(fileURL: NSURL, fileName: String, forceOverWrite: Bool,completion: ((Bool, ErrorType?) -> Void)?) {
         guard let index = indexOf(fileURL) else {
-            completionHandler?(false)
+            completion?(false, RenameError.ObjectNotFound)
             return
         }
         let object = objects[index]
         
         if object.description == fileName {
             // nothing changed
-            completionHandler?(true)
             return
         }
         
-        let newName = getUniqueFileName(fileName)
-        let newURL = getDocumentURL(newName)
+        let newURL = getDocumentURL(fileName, uniqueFileName: false)
+        
+        if fileNameExistsInObjects(fileName) {
+            if forceOverWrite {
+                if let object = objectForURL(newURL) {
+                    deleteObject(object, completion: { (success, error) -> Void in
+                        if success {
+                            // set forceOverWrite false to avoid endless recursive loops
+                            self.renameObject(fileURL, fileName: fileName, forceOverWrite: false, completion: completion)
+                        } else {
+                            completion?(false, error)
+                        }
+                    })
+                }
+            } else {
+                completion?(false, RenameError.AlreadyExists)
+                return
+            }
+        }
         
         let fileCoordinator = NSFileCoordinator(filePresenter: nil)
         var error: NSError?
         
         fileCoordinator.coordinateWritingItemAtURL(fileURL, options: .ForMoving, writingItemAtURL: newURL, options: .ForReplacing, error: &error) { (newURL1, newURL2) -> Void in
-          
             fileCoordinator.itemAtURL(fileURL, willMoveToURL: newURL)
             do {
                 try NSFileManager.defaultManager().moveItemAtURL(fileURL, toURL: newURL)
             } catch {
-                print("Error: \(error)")
-                completionHandler?(false)
+                completion?(false, error)
             }
             fileCoordinator.itemAtURL(fileURL, didMoveToURL: newURL)
         }
@@ -144,15 +163,15 @@ class FileManager: NSObject {
         if error == nil {
             removeObjectFromArray(fileURL)
             updateObject(newURL, metaData: object.metaData, state: object.state, version: object.version, downloaded: object.downloaded)
-            completionHandler?(true)
+            completion?(true, nil)
         } else {
-            completionHandler?(false)
+            completion?(false, RenameError.WritingError)
         }
 
     }
     
     func createDocument() {
-        let fileUrl = getDocumentURL(defaultName)
+        let fileUrl = getDocumentURL(defaultName, uniqueFileName: true)
         
         let document = Document(fileURL: fileUrl)
         document.saveToURL(fileUrl, forSaveOperation: .ForCreating) { (success) -> Void in
@@ -202,13 +221,18 @@ class FileManager: NSObject {
 
     }
     
-    func deleteObject(object: DocumentsOverviewObject) {
+    func deleteObject(object: DocumentsOverviewObject, completion: ((Bool, ErrorType?) -> Void)?) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) { () -> Void in
             let fileCoordinator = NSFileCoordinator(filePresenter: nil)
             var error: NSError?
             fileCoordinator.coordinateWritingItemAtURL(object.fileURL, options: .ForDeleting, error: &error, byAccessor: { (url) -> Void in
                 let fileManager = NSFileManager()
-                try! fileManager.removeItemAtURL(object.fileURL)
+                do {
+                    try fileManager.removeItemAtURL(object.fileURL)
+                    completion?(true, nil)
+                } catch {
+                    completion?(false, error)
+                }
             })
             
         }
@@ -234,6 +258,14 @@ class FileManager: NSObject {
         }
     }
     
+    private func objectForURL(fileURL: NSURL) -> DocumentsOverviewObject? {
+        guard let index = indexOf(fileURL) else {
+            // file does not exists
+            return nil
+        }
+        return objects[index]
+    }
+    
     private func removeObjectFromArray(fileURL: NSURL) {
         guard let index = indexOf(fileURL) else {
             // file does not exists
@@ -255,28 +287,36 @@ class FileManager: NSObject {
     
     // MARK - Filename Handling
     
-    func getDocumentURL(fileName: String) -> NSURL {
-        let uniqueName = getUniqueFileName(fileName)+"."+fileExtension
+    func getDocumentURL(var fileName: String, uniqueFileName: Bool) -> NSURL {
+        if uniqueFileName {
+            fileName = getUniqueFileName(fileName)+"."+fileExtension
+        } else {
+            fileName = fileName+"."+fileExtension
+        }
+        
         if useiCloud() {
             if let docsDir = iCloudRootURL?.URLByAppendingPathComponent("Documents", isDirectory: true) {
-                return docsDir.URLByAppendingPathComponent(uniqueName)
+                return docsDir.URLByAppendingPathComponent(fileName)
             }
         }
-        return documentsRootURL.URLByAppendingPathComponent(uniqueName)
+        return documentsRootURL.URLByAppendingPathComponent(fileName)
     }
     
     func getUniqueFileName(fileName: String, var attemptCounter: Int = 0) -> String {
         fileName
         if fileNameExistsInObjects(fileName) {
             attemptCounter++
-            return getUniqueFileName(fileName+String(attemptCounter), attemptCounter: attemptCounter)
+            if fileNameExistsInObjects(fileName+String(attemptCounter)) {
+                return getUniqueFileName(fileName, attemptCounter: attemptCounter)
+            }
+            return fileName+String(attemptCounter)
         }
         return fileName
     }
     
     func fileNameExistsInObjects(fileName: String) -> Bool{
         for entry in objects {
-            if entry.fileURL.fileName() == fileName {
+            if entry.fileURL.fileName(false) == fileName {
                 return true
             }
         }

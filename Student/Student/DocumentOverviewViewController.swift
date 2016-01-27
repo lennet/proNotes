@@ -138,6 +138,7 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
     
     func removeObjectAtIndex(index: Int) {
         // maybe add a fancy animtaion in the future
+        // FIXME Crash after deleting all Notes 
         reloadObjectAtIndex(index)
     }
     

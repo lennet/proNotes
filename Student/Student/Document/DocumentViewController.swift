@@ -27,10 +27,22 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
         DocumentSynchronizer.sharedInstance.addDelegate(self)
         document = DocumentSynchronizer.sharedInstance.document
         PagesTableViewController.sharedInstance?.document = document
-        titleTextField.text = document?.name
-        titleTextField.sizeToFit()
+        setUpTitle()
     }
 
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        titleTextField.delegate = self
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        titleTextField.delegate = nil
+        DocumentSynchronizer.sharedInstance.save()
+        document?.closeWithCompletionHandler({ (Bool) -> Void in
+        })
+    }
+    
     deinit {
         DocumentSynchronizer.sharedInstance.removeDelegate(self)
     }
@@ -44,11 +56,10 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
         return true
     }
     
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-        DocumentSynchronizer.sharedInstance.save()
-        document?.closeWithCompletionHandler({ (Bool) -> Void in
-        })
+    func setUpTitle() {
+        print(document?.name)
+        titleTextField.text = document?.name
+        titleTextField.sizeToFit()
     }
     
     // MARK: - Actions
@@ -237,8 +248,14 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
     
     func textFieldDidEndEditing(textField: UITextField) {
         if let newName = textField.text {
-            DocumentSynchronizer.sharedInstance.renameDocument(newName)
-        }
+            DocumentSynchronizer.sharedInstance.renameDocument(newName, forceOverWrite: false, viewController: self, completion: { (success) -> Void in
+                if !success {
+                    dispatch_async(dispatch_get_main_queue(),{
+                        self.setUpTitle()
+                    })
+                }
+            })
         textField.borderStyle = .None
+        }
     }
 }

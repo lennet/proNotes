@@ -16,7 +16,7 @@ class Document: UIDocument {
     
     var name: String {
         get {
-            return fileURL.fileName() ?? ""
+            return fileURL.fileName(true) ?? ""
         }
     }
     
@@ -28,7 +28,7 @@ class Document: UIDocument {
     
     override var description: String {
         get {
-            return fileURL.fileName() ?? super.description
+            return fileURL.fileName(true) ?? super.description
         }
     }
     

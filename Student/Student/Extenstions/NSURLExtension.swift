@@ -10,11 +10,19 @@ import UIKit
 
 extension NSURL {
 
-    func fileName() -> String? {
+    func fileName(withExtensionName: Bool) -> String? {
         guard let lastPathComponent = URLByDeletingPathExtension?.lastPathComponent else {
             return nil
         }
-        return lastPathComponent
+        if withExtensionName {
+            return lastPathComponent
+        } else {
+            var components = lastPathComponent.componentsSeparatedByString(".")
+            if components.count > 1 {
+                components.removeLast()
+            }
+            return components.joinWithSeparator(".")
+        }
     }
     
 }

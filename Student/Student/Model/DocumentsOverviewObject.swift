@@ -31,7 +31,7 @@ class DocumentsOverviewObject: NSObject {
 
     override var description: String {
         get {
-            return fileURL.fileName() ?? super.description
+            return fileURL.fileName(true) ?? super.description
         }
     }
 }

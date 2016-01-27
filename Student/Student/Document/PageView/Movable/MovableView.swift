@@ -16,6 +16,8 @@ class MovableView: TouchControlView {
     var lastPinchScale: CGFloat = 0
     var movableLayer: MovableLayer?
 
+    var debugMode = true
+    
     init(frame: CGRect, movableLayer: MovableLayer) {
         self.movableLayer = movableLayer
         let newControlLength: CGFloat = 44
@@ -78,9 +80,11 @@ class MovableView: TouchControlView {
         super.drawRect(rect)
         if isEditing {
             let context = UIGraphicsGetCurrentContext()
-            for touchRect in getControlRects().values {
-                UIColor.randomColor().colorWithAlphaComponent(0.5).setFill()
-                CGContextFillRect(context, touchRect)
+            if debugMode {
+                for touchRect in getControlRects().values {
+                    UIColor.randomColor().colorWithAlphaComponent(0.5).setFill()
+                    CGContextFillRect(context, touchRect)
+                }
             }
         }
     }
