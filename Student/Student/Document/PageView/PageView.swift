@@ -130,8 +130,9 @@ class PageView: UIView, UIGestureRecognizerDelegate {
             }
             return
         }
-        
+
         selectedSubView = subview
+        selectedSubView?.setSelected?()
     }
 
     func setLayerSelected(index: Int) {

@@ -20,7 +20,7 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
     var isFullScreen = false
 
     var pagesOverviewController: PagesOverviewTableViewController?
-    var document: Document? = DocumentSynchronizer.sharedInstance.document
+    weak var document: Document? = DocumentSynchronizer.sharedInstance.document
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -119,7 +119,6 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
     }
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let viewController = segue.destinationViewController as? PagesOverviewTableViewController {
             viewController.pagesOverViewDelegate = self
@@ -130,7 +129,6 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
     }
 
     @IBAction func unwind(sender: AnyObject) {
-
         navigationController?.popViewControllerAnimated(true)
     }
 
@@ -142,6 +140,7 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
     }
 
     // MARK: - DocumentSynchronizerDelegate
+    
     func updateDocument(document: Document, forceReload: Bool) {
         self.document = document
         titleTextField.text = document.name
