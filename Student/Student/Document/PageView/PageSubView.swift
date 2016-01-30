@@ -8,34 +8,22 @@
 
 import UIKit
 
-class PageSubView: UIView {
+@objc
+protocol PageSubView: class {
 
+    
+    optional func handlePan(panGestureRecognizer: UIPanGestureRecognizer)
 
-    func handlePan(panGestureRecognizer: UIPanGestureRecognizer) {
-        // Empty Base Implementation
-    }
+    optional func handleTap(tapGestureRecognizer: UITapGestureRecognizer?)
 
-    func handleTap(tapGestureRecognizer: UITapGestureRecognizer?) {
-        // Empty Base Implementation
-    }
+    optional func handleDoubleTap(tapGestureRecognizer: UITapGestureRecognizer)
 
-    func handleDoubleTap(tapGestureRecognizer: UITapGestureRecognizer) {
-        // Empty Base Implementation
-    }
+    optional func setSelected()
 
-    func setSelected() {
-        // Empty Base Implementation
-    }
+    optional func setDeselected()
 
-    func setDeselected() {
-        // Empty Base Implementation
-    }
+    optional func saveChanges()
 
-    func saveChanges() {
-        // Empty Base Implementation
-    }
-
-    func setUpSettingsViewController() {
-        // Empty Base Implementation
-    }
+    optional func setUpSettingsViewController()
+    
 }

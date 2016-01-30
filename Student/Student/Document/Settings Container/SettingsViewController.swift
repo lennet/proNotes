@@ -43,7 +43,6 @@ class SettingsViewController: UIViewController {
     }
 
     func setUpChildViewController(settingsViewController: SettingsViewControllerType) {
-//UIView.transitionFromView(<#T##fromView: UIView##UIView#>, toView: <#T##UIView#>, duration: <#T##NSTimeInterval#>, options: <#T##UIViewAnimationOptions#>, completion: <#T##((Bool) -> Void)?##((Bool) -> Void)?##(Bool) -> Void#>)
         // TODO Animate!
         self.currentChildViewController?.willMoveToParentViewController(nil)
         self.currentChildViewController?.view.removeFromSuperview()

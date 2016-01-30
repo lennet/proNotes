@@ -42,7 +42,7 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
         return rect
     }
 
-    override func handleDoubleTap(tapGestureRecognizer: UITapGestureRecognizer) {
+    func handleDoubleTap(tapGestureRecognizer: UITapGestureRecognizer) {
         textView.becomeFirstResponder()
     }
 

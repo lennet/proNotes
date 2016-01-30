@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TouchControlView: PageSubView {
+class TouchControlView: UIView {
 
     enum TouchControl {
         case TopLeftCorner
@@ -47,10 +47,10 @@ class TouchControlView: PageSubView {
     }
 
     func setUpEditMode() {
-
+        // empty base Implementation
     }
 
-    override func handlePan(panGestureRecognizer: UIPanGestureRecognizer) {
+    func handlePan(panGestureRecognizer: UIPanGestureRecognizer) {
         if isEditing {
             switch panGestureRecognizer.state {
             case .Began:

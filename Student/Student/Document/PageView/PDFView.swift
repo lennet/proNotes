@@ -8,13 +8,13 @@
 
 import UIKit
 
-protocol PDFViewDelegate {
+protocol PDFViewDelegate: class {
     func updateHeight(height: CGFloat)
 }
 
-class PDFView: PageSubView {
+class PDFView: UIView, PageSubView {
 
-    var delegate: PDFViewDelegate?
+    weak var delegate: PDFViewDelegate?
 
     var page: CGPDFPage?
 
@@ -53,7 +53,6 @@ class PDFView: PageSubView {
                 CGContextScaleCTM(context, widthRatio,
                         widthRatio)
             }
-
 
             CGContextTranslateCTM(context, -mediaRect.origin.x, -mediaRect.origin.y)
 

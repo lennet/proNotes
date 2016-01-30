@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MovableView: TouchControlView {
+class MovableView: TouchControlView, PageSubView {
 
     // TODO style
 
@@ -40,11 +40,11 @@ class MovableView: TouchControlView {
         layoutIfNeeded()
     }
 
-    override func setSelected() {
+    func setSelected() {
         handleTap(nil)
     }
 
-    override func handleTap(recognizer: UITapGestureRecognizer?) {
+    func handleTap(recognizer: UITapGestureRecognizer?) {
         isEditing = !isEditing
 
         if isEditing {
@@ -89,8 +89,16 @@ class MovableView: TouchControlView {
         }
     }
 
-    override func saveChanges() {
+    func saveChanges() {
         DocumentSynchronizer.sharedInstance.updateMovableLayer(movableLayer!)
     }
-
+    
+    func setUpSettingsViewController() {
+        // empty Base implementation
+    }
+    
+    func setDeselected() {
+        // empty Base implementation
+    }
+    
 }

@@ -319,7 +319,7 @@ class FileManager: NSObject {
     func getUniqueFileName(fileName: String, var attemptCounter: Int = 0) -> String {
         fileName
         if fileNameExistsInObjects(fileName) {
-            attemptCounter++
+            attemptCounter += 1
             if fileNameExistsInObjects(fileName + String(attemptCounter)) {
                 return getUniqueFileName(fileName, attemptCounter: attemptCounter)
             }

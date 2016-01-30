@@ -10,7 +10,7 @@ import UIKit
 
 class PageView: UIView, UIGestureRecognizerDelegate {
 
-    var pdfViewDelegate: PDFViewDelegate?
+    weak var pdfViewDelegate: PDFViewDelegate?
 
     var panGestureRecognizer: UIPanGestureRecognizer?
     var tapGestureRecognizer: UITapGestureRecognizer?
@@ -24,7 +24,7 @@ class PageView: UIView, UIGestureRecognizerDelegate {
         }
     }
 
-    var selectedSubView: PageSubView?
+    weak var selectedSubView: PageSubView?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -130,16 +130,16 @@ class PageView: UIView, UIGestureRecognizerDelegate {
             }
             return
         }
-        subview.setSelected()
+        
         selectedSubView = subview
     }
 
     func setLayerSelected(index: Int) {
         if index < subviews.count {
-            selectedSubView?.handleTap(nil)
+            selectedSubView?.handleTap?(nil)
             selectedSubView = nil
             if let subview = subviews[index] as? PageSubView {
-                subview.setSelected()
+                subview.setSelected?()
                 selectedSubView = subview
                 setSubviewsTransparent(index + 1, alphaValue: 0.5)
             }
@@ -156,7 +156,7 @@ class PageView: UIView, UIGestureRecognizerDelegate {
     }
 
     func deselectSelectedSubview() {
-        selectedSubView?.handleTap(nil)
+        selectedSubView?.handleTap?(nil)
         selectedSubView = nil
         setSubviewsTransparent(0, alphaValue: 1)
     }
@@ -174,7 +174,7 @@ class PageView: UIView, UIGestureRecognizerDelegate {
         let isHidden = !docLayer.hidden
         if docLayer.index < subviews.count {
             if let subview = subviews[docLayer.index] as? PageSubView {
-                subview.hidden = isHidden
+                (subview as? UIView)?.hidden = isHidden
             }
         }
         page?.changeLayerVisibility(isHidden, layer: docLayer)
@@ -183,7 +183,7 @@ class PageView: UIView, UIGestureRecognizerDelegate {
     func removeLayer(docLayer: DocumentLayer) {
         if docLayer.index < subviews.count {
             if let subview = subviews[docLayer.index] as? PageSubView {
-                subview.removeFromSuperview()
+                (subview as? UIView)?.removeFromSuperview()
             }
         }
         page?.removeLayer(docLayer, forceReload: false)
@@ -215,27 +215,23 @@ class PageView: UIView, UIGestureRecognizerDelegate {
     }
 
     // MARK: - UIGestureRecognizer
-
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        if let drawingView = selectedSubView as? DrawingView {
-            drawingView.touchesBegan(touches, withEvent: event)
-        }
-    }
-
+    
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        if let drawingView = selectedSubView as? DrawingView {
-            drawingView.touchesMoved(touches, withEvent: event)
-        }
+        (selectedSubView as? DrawingView)?.touchesMoved(touches, withEvent: event)
     }
-
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        if let drawingView = selectedSubView as? DrawingView {
-            drawingView.touchesEnded(touches, withEvent: event)
-        }
+    
+    override func touchesEnded(touches: Set<UITouch>,
+        withEvent event: UIEvent?) {
+        (selectedSubView as? DrawingView)?.touchesEnded(touches, withEvent: event)
+    }
+    
+    override func touchesCancelled(touches: Set<UITouch>?,
+        withEvent event: UIEvent?) {
+        (selectedSubView as? DrawingView)?.touchesCancelled(touches, withEvent: event)
     }
 
     func handlePan(panGestureRecognizer: UIPanGestureRecognizer) {
-        selectedSubView?.handlePan(panGestureRecognizer)
+        selectedSubView?.handlePan?(panGestureRecognizer)
     }
 
     func handleTap(tapGestureRecognizer: UITapGestureRecognizer) {
@@ -246,8 +242,8 @@ class PageView: UIView, UIGestureRecognizerDelegate {
             let location = tapGestureRecognizer.locationInView(self)
             for subview in subviews.reverse() where subview.isKindOfClass(MovableView) {
                 let pageSubview = subview as! PageSubView
-                if pageSubview.frame.contains(location) {
-                    pageSubview.handleTap(tapGestureRecognizer)
+                if (pageSubview as? UIView)?.frame.contains(location) ?? false {
+                    pageSubview.handleTap?(tapGestureRecognizer)
                     selectedSubView = pageSubview
                     return
                 }
@@ -257,7 +253,7 @@ class PageView: UIView, UIGestureRecognizerDelegate {
     }
 
     func handleDoubleTap(tapGestureRecognizer: UITapGestureRecognizer) {
-        selectedSubView?.handleDoubleTap(tapGestureRecognizer)
+        selectedSubView?.handleDoubleTap?(tapGestureRecognizer)
     }
 
     // MARK: - UIGestureRecognizerDelegate
@@ -276,5 +272,7 @@ class PageView: UIView, UIGestureRecognizerDelegate {
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailByGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return false
     }
+    
+    
 
 }

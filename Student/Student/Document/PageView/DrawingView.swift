@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DrawingView: PageSubView, DrawingSettingsDelegate {
+class DrawingView: UIImageView, PageSubView, DrawingSettingsDelegate {
 
     var strokeColor = UIColor.blackColor()
     var lineWidth: CGFloat = 2

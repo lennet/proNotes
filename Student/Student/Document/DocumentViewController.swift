@@ -168,6 +168,7 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
 
 
     // TODO add more commands
+    // commant + T create Text
     override var keyCommands: [UIKeyCommand]? {
         var commands = [UIKeyCommand(input: UIKeyInputDownArrow, modifierFlags: .Command, action: "handleDownKeyPressed:", discoverabilityTitle: "Scroll Down"),
                         UIKeyCommand(input: UIKeyInputUpArrow, modifierFlags: .Command, action: "handleUpKeyPressed:", discoverabilityTitle: "Scroll Up")]

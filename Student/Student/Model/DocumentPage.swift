@@ -9,15 +9,18 @@
 import UIKit
 
 class DocumentPage: NSObject, NSCoding {
-    var layers = [DocumentLayer]()
+    var layers: [DocumentLayer]
     var index = 0
     var size = CGSize.dinA4()
 
     init(index: Int) {
+        layers = [DocumentLayer]()
+        super.init()
         self.index = index
     }
 
     init(PDF: CGPDFPage, index: Int) {
+        layers = [DocumentLayer]()
         super.init()
         self.index = index
         addPDFLayer(PDF)
@@ -26,7 +29,7 @@ class DocumentPage: NSObject, NSCoding {
     required init(coder aDecoder: NSCoder) {
         size = aDecoder.decodeCGSizeForKey(sizeKey)
         index = aDecoder.decodeIntegerForKey(indexKey)
-        layers = aDecoder.decodeObjectForKey(layersKey) as! [DocumentLayer]
+        layers = aDecoder.decodeObjectForKey(layersKey) as? [DocumentLayer] ?? [DocumentLayer]()
         super.init()
         for layer in layers {
             layer.docPage = self

@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol DrawingSettingsDelegate {
+protocol DrawingSettingsDelegate: class {
     func clearDrawing()
 
     func didSelectDrawingType(type: DrawingType)
@@ -28,7 +28,7 @@ enum DrawingType {
 
 class DrawingSettingsViewController: SettingsBaseViewController {
 
-    static var delegate: DrawingSettingsDelegate?
+    weak static var delegate: DrawingSettingsDelegate?
 
     let defaultTopConstant: CGFloat = -20
     let animationDuration = 0.2
