@@ -10,14 +10,20 @@ import UIKit
 
 class PageTableViewCell: UITableViewCell, PDFViewDelegate {
 
-    @IBOutlet weak var pageView: PageView!
-
     static let identifier = "PageTableViewCellIdentifier"
+    
+    @IBOutlet weak var pageView: PageView!
+    weak var tableView: UITableView?
 
     var heightConstraint: NSLayoutConstraint?
     var widthConstraint: NSLayoutConstraint?
-    var tableView: UITableView?
 
+    
+
+    
+
+  
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         backgroundColor = UIColor.clearColor()
@@ -25,7 +31,10 @@ class PageTableViewCell: UITableViewCell, PDFViewDelegate {
         heightConstraint = pageView.getConstraint(.Height)
         widthConstraint = pageView.getConstraint(.Width)
         updateHeight(UIScreen.mainScreen().bounds.height)
-
+        
+        for case let scrollView as UIScrollView in self.subviews {
+            scrollView.delaysContentTouches = false
+        }
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

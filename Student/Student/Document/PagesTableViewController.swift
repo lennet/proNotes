@@ -68,6 +68,7 @@ class PagesTableViewController: UIViewController, DocumentSynchronizerDelegate, 
         scrollView.maximumZoomScale = minZoomScale * 5
         scrollView.zoomScale = minZoomScale
         scrollView.panGestureRecognizer.minimumNumberOfTouches = 2
+        scrollView.delaysContentTouches = false
     }
 
     func setUpTableView() {
@@ -77,6 +78,11 @@ class PagesTableViewController: UIViewController, DocumentSynchronizerDelegate, 
 //        scrollView.addSubview(tableView)
 
         tableViewWidth?.constant = CGSize.dinA4().width;
+        for case let scrollView as UIScrollView in tableView.subviews {
+            scrollView.delaysContentTouches = false
+        }
+        tableView.delaysContentTouches = false
+        
         view.layoutSubviews()
     }
 
