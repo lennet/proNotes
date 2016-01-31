@@ -18,12 +18,6 @@ class PageTableViewCell: UITableViewCell, PDFViewDelegate {
     var heightConstraint: NSLayoutConstraint?
     var widthConstraint: NSLayoutConstraint?
 
-    
-
-    
-
-  
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         backgroundColor = UIColor.clearColor()
@@ -35,12 +29,6 @@ class PageTableViewCell: UITableViewCell, PDFViewDelegate {
         for case let scrollView as UIScrollView in self.subviews {
             scrollView.delaysContentTouches = false
         }
-    }
-
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
 
     func updateHeight(height: CGFloat) {

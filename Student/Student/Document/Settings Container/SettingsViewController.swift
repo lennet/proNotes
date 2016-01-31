@@ -42,7 +42,7 @@ class SettingsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    func setUpChildViewController(settingsViewController: SettingsViewControllerType) {
+    private func setUpChildViewController(settingsViewController: SettingsViewControllerType) {
         // TODO Animate!
         self.currentChildViewController?.willMoveToParentViewController(nil)
         self.currentChildViewController?.view.removeFromSuperview()
