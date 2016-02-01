@@ -217,6 +217,10 @@ class PageView: UIView, UIGestureRecognizerDelegate {
 
     // MARK: - UIGestureRecognizer
     
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        (selectedSubView as? DrawingView)?.touchesBegan(touches, withEvent: event)
+    }
+    
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
         (selectedSubView as? DrawingView)?.touchesMoved(touches, withEvent: event)
     }

@@ -20,7 +20,7 @@ class PageInfoViewController: UIViewController, UITableViewDataSource, UITableVi
 
     let paperSizes = CGSize.paperSizes()
 
-    var page: DocumentPage? = DocumentSynchronizer.sharedInstance.currentPage {
+    weak var page: DocumentPage? = DocumentSynchronizer.sharedInstance.currentPage {
         didSet {
             layerTableView.reloadData()
             layoutTableView()

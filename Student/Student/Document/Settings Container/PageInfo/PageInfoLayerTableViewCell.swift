@@ -16,7 +16,7 @@ class PageInfoLayerTableViewCell: UITableViewCell {
     @IBOutlet weak var indexLabel: UILabel!
     @IBOutlet weak var typeLabel: UILabel!
 
-    var documentLayer: DocumentLayer?
+    weak var documentLayer: DocumentLayer?
 
     override func awakeFromNib() {
         super.awakeFromNib()

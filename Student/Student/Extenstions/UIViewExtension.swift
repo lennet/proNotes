@@ -54,5 +54,9 @@ extension UIView {
         }
         return nil
     }
+    
+    var forceTouchAvailable: Bool {
+        return traitCollection.forceTouchCapability == .Available
+    }
 
 }

@@ -10,8 +10,9 @@ import UIKit
 
 @objc
 protocol PageSubView: class {
-
     
+    optional func saveChanges()
+
     optional func handlePan(panGestureRecognizer: UIPanGestureRecognizer)
 
     optional func handleTap(tapGestureRecognizer: UITapGestureRecognizer?)
@@ -21,8 +22,6 @@ protocol PageSubView: class {
     optional func setSelected()
 
     optional func setDeselected()
-
-    optional func saveChanges()
 
     optional func setUpSettingsViewController()
     

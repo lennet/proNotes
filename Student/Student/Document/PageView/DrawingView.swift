@@ -9,192 +9,226 @@
 import UIKit
 
 class DrawingView: UIImageView, PageSubView, DrawingSettingsDelegate {
-
-    var strokeColor = UIColor.blackColor()
-    var lineWidth: CGFloat = 2
-    var drawingType: DrawingType = .Pen
-
-    var markerAlphaValue = 0.5
-    var markerLineWidth: CGFloat = 4
-    var penLineWidth: CGFloat = 2
-    var eraserLineWidth: CGFloat = 15
-
-    var path = UIBezierPath()
-    var incrementalImage: UIImage?
-    var points = [CGPoint?](count: 5, repeatedValue: nil)
-
-    var didChange = false
-
-    var counter = 0
-    var drawLayer: DocumentDrawLayer? {
-        didSet {
-            incrementalImage = drawLayer?.image
-        }
-    }
-
+    
     init(drawLayer: DocumentDrawLayer, frame: CGRect) {
         self.drawLayer = drawLayer
-        incrementalImage = self.drawLayer?.image
         super.init(frame: frame)
+        image = self.drawLayer?.image
+        drawingImage = image
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
 
-    deinit {
-        saveChanges()
-    }
-
     func commonInit() {
-        multipleTouchEnabled = false
+        userInteractionEnabled = false
         backgroundColor = UIColor.clearColor()
-        path.lineWidth = 2.0
     }
-
-    override func drawRect(rect: CGRect) {
-        if incrementalImage != nil {
-            incrementalImage!.drawInRect(rect)
-        }
-        stroke()
-    }
-
-    override func saveChanges() {
-        if incrementalImage != nil && drawLayer != nil && didChange {
-            drawLayer?.image = incrementalImage
-            DocumentSynchronizer.sharedInstance.updateDrawLayer(drawLayer!, forceReload: false)
-            didChange = false
+    
+    weak var drawLayer: DocumentDrawLayer? {
+        didSet {
+            image = drawLayer?.image
+            drawingImage = image
         }
     }
+    
+    var drawingObject: DrawingObject = Pen()
 
+    private let forceSensitivity: CGFloat = 4.0
+    
+    private let minPenAngle: CGFloat = CGFloat(35).toRadians()
+    
+    private var minLineWidth: CGFloat {
+        get {
+            return drawingObject.lineWidth*0.1
+        }
+    }
+    
+    private var drawingImage: UIImage?
+    
+    private var eraserColor: UIColor {
+        if let backgroundColor = self.backgroundColor {
+            return backgroundColor
+        }
+        return UIColor.whiteColor()
+    }
+    
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        let touch = touches.first
-        points[0] = (touch?.locationInView(self))!
+        handleTouches(touches, withEvent: event)
     }
-
-
+    
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        let touch = touches.first
-        let point = touch?.locationInView(self)
-        counter++
-        points[counter] = point!
-        if counter == 4 {
-            points[3] = CGPointMake((points[2]!.x + points[4]!.x) / 2.0, (points[2]!.y + points[4]!.y) / 2.0); // move the endpoint to the middle of the line joining the second control point of the first Bezier segment and the first control point of the second Bezier segment
-            path.moveToPoint(points[0]!)
-            path.addCurveToPoint(points[3]!, controlPoint1: points[1]!, controlPoint2: points[2]!)
-            setNeedsDisplay()
-
-
-            // replace points and get ready to handle the next segment
-            points[0] = points[3];
-            points[1] = points[4];
-            counter = 1;
-        }
+        handleTouches(touches, withEvent: event)
     }
-
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        touchesEnd()
-    }
-
-    func touchesEnd() {
-        didChange = true
-        drawBitmap()
-        setNeedsDisplay()
-        path.removeAllPoints()
-        counter = 0
+    
+    override func touchesEnded(touches: Set<UITouch>,
+        withEvent event: UIEvent?) {
+        self.image = drawingImage
         saveChanges()
     }
-
-    override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
-        touchesEnd()
+    
+    override func touchesCancelled(touches: Set<UITouch>?,
+        withEvent event: UIEvent?) {
+        self.image = drawingImage
+        saveChanges()
     }
-
-    func drawBitmap() {
-        UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0.0);
-
-//        if incrementalImage == nil {
-//            let rectPath = UIBezierPath(rect: self.bounds)
-//            backgroundColor?.setFill()
-//            rectPath.fill()
-//        }
-        incrementalImage?.drawInRect(bounds)
-        stroke()
-        incrementalImage = UIGraphicsGetImageFromCurrentImageContext()
+    
+    private func handleTouches(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        guard let touch = touches.first else { return }
+        
+        UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0.0)
+        let context = UIGraphicsGetCurrentContext()
+        
+        drawingImage?.drawInRect(bounds)
+        
+        let touches = event?.coalescedTouchesForTouch(touch) ?? [touch]
+        
+        for touch in touches {
+            drawStroke(context, touch: touch)
+        }
+        
+        drawingImage = UIGraphicsGetImageFromCurrentImageContext()
+        
+        for touch in event?.predictedTouchesForTouch(touch) ?? [UITouch]() {
+            drawStroke(context, touch: touch)
+        }
+        
+        self.image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
     }
-
-    func stroke() {
-        setUpStrokeColor()
-        setUpLineWidth()
-        if drawingType == .Eraser {
-            path.strokeWithBlendMode(.Clear, alpha: 1.0)
-        } else {
-            path.stroke()
+    
+    // With help of http://www.raywenderlich.com/121834/apple-pencil-tutorial
+    
+    private func drawStroke(context: CGContext?, touch: UITouch) {
+        let previousLocation = touch.previousLocationInView(self)
+        let location = touch.locationInView(self)
+        
+        let lineWidth = getLineWidth(context, touch: touch)
+        let alpha = getAlpha(touch)
+        
+        drawingObject.color.setStroke()
+        
+        CGContextSetAlpha(context, alpha)
+        
+        CGContextSetLineWidth(context, lineWidth)
+        CGContextSetLineCap(context, .Round)
+        
+        CGContextMoveToPoint(context, previousLocation.x, previousLocation.y)
+        CGContextAddLineToPoint(context, location.x, location.y)
+        
+        CGContextStrokePath(context)
+        
+    }
+    
+    private func getLineWidth(context: CGContext?, touch: UITouch) -> CGFloat {
+        if !drawingObject.dynamicLineWidth {
+            return drawingObject.lineWidth
         }
+
+        if touch.altitudeAngle < minPenAngle && touch.type == .Stylus && drawingObject.enabledShading {
+            return lineWidthForShading(context, touch: touch)
+        } else {
+            return lineWidthForDrawing(context, touch: touch)
+        }
+
     }
+    
+    private func lineWidthForShading(context: CGContext?, touch: UITouch) -> CGFloat {
+        
+        let previousLocation = touch.previousLocationInView(self)
+        let location = touch.locationInView(self)
+        
+        let azimuthVector = touch.azimuthUnitVectorInView(self)
+        
+        let directionVector = CGVector(dx: location.x - previousLocation.x, dy: location.y - previousLocation.y)
+        
+        var angle = CGVector.angleBetween(azimuthVector, secondVector: directionVector)
 
-    override func setSelected() {
-        SettingsViewController.sharedInstance?.currentSettingsType = .Drawing
-        DrawingSettingsViewController.delegate = self
+        if angle > CGFloat(180).toRadians() {
+            angle = CGFloat(360).toRadians() - angle
+        }
+        if angle > CGFloat(90).toRadians() {
+            angle = CGFloat(180).toRadians() - angle
+        }
+        
+        let normalizedAngle = angle.normalized(0, max: CGFloat(90).toRadians())
+        
+        let maxLineWidth:CGFloat = drawingObject.lineWidth * 4
+        var lineWidth:CGFloat
+        lineWidth = maxLineWidth * normalizedAngle
+        
+        let minAltitudeAngle: CGFloat = 0.25
+        
+        let altitudeAngle = touch.altitudeAngle < minAltitudeAngle
+            ? minAltitudeAngle : touch.altitudeAngle
+        
+        let normalizedAltitude = 1 - altitudeAngle.normalized(minAltitudeAngle, max: minPenAngle)
+    
+        lineWidth = lineWidth * normalizedAltitude + minLineWidth
+        
+        return lineWidth
     }
-
-    // MARK: - DrawingSettingsDelegate
-
-    func clearDrawing() {
-        self.incrementalImage = nil
-        self.touchesEnd()
+    
+    
+    private func lineWidthForDrawing(context: CGContext?, touch: UITouch) -> CGFloat {
+        
+        var lineWidth = drawingObject.lineWidth
+        if drawingObject.dynamicLineWidth {
+            if forceTouchAvailable || touch.type == .Stylus {
+                if touch.force > 0 {
+                    lineWidth = touch.force * forceSensitivity
+                }
+            } else {
+                lineWidth = touch.majorRadius / 2
+            }
+        }
+        
+        return lineWidth
+    }
+    
+    private func getAlpha(touch: UITouch) -> CGFloat {
+        if forceTouchAvailable || touch.type == .Stylus {
+            return touch.force.normalized(0.0, max: 5)
+        }
+        return drawingObject.defaultAlphaValue ?? 1
     }
 
     func removeLayer() {
+        clearDrawing()
+        removeFromSuperview()
         drawLayer?.removeFromPage()
+        drawLayer = nil
         SettingsViewController.sharedInstance?.currentSettingsType = .PageInfo
     }
+    
+    // MARK: - PageSubViewProtocol
+    
+    func setSelected() {
+        SettingsViewController.sharedInstance?.currentSettingsType = .Drawing
+        DrawingSettingsViewController.delegate = self
+    }
+    
+    func saveChanges() {
+        if image != nil && drawLayer != nil {
+            drawLayer?.image = image
+            DocumentSynchronizer.sharedInstance.updateDrawLayer(drawLayer!, forceReload: false)
+        }
+    }
+    
+    // MARK: - DrawingSettingsDelegate
 
     func didSelectColor(color: UIColor) {
-        strokeColor = color
-        setUpStrokeColor()
+        drawingObject.color = color
     }
-
-    func setUpStrokeColor() {
-        if drawingType == .Marker {
-            strokeColor.colorWithAlphaComponent(0.5).setStroke()
-        } else {
-            strokeColor.setStroke()
-        }
+    
+    func didSelectDrawingObject(object: DrawingObject) {
+        drawingObject = object
     }
-
-    func setUpLineWidth() {
-        path.lineWidth = lineWidth
+    
+    func clearDrawing(){
+        self.image = nil
+        self.drawingImage = nil
     }
-
-    func didSelectDrawingType(type: DrawingType) {
-        switch type {
-        case .Pen:
-            setUpPen()
-            break
-        case .Marker:
-            setUpMarker()
-            break
-        case .Eraser:
-            setUpEraser()
-            break
-        }
-        drawingType = type
-    }
-
-    func didChangeLineWidth(lineWidth: CGFloat) {
-        self.lineWidth = lineWidth
-    }
-
-    func setUpPen() {
-        lineWidth = penLineWidth
-    }
-
-    func setUpMarker() {
-        lineWidth = markerLineWidth
-    }
-
-    func setUpEraser() {
-        lineWidth = eraserLineWidth
-    }
+    
 }

@@ -9,13 +9,12 @@
 import UIKit
 
 protocol DrawingSettingsDelegate: class {
+
     func clearDrawing()
 
-    func didSelectDrawingType(type: DrawingType)
-
     func didSelectColor(color: UIColor)
-
-    func didChangeLineWidth(lineWidth: CGFloat)
+    
+    func didSelectDrawingObject(object: DrawingObject)
 
     func removeLayer()
 }
@@ -24,6 +23,45 @@ enum DrawingType {
     case Pen
     case Marker
     case Eraser
+}
+
+protocol DrawingObject: class {
+    var color: UIColor {get set}
+    var lineWidth: CGFloat {get set}
+    var defaultAlphaValue: CGFloat? {get}
+    var dynamicLineWidth: Bool {get}
+    var enabledShading: Bool {get}
+}
+
+class Marker: DrawingObject {
+    var color = UIColor.blueColor()
+    var lineWidth: CGFloat = 20
+    var defaultAlphaValue: CGFloat? = 0.5
+    var dynamicLineWidth = true
+    var enabledShading = true
+}
+
+class Eraser: DrawingObject {
+    var color: UIColor {
+        get {
+            return .clearColor()
+        }
+        set {
+            return
+        }
+    }
+    var lineWidth: CGFloat = 10
+    var defaultAlphaValue: CGFloat? = 1
+    var dynamicLineWidth = false
+    var enabledShading = false
+}
+
+class Pen: DrawingObject {
+    var color = UIColor.blackColor()
+    var lineWidth: CGFloat = 10
+    var defaultAlphaValue: CGFloat? = 1
+    var dynamicLineWidth = true
+    var enabledShading = false
 }
 
 class DrawingSettingsViewController: SettingsBaseViewController {
@@ -36,6 +74,7 @@ class DrawingSettingsViewController: SettingsBaseViewController {
     var currentType = DrawingType.Pen {
         didSet {
             if oldValue != currentType {
+
                 switch oldValue {
                 case .Pen:
                     penTopConstraint.constant = defaultTopConstant
@@ -47,16 +86,21 @@ class DrawingSettingsViewController: SettingsBaseViewController {
                     eraserTopConstraint.constant = defaultTopConstant
                     break
                 }
-
+                
+                var object: DrawingObject?
+                
                 switch currentType {
                 case .Pen:
                     penTopConstraint.constant = 0
+                    object = Pen()
                     break
                 case .Marker:
                     markerTopConstraint.constant = 0
+                    object = Marker()
                     break
                 case .Eraser:
                     eraserTopConstraint.constant = 0
+                    object = Eraser()
                     break
                 }
 
@@ -64,7 +108,8 @@ class DrawingSettingsViewController: SettingsBaseViewController {
                     () -> Void in
                     self.view.layoutIfNeeded()
                 }, completion: nil)
-                DrawingSettingsViewController.delegate?.didSelectDrawingType(currentType)
+                
+                DrawingSettingsViewController.delegate?.didSelectDrawingObject(object!)
             }
         }
     }
@@ -99,7 +144,6 @@ class DrawingSettingsViewController: SettingsBaseViewController {
 
     @IBAction func handleLineWidthSliderValueChanged(sender: UISlider) {
         lineWidthCircleView.radius = CGFloat(sender.value)
-        DrawingSettingsViewController.delegate?.didChangeLineWidth(CGFloat(sender.value) * 2)
     }
 
     // MARK: - ColorPickerDelegate 

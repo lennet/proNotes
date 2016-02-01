@@ -45,6 +45,8 @@
 		98BABB901C1B16A400D9C938 /* PageInfoLayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BABB8F1C1B16A400D9C938 /* PageInfoLayerTableViewCell.swift */; };
 		98BABB921C1B4D9300D9C938 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BABB911C1B4D9300D9C938 /* UIViewExtension.swift */; };
 		98C8C4BE1C1D98AB00A1FD2A /* libcompression.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 98C8C4BD1C1D98AB00A1FD2A /* libcompression.tbd */; };
+		98CD5AB01C5FE728003F0686 /* CGFloatExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CD5AAF1C5FE728003F0686 /* CGFloatExtension.swift */; };
+		98CD5AB21C5FE954003F0686 /* CGVectorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CD5AB11C5FE954003F0686 /* CGVectorExtension.swift */; };
 		98D8C0B71C0B116F0026EECE /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D8C0B61C0B116F0026EECE /* Document.swift */; };
 		98D8C0BA1C0B11750026EECE /* DrawingSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D8C0B81C0B11750026EECE /* DrawingSettingsViewController.swift */; };
 		98D8C0BB1C0B11750026EECE /* DrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D8C0B91C0B11750026EECE /* DrawingView.swift */; };
@@ -125,6 +127,8 @@
 		98BABB8F1C1B16A400D9C938 /* PageInfoLayerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageInfoLayerTableViewCell.swift; sourceTree = "<group>"; };
 		98BABB911C1B4D9300D9C938 /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		98C8C4BD1C1D98AB00A1FD2A /* libcompression.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libcompression.tbd; path = usr/lib/libcompression.tbd; sourceTree = SDKROOT; };
+		98CD5AAF1C5FE728003F0686 /* CGFloatExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGFloatExtension.swift; sourceTree = "<group>"; };
+		98CD5AB11C5FE954003F0686 /* CGVectorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGVectorExtension.swift; sourceTree = "<group>"; };
 		98D8C0B61C0B116F0026EECE /* Document.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
 		98D8C0B81C0B11750026EECE /* DrawingSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawingSettingsViewController.swift; sourceTree = "<group>"; };
 		98D8C0B91C0B11750026EECE /* DrawingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawingView.swift; sourceTree = "<group>"; };
@@ -312,6 +316,8 @@
 				987B570F1C3B139700141EA5 /* UIImageExtension.swift */,
 				98F2E3E61C1A1ED2008A5C6C /* UIStoryboardExtension.swift */,
 				98BABB911C1B4D9300D9C938 /* UIViewExtension.swift */,
+				98CD5AAF1C5FE728003F0686 /* CGFloatExtension.swift */,
+				98CD5AB11C5FE954003F0686 /* CGVectorExtension.swift */,
 			);
 			path = Extenstions;
 			sourceTree = "<group>";
@@ -540,6 +546,7 @@
 				98E33D4F1C37E8D10065B590 /* CropImageView.swift in Sources */,
 				98E0D4041C4C0CA700EF49FD /* DocumentsOverviewObject.swift in Sources */,
 				98F2E3E91C1A1ED2008A5C6C /* CGSizeExtenstion.swift in Sources */,
+				98CD5AB21C5FE954003F0686 /* CGVectorExtension.swift in Sources */,
 				98DBAA0A1C0799CB007EFFE5 /* AppDelegate.swift in Sources */,
 				98101BD11C0A58AA001E9555 /* DocumentViewController.swift in Sources */,
 				9881D2761C2857DB00A6651A /* ColorButton.swift in Sources */,
@@ -551,6 +558,7 @@
 				9854310F1C52C4EE0098DAC1 /* CloudDownloadingIndicator.swift in Sources */,
 				98A57C3F1C1DB2BC00E6C5DF /* DocumentPage.swift in Sources */,
 				986D605E1C2C2D700065D71B /* CircleView.swift in Sources */,
+				98CD5AB01C5FE728003F0686 /* CGFloatExtension.swift in Sources */,
 				98F2E3EC1C1A1EE9008A5C6C /* MovableView.swift in Sources */,
 				986D605B1C2B21140065D71B /* CustomScrollView.swift in Sources */,
 				98006ABF1C1A1EAC0091E356 /* PagesTableViewController.swift in Sources */,

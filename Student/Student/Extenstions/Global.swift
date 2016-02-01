@@ -6,6 +6,8 @@
 //  Copyright © 2016 leonardthomas. All rights reserved.
 //
 
+import UIKit
+
 func between<T:Comparable>(value: T, min: T, max: T) -> T {
     if value < min {
         return min
@@ -17,3 +19,5 @@ func between<T:Comparable>(value: T, min: T, max: T) -> T {
 
     return value
 }
+
+let π = CGFloat(M_PI)
