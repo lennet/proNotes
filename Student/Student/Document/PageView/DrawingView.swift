@@ -109,6 +109,10 @@ class DrawingView: UIImageView, PageSubView, DrawingSettingsDelegate {
         
         drawingObject.color.setStroke()
         
+        if drawingObject.color == UIColor.clearColor() {
+            CGContextSetBlendMode(context, .Clear)
+        }
+        
         CGContextSetAlpha(context, alpha)
         
         CGContextSetLineWidth(context, lineWidth)
@@ -118,7 +122,7 @@ class DrawingView: UIImageView, PageSubView, DrawingSettingsDelegate {
         CGContextAddLineToPoint(context, location.x, location.y)
         
         CGContextStrokePath(context)
-        
+
     }
     
     private func getLineWidth(context: CGContext?, touch: UITouch) -> CGFloat {
