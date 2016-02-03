@@ -22,15 +22,21 @@ class PagesOverviewTableViewController: UITableViewController, DocumentSynchroni
         }
     }
 
-    var pagesOverViewDelegate: PagesOverviewTableViewCellDelegate?
+    weak var pagesOverViewDelegate: PagesOverviewTableViewCellDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         (tableView as? ReordableTableView)?.reordableDelegate = self
-        DocumentSynchronizer.sharedInstance.addDelegate(self)
     }
 
-    deinit {
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        DocumentSynchronizer.sharedInstance.addDelegate(self)
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
         DocumentSynchronizer.sharedInstance.removeDelegate(self)
     }
 

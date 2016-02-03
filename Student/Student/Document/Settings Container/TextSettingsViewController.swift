@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol TextSettingsDelegate {
+protocol TextSettingsDelegate: class {
     func removeText()
 
     func changeTextColor(color: UIColor)
@@ -35,7 +35,7 @@ class TextSettingsViewController: SettingsBaseViewController, UIPickerViewDataSo
     }
 
     @IBOutlet weak var fontPicker: UIPickerView!
-    static var delegate: TextSettingsDelegate?
+    static weak var delegate: TextSettingsDelegate?
 
     var fontFamilies = [String]()
     var fontNames = [String]()

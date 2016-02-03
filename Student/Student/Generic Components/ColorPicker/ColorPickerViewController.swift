@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol ColorPickerDelegate {
+protocol ColorPickerDelegate: class {
     func didSelectColor(color: UIColor)
 }
 
@@ -33,7 +33,7 @@ class ColorPickerViewController: UIViewController, UICollectionViewDataSource, U
 
     var selectedIndex = 0
 
-    var delegate: ColorPickerDelegate?
+    weak var delegate: ColorPickerDelegate?
 
     static func getColorPicker() -> ColorPickerViewController {
         let storyboard = UIStoryboard.documentStoryboard()

@@ -45,14 +45,15 @@ class DrawingView: UIImageView, PageSubView, DrawingSettingsDelegate {
         }
     }
     
-    private var drawingImage: UIImage?
-    
-    private var eraserColor: UIColor {
-        if let backgroundColor = self.backgroundColor {
-            return backgroundColor
+    private var defaultAlphaValue: CGFloat {
+        get {
+            return drawingObject.defaultAlphaValue ?? 1
         }
-        return UIColor.whiteColor()
     }
+    
+    private var oldAlphaValue: CGFloat = 0
+    
+    private var drawingImage: UIImage?
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         handleTouches(touches, withEvent: event)
@@ -106,6 +107,7 @@ class DrawingView: UIImageView, PageSubView, DrawingSettingsDelegate {
         
         let lineWidth = getLineWidth(context, touch: touch)
         let alpha = getAlpha(touch)
+        print(alpha)
         
         drawingObject.color.setStroke()
         
@@ -192,10 +194,21 @@ class DrawingView: UIImageView, PageSubView, DrawingSettingsDelegate {
     }
     
     private func getAlpha(touch: UITouch) -> CGFloat {
+        var alpha = defaultAlphaValue
         if forceTouchAvailable || touch.type == .Stylus {
-            return touch.force.normalized(0.0, max: 5)
+
+            alpha = (touch.force + defaultAlphaValue).normalized(defaultAlphaValue, max: touch.maximumPossibleForce)
+            
+            alpha = (alpha + oldAlphaValue) / 2
+            
+            oldAlphaValue = alpha
         }
-        return drawingObject.defaultAlphaValue ?? 1
+
+ 
+        
+
+        
+        return alpha
     }
 
     func removeLayer() {

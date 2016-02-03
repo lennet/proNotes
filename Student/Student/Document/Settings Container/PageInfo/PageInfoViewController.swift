@@ -30,7 +30,6 @@ class PageInfoViewController: UIViewController, UITableViewDataSource, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         layerTableView.reordableDelegate = self
-        DocumentSynchronizer.sharedInstance.addDelegate(self)
 
         let doupleTapRecognizer = UITapGestureRecognizer(target: self, action: Selector("handleDoubleTap:"))
         doupleTapRecognizer.numberOfTapsRequired = 2
@@ -39,7 +38,13 @@ class PageInfoViewController: UIViewController, UITableViewDataSource, UITableVi
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        DocumentSynchronizer.sharedInstance.addDelegate(self)
         layoutTableView()
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        DocumentSynchronizer.sharedInstance.removeDelegate(self)
     }
 
     func layoutTableView() {

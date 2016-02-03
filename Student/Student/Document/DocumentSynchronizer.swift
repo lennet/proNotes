@@ -8,16 +8,16 @@
 
 import UIKit
 
-protocol DocumentSynchronizerDelegate {
+protocol DocumentSynchronizerDelegate: class {
     func updateDocument(document: Document, forceReload: Bool)
 
     func currentPageDidChange(page: DocumentPage)
 }
 
-class DocumentSynchronizer: NSObject {
+class DocumentSynchronizer : NSObject {
 
     static let sharedInstance = DocumentSynchronizer()
-    var delegates = [DocumentSynchronizerDelegate]()
+    var delegates = Set<UIViewController>()
 
     var currentPage: DocumentPage? {
         didSet {
@@ -137,23 +137,29 @@ class DocumentSynchronizer: NSObject {
     // MARK: - Delegate Handling
 
     func addDelegate(delegate: DocumentSynchronizerDelegate) {
-        if !delegates.containsObject(delegate) {
-            delegates.append(delegate)
+        if let viewController = delegate as? UIViewController {
+            if !delegates.contains(viewController){
+                delegates.insert(viewController)
+            }
         }
     }
 
     func removeDelegate(delegate: DocumentSynchronizerDelegate) {
-        delegates.removeObject(delegate)
+        if let viewController = delegate as? UIViewController {
+            if delegates.contains(viewController){
+                delegates.remove(viewController)
+            }
+        }
     }
 
     func informDelegateToUpdateDocument(document: Document, forceReload: Bool) {
-        for delegate in delegates {
+        for case let delegate as DocumentSynchronizerDelegate  in delegates {
             delegate.updateDocument(document, forceReload: forceReload)
         }
     }
 
     func informDelegateToUpdateCurrentPage(page: DocumentPage) {
-        for delegate in delegates {
+        for case let delegate as DocumentSynchronizerDelegate  in delegates {
             delegate.currentPageDidChange(page)
         }
     }

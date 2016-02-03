@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol ImageSettingsDelegate {
+protocol ImageSettingsDelegate: class {
     func removeImage()
 
     func getImage() -> UIImage
@@ -29,7 +29,7 @@ class ImageSettingsViewController: UIViewController {
     @IBOutlet weak var cancelButtonConstraint: NSLayoutConstraint!
     @IBOutlet weak var finishButtonConstraint: NSLayoutConstraint!
 
-    static var delegate: ImageSettingsDelegate?
+    static weak var delegate: ImageSettingsDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()

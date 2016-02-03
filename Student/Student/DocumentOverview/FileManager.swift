@@ -17,7 +17,7 @@ enum RenameError: ErrorType {
     case OverwritingError
 }
 
-protocol FileManagerDelegate {
+protocol FileManagerDelegate: class {
     func reloadObjects()
 
     func reloadObjectAtIndex(index: Int)
@@ -34,7 +34,7 @@ class FileManager: NSObject {
     private final let fileExtension = "ProNote"
     private final let defaultName = "Note"
 
-    var delegate: FileManagerDelegate?
+    weak var delegate: FileManagerDelegate?
 
     var objects = [DocumentsOverviewObject]()
     var query: NSMetadataQuery?
@@ -375,13 +375,17 @@ class FileManager: NSObject {
 
     func handleQueryNotification(notification: NSNotification) {
         if let userInfo = notification.userInfo {
-            for item in (userInfo[NSMetadataQueryUpdateRemovedItemsKey] as? [NSMetadataItem]) ?? [NSMetadataItem]() where item.fileURL != nil {
+            guard let items = userInfo[NSMetadataQueryUpdateRemovedItemsKey] as? [NSMetadataItem] else {
+                checkFiles()
+                return
+            }
+            for item in items where item.fileURL != nil {
                 removeObjectFromArray(item.fileURL!)
             }
-            for item in (userInfo[NSMetadataQueryUpdateAddedItemsKey] as? [NSMetadataItem]) ?? [NSMetadataItem]() where item.fileURL != nil {
+            for item in items where item.fileURL != nil {
                 updateMetadata(item.fileURL!)
             }
-            for item in (userInfo[NSMetadataQueryUpdateChangedItemsKey] as? [NSMetadataItem]) ?? [NSMetadataItem]() where item.fileURL != nil {
+            for item in items where item.fileURL != nil {
                 updateMetadata(item.fileURL!)
             }
         } else {

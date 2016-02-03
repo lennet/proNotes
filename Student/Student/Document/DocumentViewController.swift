@@ -24,12 +24,16 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        DocumentSynchronizer.sharedInstance.addDelegate(self)
         document = DocumentSynchronizer.sharedInstance.document
         PagesTableViewController.sharedInstance?.document = document
         setUpTitle()
     }
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        DocumentSynchronizer.sharedInstance.addDelegate(self)
+    }
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         titleTextField.delegate = self
@@ -39,13 +43,10 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
         super.viewWillDisappear(animated)
         titleTextField.delegate = nil
         DocumentSynchronizer.sharedInstance.save()
+        DocumentSynchronizer.sharedInstance.removeDelegate(self)
         document?.closeWithCompletionHandler({
             (Bool) -> Void in
         })
-    }
-
-    deinit {
-        DocumentSynchronizer.sharedInstance.removeDelegate(self)
     }
 
     override func didReceiveMemoryWarning() {

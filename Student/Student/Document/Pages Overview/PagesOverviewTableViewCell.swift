@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol PagesOverviewTableViewCellDelegate {
+protocol PagesOverviewTableViewCellDelegate: class {
     func showPage(index: Int)
 }
 
@@ -19,7 +19,7 @@ class PagesOverviewTableViewCell: UITableViewCell {
     @IBOutlet weak var pageThumbView: UIView!
     @IBOutlet weak var numberLabel: UILabel!
     var index = 0
-    var delegate: PagesOverviewTableViewCellDelegate?
+    weak var delegate: PagesOverviewTableViewCellDelegate?
 
     override func awakeFromNib() {
         super.awakeFromNib()

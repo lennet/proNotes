@@ -10,7 +10,7 @@ import UIKit
 
 class SettingsViewController: UIViewController {
 
-    static var sharedInstance: SettingsViewController?
+    weak static var sharedInstance: SettingsViewController?
 
     enum SettingsViewControllerType: String {
         case Drawing = "DrawingSettingsIdentifier"
@@ -20,7 +20,7 @@ class SettingsViewController: UIViewController {
         case Plot = "PlotSettingsIdentifier"
     }
 
-    var currentChildViewController: UIViewController?
+    weak var currentChildViewController: UIViewController?
     var currentSettingsType: SettingsViewControllerType = .PageInfo {
         didSet {
             if oldValue != currentSettingsType {

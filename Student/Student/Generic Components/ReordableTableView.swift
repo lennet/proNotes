@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol ReordableTableViewDelegate {
+protocol ReordableTableViewDelegate: class {
     func didSwapElements(firstIndex: Int, secondIndex: Int)
 }
 
@@ -17,7 +17,7 @@ class ReordableTableView: UITableView {
     var currentSnapShowView: UIView = UIView()
     var sourceIndexPath: NSIndexPath?
 
-    var reordableDelegate: ReordableTableViewDelegate?
+    weak var reordableDelegate: ReordableTableViewDelegate?
 
     override func awakeFromNib() {
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: Selector("handleLongPress:"))

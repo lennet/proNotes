@@ -10,7 +10,7 @@ import UIKit
 
 class PagesTableViewController: UIViewController, DocumentSynchronizerDelegate, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource {
 
-    static var sharedInstance: PagesTableViewController?
+    weak static var sharedInstance: PagesTableViewController?
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var scrollView: UIScrollView!
@@ -31,11 +31,15 @@ class PagesTableViewController: UIViewController, DocumentSynchronizerDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.panGestureRecognizer.minimumNumberOfTouches = 2
-        DocumentSynchronizer.sharedInstance.addDelegate(self)
         document = DocumentSynchronizer.sharedInstance.document
         setUpTableView()
         loadTableView()
         setUpScrollView()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        DocumentSynchronizer.sharedInstance.addDelegate(self)
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -47,8 +51,9 @@ class PagesTableViewController: UIViewController, DocumentSynchronizerDelegate, 
             self.scrollView.alpha = 1
         }, completion: nil)
     }
-
-    deinit {
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
         DocumentSynchronizer.sharedInstance.removeDelegate(self)
     }
 
