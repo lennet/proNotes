@@ -19,6 +19,8 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
 
     var isFullScreen = false
 
+    @IBOutlet weak var undoButton: UIBarButtonItem!
+    
     var pagesOverviewController: PagesOverviewTableViewController?
     weak var document: Document? = DocumentSynchronizer.sharedInstance.document
 
@@ -118,6 +120,11 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
         }, completion: nil)
 
     }
+    
+    @IBAction func handleUndoButtonPressed(sender: AnyObject) {
+     
+    }
+    
     // MARK: - Navigation
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

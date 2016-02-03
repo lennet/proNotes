@@ -19,7 +19,7 @@ class DocumentSynchronizer : NSObject {
     static let sharedInstance = DocumentSynchronizer()
     var delegates = Set<UIViewController>()
 
-    var currentPage: DocumentPage? {
+    weak var currentPage: DocumentPage? {
         didSet {
             if currentPage != nil {
                 informDelegateToUpdateCurrentPage(currentPage!)
@@ -27,7 +27,7 @@ class DocumentSynchronizer : NSObject {
         }
     }
 
-    var document: Document? {
+    weak var document: Document? {
         didSet {
             if document != nil {
                 informDelegateToUpdateDocument(document!, forceReload: true)

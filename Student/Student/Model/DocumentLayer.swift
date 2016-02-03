@@ -20,7 +20,7 @@ enum DocumentLayerType: Int {
 class DocumentLayer: NSObject, NSCoding {
     var index: Int
     var type: DocumentLayerType
-    var docPage: DocumentPage!
+    weak var docPage: DocumentPage!
     var hidden = false
 
     init(index: Int, type: DocumentLayerType, docPage: DocumentPage) {
