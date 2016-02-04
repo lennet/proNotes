@@ -161,7 +161,13 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
 
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String:AnyObject]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            document?.addImageToPage(image, pageIndex: 0)
+            if let imageLayer =  DocumentSynchronizer.sharedInstance.currentPage?.addImageLayer(image) {
+                if let currentPageView = PagesTableViewController.sharedInstance?.currentPageView() {
+                    currentPageView.addImageLayer(imageLayer)
+                    currentPageView.page = DocumentSynchronizer.sharedInstance.currentPage
+                    currentPageView.setLayerSelected(currentPageView.subviews.count - 1)
+                }
+            }
         }
         dismissViewControllerAnimated(true, completion: nil)
     }
