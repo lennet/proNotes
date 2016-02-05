@@ -84,11 +84,23 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
     func removeText() {
         textView.text = ""
     }
+    
+    
+    func redoText(text: String){
+        textView.text = text
+        updateText(text)
+    }
+    
+    func updateText(newText: String) {
+        if let textLayer = movableLayer as? TextLayer {
+            undoManager?.prepareWithInvocationTarget(self).redoText(textLayer.text)
+            textLayer.text = textView.text
+            saveChanges()
+        }
+
+    }
 
     override func saveChanges() {
-        if let textLayer = movableLayer as? TextLayer {
-            textLayer.text = textView.text
-        }
         super.saveChanges()
     }
 
@@ -111,7 +123,7 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
     }
 
     func textViewDidEndEditing(textView: UITextView) {
-        saveChanges()
+        updateText(textView.text)
     }
 
 }

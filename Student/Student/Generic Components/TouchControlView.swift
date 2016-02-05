@@ -39,7 +39,8 @@ class TouchControlView: UIView {
     // FIXME fix proportionalResize
     var proportionalResize = false
     var widthResizingOnly = false
-
+    
+    var oldFrame: CGRect?
     var selectedTouchControl = TouchControl.None
 
     override func awakeFromNib() {
@@ -54,8 +55,8 @@ class TouchControlView: UIView {
         if isEditing {
             switch panGestureRecognizer.state {
             case .Began:
+                oldFrame = frame
                 selectedTouchControl = touchedControlRect(panGestureRecognizer.locationInView(self))
-                print(selectedTouchControl)
                 break
             case .Changed:
                 let translation = panGestureRecognizer.translationInView(self)

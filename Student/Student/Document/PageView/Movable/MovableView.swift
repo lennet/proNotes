@@ -64,18 +64,34 @@ class MovableView: TouchControlView, PageSubView {
         setNeedsDisplay()
         return frame
     }
-
-    override func handlePanEnded() {
-        super.handlePanEnded()
+    
+    func redoFrameChange(frame: CGRect) {
+        oldFrame = self.frame
+        UIView.animateWithDuration(0.1, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .CurveEaseInOut, animations: { () -> Void in
+            self.frame = frame
+            }) { (finished) -> Void in
+                self.updateFrameChanges()
+        }
+    }
+    
+    func updateFrameChanges() {
         if movableLayer != nil {
             movableLayer?.origin = frame.origin
-
+            if oldFrame != nil {
+                undoManager?.prepareWithInvocationTarget(self).redoFrameChange(oldFrame!)
+            }
+            
             var newSize = frame.size
             movableLayer?.size = newSize.increaseSize(controlLength * (-2))
             saveChanges()
         }
     }
 
+    override func handlePanEnded() {
+        super.handlePanEnded()
+        updateFrameChanges()
+    }
+    
     override func drawRect(rect: CGRect) {
         super.drawRect(rect)
         if isEditing {
