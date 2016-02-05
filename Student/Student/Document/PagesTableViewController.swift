@@ -189,7 +189,7 @@ class PagesTableViewController: UIViewController, DocumentSynchronizerDelegate, 
 
     func updateTableViewHeight() {
         var frame = tableView.frame
-        frame.size.height = scrollView.bounds.height
+        frame.size.height = max(scrollView.bounds.height, scrollView.contentSize.height)
         tableView.frame = frame
     }
 
