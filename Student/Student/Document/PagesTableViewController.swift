@@ -191,6 +191,7 @@ class PagesTableViewController: UIViewController, DocumentSynchronizerDelegate, 
         var frame = tableView.frame
         frame.size.height = max(scrollView.bounds.height, scrollView.contentSize.height)
         tableView.frame = frame
+        scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: tableView.bounds.height)
     }
 
     func layoutDidChange() {
@@ -215,6 +216,10 @@ class PagesTableViewController: UIViewController, DocumentSynchronizerDelegate, 
         if !(scrollView.contentOffset.y > scrollView.contentSize.height - scrollView.bounds.height
                 && scrollView.contentSize.height > scrollView.bounds.height) && !(scrollView.contentOffset.y < 0) {
             updateTableViewHeight()
+        }
+        // disable vertical scrolling for ZoomingScrollView
+        if (self.scrollView.contentOffset.y != 0) {
+            self.scrollView.contentOffset = CGPoint(x: self.scrollView.contentOffset.x, y: 0);
         }
     }
 
