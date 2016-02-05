@@ -20,7 +20,7 @@ class SettingsViewController: UIViewController {
         case Plot = "PlotSettingsIdentifier"
     }
 
-    weak var currentChildViewController: UIViewController?
+    weak var currentChildViewController: SettingsBaseViewController?
     var currentSettingsType: SettingsViewControllerType = .PageInfo {
         didSet {
             if oldValue != currentSettingsType {
@@ -48,7 +48,7 @@ class SettingsViewController: UIViewController {
         self.currentChildViewController?.view.removeFromSuperview()
         self.currentChildViewController?.removeFromParentViewController()
 
-        self.currentChildViewController = UIStoryboard.documentStoryboard().instantiateViewControllerWithIdentifier(settingsViewController.rawValue)
+        self.currentChildViewController = UIStoryboard.documentStoryboard().instantiateViewControllerWithIdentifier(settingsViewController.rawValue) as? SettingsBaseViewController
         self.currentChildViewController!.view.frame = view.bounds
         self.addChildViewController(self.currentChildViewController!)
         self.view.addSubview(self.currentChildViewController!.view)

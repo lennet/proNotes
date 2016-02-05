@@ -69,9 +69,8 @@ class MovableView: TouchControlView, PageSubView {
         oldFrame = self.frame
         UIView.animateWithDuration(0.1, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .CurveEaseInOut, animations: { () -> Void in
             self.frame = frame
-            }) { (finished) -> Void in
-                self.updateFrameChanges()
-        }
+            }, completion: nil)
+        updateFrameChanges()
     }
     
     func updateFrameChanges() {

@@ -10,7 +10,7 @@ import UIKit
 
 class SettingsBaseViewController: UIViewController, ColorPickerDelegate {
 
-    var colorPickerViewController: ColorPickerViewController?
+    weak var colorPickerViewController: ColorPickerViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +23,10 @@ class SettingsBaseViewController: UIViewController, ColorPickerDelegate {
         // Dispose of any resources that can be recreated.
     }
 
+    
+    func update() {
+        // empty base Implementation
+    }
 
     // MARK: - ColorPickerDelegate
 

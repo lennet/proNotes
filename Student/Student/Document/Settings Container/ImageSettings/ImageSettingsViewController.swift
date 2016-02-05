@@ -16,7 +16,7 @@ protocol ImageSettingsDelegate: class {
     func updateImage(image: UIImage)
 }
 
-class ImageSettingsViewController: UIViewController {
+class ImageSettingsViewController: SettingsBaseViewController {
 
     @IBOutlet weak var imageViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var cropImageView: CropImageView!
@@ -37,8 +37,7 @@ class ImageSettingsViewController: UIViewController {
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-
-        cropImageView.image = ImageSettingsViewController.delegate?.getImage()
+        update()
         cropImageView.layer.setUpDefaultShaddow()
     }
 
@@ -85,6 +84,10 @@ class ImageSettingsViewController: UIViewController {
             cropImageView.image = image
             ImageSettingsViewController.delegate?.updateImage(image)
         }
+    }
+    
+    override func update() {
+        cropImageView.image = ImageSettingsViewController.delegate?.getImage()
     }
 
     // MARK: - Actions

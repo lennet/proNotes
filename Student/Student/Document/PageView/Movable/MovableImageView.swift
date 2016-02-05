@@ -11,7 +11,7 @@ import UIKit
 class MovableImageView: MovableView, ImageSettingsDelegate {
 
     var image: UIImage
-    var imageView = UIImageView()
+    weak var imageView: UIImageView?
 
     init(image: UIImage, frame: CGRect, movableLayer: MovableLayer) {
         self.image = image
@@ -27,12 +27,13 @@ class MovableImageView: MovableView, ImageSettingsDelegate {
 
     func setUpImageView() {
         clipsToBounds = true
-        imageView = UIImageView()
 
+        let imageView = UIImageView()
         imageView.image = image
         imageView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(imageView)
-//        addAutoLayoutConstraints(imageView)
+        
+        self.imageView = imageView
     }
 
     override func setUpSettingsViewController() {
@@ -51,11 +52,23 @@ class MovableImageView: MovableView, ImageSettingsDelegate {
     func getImage() -> UIImage {
         return image
     }
+    
+    func redoImage(image: UIImage){
+        updateImage(image)
+        if SettingsViewController.sharedInstance?.currentSettingsType == .Image {
+            SettingsViewController.sharedInstance?.currentChildViewController?.update()
+        }
+    }
+    
 
     func updateImage(image: UIImage) {
-        let heightRatio = imageView.bounds.height / self.image.size.height
-        let widthRatio = imageView.bounds.width / self.image.size.width
-        imageView.image = image
+        guard imageView != nil else {
+            return
+        }
+        undoManager?.prepareWithInvocationTarget(self).redoImage(self.image)
+        let heightRatio = imageView!.bounds.height / self.image.size.height
+        let widthRatio = imageView!.bounds.width / self.image.size.width
+        imageView?.image = image
 
         if let imageLayer = movableLayer as? ImageLayer {
             imageLayer.image = image
