@@ -212,8 +212,7 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
     // TODO add more commands
     // commant + T create Text
     override var keyCommands: [UIKeyCommand]? {
-        var commands = [UIKeyCommand(input: UIKeyInputDownArrow, modifierFlags: .Command, action: "handleDownKeyPressed:", discoverabilityTitle: "Scroll Down"),
-                        UIKeyCommand(input: UIKeyInputUpArrow, modifierFlags: .Command, action: "handleUpKeyPressed:", discoverabilityTitle: "Scroll Up")]
+        var commands = [UIKeyCommand]()
 
         if let settingsViewController = SettingsViewController.sharedInstance {
             switch settingsViewController.currentSettingsType {
@@ -231,6 +230,9 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
             commands.append(UIKeyCommand(input: UIKeyInputLeftArrow, modifierFlags: .Command, action: "handleMoveMovableViewKeyPressed:", discoverabilityTitle: "Move Left"))
             commands.append(UIKeyCommand(input: UIKeyInputUpArrow, modifierFlags: .Command, action: "handleMoveMovableViewKeyPressed:", discoverabilityTitle: "Move Up"))
             commands.append(UIKeyCommand(input: UIKeyInputDownArrow, modifierFlags: .Command, action: "handleMoveMovableViewKeyPressed:", discoverabilityTitle: "Move Down"))
+        } else {
+            commands.append(UIKeyCommand(input: UIKeyInputDownArrow, modifierFlags: .Command, action: "handleDownKeyPressed:", discoverabilityTitle: "Scroll Down"))
+            commands.append(UIKeyCommand(input: UIKeyInputUpArrow, modifierFlags: .Command, action: "handleUpKeyPressed:", discoverabilityTitle: "Scroll Up"))
         }
 
         return commands
@@ -254,17 +256,20 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
         guard let movableView = PagesTableViewController.sharedInstance?.currentPageView()?.selectedSubView as? MovableView else {
             return
         }
+        let offSet = 10
         var translation = CGPointZero
         switch sender.input {
         case UIKeyInputRightArrow:
-            translation = CGPoint(x: 10, y: 0)
+            translation = CGPoint(x: offSet, y: 0)
             break
         case UIKeyInputLeftArrow:
-            translation = CGPoint(x: -10, y: 0)
+            translation = CGPoint(x: -offSet, y: 0)
             break
         case UIKeyInputDownArrow:
+            translation = CGPoint(x: 0, y: offSet)
             break
         case UIKeyInputUpArrow:
+            translation = CGPoint(x: 0, y: -offSet)
             break
         default:
             break

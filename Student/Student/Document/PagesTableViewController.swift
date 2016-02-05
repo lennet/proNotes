@@ -14,9 +14,9 @@ class PagesTableViewController: UIViewController, DocumentSynchronizerDelegate, 
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var scrollView: UIScrollView!
-
-    var shouldReload = true
     @IBOutlet weak var tableViewWidth: NSLayoutConstraint?
+    
+    var shouldReload = true
 
     var document: Document? {
         didSet {
@@ -73,6 +73,7 @@ class PagesTableViewController: UIViewController, DocumentSynchronizerDelegate, 
         scrollView.zoomScale = minZoomScale
         scrollView.panGestureRecognizer.minimumNumberOfTouches = 2
         scrollView.delaysContentTouches = false
+        scrollView.showsVerticalScrollIndicator = false
     }
 
     func setUpTableView() {
