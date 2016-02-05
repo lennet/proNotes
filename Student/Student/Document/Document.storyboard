@@ -76,6 +76,16 @@
                                     <action selector="unwind:" destination="mNn-FC-EJF" id="zXc-h4-4Lo"/>
                                 </connections>
                             </barButtonItem>
+                            <barButtonItem systemItem="undo" id="kI2-fq-zX2">
+                                <connections>
+                                    <action selector="handleUndoButtonPressed:" destination="mNn-FC-EJF" id="vTo-rm-kRo"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Item" systemItem="redo" id="SsO-6r-ygX">
+                                <connections>
+                                    <action selector="handleRedoButtonPressed:" destination="mNn-FC-EJF" id="Uuh-fQ-gjW"/>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem systemItem="add" id="grs-ES-bYt">
                                 <connections>
                                     <action selector="handleAddPageButtonPressed:" destination="mNn-FC-EJF" id="2Qs-CO-bnM"/>
@@ -98,7 +108,7 @@
                             </barButtonItem>
                         </leftBarButtonItems>
                         <view key="titleView" contentMode="scaleToFill" id="DCF-1C-qNS">
-                            <rect key="frame" x="356.5" y="5.5" width="87" height="33"/>
+                            <rect key="frame" x="428" y="5.5" width="87" height="33"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Title" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DeR-PR-STL">
@@ -135,8 +145,10 @@
                     <size key="freeformSize" width="800" height="600"/>
                     <connections>
                         <outlet property="pagesOverviewWidthConstraint" destination="ISp-dr-FCw" id="Kh0-oa-KXW"/>
+                        <outlet property="redoButton" destination="SsO-6r-ygX" id="Jdc-en-cay"/>
                         <outlet property="settingsWidthConstraint" destination="8cS-CW-1xo" id="VCP-X2-Sod"/>
                         <outlet property="titleTextField" destination="DeR-PR-STL" id="sPx-kb-eA2"/>
+                        <outlet property="undoButton" destination="kI2-fq-zX2" id="SNq-PB-1t4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QeH-aA-dmU" userLabel="First Responder" sceneMemberID="firstResponder"/>

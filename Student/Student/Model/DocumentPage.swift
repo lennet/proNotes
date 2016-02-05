@@ -58,11 +58,12 @@ class DocumentPage: NSObject, NSCoding {
         DocumentSynchronizer.sharedInstance.updatePage(self, forceReload: false)
     }
 
-    func addImageLayer(image: UIImage) {
+    func addImageLayer(image: UIImage) -> ImageLayer {
         let layerSize = image.sizeToFit(size)
         let imageLayer = ImageLayer(index: layers.count, docPage: self, origin: CGPointZero, size: layerSize, image: image)
         layers.append(imageLayer)
         DocumentSynchronizer.sharedInstance.updatePage(self, forceReload: false)
+        return imageLayer
     }
 
     func addTextLayer(text: String) -> TextLayer {

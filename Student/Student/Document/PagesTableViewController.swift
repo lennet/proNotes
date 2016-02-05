@@ -68,7 +68,6 @@ class PagesTableViewController: UIViewController, DocumentSynchronizerDelegate, 
 
     func setUpScrollView() {
         let minZoomScale = scrollView.bounds.width / tableView.bounds.width * 0.9
-        print(minZoomScale)
         scrollView.minimumZoomScale = minZoomScale
         scrollView.maximumZoomScale = minZoomScale * 5
         scrollView.zoomScale = minZoomScale

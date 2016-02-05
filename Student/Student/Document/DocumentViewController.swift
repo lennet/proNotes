@@ -21,7 +21,10 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
 
     @IBOutlet weak var undoButton: UIBarButtonItem!
     
+    @IBOutlet weak var redoButton: UIBarButtonItem!
+    
     var pagesOverviewController: PagesOverviewTableViewController?
+    var isLoadingImage = false
     weak var document: Document? = DocumentSynchronizer.sharedInstance.document
 
     override func viewDidLoad() {
@@ -33,7 +36,10 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        registerNotifications()
         DocumentSynchronizer.sharedInstance.addDelegate(self)
+        updateUndoRedoButtons()
+        isLoadingImage = false
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -43,12 +49,15 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
 
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        titleTextField.delegate = nil
-        DocumentSynchronizer.sharedInstance.save()
-        DocumentSynchronizer.sharedInstance.removeDelegate(self)
-        document?.closeWithCompletionHandler({
-            (Bool) -> Void in
-        })
+        if !isLoadingImage {
+            titleTextField.delegate = nil
+            DocumentSynchronizer.sharedInstance.save()
+            DocumentSynchronizer.sharedInstance.removeDelegate(self)
+            document?.closeWithCompletionHandler({
+                (Bool) -> Void in
+            })
+            removeNotifications()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -65,6 +74,16 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
         titleTextField.sizeToFit()
     }
 
+    func registerNotifications() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("updateUndoRedoButtons"), name: NSUndoManagerWillUndoChangeNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("updateUndoRedoButtons"), name: NSUndoManagerDidRedoChangeNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("updateUndoRedoButtons"), name: NSUndoManagerCheckpointNotification, object: nil)
+    }
+    
+    func removeNotifications() {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
     // MARK: - Actions
 
     @IBAction func handleAddPageButtonPressed(sender: AnyObject) {
@@ -82,6 +101,7 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
         imagePicker.delegate = self
         imagePicker.sourceType = .PhotoLibrary
         imagePicker.allowsEditing = false
+        isLoadingImage = true
         presentViewController(imagePicker, animated: true, completion: nil)
     }
 
@@ -122,7 +142,16 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
     }
     
     @IBAction func handleUndoButtonPressed(sender: AnyObject) {
-     
+        undoManager?.undo()
+    }
+    
+    @IBAction func handleRedoButtonPressed(sender: AnyObject) {
+        undoManager?.redo()
+    }
+    
+    func updateUndoRedoButtons() {
+        redoButton.enabled = undoManager?.canRedo ?? false
+        undoButton.enabled = undoManager?.canUndo ?? false
     }
     
     // MARK: - Navigation

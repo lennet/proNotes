@@ -55,7 +55,11 @@ class DrawingView: UIImageView, PageSubView, DrawingSettingsDelegate {
     
     private var drawingImage: UIImage?
     
+    private var undoImage: UIImage?
+    
+    
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        undoImage = image
         handleTouches(touches, withEvent: event)
     }
     
@@ -65,13 +69,32 @@ class DrawingView: UIImageView, PageSubView, DrawingSettingsDelegate {
     
     override func touchesEnded(touches: Set<UITouch>,
         withEvent event: UIEvent?) {
-        self.image = drawingImage
-        saveChanges()
+        handleTouchesEnded()
     }
     
     override func touchesCancelled(touches: Set<UITouch>?,
         withEvent event: UIEvent?) {
-        self.image = drawingImage
+        handleTouchesEnded()
+    }
+    
+    func handleTouchesEnded() {
+        updateImage(drawingImage)
+    }
+    
+    func undoImage(image: UIImage?) {
+        undoManager?.prepareWithInvocationTarget(self).redoImage(self.image)
+        updateImage(image)
+
+    }
+    
+    func redoImage(image: UIImage?){
+        updateImage(image)
+    }
+    
+    func updateImage(image: UIImage?){
+        undoManager?.prepareWithInvocationTarget(self).undoImage(undoImage)
+        self.image = image
+        drawingImage = image
         saveChanges()
     }
     
@@ -204,10 +227,6 @@ class DrawingView: UIImageView, PageSubView, DrawingSettingsDelegate {
             oldAlphaValue = alpha
         }
 
- 
-        
-
-        
         return alpha
     }
 
