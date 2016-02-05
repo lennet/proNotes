@@ -16,7 +16,7 @@ class PageView: UIView, UIGestureRecognizerDelegate {
     var tapGestureRecognizer: UITapGestureRecognizer?
     var doubleTapGestureRecognizer: UITapGestureRecognizer?
 
-    var page: DocumentPage? {
+    weak var page: DocumentPage? {
         didSet {
             if oldValue == nil {
                 setUpLayer()
