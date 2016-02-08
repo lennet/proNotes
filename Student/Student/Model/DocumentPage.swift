@@ -36,6 +36,15 @@ class DocumentPage: NSObject, NSCoding {
         }
     }
 
+    subscript(layerIndex: Int) -> DocumentLayer? {
+        get {
+            if layerIndex < layers.count {
+                return layers[layerIndex]
+            }
+            return nil
+        }
+    }
+    
     private final let indexKey = "index"
     private final let sizeKey = "size"
     private final let layersKey = "layers"

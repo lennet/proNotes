@@ -25,4 +25,6 @@ protocol PageSubView: class {
 
     optional func setUpSettingsViewController()
     
+    optional func undoAction(oldObject: AnyObject?)
+    
 }

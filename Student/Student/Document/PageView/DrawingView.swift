@@ -80,19 +80,13 @@ class DrawingView: UIImageView, PageSubView, DrawingSettingsDelegate {
     func handleTouchesEnded() {
         updateImage(drawingImage)
     }
-    
-    func undoImage(image: UIImage?) {
-        undoManager?.prepareWithInvocationTarget(self).redoImage(self.image)
-        updateImage(image)
-
-    }
-
-    func redoImage(image: UIImage?) {
-        updateImage(image)
-    }
 
     func updateImage(image: UIImage?) {
-        undoManager?.prepareWithInvocationTarget(self).undoImage(undoImage)
+        
+        if drawLayer != nil && drawLayer?.docPage != nil {
+            DocumentSynchronizer.sharedInstance.registerUndoAction(undoImage, pageIndex: drawLayer!.docPage.index, layerIndex: drawLayer!.index)
+        }
+        
         self.image = image
         drawingImage = image
         saveChanges()
@@ -242,6 +236,15 @@ class DrawingView: UIImageView, PageSubView, DrawingSettingsDelegate {
     
     // MARK: - PageSubViewProtocol
     
+    func undoAction(oldObject: AnyObject?) {
+        if let oldImage = oldObject as? UIImage {
+            if drawLayer != nil && drawLayer?.docPage != nil {
+                DocumentSynchronizer.sharedInstance.registerUndoAction(image, pageIndex: drawLayer!.docPage.index, layerIndex: drawLayer!.index)
+            }
+            updateImage(oldImage)
+        }
+    }
+    
     func setSelected() {
         SettingsViewController.sharedInstance?.currentSettingsType = .Drawing
         DrawingSettingsViewController.delegate = self
@@ -255,7 +258,7 @@ class DrawingView: UIImageView, PageSubView, DrawingSettingsDelegate {
     }
     
     // MARK: - DrawingSettingsDelegate
-
+    
     func didSelectColor(color: UIColor) {
         drawingObject.color = color
     }

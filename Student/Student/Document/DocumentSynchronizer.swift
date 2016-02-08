@@ -9,9 +9,10 @@
 import UIKit
 
 protocol DocumentSynchronizerDelegate: class {
-    func updateDocument(document: Document, forceReload: Bool)
 
+    func updateDocument(document: Document, forceReload: Bool)
     func currentPageDidChange(page: DocumentPage)
+    
 }
 
 class DocumentSynchronizer: NSObject {
@@ -19,6 +20,12 @@ class DocumentSynchronizer: NSObject {
     static let sharedInstance = DocumentSynchronizer()
     var delegates = Set<UIViewController>()
 
+    var undoManager: NSUndoManager? {
+        get {
+            return PagesTableViewController.sharedInstance?.undoManager
+        }
+    }
+    
     weak var currentPage: DocumentPage? {
         didSet {
             if currentPage != nil {
@@ -132,6 +139,27 @@ class DocumentSynchronizer: NSObject {
 
     func save() {
         document?.saveToURL(document!.fileURL, forSaveOperation: .ForOverwriting, completionHandler: nil)
+    }
+    
+    // MARK: - NSUndoManager
+    
+    func registerUndoAction(object: AnyObject?, pageIndex: Int, layerIndex: Int) {
+        undoManager?.prepareWithInvocationTarget(self).undoAction(object, pageIndex: pageIndex, layerIndex: layerIndex)
+    }
+    
+    func undoAction(object: AnyObject?, pageIndex: Int, layerIndex: Int) {
+        if let pageView = PagesTableViewController.sharedInstance?.currentPageView() {
+            if pageView.page?.index == pageIndex {
+                if let pageSubView = pageView[layerIndex] {
+                    pageSubView.undoAction?(object)
+                    return
+                }
+            }
+        }
+        
+        // Swift 😍
+        document?[pageIndex]?[layerIndex]?.undoAction(object)
+
     }
 
     // MARK: - Delegate Handling

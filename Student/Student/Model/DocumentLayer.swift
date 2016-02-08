@@ -55,6 +55,10 @@ class DocumentLayer: NSObject, NSCoding {
     func removeFromPage() {
         self.docPage.removeLayer(self, forceReload: false)
     }
+    
+    func undoAction(oldObject: AnyObject?) {
+        // empty Base Implementation
+    }
 }
 
 class MovableLayer: DocumentLayer {
@@ -82,6 +86,17 @@ class MovableLayer: DocumentLayer {
         aCoder.encodeCGSize(size, forKey: sizeKey)
         super.encodeWithCoder(aCoder)
     }
+    
+    override func undoAction(oldObject: AnyObject?) {
+        if let value = oldObject as? NSValue {
+            let frame = value.CGRectValue()
+            origin = frame.origin
+            size = frame.size
+        } else {
+            super.undoAction(oldObject)
+        }
+    }
+    
 }
 
 class ImageLayer: MovableLayer {
@@ -112,6 +127,14 @@ class ImageLayer: MovableLayer {
         }
         super.encodeWithCoder(aCoder)
     }
+    
+    override func undoAction(oldObject: AnyObject?) {
+        if let image = oldObject as? UIImage {
+            self.image = image
+        } else {
+            super.undoAction(oldObject)
+        }
+    }
 
 }
 
@@ -133,6 +156,14 @@ class TextLayer: MovableLayer {
     override func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeObject(text, forKey: textKey)
         super.encodeWithCoder(aCoder)
+    }
+    
+    override func undoAction(oldObject: AnyObject?) {
+        if let text = oldObject as? String {
+            self.text = text
+        } else {
+            super.undoAction(oldObject)
+        }
     }
 }
 
@@ -174,5 +205,14 @@ class DocumentDrawLayer: DocumentLayer {
         }
         super.encodeWithCoder(aCoder)
     }
+    
+    override func undoAction(oldObject: AnyObject?) {
+        if let image = oldObject as? UIImage {
+            self.image = image
+        } else {
+            super.undoAction(oldObject)
+        }
+    }
+    
 }
 

@@ -25,7 +25,16 @@ class PageView: UIView, UIGestureRecognizerDelegate {
     }
 
     weak var selectedSubView: PageSubView?
-
+    
+    subscript(subViewIndex: Int) -> PageSubView? {
+        get {
+            if subViewIndex < subviews.count {
+                return subviews[subViewIndex] as? PageSubView
+            }
+            return nil
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         setUpTouchRecognizer()
@@ -76,7 +85,6 @@ class PageView: UIView, UIGestureRecognizerDelegate {
                 break
             }
         }
-//        setNeedsDisplay()
     }
 
     func addPDFView(pdfLayer: DocumentPDFLayer) {
@@ -136,30 +144,22 @@ class PageView: UIView, UIGestureRecognizerDelegate {
     }
 
     func setLayerSelected(index: Int) {
-        if index < subviews.count {
-            selectedSubView?.handleTap?(nil)
-            selectedSubView = nil
-            if let subview = subviews[index] as? PageSubView {
-                subview.setSelected?()
-                selectedSubView = subview
-                setSubviewsTransparent(index + 1, alphaValue: 0.5)
-            }
+    
+        selectedSubView?.handleTap?(nil)
+        selectedSubView = nil
+        if let subview = self[index]{
+            subview.setSelected?()
+            selectedSubView = subview
+            setSubviewsAlpha(index + 1, alphaValue: 0.5)
         } else {
             print("Selecting Layer failed with index:\(index) and subviewsCount \(subviews.count)")
-        }
-    }
-
-    func setSubviewsTransparent(startIndex: Int, alphaValue: CGFloat) {
-        let transparentSubviews = subviews[startIndex ..< subviews.count]
-        for subview in transparentSubviews {
-            subview.alpha = alphaValue
         }
     }
 
     func deselectSelectedSubview() {
         selectedSubView?.handleTap?(nil)
         selectedSubView = nil
-        setSubviewsTransparent(0, alphaValue: 1)
+        setSubviewsAlpha(0, alphaValue: 1)
     }
 
     func swapLayerPositions(firstIndex: Int, secondIndex: Int) {
@@ -170,22 +170,18 @@ class PageView: UIView, UIGestureRecognizerDelegate {
             print("Swap Layerpositions failed with firstIndex:\(firstIndex) and secondIndex\(secondIndex) and subviewsCount \(subviews.count)")
         }
     }
-
+    
     func changeLayerVisibility(docLayer: DocumentLayer) {
         let isHidden = !docLayer.hidden
-        if docLayer.index < subviews.count {
-            if let subview = subviews[docLayer.index] as? PageSubView {
-                (subview as? UIView)?.hidden = isHidden
-            }
+        if let subview = self[docLayer.index] as? UIView {
+            subview.hidden = isHidden
         }
         page?.changeLayerVisibility(isHidden, layer: docLayer)
     }
 
     func removeLayer(docLayer: DocumentLayer) {
-        if docLayer.index < subviews.count {
-            if let subview = subviews[docLayer.index] as? PageSubView {
-                (subview as? UIView)?.removeFromSuperview()
-            }
+        if let subview = self[docLayer.index] as? UIView {
+            subview.removeFromSuperview()
         }
         page?.removeLayer(docLayer, forceReload: false)
     }
@@ -241,7 +237,6 @@ class PageView: UIView, UIGestureRecognizerDelegate {
 
     func handleTap(tapGestureRecognizer: UITapGestureRecognizer) {
         if selectedSubView != nil {
-            // TODO improve
             deselectSelectedSubview()
         } else {
             let location = tapGestureRecognizer.locationInView(self)

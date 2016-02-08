@@ -9,8 +9,10 @@
 import UIKit
 
 extension CGPoint {
+    
     mutating func addPoint(point: CGPoint) {
         x += point.x
         y += point.y
     }
+    
 }

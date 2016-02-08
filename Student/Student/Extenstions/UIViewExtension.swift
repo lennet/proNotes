@@ -9,31 +9,8 @@
 import UIKit
 
 extension UIView {
-
-    func snapshot() -> UIImage {
-        UIGraphicsBeginImageContextWithOptions(self.bounds.size, false, 0);
-        self.layer.renderInContext(UIGraphicsGetCurrentContext()!)
-        let snapshot = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return snapshot
-    }
-
-    func snapshotView() -> UIView {
-        let snapshotView = UIImageView(image: snapshot())
-        snapshotView.layer.masksToBounds = false
-        snapshotView.layer.shadowOffset = CGSizeMake(-5, 0)
-        snapshotView.layer.shadowRadius = 5
-        snapshotView.layer.shadowOpacity = 0.4
-        return snapshotView
-    }
-
-    func removeAllGestureRecognizer() {
-        if gestureRecognizers != nil {
-            for recognizer in gestureRecognizers! {
-                removeGestureRecognizer(recognizer)
-            }
-        }
-    }
+    
+    // MARK - AutoLayout
 
     func getConstraint(attribute: NSLayoutAttribute) -> NSLayoutConstraint? {
         for constraint in constraints {
@@ -43,7 +20,22 @@ extension UIView {
         }
         return nil
     }
+    
+    // MARK: - UITouch
+    
+    var forceTouchAvailable: Bool {
+        return traitCollection.forceTouchCapability == .Available
+    }
+    
+    // MARK: - Sub/ Parentviews
 
+    func setSubviewsAlpha(startIndex: Int, alphaValue: CGFloat) {
+        let transparentSubviews = subviews[startIndex ..< subviews.count]
+        for subview in transparentSubviews {
+            subview.alpha = alphaValue
+        }
+    }
+    
     var parentViewController: UIViewController? {
         var parentResponder: UIResponder? = self
         while parentResponder != nil {
@@ -55,8 +47,33 @@ extension UIView {
         return nil
     }
     
-    var forceTouchAvailable: Bool {
-        return traitCollection.forceTouchCapability == .Available
+    // MARK: - Snapshot
+    
+    func snapshot() -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(self.bounds.size, false, 0);
+        self.layer.renderInContext(UIGraphicsGetCurrentContext()!)
+        let snapshot = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return snapshot
+    }
+    
+    func snapshotView() -> UIView {
+        let snapshotView = UIImageView(image: snapshot())
+        snapshotView.layer.masksToBounds = false
+        snapshotView.layer.shadowOffset = CGSizeMake(-5, 0)
+        snapshotView.layer.shadowRadius = 5
+        snapshotView.layer.shadowOpacity = 0.4
+        return snapshotView
+    }
+    
+    // MARK: - Gesture Recognizer
+    
+    func removeAllGestureRecognizer() {
+        if gestureRecognizers != nil {
+            for recognizer in gestureRecognizers! {
+                removeGestureRecognizer(recognizer)
+            }
+        }
     }
 
 }

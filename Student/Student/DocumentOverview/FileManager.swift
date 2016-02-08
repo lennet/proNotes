@@ -18,13 +18,12 @@ enum RenameError: ErrorType {
 }
 
 protocol FileManagerDelegate: class {
+
     func reloadObjects()
-
     func reloadObjectAtIndex(index: Int)
-
     func insertObjectAtIndex(index: Int)
-
     func removeObjectAtIndex(index: Int)
+    
 }
 
 class FileManager: NSObject {
@@ -119,7 +118,7 @@ class FileManager: NSObject {
         }
     }
 
-    // MARK - CRUD
+    // MARK: - CRUD
 
     func renameObject(fileURL: NSURL, fileName: String, forceOverWrite: Bool, completion: ((Bool, ErrorType?) -> Void)?) {
         guard let index = indexOf(fileURL) else {

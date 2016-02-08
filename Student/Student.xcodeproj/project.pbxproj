@@ -62,7 +62,6 @@
 		98E0D4061C4C0D3C00EF49FD /* NSURLExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E0D4051C4C0D3C00EF49FD /* NSURLExtension.swift */; };
 		98E0D4081C4C0F5500EF49FD /* DocumentMetaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E0D4071C4C0F5500EF49FD /* DocumentMetaData.swift */; };
 		98E33D4F1C37E8D10065B590 /* CropImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E33D4E1C37E8D10065B590 /* CropImageView.swift */; };
-		98F2E3E71C1A1ED2008A5C6C /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F2E3E31C1A1ED2008A5C6C /* ArrayExtension.swift */; };
 		98F2E3E81C1A1ED2008A5C6C /* CGPointExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F2E3E41C1A1ED2008A5C6C /* CGPointExtension.swift */; };
 		98F2E3E91C1A1ED2008A5C6C /* CGSizeExtenstion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F2E3E51C1A1ED2008A5C6C /* CGSizeExtenstion.swift */; };
 		98F2E3EA1C1A1ED2008A5C6C /* UIStoryboardExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F2E3E61C1A1ED2008A5C6C /* UIStoryboardExtension.swift */; };
@@ -151,7 +150,6 @@
 		98E0D4051C4C0D3C00EF49FD /* NSURLExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSURLExtension.swift; sourceTree = "<group>"; };
 		98E0D4071C4C0F5500EF49FD /* DocumentMetaData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentMetaData.swift; sourceTree = "<group>"; };
 		98E33D4E1C37E8D10065B590 /* CropImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropImageView.swift; sourceTree = "<group>"; };
-		98F2E3E31C1A1ED2008A5C6C /* ArrayExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		98F2E3E41C1A1ED2008A5C6C /* CGPointExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGPointExtension.swift; sourceTree = "<group>"; };
 		98F2E3E51C1A1ED2008A5C6C /* CGSizeExtenstion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGSizeExtenstion.swift; sourceTree = "<group>"; };
 		98F2E3E61C1A1ED2008A5C6C /* UIStoryboardExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIStoryboardExtension.swift; sourceTree = "<group>"; };
@@ -302,7 +300,6 @@
 		98AFFE721C14AEC9003A4A79 /* Extenstions */ = {
 			isa = PBXGroup;
 			children = (
-				98F2E3E31C1A1ED2008A5C6C /* ArrayExtension.swift */,
 				986D605F1C2C34BD0065D71B /* CALayerExtension.swift */,
 				98CD5AAF1C5FE728003F0686 /* CGFloatExtension.swift */,
 				98F2E3E41C1A1ED2008A5C6C /* CGPointExtension.swift */,
@@ -537,7 +534,6 @@
 				98262C101C22C29A00B420A8 /* SettingsBaseViewController.swift in Sources */,
 				98BABB921C1B4D9300D9C938 /* UIViewExtension.swift in Sources */,
 				98BABB901C1B16A400D9C938 /* PageInfoLayerTableViewCell.swift in Sources */,
-				98F2E3E71C1A1ED2008A5C6C /* ArrayExtension.swift in Sources */,
 				98101BD71C0A5945001E9555 /* PageTableViewCell.swift in Sources */,
 				98F2E3EE1C1A1EF1008A5C6C /* MovableImageView.swift in Sources */,
 				984242AB1C3EDD0900F90455 /* TouchControlView.swift in Sources */,

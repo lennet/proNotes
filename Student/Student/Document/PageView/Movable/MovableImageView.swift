@@ -52,8 +52,13 @@ class MovableImageView: MovableView, ImageSettingsDelegate {
     func getImage() -> UIImage {
         return image
     }
-
-    func redoImage(image: UIImage) {
+    
+    override func undoAction(oldObject: AnyObject?) {
+        guard let image = oldObject as? UIImage else {
+            super.undoAction(oldObject)
+            return
+        }
+        
         updateImage(image)
         if SettingsViewController.sharedInstance?.currentSettingsType == .Image {
             SettingsViewController.sharedInstance?.currentChildViewController?.update()
@@ -65,7 +70,11 @@ class MovableImageView: MovableView, ImageSettingsDelegate {
         guard imageView != nil else {
             return
         }
-        undoManager?.prepareWithInvocationTarget(self).redoImage(self.image)
+        
+        if movableLayer != nil && movableLayer?.docPage != nil {
+            DocumentSynchronizer.sharedInstance.registerUndoAction(self.image, pageIndex: movableLayer!.docPage.index, layerIndex: movableLayer!.index)
+        }
+        
         let heightRatio = imageView!.bounds.height / self.image.size.height
         let widthRatio = imageView!.bounds.width / self.image.size.width
         imageView?.image = image

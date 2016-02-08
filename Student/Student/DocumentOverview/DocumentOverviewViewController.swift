@@ -55,7 +55,7 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
         fileManager.createDocument()
     }
 
-    // MARK: UICollectionViewDataSource
+    // MARK: - UICollectionViewDataSource
 
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
@@ -79,7 +79,7 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
         return cell
     }
 
-    // MARK: UICollectionViewDelegate
+    // MARK: - UICollectionViewDelegate
 
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let selectedObject = fileManager.objects[indexPath.row]

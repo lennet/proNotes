@@ -91,15 +91,20 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
         textView?.text = ""
     }
 
-
-    func redoText(text: String) {
+    override func undoAction(oldObject: AnyObject?) {
+        guard let text = oldObject as? String else {
+            super.undoAction(oldObject)
+            return
+        }
         textView?.text = text
         updateText(text)
     }
     
     func updateText(newText: String) {
         if let textLayer = movableLayer as? TextLayer {
-            undoManager?.prepareWithInvocationTarget(self).redoText(textLayer.text)
+            if textLayer.docPage != nil {
+                DocumentSynchronizer.sharedInstance.registerUndoAction(textLayer.text, pageIndex: textLayer.docPage.index, layerIndex: textLayer.index)
+            }
             textLayer.text = textView?.text ?? textLayer.text
             saveChanges()
         }

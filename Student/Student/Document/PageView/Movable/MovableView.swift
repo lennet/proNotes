@@ -65,20 +65,11 @@ class MovableView: TouchControlView, PageSubView {
         return frame
     }
     
-    func redoFrameChange(frame: CGRect) {
-        oldFrame = self.frame
-        UIView.animateWithDuration(0.1, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .CurveEaseInOut, animations: {
-            () -> Void in
-            self.frame = frame
-        }, completion: nil)
-        updateFrameChanges()
-    }
-    
     func updateFrameChanges() {
         if movableLayer != nil {
             movableLayer?.origin = frame.origin
-            if oldFrame != nil {
-                undoManager?.prepareWithInvocationTarget(self).redoFrameChange(oldFrame!)
+            if movableLayer!.docPage != nil && oldFrame != nil {
+                DocumentSynchronizer.sharedInstance.registerUndoAction(NSValue(CGRect: oldFrame!), pageIndex: movableLayer!.docPage.index, layerIndex: movableLayer!.index)
             }
             
             var newSize = frame.size
@@ -116,5 +107,19 @@ class MovableView: TouchControlView, PageSubView {
     func setDeselected() {
         // empty Base implementation
     }
+    
+    func undoAction(oldObject: AnyObject?) {
+        guard let value = oldObject as? NSValue else {
+            return
+        }
+        let frame = value.CGRectValue()
+        oldFrame = self.frame
+        UIView.animateWithDuration(0.1, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .CurveEaseInOut, animations: {
+            () -> Void in
+            self.frame = frame
+            }, completion: nil)
+        updateFrameChanges()
+    }
+    
     
 }

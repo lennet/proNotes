@@ -67,6 +67,15 @@ class Document: UIDocument {
             _pages = newValue
         }
     }
+    
+    subscript(pageIndex: Int) -> DocumentPage? {
+        get {
+            if pageIndex < pages.count {
+                return pages[pageIndex]
+            }
+            return nil
+        }
+    }
 
     // MARK - Load Document
 
@@ -143,15 +152,15 @@ class Document: UIDocument {
     }
 
     func addImageToPage(image: UIImage, pageIndex: Int) {
-        if pages.count > pageIndex {
-            pages[pageIndex].addImageLayer(image)
+        if let page = self[pageIndex] {
+            page.addImageLayer(image)
             DocumentSynchronizer.sharedInstance.document = self
         }
     }
 
     func addTextToPage(text: String, pageIndex: Int) {
-        if pages.count > pageIndex {
-            pages[pageIndex].addTextLayer(text)
+        if let page = self[pageIndex] {
+            page.addTextLayer(text)
             DocumentSynchronizer.sharedInstance.document = self
         }
     }
