@@ -126,7 +126,6 @@ class DrawingView: UIImageView, PageSubView, DrawingSettingsDelegate {
         
         let lineWidth = getLineWidth(context, touch: touch)
         let alpha = getAlpha(touch)
-        print(alpha)
         
         drawingObject.color.setStroke()
         

@@ -34,7 +34,6 @@ class PagesTableViewController: UIViewController, DocumentSynchronizerDelegate, 
         document = DocumentSynchronizer.sharedInstance.document
         setUpTableView()
         loadTableView()
-        setUpScrollView()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -45,11 +44,6 @@ class PagesTableViewController: UIViewController, DocumentSynchronizerDelegate, 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         setUpScrollView()
-        // FIXME doubled setUpScrollView call && animated Appearance beacuse of a layouting bug 
-        UIView.animateWithDuration(0.2, delay: 0, usingSpringWithDamping: 0.85, initialSpringVelocity: 5, options: .CurveEaseInOut, animations: {
-            () -> Void in
-            self.scrollView.alpha = 1
-        }, completion: nil)
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -74,6 +68,10 @@ class PagesTableViewController: UIViewController, DocumentSynchronizerDelegate, 
         scrollView.panGestureRecognizer.minimumNumberOfTouches = 2
         scrollView.delaysContentTouches = false
         scrollView.showsVerticalScrollIndicator = false
+        UIView.animateWithDuration(0.2, delay: 0, usingSpringWithDamping: 0.85, initialSpringVelocity: 5, options: .CurveEaseInOut, animations: {
+            () -> Void in
+            self.scrollView.alpha = 1
+            }, completion: nil)
     }
 
     func setUpTableView() {
@@ -112,9 +110,7 @@ class PagesTableViewController: UIViewController, DocumentSynchronizerDelegate, 
             self.layoutDidChange()
         }) {
             (context) -> Void in
-
         }
-
     }
 
     override func willTransitionToTraitCollection(newCollection: UITraitCollection, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
@@ -125,7 +121,7 @@ class PagesTableViewController: UIViewController, DocumentSynchronizerDelegate, 
 
     func showPage(pageNumber: Int) {
         let indexPath = NSIndexPath(forRow: pageNumber, inSection: 0)
-        DocumentSynchronizer.sharedInstance.currentPage = document?.pages[pageNumber]
+        DocumentSynchronizer.sharedInstance.currentPage = document?[pageNumber]
         tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
     }
 
@@ -160,7 +156,7 @@ class PagesTableViewController: UIViewController, DocumentSynchronizerDelegate, 
         
         cell.layer.setUpDefaultShaddow()
         
-        if let currentPage = document?.pages[indexPath.row] {
+        if let currentPage = document?[indexPath.row] {
             cell.widthConstraint?.constant = currentPage.size.width
             cell.heightConstraint?.constant = currentPage.size.height
             cell.pageView.page = currentPage

@@ -138,7 +138,7 @@ class Document: UIDocument {
 
     func addPDF(url: NSURL) {
         let pdf = CGPDFDocumentCreateWithURL(url as CFURLRef)
-        for var i = 1; i <= CGPDFDocumentGetNumberOfPages(pdf); i++ {
+        for i in 0 ..< CGPDFDocumentGetNumberOfPages(pdf)-1 {
             if let page = CGPDFDocumentGetPage(pdf, i) {
                 let page = DocumentPage(PDF: page, index: pages.count)
                 pages.append(page)
