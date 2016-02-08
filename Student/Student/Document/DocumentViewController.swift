@@ -190,7 +190,7 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
 
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String:AnyObject]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            if let imageLayer =  DocumentSynchronizer.sharedInstance.currentPage?.addImageLayer(image) {
+            if let imageLayer = DocumentSynchronizer.sharedInstance.currentPage?.addImageLayer(image) {
                 if let currentPageView = PagesTableViewController.sharedInstance?.currentPageView() {
                     currentPageView.addImageLayer(imageLayer)
                     currentPageView.page = DocumentSynchronizer.sharedInstance.currentPage

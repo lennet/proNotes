@@ -44,7 +44,6 @@
 		98BABB8D1C1B142C00D9C938 /* PageInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BABB8C1C1B142C00D9C938 /* PageInfoViewController.swift */; };
 		98BABB901C1B16A400D9C938 /* PageInfoLayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BABB8F1C1B16A400D9C938 /* PageInfoLayerTableViewCell.swift */; };
 		98BABB921C1B4D9300D9C938 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BABB911C1B4D9300D9C938 /* UIViewExtension.swift */; };
-		98C8C4BE1C1D98AB00A1FD2A /* libcompression.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 98C8C4BD1C1D98AB00A1FD2A /* libcompression.tbd */; };
 		98CD5AB01C5FE728003F0686 /* CGFloatExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CD5AAF1C5FE728003F0686 /* CGFloatExtension.swift */; };
 		98CD5AB21C5FE954003F0686 /* CGVectorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CD5AB11C5FE954003F0686 /* CGVectorExtension.swift */; };
 		98D8C0B71C0B116F0026EECE /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D8C0B61C0B116F0026EECE /* Document.swift */; };
@@ -165,7 +164,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				98C8C4BE1C1D98AB00A1FD2A /* libcompression.tbd in Frameworks */,
 				98D8C0C01C0B16760026EECE /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -306,9 +304,11 @@
 			children = (
 				98F2E3E31C1A1ED2008A5C6C /* ArrayExtension.swift */,
 				986D605F1C2C34BD0065D71B /* CALayerExtension.swift */,
+				98CD5AAF1C5FE728003F0686 /* CGFloatExtension.swift */,
 				98F2E3E41C1A1ED2008A5C6C /* CGPointExtension.swift */,
 				987B570B1C3AF85200141EA5 /* CGRectExtension.swift */,
 				98F2E3E51C1A1ED2008A5C6C /* CGSizeExtenstion.swift */,
+				98CD5AB11C5FE954003F0686 /* CGVectorExtension.swift */,
 				987B570D1C3B10F300141EA5 /* Global.swift */,
 				9854310C1C52C00F0098DAC1 /* NSMetadataItemExtension.swift */,
 				98E0D4051C4C0D3C00EF49FD /* NSURLExtension.swift */,
@@ -316,8 +316,6 @@
 				987B570F1C3B139700141EA5 /* UIImageExtension.swift */,
 				98F2E3E61C1A1ED2008A5C6C /* UIStoryboardExtension.swift */,
 				98BABB911C1B4D9300D9C938 /* UIViewExtension.swift */,
-				98CD5AAF1C5FE728003F0686 /* CGFloatExtension.swift */,
-				98CD5AB11C5FE954003F0686 /* CGVectorExtension.swift */,
 			);
 			path = Extenstions;
 			sourceTree = "<group>";

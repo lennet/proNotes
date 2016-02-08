@@ -52,8 +52,8 @@ class MovableImageView: MovableView, ImageSettingsDelegate {
     func getImage() -> UIImage {
         return image
     }
-    
-    func redoImage(image: UIImage){
+
+    func redoImage(image: UIImage) {
         updateImage(image)
         if SettingsViewController.sharedInstance?.currentSettingsType == .Image {
             SettingsViewController.sharedInstance?.currentChildViewController?.update()

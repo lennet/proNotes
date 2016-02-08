@@ -14,7 +14,7 @@ protocol DocumentSynchronizerDelegate: class {
     func currentPageDidChange(page: DocumentPage)
 }
 
-class DocumentSynchronizer : NSObject {
+class DocumentSynchronizer: NSObject {
 
     static let sharedInstance = DocumentSynchronizer()
     var delegates = Set<UIViewController>()
@@ -138,7 +138,7 @@ class DocumentSynchronizer : NSObject {
 
     func addDelegate(delegate: DocumentSynchronizerDelegate) {
         if let viewController = delegate as? UIViewController {
-            if !delegates.contains(viewController){
+            if !delegates.contains(viewController) {
                 delegates.insert(viewController)
             }
         }
@@ -146,7 +146,7 @@ class DocumentSynchronizer : NSObject {
 
     func removeDelegate(delegate: DocumentSynchronizerDelegate) {
         if let viewController = delegate as? UIViewController {
-            if delegates.contains(viewController){
+            if delegates.contains(viewController) {
                 delegates.remove(viewController)
             }
         }

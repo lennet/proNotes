@@ -90,9 +90,9 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
     func removeText() {
         textView?.text = ""
     }
-    
-    
-    func redoText(text: String){
+
+
+    func redoText(text: String) {
         textView?.text = text
         updateText(text)
     }

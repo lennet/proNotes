@@ -12,7 +12,7 @@ extension CGVector {
 
     static func angleBetween(firstVector: CGVector, secondVector: CGVector) -> CGFloat {
         return abs(atan2(secondVector.dy, secondVector.dx)
-            - atan2(firstVector.dy, firstVector.dx))
+                - atan2(firstVector.dy, firstVector.dx))
     }
 
 }

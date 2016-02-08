@@ -26,11 +26,11 @@ enum DrawingType {
 }
 
 protocol DrawingObject: class {
-    var color: UIColor {get set}
-    var lineWidth: CGFloat {get set}
-    var defaultAlphaValue: CGFloat? {get}
-    var dynamicLineWidth: Bool {get}
-    var enabledShading: Bool {get}
+    var color: UIColor { get set }
+    var lineWidth: CGFloat { get set }
+    var defaultAlphaValue: CGFloat? { get }
+    var dynamicLineWidth: Bool { get }
+    var enabledShading: Bool { get }
 }
 
 class Marker: DrawingObject {

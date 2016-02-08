@@ -226,12 +226,12 @@ class PageView: UIView, UIGestureRecognizerDelegate {
     }
     
     override func touchesEnded(touches: Set<UITouch>,
-        withEvent event: UIEvent?) {
+                               withEvent event: UIEvent?) {
         (selectedSubView as? DrawingView)?.touchesEnded(touches, withEvent: event)
     }
     
     override func touchesCancelled(touches: Set<UITouch>?,
-        withEvent event: UIEvent?) {
+                                   withEvent event: UIEvent?) {
         (selectedSubView as? DrawingView)?.touchesCancelled(touches, withEvent: event)
     }
 
@@ -277,7 +277,6 @@ class PageView: UIView, UIGestureRecognizerDelegate {
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailByGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return false
     }
-    
-    
+
 
 }

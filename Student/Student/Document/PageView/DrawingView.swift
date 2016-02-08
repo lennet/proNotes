@@ -41,7 +41,7 @@ class DrawingView: UIImageView, PageSubView, DrawingSettingsDelegate {
     
     private var minLineWidth: CGFloat {
         get {
-            return drawingObject.lineWidth*0.1
+            return drawingObject.lineWidth * 0.1
         }
     }
     
@@ -68,12 +68,12 @@ class DrawingView: UIImageView, PageSubView, DrawingSettingsDelegate {
     }
     
     override func touchesEnded(touches: Set<UITouch>,
-        withEvent event: UIEvent?) {
+                               withEvent event: UIEvent?) {
         handleTouchesEnded()
     }
     
     override func touchesCancelled(touches: Set<UITouch>?,
-        withEvent event: UIEvent?) {
+                                   withEvent event: UIEvent?) {
         handleTouchesEnded()
     }
     
@@ -86,12 +86,12 @@ class DrawingView: UIImageView, PageSubView, DrawingSettingsDelegate {
         updateImage(image)
 
     }
-    
-    func redoImage(image: UIImage?){
+
+    func redoImage(image: UIImage?) {
         updateImage(image)
     }
-    
-    func updateImage(image: UIImage?){
+
+    func updateImage(image: UIImage?) {
         undoManager?.prepareWithInvocationTarget(self).undoImage(undoImage)
         self.image = image
         drawingImage = image
@@ -99,8 +99,10 @@ class DrawingView: UIImageView, PageSubView, DrawingSettingsDelegate {
     }
     
     private func handleTouches(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        guard let touch = touches.first else { return }
-        
+        guard let touch = touches.first else {
+            return
+        }
+
         UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0.0)
         let context = UIGraphicsGetCurrentContext()
         
@@ -182,16 +184,16 @@ class DrawingView: UIImageView, PageSubView, DrawingSettingsDelegate {
         }
         
         let normalizedAngle = angle.normalized(0, max: CGFloat(90).toRadians())
-        
-        let maxLineWidth:CGFloat = drawingObject.lineWidth * 4
-        var lineWidth:CGFloat
+
+        let maxLineWidth: CGFloat = drawingObject.lineWidth * 4
+        var lineWidth: CGFloat
         lineWidth = maxLineWidth * normalizedAngle
         
         let minAltitudeAngle: CGFloat = 0.25
         
         let altitudeAngle = touch.altitudeAngle < minAltitudeAngle
-            ? minAltitudeAngle : touch.altitudeAngle
-        
+                ? minAltitudeAngle : touch.altitudeAngle
+
         let normalizedAltitude = 1 - altitudeAngle.normalized(minAltitudeAngle, max: minPenAngle)
     
         lineWidth = lineWidth * normalizedAltitude + minLineWidth
@@ -261,8 +263,8 @@ class DrawingView: UIImageView, PageSubView, DrawingSettingsDelegate {
     func didSelectDrawingObject(object: DrawingObject) {
         drawingObject = object
     }
-    
-    func clearDrawing(){
+
+    func clearDrawing() {
         self.image = nil
         self.drawingImage = nil
     }

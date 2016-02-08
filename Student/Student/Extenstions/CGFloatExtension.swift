@@ -13,8 +13,8 @@ extension CGFloat {
     func toDregees() -> CGFloat {
         return self * 180 / π;
     }
-    
-    func toRadians() -> CGFloat{
+
+    func toRadians() -> CGFloat {
         return self * π / 180
     }
     
