@@ -11,7 +11,7 @@ import UIKit
 class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
 
     var text = ""
-    var textView = UITextView()
+    weak var textView: UITextView?
 
     init(text: String, frame: CGRect, movableLayer: MovableLayer) {
         self.text = text
@@ -26,14 +26,20 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
 
     func setUpTextView() {
         clipsToBounds = true
+        if self.textView == nil {
+            let textView = UITextView()
+            textView.userInteractionEnabled = false
+            textView.translatesAutoresizingMaskIntoConstraints = false
+            textView.backgroundColor = UIColor.clearColor()
+            textView.delegate = self
+            
+            addSubview(textView)
 
-        textView.text = text
-        textView.userInteractionEnabled = false
-        textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.backgroundColor = UIColor.clearColor()
-        textView.delegate = self
+            self.textView = textView
+        }
+        
 
-        addSubview(textView)
+        textView?.text = text
     }
 
     override func handlePanTranslation(translation: CGPoint) -> CGRect {
@@ -43,7 +49,7 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
     }
 
     func handleDoubleTap(tapGestureRecognizer: UITapGestureRecognizer) {
-        textView.becomeFirstResponder()
+        textView?.becomeFirstResponder()
     }
 
     override func setUpSettingsViewController() {
@@ -52,49 +58,49 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
     }
 
     override func setDeselected() {
-        textView.resignFirstResponder()
+        textView?.resignFirstResponder()
     }
 
     // MARK: - TextSettingsDelegate 
 
     func changeTextColor(color: UIColor) {
-        textView.textColor = color
+        textView?.textColor = color
     }
 
     func changeBackgroundColor(color: UIColor) {
-        textView.backgroundColor = color
+        textView?.backgroundColor = color
     }
 
     func changeAlignment(textAlignment: NSTextAlignment) {
-        textView.textAlignment = textAlignment
+        textView?.textAlignment = textAlignment
     }
 
     func changeFont(font: UIFont) {
-        textView.font = font
+        textView?.font = font
     }
 
     func disableAutoCorrect(disable: Bool) {
         if disable {
-            textView.autocorrectionType = .No
+            textView?.autocorrectionType = .No
         } else {
-            textView.autocorrectionType = .Yes
+            textView?.autocorrectionType = .Yes
         }
     }
 
     func removeText() {
-        textView.text = ""
+        textView?.text = ""
     }
     
     
     func redoText(text: String){
-        textView.text = text
+        textView?.text = text
         updateText(text)
     }
     
     func updateText(newText: String) {
         if let textLayer = movableLayer as? TextLayer {
             undoManager?.prepareWithInvocationTarget(self).redoText(textLayer.text)
-            textLayer.text = textView.text
+            textLayer.text = textView?.text ?? textLayer.text
             saveChanges()
         }
 
@@ -105,7 +111,10 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
     }
 
     func updateTextView() {
-        let heightOffset = textView.contentSize.height - textView.bounds.size.height
+        guard textView != nil else {
+            return
+        }
+        let heightOffset = textView!.contentSize.height - textView!.bounds.size.height
         if heightOffset > 0 {
             let origin = frame.origin
             var size = bounds.size
