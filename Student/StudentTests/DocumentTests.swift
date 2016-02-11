@@ -24,6 +24,7 @@ class DocumentTests: XCTestCase {
         document = Document(fileURL: fileURL!)
         
         document.openWithCompletionHandler { (success) -> Void in
+            XCTAssertTrue(success)
             expectation.fulfill()
         }
         
@@ -33,6 +34,7 @@ class DocumentTests: XCTestCase {
     override func tearDown() {
         let expectation = self.expectationWithDescription("Open Document")
         document.closeWithCompletionHandler({ (success) -> Void in
+            XCTAssertTrue(success)
             expectation.fulfill()
         })
         self.waitForExpectationsWithTimeout(0.5, handler: nil)

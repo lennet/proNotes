@@ -4,3 +4,4 @@ notifications:
     on_success: change 
     on_failure: always
 before_script: cd Student
+script: ./build_and_run_unit_tests.sh Student StudentTests
