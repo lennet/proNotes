@@ -7,4 +7,4 @@ notifications:
   email:
     on_success: change 
     on_failure: always
-script: ./test.sh
+script: chmod ugo+x ./test.sh
