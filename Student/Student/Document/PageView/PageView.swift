@@ -35,10 +35,28 @@ class PageView: UIView, UIGestureRecognizerDelegate {
         }
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    init(page: DocumentPage) {
+        super.init(frame: CGRect(origin: CGPointZero, size: page.size))
+        self.page = page
+        commonInit()
+        setUpLayer()
+        setNeedsDisplay()
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        commonInit()
+    }
+ 
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        commonInit()
+    }
+    
+    func commonInit() {
         setUpTouchRecognizer()
         clearsContextBeforeDrawing = true
+        backgroundColor = UIColor.whiteColor()
     }
 
     func setUpTouchRecognizer() {

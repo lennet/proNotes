@@ -9,6 +9,11 @@
 import UIKit
 
 class DocumentPage: NSObject, NSCoding {
+
+    private final let indexKey = "index"
+    private final let sizeKey = "size"
+    private final let layersKey = "layers"
+    
     var layers: [DocumentLayer]
     var index = 0
     var size = CGSize.dinA4()
@@ -44,10 +49,6 @@ class DocumentPage: NSObject, NSCoding {
             return nil
         }
     }
-    
-    private final let indexKey = "index"
-    private final let sizeKey = "size"
-    private final let layersKey = "layers"
 
     func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeInteger(index, forKey: indexKey)

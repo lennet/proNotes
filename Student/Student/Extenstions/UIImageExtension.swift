@@ -22,17 +22,6 @@ extension UIImage {
             return nil
         }
 
-        var newSize = size
-
-        switch rotation {
-        case .Left, .Right:
-            newSize = CGSize(width: newSize.height, height: newSize.width)
-            break
-        default:
-            // nothig to do
-            break
-        }
-
         let rotatedImage = UIImage(CGImage: CGImage, scale: self.scale, orientation: rotation)
         UIGraphicsBeginImageContext(rotatedImage.size)
         rotatedImage.drawAtPoint(CGPointZero)

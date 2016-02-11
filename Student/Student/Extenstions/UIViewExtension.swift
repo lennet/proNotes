@@ -21,6 +21,12 @@ extension UIView {
         return nil
     }
     
+    func deactivateConstraints() {
+        for constraint in constraints {
+            self.removeConstraint(constraint)
+        }
+    }
+    
     // MARK: - UITouch
     
     var forceTouchAvailable: Bool {
@@ -49,7 +55,7 @@ extension UIView {
     
     // MARK: - Snapshot
     
-    func snapshot() -> UIImage {
+    func toImage() -> UIImage {
         UIGraphicsBeginImageContextWithOptions(self.bounds.size, false, 0);
         self.layer.renderInContext(UIGraphicsGetCurrentContext()!)
         let snapshot = UIGraphicsGetImageFromCurrentImageContext()
@@ -57,8 +63,8 @@ extension UIView {
         return snapshot
     }
     
-    func snapshotView() -> UIView {
-        let snapshotView = UIImageView(image: snapshot())
+    func toImageView() -> UIView {
+        let snapshotView = UIImageView(image: toImage())
         snapshotView.layer.masksToBounds = false
         snapshotView.layer.shadowOffset = CGSizeMake(-5, 0)
         snapshotView.layer.shadowRadius = 5

@@ -46,6 +46,7 @@
 		98BABB921C1B4D9300D9C938 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BABB911C1B4D9300D9C938 /* UIViewExtension.swift */; };
 		98CD5AB01C5FE728003F0686 /* CGFloatExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CD5AAF1C5FE728003F0686 /* CGFloatExtension.swift */; };
 		98CD5AB21C5FE954003F0686 /* CGVectorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CD5AB11C5FE954003F0686 /* CGVectorExtension.swift */; };
+		98D2DA821C6BDE4500B3C76C /* DocumentExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D2DA811C6BDE4500B3C76C /* DocumentExporter.swift */; };
 		98D8C0B71C0B116F0026EECE /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D8C0B61C0B116F0026EECE /* Document.swift */; };
 		98D8C0BA1C0B11750026EECE /* DrawingSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D8C0B81C0B11750026EECE /* DrawingSettingsViewController.swift */; };
 		98D8C0BB1C0B11750026EECE /* DrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D8C0B91C0B11750026EECE /* DrawingView.swift */; };
@@ -54,7 +55,6 @@
 		98DBAA121C0799CB007EFFE5 /* Student.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 98DBAA101C0799CB007EFFE5 /* Student.xcdatamodeld */; };
 		98DBAA141C0799CB007EFFE5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 98DBAA131C0799CB007EFFE5 /* Assets.xcassets */; };
 		98DBAA171C0799CB007EFFE5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98DBAA151C0799CB007EFFE5 /* LaunchScreen.storyboard */; };
-		98DBAA221C0799CB007EFFE5 /* StudentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DBAA211C0799CB007EFFE5 /* StudentTests.swift */; };
 		98DBAA2D1C0799CB007EFFE5 /* StudentUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DBAA2C1C0799CB007EFFE5 /* StudentUITests.swift */; };
 		98E0D4001C4C087700EF49FD /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E0D3FF1C4C087700EF49FD /* FileManager.swift */; };
 		98E0D4021C4C093900EF49FD /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E0D4011C4C093900EF49FD /* Preferences.swift */; };
@@ -62,6 +62,10 @@
 		98E0D4061C4C0D3C00EF49FD /* NSURLExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E0D4051C4C0D3C00EF49FD /* NSURLExtension.swift */; };
 		98E0D4081C4C0F5500EF49FD /* DocumentMetaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E0D4071C4C0F5500EF49FD /* DocumentMetaData.swift */; };
 		98E33D4F1C37E8D10065B590 /* CropImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E33D4E1C37E8D10065B590 /* CropImageView.swift */; };
+		98EB1B4D1C6D29EE00D104A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 98DBAA131C0799CB007EFFE5 /* Assets.xcassets */; };
+		98EB1B4F1C6D2EA000D104A4 /* test.ProNote in Resources */ = {isa = PBXBuildFile; fileRef = 98EB1B4E1C6D2EA000D104A4 /* test.ProNote */; };
+		98EB1B511C6D319C00D104A4 /* DocumentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98EB1B501C6D319C00D104A4 /* DocumentTests.swift */; };
+		98EB1B531C6D344100D104A4 /* test.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 98EB1B521C6D344100D104A4 /* test.pdf */; };
 		98F2E3E81C1A1ED2008A5C6C /* CGPointExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F2E3E41C1A1ED2008A5C6C /* CGPointExtension.swift */; };
 		98F2E3E91C1A1ED2008A5C6C /* CGSizeExtenstion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F2E3E51C1A1ED2008A5C6C /* CGSizeExtenstion.swift */; };
 		98F2E3EA1C1A1ED2008A5C6C /* UIStoryboardExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F2E3E61C1A1ED2008A5C6C /* UIStoryboardExtension.swift */; };
@@ -127,6 +131,7 @@
 		98C8C4BD1C1D98AB00A1FD2A /* libcompression.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libcompression.tbd; path = usr/lib/libcompression.tbd; sourceTree = SDKROOT; };
 		98CD5AAF1C5FE728003F0686 /* CGFloatExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGFloatExtension.swift; sourceTree = "<group>"; };
 		98CD5AB11C5FE954003F0686 /* CGVectorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGVectorExtension.swift; sourceTree = "<group>"; };
+		98D2DA811C6BDE4500B3C76C /* DocumentExporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentExporter.swift; sourceTree = "<group>"; };
 		98D8C0B61C0B116F0026EECE /* Document.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
 		98D8C0B81C0B11750026EECE /* DrawingSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawingSettingsViewController.swift; sourceTree = "<group>"; };
 		98D8C0B91C0B11750026EECE /* DrawingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawingView.swift; sourceTree = "<group>"; };
@@ -139,7 +144,6 @@
 		98DBAA161C0799CB007EFFE5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		98DBAA181C0799CB007EFFE5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		98DBAA1D1C0799CB007EFFE5 /* StudentTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StudentTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		98DBAA211C0799CB007EFFE5 /* StudentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentTests.swift; sourceTree = "<group>"; };
 		98DBAA231C0799CB007EFFE5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		98DBAA281C0799CB007EFFE5 /* StudentUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StudentUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		98DBAA2C1C0799CB007EFFE5 /* StudentUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentUITests.swift; sourceTree = "<group>"; };
@@ -150,6 +154,9 @@
 		98E0D4051C4C0D3C00EF49FD /* NSURLExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSURLExtension.swift; sourceTree = "<group>"; };
 		98E0D4071C4C0F5500EF49FD /* DocumentMetaData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentMetaData.swift; sourceTree = "<group>"; };
 		98E33D4E1C37E8D10065B590 /* CropImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropImageView.swift; sourceTree = "<group>"; };
+		98EB1B4E1C6D2EA000D104A4 /* test.ProNote */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = test.ProNote; sourceTree = "<group>"; };
+		98EB1B501C6D319C00D104A4 /* DocumentTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentTests.swift; sourceTree = "<group>"; };
+		98EB1B521C6D344100D104A4 /* test.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = test.pdf; sourceTree = "<group>"; };
 		98F2E3E41C1A1ED2008A5C6C /* CGPointExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGPointExtension.swift; sourceTree = "<group>"; };
 		98F2E3E51C1A1ED2008A5C6C /* CGSizeExtenstion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGSizeExtenstion.swift; sourceTree = "<group>"; };
 		98F2E3E61C1A1ED2008A5C6C /* UIStoryboardExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIStoryboardExtension.swift; sourceTree = "<group>"; };
@@ -326,6 +333,26 @@
 			path = PageInfo;
 			sourceTree = "<group>";
 		};
+		98D2DA801C6BDE3300B3C76C /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				98D2DA811C6BDE4500B3C76C /* DocumentExporter.swift */,
+				98E0D4011C4C093900EF49FD /* Preferences.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		98D2DA831C6BDE7200B3C76C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				98DBAA131C0799CB007EFFE5 /* Assets.xcassets */,
+				98DBAA181C0799CB007EFFE5 /* Info.plist */,
+				98D8C0BE1C0B16610026EECE /* Student.entitlements */,
+				98DBAA101C0799CB007EFFE5 /* Student.xcdatamodeld */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		98DBA9FD1C0799CB007EFFE5 = {
 			isa = PBXGroup;
 			children = (
@@ -355,13 +382,10 @@
 				98AFFE721C14AEC9003A4A79 /* Extenstions */,
 				986D605C1C2C2D410065D71B /* Generic Components */,
 				98A57C3B1C1DB29200E6C5DF /* Model */,
+				98D2DA831C6BDE7200B3C76C /* Resources */,
+				98D2DA801C6BDE3300B3C76C /* Utilities */,
 				98DBAA091C0799CB007EFFE5 /* AppDelegate.swift */,
-				98DBAA131C0799CB007EFFE5 /* Assets.xcassets */,
-				98DBAA181C0799CB007EFFE5 /* Info.plist */,
 				98DBAA151C0799CB007EFFE5 /* LaunchScreen.storyboard */,
-				98E0D4011C4C093900EF49FD /* Preferences.swift */,
-				98D8C0BE1C0B16610026EECE /* Student.entitlements */,
-				98DBAA101C0799CB007EFFE5 /* Student.xcdatamodeld */,
 			);
 			path = Student;
 			sourceTree = "<group>";
@@ -369,8 +393,10 @@
 		98DBAA201C0799CB007EFFE5 /* StudentTests */ = {
 			isa = PBXGroup;
 			children = (
+				98EB1B521C6D344100D104A4 /* test.pdf */,
+				98EB1B4E1C6D2EA000D104A4 /* test.ProNote */,
 				98DBAA231C0799CB007EFFE5 /* Info.plist */,
-				98DBAA211C0799CB007EFFE5 /* StudentTests.swift */,
+				98EB1B501C6D319C00D104A4 /* DocumentTests.swift */,
 			);
 			path = StudentTests;
 			sourceTree = "<group>";
@@ -514,6 +540,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				98EB1B4D1C6D29EE00D104A4 /* Assets.xcassets in Resources */,
+				98EB1B4F1C6D2EA000D104A4 /* test.ProNote in Resources */,
+				98EB1B531C6D344100D104A4 /* test.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -536,6 +565,7 @@
 				98BABB901C1B16A400D9C938 /* PageInfoLayerTableViewCell.swift in Sources */,
 				98101BD71C0A5945001E9555 /* PageTableViewCell.swift in Sources */,
 				98F2E3EE1C1A1EF1008A5C6C /* MovableImageView.swift in Sources */,
+				98D2DA821C6BDE4500B3C76C /* DocumentExporter.swift in Sources */,
 				984242AB1C3EDD0900F90455 /* TouchControlView.swift in Sources */,
 				98E33D4F1C37E8D10065B590 /* CropImageView.swift in Sources */,
 				98E0D4041C4C0CA700EF49FD /* DocumentsOverviewObject.swift in Sources */,
@@ -591,7 +621,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				98DBAA221C0799CB007EFFE5 /* StudentTests.swift in Sources */,
+				98EB1B511C6D319C00D104A4 /* DocumentTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -720,10 +750,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = Student/Student.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Student/Resources/Student.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				INFOPLIST_FILE = Student/Info.plist;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = Student/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = lt.student;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -738,10 +772,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = Student/Student.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Student/Resources/Student.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				INFOPLIST_FILE = Student/Info.plist;
+				INFOPLIST_FILE = Student/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = lt.student;
 				PRODUCT_NAME = "$(TARGET_NAME)";

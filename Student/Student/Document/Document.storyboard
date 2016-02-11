@@ -1065,7 +1065,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C2x-L0-crG">
                                         <rect key="frame" x="0.0" y="0.0" width="380" height="536"/>
                                         <subviews>
-                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" indicatorStyle="black" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="quj-w4-0Bo">
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" indicatorStyle="black" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="quj-w4-0Bo">
                                                 <rect key="frame" x="-50" y="204" width="480" height="128"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
@@ -1108,6 +1108,12 @@
                                                         </connections>
                                                     </tableViewCell>
                                                 </prototypes>
+                                                <variation key="default">
+                                                    <mask key="constraints">
+                                                        <exclude reference="7Yf-Su-7TO"/>
+                                                        <exclude reference="KeQ-RW-4gJ"/>
+                                                    </mask>
+                                                </variation>
                                                 <connections>
                                                     <outlet property="dataSource" destination="O3u-Lr-2zW" id="Mn5-wp-Zzx"/>
                                                     <outlet property="delegate" destination="O3u-Lr-2zW" id="1gL-dl-MWS"/>
@@ -1119,6 +1125,12 @@
                                             <constraint firstItem="quj-w4-0Bo" firstAttribute="centerY" secondItem="C2x-L0-crG" secondAttribute="centerY" id="2SO-8N-YcX"/>
                                             <constraint firstItem="quj-w4-0Bo" firstAttribute="centerX" secondItem="C2x-L0-crG" secondAttribute="centerX" id="3dF-MS-AGd"/>
                                         </constraints>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="2SO-8N-YcX"/>
+                                                <exclude reference="3dF-MS-AGd"/>
+                                            </mask>
+                                        </variation>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

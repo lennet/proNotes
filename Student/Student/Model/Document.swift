@@ -138,7 +138,8 @@ class Document: UIDocument {
 
     func addPDF(url: NSURL) {
         let pdf = CGPDFDocumentCreateWithURL(url as CFURLRef)
-        for i in 0 ..< CGPDFDocumentGetNumberOfPages(pdf)-1 {
+        let numberOfPages = CGPDFDocumentGetNumberOfPages(pdf)
+        for i in 1 ..< numberOfPages+1 {
             if let page = CGPDFDocumentGetPage(pdf, i) {
                 let page = DocumentPage(PDF: page, index: pages.count)
                 pages.append(page)
@@ -149,20 +150,6 @@ class Document: UIDocument {
     func addEmptyPage() {
         let page = DocumentPage(index: pages.count)
         pages.append(page)
-    }
-
-    func addImageToPage(image: UIImage, pageIndex: Int) {
-        if let page = self[pageIndex] {
-            page.addImageLayer(image)
-            DocumentSynchronizer.sharedInstance.document = self
-        }
-    }
-
-    func addTextToPage(text: String, pageIndex: Int) {
-        if let page = self[pageIndex] {
-            page.addTextLayer(text)
-            DocumentSynchronizer.sharedInstance.document = self
-        }
     }
 
     func getNumberOfPages() -> Int {

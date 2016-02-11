@@ -13,17 +13,15 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
     @IBOutlet weak var settingsWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var pagesOverviewWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var titleTextField: UITextField!
-
+    @IBOutlet weak var undoButton: UIBarButtonItem!
+    @IBOutlet weak var redoButton: UIBarButtonItem!
+    
     private final let defaultSettingsWidth: CGFloat = 240
     private final let defaultPagesOverViewWidth: CGFloat = 180
 
     var isFullScreen = false
-
-    @IBOutlet weak var undoButton: UIBarButtonItem!
     
-    @IBOutlet weak var redoButton: UIBarButtonItem!
-    
-    var pagesOverviewController: PagesOverviewTableViewController?
+    weak var pagesOverviewController: PagesOverviewTableViewController?
     var isLoadingImage = false
     weak var document: Document? = DocumentSynchronizer.sharedInstance.document
 
@@ -118,6 +116,7 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
     @IBAction func handlePageInfoButtonPressed(sender: AnyObject) {
         PagesTableViewController.sharedInstance?.currentPageView()?.deselectSelectedSubview()
         SettingsViewController.sharedInstance?.currentSettingsType = .PageInfo
+        DocumentExporter.exportAsImages(document!, sourceView: nil, barButtonItem: sender as? UIBarButtonItem)
     }
 
     @IBAction func handleFullscreenToggleButtonPressed(sender: UIBarButtonItem) {
