@@ -8,4 +8,9 @@ notifications:
     on_success: change 
     on_failure: always
 before_script: cd Student
-script: xcodebuild -scheme Student -project Student.xcodeproj -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO build test
+before_install:
+  - brew update
+  - if brew outdated | grep -qx xctool; then brew upgrade xctool; fi
+script: 
+- xctool -project Student.xcodeproj -scheme Student -sdk iphonesimulator
+- xctool test -project Student.xcodeproj -scheme Student -sdk iphonesimulator
