@@ -1,0 +1,6 @@
+language: swift 
+notifications:
+  email:
+    on_success: change 
+    on_failure: always
+before_script: cd Student

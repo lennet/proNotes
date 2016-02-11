@@ -18,6 +18,10 @@ enum DocumentLayerType: Int {
 }
 
 class DocumentLayer: NSObject, NSCoding {
+    private final let indexKey = "index"
+    private final let typeRawValueKey = "type"
+    private final let hiddenKey = "key"
+    
     var index: Int
     var type: DocumentLayerType
     weak var docPage: DocumentPage!
@@ -41,11 +45,7 @@ class DocumentLayer: NSObject, NSCoding {
         self.hidden = aDecoder.decodeBoolForKey(hiddenKey)
         super.init()
     }
-
-    private final let indexKey = "index"
-    private final let typeRawValueKey = "type"
-    private final let hiddenKey = "key"
-
+    
     func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeInteger(index, forKey: indexKey)
         aCoder.encodeInteger(type.rawValue, forKey: typeRawValueKey)
@@ -62,6 +62,9 @@ class DocumentLayer: NSObject, NSCoding {
 }
 
 class MovableLayer: DocumentLayer {
+    private final let sizeKey = "size"
+    private final let originKey = "origin"
+    
     var origin: CGPoint
     var size: CGSize
 
@@ -77,9 +80,6 @@ class MovableLayer: DocumentLayer {
         size = aDecoder.decodeCGSizeForKey(sizeKey)
         super.init(coder: aDecoder)
     }
-
-    private final let sizeKey = "size"
-    private final let originKey = "origin"
 
     override func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeCGPoint(origin, forKey: originKey)
