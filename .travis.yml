@@ -12,6 +12,6 @@ before_install:
   - brew update
   - if brew outdated | grep -qx xctool; then brew upgrade xctool; fi
 script: 
-- xctool clean -project Student.xcodeproj -scheme Student -sdk iphonesimulator
-- xctool -project Student.xcodeproj -scheme Student -sdk iphonesimulator
-- xctool test -project Student.xcodeproj -scheme Student -sdk iphonesimulator
+- xctool clean -project Student.xcodeproj -scheme Student 
+- xctool -project Student.xcodeproj -scheme Student 
+- xctool test -project Student.xcodeproj -scheme Student 
