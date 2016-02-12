@@ -54,12 +54,21 @@ class DocumentTests: XCTestCase {
         
         pagesCount += 1
         XCTAssertEqual(document.pages.count, pagesCount)
+        XCTAssertEqual(document.pages.last?.layers.count, 0)
         
         let pdfURL = NSBundle(forClass: self.dynamicType).URLForResource("test", withExtension: "pdf")!
         document.addPDF(pdfURL)
         
         pagesCount += 3
         XCTAssertEqual(document.pages.count, pagesCount)
+        XCTAssertEqual(document.pages.last?.layers.count, 1)
+        XCTAssertEqual(document.pages[pagesCount-2].layers.count, 1)
+        XCTAssertEqual(document.pages[pagesCount-3].layers.count, 1)
+        
+        XCTAssertEqual(document.pages.last?.layers.first?.type, DocumentLayerType.PDF)
+        XCTAssertEqual(document.pages[pagesCount-2].layers.first?.type, DocumentLayerType.PDF)
+        XCTAssertEqual(document.pages[pagesCount-3].layers.first?.type, DocumentLayerType.PDF)
+        
     }
     
 }

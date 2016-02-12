@@ -13,6 +13,5 @@ before_install:
   - brew update
   - if brew outdated | grep -qx xctool; then brew upgrade xctool; fi
 script: 
-- xctool clean -project Student.xcodeproj -scheme Student -destination "name=iPad Air 2" -sdk iphonesimulator
 - xctool -project Student.xcodeproj -scheme Student -destination "name=iPad Air 2" -sdk iphonesimulator
 - xctool test -project Student.xcodeproj -scheme Student -destination "name=iPad Air 2" -sdk iphonesimulator
