@@ -55,7 +55,6 @@
 		98DBAA121C0799CB007EFFE5 /* Student.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 98DBAA101C0799CB007EFFE5 /* Student.xcdatamodeld */; };
 		98DBAA141C0799CB007EFFE5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 98DBAA131C0799CB007EFFE5 /* Assets.xcassets */; };
 		98DBAA171C0799CB007EFFE5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98DBAA151C0799CB007EFFE5 /* LaunchScreen.storyboard */; };
-		98DBAA2D1C0799CB007EFFE5 /* StudentUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DBAA2C1C0799CB007EFFE5 /* StudentUITests.swift */; };
 		98E0D4001C4C087700EF49FD /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E0D3FF1C4C087700EF49FD /* FileManager.swift */; };
 		98E0D4021C4C093900EF49FD /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E0D4011C4C093900EF49FD /* Preferences.swift */; };
 		98E0D4041C4C0CA700EF49FD /* DocumentsOverviewObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E0D4031C4C0CA700EF49FD /* DocumentsOverviewObject.swift */; };
@@ -146,8 +145,6 @@
 		98DBAA1D1C0799CB007EFFE5 /* StudentTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StudentTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		98DBAA231C0799CB007EFFE5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		98DBAA281C0799CB007EFFE5 /* StudentUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StudentUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		98DBAA2C1C0799CB007EFFE5 /* StudentUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentUITests.swift; sourceTree = "<group>"; };
-		98DBAA2E1C0799CB007EFFE5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		98E0D3FF1C4C087700EF49FD /* FileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
 		98E0D4011C4C093900EF49FD /* Preferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		98E0D4031C4C0CA700EF49FD /* DocumentsOverviewObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentsOverviewObject.swift; sourceTree = "<group>"; };
@@ -360,7 +357,6 @@
 				98DBAA071C0799CB007EFFE5 /* Products */,
 				98DBAA081C0799CB007EFFE5 /* Student */,
 				98DBAA201C0799CB007EFFE5 /* StudentTests */,
-				98DBAA2B1C0799CB007EFFE5 /* StudentUITests */,
 			);
 			sourceTree = "<group>";
 		};
@@ -399,15 +395,6 @@
 				98EB1B501C6D319C00D104A4 /* DocumentTests.swift */,
 			);
 			path = StudentTests;
-			sourceTree = "<group>";
-		};
-		98DBAA2B1C0799CB007EFFE5 /* StudentUITests */ = {
-			isa = PBXGroup;
-			children = (
-				98DBAA2E1C0799CB007EFFE5 /* Info.plist */,
-				98DBAA2C1C0799CB007EFFE5 /* StudentUITests.swift */,
-			);
-			path = StudentUITests;
 			sourceTree = "<group>";
 		};
 		98E33D4D1C37E8BB0065B590 /* ImageSettings */ = {
@@ -628,7 +615,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				98DBAA2D1C0799CB007EFFE5 /* StudentUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
