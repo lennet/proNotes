@@ -4,6 +4,10 @@ notifications:
   email:
     on_success: change 
     on_failure: always
+branches:
+  only:
+    - master
+    - develop
 before_script: cd Student
 before_install:
   - brew update
