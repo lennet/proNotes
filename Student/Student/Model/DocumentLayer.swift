@@ -59,6 +59,22 @@ class DocumentLayer: NSObject, NSCoding {
     func undoAction(oldObject: AnyObject?) {
         // empty Base Implementation
     }
+    
+    override func isEqual(object: AnyObject?) -> Bool {
+        guard let layer = object as? DocumentLayer else {
+            return false
+        }
+        
+        guard layer.type == type else {
+            return false
+        }
+        
+        guard layer.index == index else {
+            return false
+        }
+        
+        return layer.hidden == hidden
+    }
 }
 
 class MovableLayer: DocumentLayer {
@@ -95,6 +111,26 @@ class MovableLayer: DocumentLayer {
         } else {
             super.undoAction(oldObject)
         }
+    }
+    
+    override func isEqual(object: AnyObject?) -> Bool {
+        guard let layer = object as? MovableLayer else {
+            return false
+        }
+        
+        if !super.isEqual(object) {
+            return false
+        }
+        
+        guard layer.origin == origin else {
+            return false
+        }
+        
+        guard layer.size == size else {
+            return false
+        }
+        
+        return true
     }
     
 }
@@ -135,10 +171,23 @@ class ImageLayer: MovableLayer {
             super.undoAction(oldObject)
         }
     }
+    
+    override func isEqual(object: AnyObject?) -> Bool {
+        guard let layer = object as? ImageLayer else {
+            return false
+        }
+        
+        if !super.isEqual(object) {
+            return false
+        }
+        
+        return layer.image == image
+    }
 
 }
 
 class TextLayer: MovableLayer {
+    private final let textKey = "text"
     var text: String
 
     init(index: Int, docPage: DocumentPage, origin: CGPoint, size: CGSize, text: String) {
@@ -150,8 +199,6 @@ class TextLayer: MovableLayer {
         text = aDecoder.decodeObjectForKey(textKey) as! String
         super.init(coder: aDecoder)
     }
-
-    private final let textKey = "text"
 
     override func encodeWithCoder(aCoder: NSCoder) {
         aCoder.encodeObject(text, forKey: textKey)
@@ -165,18 +212,51 @@ class TextLayer: MovableLayer {
             super.undoAction(oldObject)
         }
     }
+    
+    override func isEqual(object: AnyObject?) -> Bool {
+        guard let layer = object as? TextLayer else {
+            return false
+        }
+        
+        if !super.isEqual(object) {
+            return false
+        }
+        
+        return layer.text == self.text
+    }
+    
 }
 
 class DocumentPDFLayer: DocumentLayer {
-    var page: CGPDFPage?
+    var pdfPage: CGPDFPage?
     init(index: Int, page: CGPDFPage, docPage: DocumentPage) {
-        self.page = page
+        self.pdfPage = page
         super.init(index: index, type: .PDF, docPage: docPage)
     }
 
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         // TODO!
+    }
+    
+    override func isEqual(object: AnyObject?) -> Bool {
+        guard let layer = object as? DocumentPDFLayer else {
+            return false
+        }
+        
+        if !super.isEqual(object) {
+            return false
+        }
+        
+        if layer.pdfPage == nil && pdfPage == nil {
+            return true
+        }
+        
+        if layer.pdfPage != nil && pdfPage != nil {
+            return true
+        } else {
+            return false
+        }
     }
 }
 
@@ -212,6 +292,26 @@ class DocumentDrawLayer: DocumentLayer {
         } else {
             super.undoAction(oldObject)
         }
+    }
+    
+    override func isEqual(object: AnyObject?) -> Bool {
+        guard let layer = object as? DocumentDrawLayer else {
+            return false
+        }
+        
+        if !super.isEqual(object) {
+            return false
+        }
+        
+        guard layer.index == index else {
+            return false
+        }
+        
+        guard layer.image == image else {
+            return false
+        }
+        
+        return true
     }
     
 }

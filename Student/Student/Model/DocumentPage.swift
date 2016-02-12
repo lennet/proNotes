@@ -93,9 +93,11 @@ class DocumentPage: NSObject, NSCoding {
 
     func removeLayer(layer: DocumentLayer, forceReload: Bool) {
         if layer.index < layers.count {
-            layers.removeAtIndex(layer.index)
-            updateLayerIndex()
-            DocumentSynchronizer.sharedInstance.updatePage(self, forceReload: forceReload)
+            if layers[layer.index] == layer {
+                layers.removeAtIndex(layer.index)
+                updateLayerIndex()
+                DocumentSynchronizer.sharedInstance.updatePage(self, forceReload: forceReload)
+            }
         }
     }
 
@@ -113,6 +115,28 @@ class DocumentPage: NSObject, NSCoding {
         for (index, currentLayer) in layers.enumerate() {
             currentLayer.index = index
         }
+    }
+    
+    override func isEqual(object: AnyObject?) -> Bool {
+        guard let page = object as? DocumentPage else {
+            return false
+        }
+        
+        guard page.index == self.index else {
+            return false
+        }
+        
+        guard page.layers.count == layers.count else {
+            return false
+        }
+
+        for i in 0..<layers.count {
+            if self[i] != page[i] {
+                return false
+            }
+        }
+        
+        return true
     }
 
 }

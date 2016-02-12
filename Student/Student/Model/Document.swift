@@ -132,9 +132,12 @@ class Document: UIDocument {
 
         return data
     }
+    
+    func getNumberOfPages() -> Int {
+        return pages.count;
+    }
 
     // MARK - Pages Manipulation
-    // export to custom object ?
 
     func addPDF(url: NSURL) {
         let pdf = CGPDFDocumentCreateWithURL(url as CFURLRef)
@@ -151,8 +154,5 @@ class Document: UIDocument {
         let page = DocumentPage(index: pages.count)
         pages.append(page)
     }
-
-    func getNumberOfPages() -> Int {
-        return pages.count;
-    }
+    
 }
