@@ -11,10 +11,9 @@ import UIKit
 @objc
 protocol DocumentSynchronizerDelegate: class {
 
-    optional func didUpdateDocument()
     optional func currentPageDidChange(page: DocumentPage)
     optional func didAddPage(index: NSInteger)
-    
+
 }
 
 class DocumentInstance: NSObject {
@@ -140,12 +139,6 @@ class DocumentInstance: NSObject {
             if delegates.contains(viewController) {
                 delegates.remove(viewController)
             }
-        }
-    }
-
-    func informDelegateToUpdateDocument() {
-        for case let delegate as DocumentSynchronizerDelegate  in delegates {
-            delegate.didUpdateDocument?()
         }
     }
 

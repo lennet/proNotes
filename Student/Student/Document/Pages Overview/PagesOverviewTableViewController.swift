@@ -69,10 +69,6 @@ class PagesOverviewTableViewController: UITableViewController, DocumentSynchroni
 
     // MARK: - DocumentSynchronizerDelegate
     
-    func didUpdateDocument() {
-        tableView.reloadData()
-    }
-    
     func didAddPage(index: NSInteger) {
         if index < tableView.numberOfRowsInSection(0) {
             let indexPath = NSIndexPath(forRow: index, inSection: 0)

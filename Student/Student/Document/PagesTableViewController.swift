@@ -217,10 +217,6 @@ class PagesTableViewController: UIViewController, DocumentSynchronizerDelegate, 
    
    // MARK: - DocumentSynchronizerDelegate
    
-   func didUpdateDocument() {
-      loadTableView()
-   }
-   
    func didAddPage(index: NSInteger) {
       if index < tableView.numberOfRowsInSection(0) {
          let indexPath = NSIndexPath(forRow: index, inSection: 0)

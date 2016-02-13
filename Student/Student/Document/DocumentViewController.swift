@@ -38,7 +38,6 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         registerNotifications()
-        DocumentInstance.sharedInstance.addDelegate(self)
         updateUndoRedoButtons()
         isLoadingImage = false
     }
@@ -53,7 +52,6 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
         if !isLoadingImage {
             titleTextField.delegate = nil
             DocumentInstance.sharedInstance.save()
-            DocumentInstance.sharedInstance.removeDelegate(self)
             document?.closeWithCompletionHandler({
                 (Bool) -> Void in
             })
@@ -88,7 +86,6 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
     // MARK: - Actions
 
     @IBAction func handleAddPageButtonPressed(sender: AnyObject) {
-        // TODO only reload last index, not full tableview
         document?.addEmptyPage()
     }
 
@@ -175,12 +172,6 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
     func showPage(index: Int) {
         PagesTableViewController.sharedInstance?.showPage(index)
         SettingsViewController.sharedInstance?.currentSettingsType = .PageInfo
-    }
-
-    // MARK: - DocumentSynchronizerDelegate
-    
-    func didUpdateDocument() {
-        titleTextField.text = document?.name ?? titleTextField.text
     }
 
     // MARK: - UIImagePickerControllerDelegate
