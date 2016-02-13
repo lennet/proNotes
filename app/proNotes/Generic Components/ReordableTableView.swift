@@ -42,7 +42,7 @@ class ReordableTableView: UITableView {
             currentSnapShowView.center = center
             currentSnapShowView.alpha = 0
             addSubview(currentSnapShowView)
-            UIView.animateWithDuration(0.25, animations: {
+            UIView.animateWithDuration(standardAnimationDuration, animations: {
                 () -> Void in
                 center.y = location.y
                 self.currentSnapShowView.center = center
@@ -68,7 +68,7 @@ class ReordableTableView: UITableView {
             let cell = cellForRowAtIndexPath(sourceIndexPath!)
             cell?.hidden = false
             cell?.alpha = 0
-            UIView.animateWithDuration(0.25, animations: {
+            UIView.animateWithDuration(standardAnimationDuration, animations: {
                 () -> Void in
                 self.currentSnapShowView.center = cell?.center ?? self.currentSnapShowView.center
                 self.currentSnapShowView.transform = CGAffineTransformIdentity

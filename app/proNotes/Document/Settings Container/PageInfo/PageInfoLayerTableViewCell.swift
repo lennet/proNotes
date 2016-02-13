@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol PageInfoLayerTableViewCellDelegate: class {
+    func didRemovedLayer()
+}
+
 class PageInfoLayerTableViewCell: UITableViewCell {
 
     static let identifier = "PageInfoLayerTableViewCellIdentifier"
@@ -17,6 +21,7 @@ class PageInfoLayerTableViewCell: UITableViewCell {
     @IBOutlet weak var typeLabel: UILabel!
 
     weak var documentLayer: DocumentLayer?
+    weak var delegate: PageInfoLayerTableViewCellDelegate?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -36,7 +41,7 @@ class PageInfoLayerTableViewCell: UITableViewCell {
         typeLabel.text = String(documentLayer.type)
 
         let buttonImageName = documentLayer.hidden ? "invisibleIcon" : "visibleIcon"
-        UIView.animateWithDuration(0.2, delay: 0, options: .CurveEaseInOut, animations: {
+        UIView.animateWithDuration(standardAnimationDuration, delay: 0, options: .CurveEaseInOut, animations: {
             () -> Void in
             self.visibilityButton.setImage(UIImage(named: buttonImageName), forState: .Normal)
         }, completion: nil)
@@ -47,6 +52,7 @@ class PageInfoLayerTableViewCell: UITableViewCell {
     @IBAction func handleDeleteButtonPressed(sender: AnyObject) {
         if documentLayer != nil {
             PagesTableViewController.sharedInstance?.currentPageView()?.removeLayer(documentLayer!)
+            delegate?.didRemovedLayer()
         }
     }
 

@@ -114,7 +114,7 @@ class MovableView: TouchControlView, PageSubView {
         }
         let frame = value.CGRectValue()
         oldFrame = self.frame
-        UIView.animateWithDuration(0.1, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .CurveEaseInOut, animations: {
+        UIView.animateWithDuration(standardAnimationDuration, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .CurveEaseInOut, animations: {
             () -> Void in
             self.frame = frame
             }, completion: nil)

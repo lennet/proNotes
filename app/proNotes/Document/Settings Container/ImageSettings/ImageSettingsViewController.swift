@@ -60,7 +60,7 @@ class ImageSettingsViewController: SettingsBaseViewController {
             rotateRightButton.hidden = true
         }
 
-        UIView.animateWithDuration(0.2, delay: 0, usingSpringWithDamping: 0.85, initialSpringVelocity: 5, options: .CurveEaseInOut, animations: {
+        UIView.animateWithDuration(standardAnimationDuration, delay: 0, usingSpringWithDamping: 0.85, initialSpringVelocity: 5, options: .CurveEaseInOut, animations: {
             () -> Void in
             self.view.layoutIfNeeded()
             self.finishButton.alpha = cropMode ? 1 : 0

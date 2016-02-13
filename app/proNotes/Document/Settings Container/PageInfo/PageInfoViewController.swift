@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PageInfoViewController: SettingsBaseViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, DocumentSynchronizerDelegate, ReordableTableViewDelegate {
+class PageInfoViewController: SettingsBaseViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, DocumentSynchronizerDelegate, ReordableTableViewDelegate, PageInfoLayerTableViewCellDelegate {
 
     @IBOutlet weak var backgroundSelectionCollectionView: UICollectionView!
     @IBOutlet weak var layerTableView: ReordableTableView!
@@ -48,6 +48,7 @@ class PageInfoViewController: SettingsBaseViewController, UITableViewDataSource,
     }
 
     func layoutTableView() {
+        layerTableView.reloadData()
         layerTableView.layoutIfNeeded()
         layerTableViewHeightConstraint.constant = layerTableView.contentSize.height
         self.view.layoutIfNeeded()
@@ -82,6 +83,7 @@ class PageInfoViewController: SettingsBaseViewController, UITableViewDataSource,
         }
 
         cell.setUpCellWithLayer(currentLayer)
+        cell.delegate = self
         return cell
     }
 
@@ -127,4 +129,12 @@ class PageInfoViewController: SettingsBaseViewController, UITableViewDataSource,
         // TODO
     }
 
+    // MARK: - PageInfoLayerTableViewCellDelegate
+
+    func didRemovedLayer() {
+        UIView.animateWithDuration(standardAnimationDuration, delay: 0, options: .CurveEaseInOut, animations: { () -> Void in
+            self.layoutTableView()
+            }, completion: nil)
+    }
+    
 }

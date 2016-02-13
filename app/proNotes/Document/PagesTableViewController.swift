@@ -61,7 +61,7 @@ class PagesTableViewController: UIViewController, DocumentSynchronizerDelegate, 
       scrollView.panGestureRecognizer.minimumNumberOfTouches = 2
       scrollView.delaysContentTouches = false
       scrollView.showsVerticalScrollIndicator = false
-      UIView.animateWithDuration(0.2, delay: 0, usingSpringWithDamping: 0.85, initialSpringVelocity: 5, options: .CurveEaseInOut, animations: {
+      UIView.animateWithDuration(standardAnimationDuration, delay: 0, usingSpringWithDamping: 0.85, initialSpringVelocity: 5, options: .CurveEaseInOut, animations: {
          () -> Void in
          self.scrollView.alpha = 1
          }, completion: nil)

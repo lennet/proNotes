@@ -65,7 +65,7 @@ class CropImageView: TouchControlView {
 
             constraint.constant = (image!.size.height * ratio) + topPadding + bottomPadding
 
-            UIView.animateWithDuration((animateLayoutChanges ? 0.2 : 0), delay: 0, usingSpringWithDamping: 0.85, initialSpringVelocity: 5, options: .CurveEaseInOut, animations: {
+            UIView.animateWithDuration((animateLayoutChanges ? standardAnimationDuration : 0), delay: 0, usingSpringWithDamping: 0.85, initialSpringVelocity: 5, options: .CurveEaseInOut, animations: {
                 () -> Void in
                 self.layoutIfNeeded()
                 self.superview?.layoutIfNeeded()
