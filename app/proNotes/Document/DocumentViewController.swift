@@ -1,6 +1,6 @@
 //
 //  DocumentViewController.swift
-//  proNotes
+//  Student
 //
 //  Created by Leo Thomas on 28/11/15.
 //  Copyright © 2015 leonardthomas. All rights reserved.
