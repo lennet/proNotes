@@ -20,7 +20,7 @@ class PageInfoViewController: SettingsBaseViewController, UITableViewDataSource,
 
     let paperSizes = CGSize.paperSizes()
 
-    weak var page: DocumentPage? = DocumentSynchronizer.sharedInstance.currentPage {
+    weak var page: DocumentPage? = DocumentInstance.sharedInstance.currentPage {
         didSet {
             layerTableView.reloadData()
             layoutTableView()
@@ -38,13 +38,13 @@ class PageInfoViewController: SettingsBaseViewController, UITableViewDataSource,
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        DocumentSynchronizer.sharedInstance.addDelegate(self)
+        DocumentInstance.sharedInstance.addDelegate(self)
         layoutTableView()
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        DocumentSynchronizer.sharedInstance.removeDelegate(self)
+        DocumentInstance.sharedInstance.removeDelegate(self)
     }
 
     func layoutTableView() {

@@ -153,7 +153,7 @@ class Document: UIDocument {
     func addEmptyPage() {
         let page = DocumentPage(index: pages.count)
         pages.append(page)
-        DocumentSynchronizer.sharedInstance.informDelegateDidAddPage(pages.count-1)
+        DocumentInstance.sharedInstance.informDelegateDidAddPage(pages.count-1)
     }
     
 }

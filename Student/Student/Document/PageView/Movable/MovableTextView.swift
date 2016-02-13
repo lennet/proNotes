@@ -103,7 +103,7 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
     func updateText(newText: String) {
         if let textLayer = movableLayer as? TextLayer {
             if textLayer.docPage != nil {
-                DocumentSynchronizer.sharedInstance.registerUndoAction(textLayer.text, pageIndex: textLayer.docPage.index, layerIndex: textLayer.index)
+                DocumentInstance.sharedInstance.registerUndoAction(textLayer.text, pageIndex: textLayer.docPage.index, layerIndex: textLayer.index)
             }
             textLayer.text = textView?.text ?? textLayer.text
             saveChanges()

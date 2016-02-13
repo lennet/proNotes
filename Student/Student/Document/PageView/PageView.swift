@@ -200,7 +200,7 @@ class PageView: UIView, UIGestureRecognizerDelegate {
         if let subview = self[docLayer.index] as? UIView {
             subview.removeFromSuperview()
         }
-        page?.removeLayer(docLayer)
+        docLayer.removeFromPage()
     }
 
     override func drawRect(rect: CGRect) {

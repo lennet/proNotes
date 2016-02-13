@@ -45,11 +45,11 @@ class DocumentPageTests: XCTestCase {
         let layerCount = page.layers.count
 
         let layer = TextLayer(index: 1, docPage: page, origin: CGPointZero, size: CGSizeZero, text: "This ist not the orginal Textlayer")
-        page.removeLayer(layer, forceReload: false) // nothing should happen because layer is not in layers array
+        page.removeLayer(layer) // nothing should happen because layer is not in layers array
         
         XCTAssertEqual(page.layers.count, layerCount)
         
-        page.removeLayer(page.layers[0], forceReload: false)
+        page.removeLayer(page.layers[0])
         XCTAssertEqual(page.layers.count, layerCount-1)
         
         XCTAssertEqual(page.layers[0].type, DocumentLayerType.Text)

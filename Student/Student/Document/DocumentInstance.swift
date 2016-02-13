@@ -1,5 +1,5 @@
 //
-//  DocumentSynchronizer.swift
+//  DocumentInstance.swift
 //  Student
 //
 //  Created by Leo Thomas on 29/11/15.
@@ -17,9 +17,9 @@ protocol DocumentSynchronizerDelegate: class {
     
 }
 
-class DocumentSynchronizer: NSObject {
+class DocumentInstance: NSObject {
 
-    static let sharedInstance = DocumentSynchronizer()
+    static let sharedInstance = DocumentInstance()
     var delegates = Set<UIViewController>()
 
     var undoManager: NSUndoManager? {

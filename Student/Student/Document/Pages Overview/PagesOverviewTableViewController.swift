@@ -12,7 +12,7 @@ class PagesOverviewTableViewController: UITableViewController, DocumentSynchroni
 
     var document: Document? {
         get {
-            return DocumentSynchronizer.sharedInstance.document
+            return DocumentInstance.sharedInstance.document
         }
     }
 
@@ -26,13 +26,13 @@ class PagesOverviewTableViewController: UITableViewController, DocumentSynchroni
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        DocumentSynchronizer.sharedInstance.addDelegate(self)
+        DocumentInstance.sharedInstance.addDelegate(self)
         tableView.reloadData()
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        DocumentSynchronizer.sharedInstance.removeDelegate(self)
+        DocumentInstance.sharedInstance.removeDelegate(self)
     }
 
     override func didReceiveMemoryWarning() {

@@ -69,7 +69,7 @@ class MovableView: TouchControlView, PageSubView {
         if movableLayer != nil {
             movableLayer?.origin = frame.origin
             if movableLayer!.docPage != nil && oldFrame != nil {
-                DocumentSynchronizer.sharedInstance.registerUndoAction(NSValue(CGRect: oldFrame!), pageIndex: movableLayer!.docPage.index, layerIndex: movableLayer!.index)
+                DocumentInstance.sharedInstance.registerUndoAction(NSValue(CGRect: oldFrame!), pageIndex: movableLayer!.docPage.index, layerIndex: movableLayer!.index)
             }
             
             var newSize = frame.size

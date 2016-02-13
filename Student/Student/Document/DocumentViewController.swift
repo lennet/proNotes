@@ -26,7 +26,7 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
     
     var document: Document? {
         get {
-            return DocumentSynchronizer.sharedInstance.document
+            return DocumentInstance.sharedInstance.document
         }
     }
 
@@ -38,7 +38,7 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         registerNotifications()
-        DocumentSynchronizer.sharedInstance.addDelegate(self)
+        DocumentInstance.sharedInstance.addDelegate(self)
         updateUndoRedoButtons()
         isLoadingImage = false
     }
@@ -52,8 +52,8 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
         super.viewWillDisappear(animated)
         if !isLoadingImage {
             titleTextField.delegate = nil
-            DocumentSynchronizer.sharedInstance.save()
-            DocumentSynchronizer.sharedInstance.removeDelegate(self)
+            DocumentInstance.sharedInstance.save()
+            DocumentInstance.sharedInstance.removeDelegate(self)
             document?.closeWithCompletionHandler({
                 (Bool) -> Void in
             })
@@ -106,10 +106,10 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
     }
 
     @IBAction func handleTextButtonPressed(sender: AnyObject) {
-        if let textLayer = DocumentSynchronizer.sharedInstance.currentPage?.addTextLayer("") {
+        if let textLayer = DocumentInstance.sharedInstance.currentPage?.addTextLayer("") {
             if let currentPageView = PagesTableViewController.sharedInstance?.currentPageView() {
                 currentPageView.addTextLayer(textLayer)
-                currentPageView.page = DocumentSynchronizer.sharedInstance.currentPage
+                currentPageView.page = DocumentInstance.sharedInstance.currentPage
                 currentPageView.setLayerSelected(currentPageView.subviews.count - 1)
             }
         }
@@ -187,10 +187,10 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
 
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String:AnyObject]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            if let imageLayer = DocumentSynchronizer.sharedInstance.currentPage?.addImageLayer(image) {
+            if let imageLayer = DocumentInstance.sharedInstance.currentPage?.addImageLayer(image) {
                 if let currentPageView = PagesTableViewController.sharedInstance?.currentPageView() {
                     currentPageView.addImageLayer(imageLayer)
-                    currentPageView.page = DocumentSynchronizer.sharedInstance.currentPage
+                    currentPageView.page = DocumentInstance.sharedInstance.currentPage
                     currentPageView.setLayerSelected(currentPageView.subviews.count - 1)
                 }
             }
@@ -289,7 +289,7 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
 
     func textFieldDidEndEditing(textField: UITextField) {
         if let newName = textField.text {
-            DocumentSynchronizer.sharedInstance.renameDocument(newName, forceOverWrite: false, viewController: self, completion: {
+            DocumentInstance.sharedInstance.renameDocument(newName, forceOverWrite: false, viewController: self, completion: {
                 (success) -> Void in
                 if !success {
                     dispatch_async(dispatch_get_main_queue(), {

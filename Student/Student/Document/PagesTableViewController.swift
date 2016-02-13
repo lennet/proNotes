@@ -18,7 +18,7 @@ class PagesTableViewController: UIViewController, DocumentSynchronizerDelegate, 
    
    var document: Document? {
       get {
-         return DocumentSynchronizer.sharedInstance.document
+         return DocumentInstance.sharedInstance.document
       }
    }
    
@@ -31,7 +31,7 @@ class PagesTableViewController: UIViewController, DocumentSynchronizerDelegate, 
    
    override func viewWillAppear(animated: Bool) {
       super.viewWillAppear(animated)
-      DocumentSynchronizer.sharedInstance.addDelegate(self)
+      DocumentInstance.sharedInstance.addDelegate(self)
    }
    
    override func viewDidAppear(animated: Bool) {
@@ -41,7 +41,7 @@ class PagesTableViewController: UIViewController, DocumentSynchronizerDelegate, 
    
    override func viewWillDisappear(animated: Bool) {
       super.viewWillDisappear(animated)
-      DocumentSynchronizer.sharedInstance.removeDelegate(self)
+      DocumentInstance.sharedInstance.removeDelegate(self)
    }
    
    func loadTableView() {
@@ -115,7 +115,7 @@ class PagesTableViewController: UIViewController, DocumentSynchronizerDelegate, 
    func showPage(pageNumber: Int) {
       if pageNumber < tableView.numberOfRowsInSection(0) {
          let indexPath = NSIndexPath(forRow: pageNumber, inSection: 0)
-         DocumentSynchronizer.sharedInstance.currentPage = document?[pageNumber]
+         DocumentInstance.sharedInstance.currentPage = document?[pageNumber]
          tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
       }
    }

@@ -72,7 +72,7 @@ class MovableImageView: MovableView, ImageSettingsDelegate {
         }
         
         if movableLayer != nil && movableLayer?.docPage != nil {
-            DocumentSynchronizer.sharedInstance.registerUndoAction(self.image, pageIndex: movableLayer!.docPage.index, layerIndex: movableLayer!.index)
+            DocumentInstance.sharedInstance.registerUndoAction(self.image, pageIndex: movableLayer!.docPage.index, layerIndex: movableLayer!.index)
         }
         
         let heightRatio = imageView!.bounds.height / self.image.size.height

@@ -53,7 +53,7 @@ class DocumentLayer: NSObject, NSCoding {
     }
 
     func removeFromPage() {
-        self.docPage.removeLayer(self, forceReload: false)
+        self.docPage.removeLayer(self)
     }
     
     func undoAction(oldObject: AnyObject?) {

@@ -88,7 +88,7 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
             document.openWithCompletionHandler({
                 (success) -> Void in
                 if success {
-                    DocumentSynchronizer.sharedInstance.document = document
+                    DocumentInstance.sharedInstance.document = document
                     self.performSegueWithIdentifier(self.showDocumentSegueIdentifier, sender: nil)
                 } else {
                     // TODO show error
@@ -107,7 +107,7 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
         let fileURL = documentUrl.URLByAppendingPathComponent(fileExtension)
         let document = Document(fileURL: fileURL)
         document.addPDF(url)
-        DocumentSynchronizer.sharedInstance.document = document
+        DocumentInstance.sharedInstance.document = document
         performSegueWithIdentifier(showDocumentSegueIdentifier, sender: nil)
     }
 

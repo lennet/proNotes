@@ -84,7 +84,7 @@ class DrawingView: UIImageView, PageSubView, DrawingSettingsDelegate {
     func updateImage(image: UIImage?) {
         
         if drawLayer != nil && drawLayer?.docPage != nil {
-            DocumentSynchronizer.sharedInstance.registerUndoAction(undoImage, pageIndex: drawLayer!.docPage.index, layerIndex: drawLayer!.index)
+            DocumentInstance.sharedInstance.registerUndoAction(undoImage, pageIndex: drawLayer!.docPage.index, layerIndex: drawLayer!.index)
         }
         
         self.image = image
@@ -238,7 +238,7 @@ class DrawingView: UIImageView, PageSubView, DrawingSettingsDelegate {
     func undoAction(oldObject: AnyObject?) {
         if let oldImage = oldObject as? UIImage {
             if drawLayer != nil && drawLayer?.docPage != nil {
-                DocumentSynchronizer.sharedInstance.registerUndoAction(image, pageIndex: drawLayer!.docPage.index, layerIndex: drawLayer!.index)
+                DocumentInstance.sharedInstance.registerUndoAction(image, pageIndex: drawLayer!.docPage.index, layerIndex: drawLayer!.index)
             }
             updateImage(oldImage)
         }
