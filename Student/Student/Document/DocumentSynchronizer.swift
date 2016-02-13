@@ -8,10 +8,12 @@
 
 import UIKit
 
+@objc
 protocol DocumentSynchronizerDelegate: class {
 
-    func updateDocument(document: Document, forceReload: Bool)
-    func currentPageDidChange(page: DocumentPage)
+    optional func didUpdateDocument()
+    optional func currentPageDidChange(page: DocumentPage)
+    optional func didAddPage(index: NSInteger)
     
 }
 
@@ -37,7 +39,6 @@ class DocumentSynchronizer: NSObject {
     weak var document: Document? {
         didSet {
             if document != nil {
-                informDelegateToUpdateDocument(document!, forceReload: true)
                 if oldValue == nil {
                     currentPage = document?.pages.first
                 }
@@ -108,7 +109,9 @@ class DocumentSynchronizer: NSObject {
             if page.index == currentPage?.index {
                 currentPage = page
             }
-            informDelegateToUpdateDocument(document!, forceReload: forceReload)
+            if forceReload {
+                informDelegateToUpdateDocument()
+            }
         }
     }
 
@@ -120,9 +123,9 @@ class DocumentSynchronizer: NSObject {
                 return
             }
             document?.pages[page.index] = page
-            dispatch_async(dispatch_get_main_queue(), {
-                self.informDelegateToUpdateDocument(self.document!, forceReload: forceReload)
-            })
+            if forceReload {
+                self.informDelegateToUpdateDocument()
+            }
         }
     }
 
@@ -131,9 +134,6 @@ class DocumentSynchronizer: NSObject {
             let page = movableLayer.docPage
             page.layers[movableLayer.index] = movableLayer
             document?.pages[page.index] = page
-            dispatch_async(dispatch_get_main_queue(), {
-                self.informDelegateToUpdateDocument(self.document!, forceReload: false)
-            })
         }
     }
 
@@ -180,15 +180,21 @@ class DocumentSynchronizer: NSObject {
         }
     }
 
-    func informDelegateToUpdateDocument(document: Document, forceReload: Bool) {
+    func informDelegateToUpdateDocument() {
         for case let delegate as DocumentSynchronizerDelegate  in delegates {
-            delegate.updateDocument(document, forceReload: forceReload)
+            delegate.didUpdateDocument?()
         }
     }
 
     func informDelegateToUpdateCurrentPage(page: DocumentPage) {
         for case let delegate as DocumentSynchronizerDelegate  in delegates {
-            delegate.currentPageDidChange(page)
+            delegate.currentPageDidChange?(page)
+        }
+    }
+    
+    func informDelegateDidAddPage(index: NSInteger) {
+        for case let delegate as DocumentSynchronizerDelegate  in delegates {
+            delegate.didAddPage?(index)
         }
     }
 

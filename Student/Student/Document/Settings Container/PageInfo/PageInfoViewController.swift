@@ -85,10 +85,6 @@ class PageInfoViewController: SettingsBaseViewController, UITableViewDataSource,
         return cell
     }
 
-    func updateDocument(document: Document, forceReload: Bool) {
-
-    }
-
     func currentPageDidChange(page: DocumentPage) {
         self.page = page
     }

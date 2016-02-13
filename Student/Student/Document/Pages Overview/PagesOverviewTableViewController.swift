@@ -10,15 +10,9 @@ import UIKit
 
 class PagesOverviewTableViewController: UITableViewController, DocumentSynchronizerDelegate, ReordableTableViewDelegate {
 
-    var shouldReload = true
-
-    var document: Document? = DocumentSynchronizer.sharedInstance.document {
-        didSet {
-            if shouldReload {
-                tableView.reloadData()
-            } else {
-                shouldReload = true
-            }
+    var document: Document? {
+        get {
+            return DocumentSynchronizer.sharedInstance.document
         }
     }
 
@@ -33,6 +27,7 @@ class PagesOverviewTableViewController: UITableViewController, DocumentSynchroni
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         DocumentSynchronizer.sharedInstance.addDelegate(self)
+        tableView.reloadData()
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -73,11 +68,18 @@ class PagesOverviewTableViewController: UITableViewController, DocumentSynchroni
     }
 
     // MARK: - DocumentSynchronizerDelegate
-    func updateDocument(document: Document, forceReload: Bool) {
-        shouldReload = forceReload
-        self.document = document
+    
+    func didUpdateDocument() {
+        tableView.reloadData()
     }
-
-    func currentPageDidChange(page: DocumentPage) {
+    
+    func didAddPage(index: NSInteger) {
+        if index < tableView.numberOfRowsInSection(0) {
+            let indexPath = NSIndexPath(forRow: index, inSection: 0)
+            tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+        } else {
+            tableView.reloadData()
+        }
     }
+    
 }

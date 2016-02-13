@@ -23,12 +23,15 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
     
     weak var pagesOverviewController: PagesOverviewTableViewController?
     var isLoadingImage = false
-    weak var document: Document? = DocumentSynchronizer.sharedInstance.document
+    
+    var document: Document? {
+        get {
+            return DocumentSynchronizer.sharedInstance.document
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        document = DocumentSynchronizer.sharedInstance.document
-        PagesTableViewController.sharedInstance?.document = document
         setUpTitle()
     }
 
@@ -87,7 +90,6 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
     @IBAction func handleAddPageButtonPressed(sender: AnyObject) {
         // TODO only reload last index, not full tableview
         document?.addEmptyPage()
-        DocumentSynchronizer.sharedInstance.document = document
     }
 
     @IBAction func handleDrawButtonPressed(sender: AnyObject) {
@@ -177,12 +179,8 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
 
     // MARK: - DocumentSynchronizerDelegate
     
-    func updateDocument(document: Document, forceReload: Bool) {
-        self.document = document
-        titleTextField.text = document.name
-    }
-
-    func currentPageDidChange(page: DocumentPage) {
+    func didUpdateDocument() {
+        titleTextField.text = document?.name ?? titleTextField.text
     }
 
     // MARK: - UIImagePickerControllerDelegate
