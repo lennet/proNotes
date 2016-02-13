@@ -65,21 +65,18 @@ class DocumentPage: NSObject, NSCoding {
     func addPDFLayer(PDF: CGPDFPage) {
         let pdfLayer = DocumentPDFLayer(index: layers.count, page: PDF, docPage: self)
         layers.append(pdfLayer)
-        DocumentSynchronizer.sharedInstance.updatePage(self, forceReload: false)
     }
 
     func addImageLayer(image: UIImage) -> ImageLayer {
         let layerSize = image.sizeToFit(size)
         let imageLayer = ImageLayer(index: layers.count, docPage: self, origin: CGPointZero, size: layerSize, image: image)
         layers.append(imageLayer)
-        DocumentSynchronizer.sharedInstance.updatePage(self, forceReload: false)
         return imageLayer
     }
 
     func addTextLayer(text: String) -> TextLayer {
         let textLayer = TextLayer(index: layers.count, docPage: self, origin: CGPointZero, size: CGSize(width: 200, height: 200), text: "")
         layers.append(textLayer)
-        DocumentSynchronizer.sharedInstance.updatePage(self, forceReload: false)
         return textLayer
     }
 
@@ -87,16 +84,14 @@ class DocumentPage: NSObject, NSCoding {
         if layer.index < layers.count {
             layer.hidden = hidden
             layers[layer.index] = layer
-            DocumentSynchronizer.sharedInstance.updatePage(self, forceReload: false)
         }
     }
 
-    func removeLayer(layer: DocumentLayer, forceReload: Bool) {
+    func removeLayer(layer: DocumentLayer) {
         if layer.index < layers.count {
             if layers[layer.index] == layer {
                 layers.removeAtIndex(layer.index)
                 updateLayerIndex()
-                DocumentSynchronizer.sharedInstance.updatePage(self, forceReload: forceReload)
             }
         }
     }
@@ -107,7 +102,6 @@ class DocumentPage: NSObject, NSCoding {
             layers[firstIndex].index = secondIndex
             layers[secondIndex].index = tmp
             swap(&layers[firstIndex], &layers[secondIndex])
-            DocumentSynchronizer.sharedInstance.updatePage(self, forceReload: false)
         }
     }
 

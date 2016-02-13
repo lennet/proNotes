@@ -151,7 +151,6 @@ class PageView: UIView, UIGestureRecognizerDelegate {
         let subview = subviews.last as? DrawingView else {
             if let drawLayer = page?.addDrawingLayer(nil) {
                 addDrawingView(drawLayer)
-                DocumentSynchronizer.sharedInstance.updatePage(page!, forceReload: false)
                 handleDrawButtonPressed()
             }
             return
@@ -201,7 +200,7 @@ class PageView: UIView, UIGestureRecognizerDelegate {
         if let subview = self[docLayer.index] as? UIView {
             subview.removeFromSuperview()
         }
-        page?.removeLayer(docLayer, forceReload: false)
+        page?.removeLayer(docLayer)
     }
 
     override func drawRect(rect: CGRect) {

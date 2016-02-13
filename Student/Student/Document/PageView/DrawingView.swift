@@ -252,7 +252,6 @@ class DrawingView: UIImageView, PageSubView, DrawingSettingsDelegate {
     func saveChanges() {
         if image != nil && drawLayer != nil {
             drawLayer?.image = image
-            DocumentSynchronizer.sharedInstance.updateDrawLayer(drawLayer!, forceReload: false)
         }
     }
     

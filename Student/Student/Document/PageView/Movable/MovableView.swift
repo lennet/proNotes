@@ -97,7 +97,7 @@ class MovableView: TouchControlView, PageSubView {
     }
 
     func saveChanges() {
-        DocumentSynchronizer.sharedInstance.updateMovableLayer(movableLayer!)
+        // empty Base implementation
     }
     
     func setUpSettingsViewController() {

@@ -100,43 +100,6 @@ class DocumentSynchronizer: NSObject {
         }
     }
 
-    func updatePage(page: DocumentPage, forceReload: Bool) {
-        if document != nil {
-            guard page.index < document?.pages.count else {
-                return
-            }
-            document?.pages[page.index] = page
-            if page.index == currentPage?.index {
-                currentPage = page
-            }
-            if forceReload {
-                informDelegateToUpdateDocument()
-            }
-        }
-    }
-
-    func updateDrawLayer(drawLayer: DocumentDrawLayer, forceReload: Bool) {
-        if document != nil {
-            let page = drawLayer.docPage
-            page.layers[drawLayer.index] = drawLayer
-            guard page.index < document?.pages.count else {
-                return
-            }
-            document?.pages[page.index] = page
-            if forceReload {
-                self.informDelegateToUpdateDocument()
-            }
-        }
-    }
-
-    func updateMovableLayer(movableLayer: MovableLayer) {
-        if document != nil {
-            let page = movableLayer.docPage
-            page.layers[movableLayer.index] = movableLayer
-            document?.pages[page.index] = page
-        }
-    }
-
     func save() {
         document?.saveToURL(document!.fileURL, forSaveOperation: .ForOverwriting, completionHandler: nil)
     }
