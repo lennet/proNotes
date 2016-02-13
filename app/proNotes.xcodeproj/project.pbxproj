@@ -44,6 +44,7 @@
 		98BABB8D1C1B142C00D9C938 /* PageInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BABB8C1C1B142C00D9C938 /* PageInfoViewController.swift */; };
 		98BABB901C1B16A400D9C938 /* PageInfoLayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BABB8F1C1B16A400D9C938 /* PageInfoLayerTableViewCell.swift */; };
 		98BABB921C1B4D9300D9C938 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BABB911C1B4D9300D9C938 /* UIViewExtension.swift */; };
+		98C2E2711C6FBDA4002F4ADC /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 98DBAA231C0799CB007EFFE5 /* Info.plist */; };
 		98CD5AB01C5FE728003F0686 /* CGFloatExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CD5AAF1C5FE728003F0686 /* CGFloatExtension.swift */; };
 		98CD5AB21C5FE954003F0686 /* CGVectorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CD5AB11C5FE954003F0686 /* CGVectorExtension.swift */; };
 		98D2DA821C6BDE4500B3C76C /* DocumentExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D2DA811C6BDE4500B3C76C /* DocumentExporter.swift */; };
@@ -75,13 +76,6 @@
 
 /* Begin PBXContainerItemProxy section */
 		98DBAA1E1C0799CB007EFFE5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 98DBA9FE1C0799CB007EFFE5 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 98DBAA051C0799CB007EFFE5;
-			remoteInfo = Student;
-		};
-		98DBAA291C0799CB007EFFE5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 98DBA9FE1C0799CB007EFFE5 /* Project object */;
 			proxyType = 1;
@@ -143,9 +137,8 @@
 		98DBAA131C0799CB007EFFE5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		98DBAA161C0799CB007EFFE5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		98DBAA181C0799CB007EFFE5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		98DBAA1D1C0799CB007EFFE5 /* proNotes.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = proNotes.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		98DBAA1D1C0799CB007EFFE5 /* proNotesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = proNotesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		98DBAA231C0799CB007EFFE5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		98DBAA281C0799CB007EFFE5 /* proNotes.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = proNotes.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		98E0D3FF1C4C087700EF49FD /* FileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
 		98E0D4011C4C093900EF49FD /* Preferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		98E0D4031C4C0CA700EF49FD /* DocumentsOverviewObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentsOverviewObject.swift; sourceTree = "<group>"; };
@@ -173,13 +166,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		98DBAA1A1C0799CB007EFFE5 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		98DBAA251C0799CB007EFFE5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -357,7 +343,7 @@
 			children = (
 				1B67489C00FC15173E9055FF /* Frameworks */,
 				98DBAA071C0799CB007EFFE5 /* Products */,
-				98DBAA081C0799CB007EFFE5 /* Student */,
+				98DBAA081C0799CB007EFFE5 /* proNotes */,
 				98DBAA201C0799CB007EFFE5 /* proNotesTests */,
 			);
 			sourceTree = "<group>";
@@ -366,13 +352,12 @@
 			isa = PBXGroup;
 			children = (
 				98DBAA061C0799CB007EFFE5 /* proNotes.app */,
-				98DBAA1D1C0799CB007EFFE5 /* proNotes.xctest */,
-				98DBAA281C0799CB007EFFE5 /* proNotes.xctest */,
+				98DBAA1D1C0799CB007EFFE5 /* proNotesTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		98DBAA081C0799CB007EFFE5 /* Student */ = {
+		98DBAA081C0799CB007EFFE5 /* proNotes */ = {
 			isa = PBXGroup;
 			children = (
 				98101BCB1C0A5873001E9555 /* Document */,
@@ -385,7 +370,6 @@
 				98DBAA091C0799CB007EFFE5 /* AppDelegate.swift */,
 				98DBAA151C0799CB007EFFE5 /* LaunchScreen.storyboard */,
 			);
-			name = Student;
 			path = proNotes;
 			sourceTree = "<group>";
 		};
@@ -445,26 +429,8 @@
 			);
 			name = proNotesTests;
 			productName = StudentTests;
-			productReference = 98DBAA1D1C0799CB007EFFE5 /* proNotes.xctest */;
+			productReference = 98DBAA1D1C0799CB007EFFE5 /* proNotesTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		98DBAA271C0799CB007EFFE5 /* proNotesUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 98DBAA371C0799CB007EFFE5 /* Build configuration list for PBXNativeTarget "proNotesUITests" */;
-			buildPhases = (
-				98DBAA241C0799CB007EFFE5 /* Sources */,
-				98DBAA251C0799CB007EFFE5 /* Frameworks */,
-				98DBAA261C0799CB007EFFE5 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				98DBAA2A1C0799CB007EFFE5 /* PBXTargetDependency */,
-			);
-			name = proNotesUITests;
-			productName = StudentUITests;
-			productReference = 98DBAA281C0799CB007EFFE5 /* proNotes.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
@@ -489,10 +455,6 @@
 						CreatedOnToolsVersion = 7.1.1;
 						TestTargetID = 98DBAA051C0799CB007EFFE5;
 					};
-					98DBAA271C0799CB007EFFE5 = {
-						CreatedOnToolsVersion = 7.1.1;
-						TestTargetID = 98DBAA051C0799CB007EFFE5;
-					};
 				};
 			};
 			buildConfigurationList = 98DBAA011C0799CB007EFFE5 /* Build configuration list for PBXProject "proNotes" */;
@@ -510,7 +472,6 @@
 			targets = (
 				98DBAA051C0799CB007EFFE5 /* proNotes */,
 				98DBAA1C1C0799CB007EFFE5 /* proNotesTests */,
-				98DBAA271C0799CB007EFFE5 /* proNotesUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -531,16 +492,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				98C2E2711C6FBDA4002F4ADC /* Info.plist in Resources */,
 				98EB1B4D1C6D29EE00D104A4 /* Assets.xcassets in Resources */,
 				98EB1B4F1C6D2EA000D104A4 /* test.ProNote in Resources */,
 				98EB1B531C6D344100D104A4 /* test.pdf in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		98DBAA261C0799CB007EFFE5 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -617,13 +572,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		98DBAA241C0799CB007EFFE5 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -631,11 +579,6 @@
 			isa = PBXTargetDependency;
 			target = 98DBAA051C0799CB007EFFE5 /* proNotes */;
 			targetProxy = 98DBAA1E1C0799CB007EFFE5 /* PBXContainerItemProxy */;
-		};
-		98DBAA2A1C0799CB007EFFE5 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 98DBAA051C0799CB007EFFE5 /* proNotes */;
-			targetProxy = 98DBAA291C0799CB007EFFE5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -744,6 +687,7 @@
 				CODE_SIGN_ENTITLEMENTS = proNotes/Resources/proNotes.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEFINES_MODULE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -767,6 +711,7 @@
 				CODE_SIGN_ENTITLEMENTS = proNotes/Resources/proNotes.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEFINES_MODULE = NO;
 				INFOPLIST_FILE = proNotes/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -781,10 +726,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = StudentTests/Info.plist;
+				INFOPLIST_FILE = proNotesTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = lt.StudentTests;
-				PRODUCT_NAME = proNotes;
+				PRODUCT_NAME = proNotesTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/proNotes.app/proNotes";
 			};
 			name = Debug;
@@ -793,35 +738,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = StudentTests/Info.plist;
+				INFOPLIST_FILE = proNotesTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = lt.StudentTests;
-				PRODUCT_NAME = proNotes;
+				PRODUCT_NAME = proNotesTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/proNotes.app/proNotes";
-			};
-			name = Release;
-		};
-		98DBAA381C0799CB007EFFE5 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = StudentUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = lt.StudentUITests;
-				PRODUCT_NAME = proNotes;
-				TEST_TARGET_NAME = Student;
-				USES_XCTRUNNER = YES;
-			};
-			name = Debug;
-		};
-		98DBAA391C0799CB007EFFE5 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = StudentUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = lt.StudentUITests;
-				PRODUCT_NAME = proNotes;
-				TEST_TARGET_NAME = Student;
-				USES_XCTRUNNER = YES;
 			};
 			name = Release;
 		};
@@ -851,15 +772,6 @@
 			buildConfigurations = (
 				98DBAA351C0799CB007EFFE5 /* Debug */,
 				98DBAA361C0799CB007EFFE5 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		98DBAA371C0799CB007EFFE5 /* Build configuration list for PBXNativeTarget "proNotesUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				98DBAA381C0799CB007EFFE5 /* Debug */,
-				98DBAA391C0799CB007EFFE5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

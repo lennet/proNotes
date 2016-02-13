@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  Student
+//  proNotes
 //
 //  Created by Leo Thomas on 26/11/15.
 //  Copyright © 2015 leonardthomas. All rights reserved.

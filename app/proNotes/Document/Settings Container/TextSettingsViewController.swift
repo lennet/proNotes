@@ -1,6 +1,6 @@
 //
 //  TextSettingsViewController.swift
-//  Student
+//  proNotes
 //
 //  Created by Leo Thomas on 10/12/15.
 //  Copyright © 2015 leonardthomas. All rights reserved.

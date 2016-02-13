@@ -1,6 +1,6 @@
 //
 //  DocumentLayer.swift
-//  Student
+//  proNotes
 //
 //  Created by Leo Thomas on 13/12/15.
 //  Copyright © 2015 leonardthomas. All rights reserved.

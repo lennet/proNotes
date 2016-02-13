@@ -1,6 +1,6 @@
 //
 //  CGFloatExtension.swift
-//  Student
+//  proNotes
 //
 //  Created by Leo Thomas on 01/02/16.
 //  Copyright © 2016 leonardthomas. All rights reserved.

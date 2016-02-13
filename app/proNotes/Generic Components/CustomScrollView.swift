@@ -1,6 +1,6 @@
 //
 //  CustomScrollView.swift
-//  Student
+//  proNotes
 //
 //  Created by Leo Thomas on 23/12/15.
 //  Copyright © 2015 leonardthomas. All rights reserved.

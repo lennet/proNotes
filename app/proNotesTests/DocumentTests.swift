@@ -1,6 +1,6 @@
 //
 //  DocumentTests.swift
-//  Student
+//  proNotes
 //
 //  Created by Leo Thomas on 11/02/16.
 //  Copyright © 2016 leonardthomas. All rights reserved.
@@ -8,7 +8,7 @@
 
 import XCTest
 
-@testable import Student
+@testable import proNotes
 class DocumentTests: XCTestCase {
     
     var document: Document!

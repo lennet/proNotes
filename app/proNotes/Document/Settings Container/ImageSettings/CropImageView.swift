@@ -1,6 +1,6 @@
 //
 //  CropImageView.swift
-//  Student
+//  proNotes
 //
 //  Created by Leo Thomas on 02/01/16.
 //  Copyright © 2016 leonardthomas. All rights reserved.
