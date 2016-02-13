@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:Student.xcodeproj">
+      location = "self:/Users/leonardthomas/proNotes/Student/proNotes.xcodeproj">
    </FileRef>
 </Workspace>

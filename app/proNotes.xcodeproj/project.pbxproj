@@ -52,7 +52,7 @@
 		98D8C0BB1C0B11750026EECE /* DrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D8C0B91C0B11750026EECE /* DrawingView.swift */; };
 		98D8C0C01C0B16760026EECE /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98D8C0BF1C0B16760026EECE /* CloudKit.framework */; };
 		98DBAA0A1C0799CB007EFFE5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DBAA091C0799CB007EFFE5 /* AppDelegate.swift */; };
-		98DBAA121C0799CB007EFFE5 /* Student.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 98DBAA101C0799CB007EFFE5 /* Student.xcdatamodeld */; };
+		98DBAA121C0799CB007EFFE5 /* proNotes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 98DBAA101C0799CB007EFFE5 /* proNotes.xcdatamodeld */; };
 		98DBAA141C0799CB007EFFE5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 98DBAA131C0799CB007EFFE5 /* Assets.xcassets */; };
 		98DBAA171C0799CB007EFFE5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98DBAA151C0799CB007EFFE5 /* LaunchScreen.storyboard */; };
 		98E0D4001C4C087700EF49FD /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E0D3FF1C4C087700EF49FD /* FileManager.swift */; };
@@ -135,17 +135,17 @@
 		98D8C0B61C0B116F0026EECE /* Document.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
 		98D8C0B81C0B11750026EECE /* DrawingSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawingSettingsViewController.swift; sourceTree = "<group>"; };
 		98D8C0B91C0B11750026EECE /* DrawingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawingView.swift; sourceTree = "<group>"; };
-		98D8C0BE1C0B16610026EECE /* Student.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Student.entitlements; sourceTree = "<group>"; };
+		98D8C0BE1C0B16610026EECE /* proNotes.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = proNotes.entitlements; sourceTree = "<group>"; };
 		98D8C0BF1C0B16760026EECE /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
-		98DBAA061C0799CB007EFFE5 /* Student.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Student.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		98DBAA061C0799CB007EFFE5 /* proNotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = proNotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98DBAA091C0799CB007EFFE5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		98DBAA111C0799CB007EFFE5 /* Student.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Student.xcdatamodel; sourceTree = "<group>"; };
+		98DBAA111C0799CB007EFFE5 /* proNotes.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = proNotes.xcdatamodel; sourceTree = "<group>"; };
 		98DBAA131C0799CB007EFFE5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		98DBAA161C0799CB007EFFE5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		98DBAA181C0799CB007EFFE5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		98DBAA1D1C0799CB007EFFE5 /* StudentTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StudentTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		98DBAA1D1C0799CB007EFFE5 /* proNotes.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = proNotes.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		98DBAA231C0799CB007EFFE5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		98DBAA281C0799CB007EFFE5 /* StudentUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StudentUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		98DBAA281C0799CB007EFFE5 /* proNotes.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = proNotes.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		98E0D3FF1C4C087700EF49FD /* FileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
 		98E0D4011C4C093900EF49FD /* Preferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		98E0D4031C4C0CA700EF49FD /* DocumentsOverviewObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentsOverviewObject.swift; sourceTree = "<group>"; };
@@ -346,8 +346,8 @@
 			children = (
 				98DBAA131C0799CB007EFFE5 /* Assets.xcassets */,
 				98DBAA181C0799CB007EFFE5 /* Info.plist */,
-				98D8C0BE1C0B16610026EECE /* Student.entitlements */,
-				98DBAA101C0799CB007EFFE5 /* Student.xcdatamodeld */,
+				98D8C0BE1C0B16610026EECE /* proNotes.entitlements */,
+				98DBAA101C0799CB007EFFE5 /* proNotes.xcdatamodeld */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -358,16 +358,16 @@
 				1B67489C00FC15173E9055FF /* Frameworks */,
 				98DBAA071C0799CB007EFFE5 /* Products */,
 				98DBAA081C0799CB007EFFE5 /* Student */,
-				98DBAA201C0799CB007EFFE5 /* StudentTests */,
+				98DBAA201C0799CB007EFFE5 /* proNotesTests */,
 			);
 			sourceTree = "<group>";
 		};
 		98DBAA071C0799CB007EFFE5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				98DBAA061C0799CB007EFFE5 /* Student.app */,
-				98DBAA1D1C0799CB007EFFE5 /* StudentTests.xctest */,
-				98DBAA281C0799CB007EFFE5 /* StudentUITests.xctest */,
+				98DBAA061C0799CB007EFFE5 /* proNotes.app */,
+				98DBAA1D1C0799CB007EFFE5 /* proNotes.xctest */,
+				98DBAA281C0799CB007EFFE5 /* proNotes.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -385,10 +385,11 @@
 				98DBAA091C0799CB007EFFE5 /* AppDelegate.swift */,
 				98DBAA151C0799CB007EFFE5 /* LaunchScreen.storyboard */,
 			);
-			path = Student;
+			name = Student;
+			path = proNotes;
 			sourceTree = "<group>";
 		};
-		98DBAA201C0799CB007EFFE5 /* StudentTests */ = {
+		98DBAA201C0799CB007EFFE5 /* proNotesTests */ = {
 			isa = PBXGroup;
 			children = (
 				98EB1B521C6D344100D104A4 /* test.pdf */,
@@ -397,7 +398,7 @@
 				98EB1B501C6D319C00D104A4 /* DocumentTests.swift */,
 				98E4688C1C6E11AD00AC0E0A /* DocumentPageTests.swift */,
 			);
-			path = StudentTests;
+			path = proNotesTests;
 			sourceTree = "<group>";
 		};
 		98E33D4D1C37E8BB0065B590 /* ImageSettings */ = {
@@ -412,9 +413,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		98DBAA051C0799CB007EFFE5 /* Student */ = {
+		98DBAA051C0799CB007EFFE5 /* proNotes */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 98DBAA311C0799CB007EFFE5 /* Build configuration list for PBXNativeTarget "Student" */;
+			buildConfigurationList = 98DBAA311C0799CB007EFFE5 /* Build configuration list for PBXNativeTarget "proNotes" */;
 			buildPhases = (
 				98DBAA021C0799CB007EFFE5 /* Sources */,
 				98DBAA031C0799CB007EFFE5 /* Frameworks */,
@@ -424,14 +425,14 @@
 			);
 			dependencies = (
 			);
-			name = Student;
+			name = proNotes;
 			productName = Student;
-			productReference = 98DBAA061C0799CB007EFFE5 /* Student.app */;
+			productReference = 98DBAA061C0799CB007EFFE5 /* proNotes.app */;
 			productType = "com.apple.product-type.application";
 		};
-		98DBAA1C1C0799CB007EFFE5 /* StudentTests */ = {
+		98DBAA1C1C0799CB007EFFE5 /* proNotesTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 98DBAA341C0799CB007EFFE5 /* Build configuration list for PBXNativeTarget "StudentTests" */;
+			buildConfigurationList = 98DBAA341C0799CB007EFFE5 /* Build configuration list for PBXNativeTarget "proNotesTests" */;
 			buildPhases = (
 				98DBAA191C0799CB007EFFE5 /* Sources */,
 				98DBAA1A1C0799CB007EFFE5 /* Frameworks */,
@@ -442,14 +443,14 @@
 			dependencies = (
 				98DBAA1F1C0799CB007EFFE5 /* PBXTargetDependency */,
 			);
-			name = StudentTests;
+			name = proNotesTests;
 			productName = StudentTests;
-			productReference = 98DBAA1D1C0799CB007EFFE5 /* StudentTests.xctest */;
+			productReference = 98DBAA1D1C0799CB007EFFE5 /* proNotes.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		98DBAA271C0799CB007EFFE5 /* StudentUITests */ = {
+		98DBAA271C0799CB007EFFE5 /* proNotesUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 98DBAA371C0799CB007EFFE5 /* Build configuration list for PBXNativeTarget "StudentUITests" */;
+			buildConfigurationList = 98DBAA371C0799CB007EFFE5 /* Build configuration list for PBXNativeTarget "proNotesUITests" */;
 			buildPhases = (
 				98DBAA241C0799CB007EFFE5 /* Sources */,
 				98DBAA251C0799CB007EFFE5 /* Frameworks */,
@@ -460,9 +461,9 @@
 			dependencies = (
 				98DBAA2A1C0799CB007EFFE5 /* PBXTargetDependency */,
 			);
-			name = StudentUITests;
+			name = proNotesUITests;
 			productName = StudentUITests;
-			productReference = 98DBAA281C0799CB007EFFE5 /* StudentUITests.xctest */;
+			productReference = 98DBAA281C0799CB007EFFE5 /* proNotes.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -477,6 +478,7 @@
 				TargetAttributes = {
 					98DBAA051C0799CB007EFFE5 = {
 						CreatedOnToolsVersion = 7.1.1;
+						DevelopmentTeam = 23Q9KTEYUV;
 						SystemCapabilities = {
 							com.apple.iCloud = {
 								enabled = 1;
@@ -493,7 +495,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 98DBAA011C0799CB007EFFE5 /* Build configuration list for PBXProject "Student" */;
+			buildConfigurationList = 98DBAA011C0799CB007EFFE5 /* Build configuration list for PBXProject "proNotes" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -506,9 +508,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				98DBAA051C0799CB007EFFE5 /* Student */,
-				98DBAA1C1C0799CB007EFFE5 /* StudentTests */,
-				98DBAA271C0799CB007EFFE5 /* StudentUITests */,
+				98DBAA051C0799CB007EFFE5 /* proNotes */,
+				98DBAA1C1C0799CB007EFFE5 /* proNotesTests */,
+				98DBAA271C0799CB007EFFE5 /* proNotesUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -581,7 +583,7 @@
 				98E0D4081C4C0F5500EF49FD /* DocumentMetaData.swift in Sources */,
 				98BABB8D1C1B142C00D9C938 /* PageInfoViewController.swift in Sources */,
 				987B57101C3B139700141EA5 /* UIImageExtension.swift in Sources */,
-				98DBAA121C0799CB007EFFE5 /* Student.xcdatamodeld in Sources */,
+				98DBAA121C0799CB007EFFE5 /* proNotes.xcdatamodeld in Sources */,
 				98F2E3E81C1A1ED2008A5C6C /* CGPointExtension.swift in Sources */,
 				98006ABB1C1A1E960091E356 /* SettingsViewController.swift in Sources */,
 				98312D691C0B79F200F3B1CB /* DocumentInstance.swift in Sources */,
@@ -627,12 +629,12 @@
 /* Begin PBXTargetDependency section */
 		98DBAA1F1C0799CB007EFFE5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 98DBAA051C0799CB007EFFE5 /* Student */;
+			target = 98DBAA051C0799CB007EFFE5 /* proNotes */;
 			targetProxy = 98DBAA1E1C0799CB007EFFE5 /* PBXContainerItemProxy */;
 		};
 		98DBAA2A1C0799CB007EFFE5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 98DBAA051C0799CB007EFFE5 /* Student */;
+			target = 98DBAA051C0799CB007EFFE5 /* proNotes */;
 			targetProxy = 98DBAA291C0799CB007EFFE5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -739,18 +741,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = Student/Resources/Student.entitlements;
+				CODE_SIGN_ENTITLEMENTS = proNotes/Resources/proNotes.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = Student/Resources/Info.plist;
+				INFOPLIST_FILE = proNotes/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = lt.student;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = lt.com.proNotes;
+				PRODUCT_NAME = proNotes;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -762,14 +764,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = Student/Resources/Student.entitlements;
+				CODE_SIGN_ENTITLEMENTS = proNotes/Resources/proNotes.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				INFOPLIST_FILE = Student/Resources/Info.plist;
+				INFOPLIST_FILE = proNotes/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = lt.student;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = lt.com.proNotes;
+				PRODUCT_NAME = proNotes;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 			};
@@ -782,8 +784,8 @@
 				INFOPLIST_FILE = StudentTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = lt.StudentTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Student.app/Student";
+				PRODUCT_NAME = proNotes;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/proNotes.app/proNotes";
 			};
 			name = Debug;
 		};
@@ -794,8 +796,8 @@
 				INFOPLIST_FILE = StudentTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = lt.StudentTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Student.app/Student";
+				PRODUCT_NAME = proNotes;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/proNotes.app/proNotes";
 			};
 			name = Release;
 		};
@@ -805,7 +807,7 @@
 				INFOPLIST_FILE = StudentUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = lt.StudentUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = proNotes;
 				TEST_TARGET_NAME = Student;
 				USES_XCTRUNNER = YES;
 			};
@@ -817,7 +819,7 @@
 				INFOPLIST_FILE = StudentUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = lt.StudentUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = proNotes;
 				TEST_TARGET_NAME = Student;
 				USES_XCTRUNNER = YES;
 			};
@@ -826,7 +828,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		98DBAA011C0799CB007EFFE5 /* Build configuration list for PBXProject "Student" */ = {
+		98DBAA011C0799CB007EFFE5 /* Build configuration list for PBXProject "proNotes" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				98DBAA2F1C0799CB007EFFE5 /* Debug */,
@@ -835,7 +837,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		98DBAA311C0799CB007EFFE5 /* Build configuration list for PBXNativeTarget "Student" */ = {
+		98DBAA311C0799CB007EFFE5 /* Build configuration list for PBXNativeTarget "proNotes" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				98DBAA321C0799CB007EFFE5 /* Debug */,
@@ -844,7 +846,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		98DBAA341C0799CB007EFFE5 /* Build configuration list for PBXNativeTarget "StudentTests" */ = {
+		98DBAA341C0799CB007EFFE5 /* Build configuration list for PBXNativeTarget "proNotesTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				98DBAA351C0799CB007EFFE5 /* Debug */,
@@ -853,7 +855,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		98DBAA371C0799CB007EFFE5 /* Build configuration list for PBXNativeTarget "StudentUITests" */ = {
+		98DBAA371C0799CB007EFFE5 /* Build configuration list for PBXNativeTarget "proNotesUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				98DBAA381C0799CB007EFFE5 /* Debug */,
@@ -865,13 +867,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		98DBAA101C0799CB007EFFE5 /* Student.xcdatamodeld */ = {
+		98DBAA101C0799CB007EFFE5 /* proNotes.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				98DBAA111C0799CB007EFFE5 /* Student.xcdatamodel */,
+				98DBAA111C0799CB007EFFE5 /* proNotes.xcdatamodel */,
 			);
-			currentVersion = 98DBAA111C0799CB007EFFE5 /* Student.xcdatamodel */;
-			path = Student.xcdatamodeld;
+			currentVersion = 98DBAA111C0799CB007EFFE5 /* proNotes.xcdatamodel */;
+			path = proNotes.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

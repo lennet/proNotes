@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "98DBAA051C0799CB007EFFE5"
-               BuildableName = "Student.app"
-               BlueprintName = "Student"
-               ReferencedContainer = "container:Student.xcodeproj">
+               BuildableName = "proNotes.app"
+               BlueprintName = "proNotes"
+               ReferencedContainer = "container:proNotes.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "98DBAA1C1C0799CB007EFFE5"
-               BuildableName = "StudentTests.xctest"
-               BlueprintName = "StudentTests"
-               ReferencedContainer = "container:Student.xcodeproj">
+               BuildableName = "proNotes.xctest"
+               BlueprintName = "proNotesTests"
+               ReferencedContainer = "container:proNotes.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -43,9 +43,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "98DBAA051C0799CB007EFFE5"
-            BuildableName = "Student.app"
-            BlueprintName = "Student"
-            ReferencedContainer = "container:Student.xcodeproj">
+            BuildableName = "proNotes.app"
+            BlueprintName = "proNotes"
+            ReferencedContainer = "container:proNotes.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -67,9 +67,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "98DBAA051C0799CB007EFFE5"
-            BuildableName = "Student.app"
-            BlueprintName = "Student"
-            ReferencedContainer = "container:Student.xcodeproj">
+            BuildableName = "proNotes.app"
+            BlueprintName = "proNotes"
+            ReferencedContainer = "container:proNotes.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -86,9 +86,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "98DBAA051C0799CB007EFFE5"
-            BuildableName = "Student.app"
-            BlueprintName = "Student"
-            ReferencedContainer = "container:Student.xcodeproj">
+            BuildableName = "proNotes.app"
+            BlueprintName = "proNotes"
+            ReferencedContainer = "container:proNotes.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
