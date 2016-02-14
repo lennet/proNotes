@@ -1,2 +1,1 @@
-# student
-[![Build Status](https://travis-ci.com/lennet/student.svg?token=yqRWkSdBrNTyS3kfVzGW&branch=master)](https://travis-ci.com/lennet/student)
+https://travis-ci.com/lennet/proNotes.svg?token=yqRWkSdBrNTyS3kfVzGW&branch=master
