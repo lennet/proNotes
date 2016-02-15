@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PageInfoViewController: SettingsBaseViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, DocumentSynchronizerDelegate, ReordableTableViewDelegate, PageInfoLayerTableViewCellDelegate {
+class PageInfoViewController: SettingsBaseViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, DocumentInstanceDelegate, ReordableTableViewDelegate, PageInfoLayerTableViewCellDelegate {
 
     @IBOutlet weak var backgroundSelectionCollectionView: UICollectionView!
     @IBOutlet weak var layerTableView: ReordableTableView!

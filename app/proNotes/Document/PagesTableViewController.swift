@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PagesTableViewController: UIViewController, DocumentSynchronizerDelegate, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource {
+class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource {
    
    weak static var sharedInstance: PagesTableViewController?
    

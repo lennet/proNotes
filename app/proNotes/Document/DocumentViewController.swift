@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DocumentViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, PagesOverviewTableViewCellDelegate, DocumentSynchronizerDelegate, UITextFieldDelegate {
+class DocumentViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, PagesOverviewTableViewCellDelegate, UITextFieldDelegate {
 
     @IBOutlet weak var settingsWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var pagesOverviewWidthConstraint: NSLayoutConstraint!

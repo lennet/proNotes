@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PagesOverviewTableViewController: UITableViewController, DocumentSynchronizerDelegate, ReordableTableViewDelegate {
+class PagesOverviewTableViewController: UITableViewController, DocumentInstanceDelegate, ReordableTableViewDelegate {
 
     var document: Document? {
         get {

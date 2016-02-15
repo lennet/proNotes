@@ -9,11 +9,9 @@
 import UIKit
 
 @objc
-protocol DocumentSynchronizerDelegate: class {
-
+protocol DocumentInstanceDelegate: class {
     optional func currentPageDidChange(page: DocumentPage)
     optional func didAddPage(index: NSInteger)
-
 }
 
 class DocumentInstance: NSObject {
@@ -126,7 +124,7 @@ class DocumentInstance: NSObject {
 
     // MARK: - Delegate Handling
 
-    func addDelegate(delegate: DocumentSynchronizerDelegate) {
+    func addDelegate(delegate: DocumentInstanceDelegate) {
         if let viewController = delegate as? UIViewController {
             if !delegates.contains(viewController) {
                 delegates.insert(viewController)
@@ -134,7 +132,7 @@ class DocumentInstance: NSObject {
         }
     }
 
-    func removeDelegate(delegate: DocumentSynchronizerDelegate) {
+    func removeDelegate(delegate: DocumentInstanceDelegate) {
         if let viewController = delegate as? UIViewController {
             if delegates.contains(viewController) {
                 delegates.remove(viewController)
@@ -143,13 +141,13 @@ class DocumentInstance: NSObject {
     }
 
     func informDelegateToUpdateCurrentPage(page: DocumentPage) {
-        for case let delegate as DocumentSynchronizerDelegate  in delegates {
+        for case let delegate as DocumentInstanceDelegate  in delegates {
             delegate.currentPageDidChange?(page)
         }
     }
     
     func informDelegateDidAddPage(index: NSInteger) {
-        for case let delegate as DocumentSynchronizerDelegate  in delegates {
+        for case let delegate as DocumentInstanceDelegate  in delegates {
             delegate.didAddPage?(index)
         }
     }
