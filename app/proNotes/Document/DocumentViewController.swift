@@ -51,7 +51,7 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
         super.viewWillDisappear(animated)
         if !isLoadingImage {
             titleTextField.delegate = nil
-            DocumentInstance.sharedInstance.save()
+            DocumentInstance.sharedInstance.save(nil)
             document?.closeWithCompletionHandler({
                 (Bool) -> Void in
             })

@@ -14,8 +14,6 @@ class DocumentTests: XCTestCase {
     var document: Document!
     var pagesCount = 4
     
-    // todo test save and reload operation
-    
     override func setUp() {
         super.setUp()
         let expectation = self.expectationWithDescription("Open Document")
@@ -49,7 +47,7 @@ class DocumentTests: XCTestCase {
         XCTAssertEqual(document[0]?[2]?.type, DocumentLayerType.Drawing)
     }
     
-    func testDocumentManipulation() {
+    func testAddPages() {
         document.addEmptyPage()
         
         pagesCount += 1
@@ -69,6 +67,24 @@ class DocumentTests: XCTestCase {
         XCTAssertEqual(document.pages[pagesCount-2].layers.first?.type, DocumentLayerType.PDF)
         XCTAssertEqual(document.pages[pagesCount-3].layers.first?.type, DocumentLayerType.PDF)
         
+    }
+    
+    func testSwapPages() {
+        let pages = document.pages
+        
+        document.swapPagePositions(0, secondIndex: 4) // nothing should happen because secondIndex is out of range
+        
+        XCTAssertEqual(pages, document.pages)
+        
+        let firstPage = document[0]
+        let secondPage = document[1]
+        
+        document.swapPagePositions(0, secondIndex: 1)
+        XCTAssertNotEqual(firstPage, document[0])
+        XCTAssertNotEqual(secondPage, document[1])
+        XCTAssertEqual(firstPage, document[1])
+        XCTAssertEqual(secondPage, document[0])
+
     }
     
 }

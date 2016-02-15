@@ -99,8 +99,8 @@ class DocumentInstance: NSObject {
         }
     }
 
-    func save() {
-        document?.saveToURL(document!.fileURL, forSaveOperation: .ForOverwriting, completionHandler: nil)
+    func save(completionHandler: ((Bool) -> Void)?) {
+        document?.saveToURL(document!.fileURL, forSaveOperation: .ForOverwriting, completionHandler: completionHandler)
     }
     
     // MARK: - NSUndoManager

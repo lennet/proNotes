@@ -11,7 +11,6 @@ import UIKit
 @IBDesignable
 class CircleView: UIView {
 
-
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = UIColor.clearColor()

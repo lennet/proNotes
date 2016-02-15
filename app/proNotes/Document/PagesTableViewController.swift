@@ -132,6 +132,15 @@ class PagesTableViewController: UIViewController, DocumentSynchronizerDelegate, 
       return nil
    }
    
+   func swapPagePositions(firstIndex: Int, secondIndex: Int) {
+      let pagesCount = document?.pages.count ?? 0
+      if firstIndex != secondIndex && firstIndex >= 0 && secondIndex >= 0 && firstIndex < pagesCount && secondIndex < pagesCount {
+         tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: firstIndex, inSection: 0), NSIndexPath(forRow: secondIndex, inSection: 0)], withRowAnimation: .Automatic)
+      } else {
+         print("Swap Layerpositions failed with firstIndex:\(firstIndex) and secondIndex\(secondIndex) and pagesCount \(pagesCount)")
+      }
+   }
+   
    // MARK: - Table view data source
    
    func numberOfSectionsInTableView(tableView: UITableView) -> Int {

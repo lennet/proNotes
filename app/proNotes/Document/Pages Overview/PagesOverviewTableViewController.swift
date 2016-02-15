@@ -43,7 +43,8 @@ class PagesOverviewTableViewController: UITableViewController, DocumentSynchroni
     // MARK: - ReordableTableViewDelegate
 
     func didSwapElements(firstIndex: Int, secondIndex: Int) {
-        // TODO
+        document?.swapPagePositions(firstIndex, secondIndex: secondIndex)
+        PagesTableViewController.sharedInstance?.swapPagePositions(firstIndex, secondIndex: secondIndex)
     }
 
     // MARK: - Table view data source

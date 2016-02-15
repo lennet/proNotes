@@ -33,7 +33,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "98DBAA1C1C0799CB007EFFE5"
-               BuildableName = "proNotes.xctest"
+               BuildableName = "proNotesTests.xctest"
                BlueprintName = "proNotesTests"
                ReferencedContainer = "container:proNotes.xcodeproj">
             </BuildableReference>

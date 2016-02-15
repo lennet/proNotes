@@ -156,4 +156,17 @@ class Document: UIDocument {
         DocumentInstance.sharedInstance.informDelegateDidAddPage(pages.count-1)
     }
     
+    func swapPagePositions(firstIndex: Int, secondIndex: Int) {
+        guard _pages != nil else {
+            return
+        }
+        
+        if firstIndex != secondIndex && firstIndex >= 0 && secondIndex >= 0 && firstIndex < pages.count && secondIndex < pages.count {
+            let tmp = firstIndex
+            pages[firstIndex].index = secondIndex
+            pages[secondIndex].index = tmp
+            swap(&_pages![firstIndex], &_pages![secondIndex])
+        }
+    }
+    
 }

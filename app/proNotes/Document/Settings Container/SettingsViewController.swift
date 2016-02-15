@@ -43,7 +43,6 @@ class SettingsViewController: UIViewController {
     }
 
     private func setUpChildViewController(settingsViewController: SettingsViewControllerType) {
-        // TODO Animate!
         self.currentChildViewController?.willMoveToParentViewController(nil)
         self.currentChildViewController?.view.removeFromSuperview()
         self.currentChildViewController?.removeFromParentViewController()

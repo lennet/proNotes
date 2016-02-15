@@ -120,6 +120,7 @@ class PageInfoViewController: SettingsBaseViewController, UITableViewDataSource,
     // MARK: - ReordableTableViewDelegate
 
     func didSwapElements(firstIndex: Int, secondIndex: Int) {
+        page?.swapLayerPositions(firstIndex, secondIndex: secondIndex)
         PagesTableViewController.sharedInstance?.currentPageView()?.swapLayerPositions(firstIndex, secondIndex: secondIndex)
     }
 
