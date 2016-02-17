@@ -143,11 +143,12 @@ class Document: UIDocument {
         let pdf = CGPDFDocumentCreateWithURL(url as CFURLRef)
         let numberOfPages = CGPDFDocumentGetNumberOfPages(pdf)
         for i in 1 ..< numberOfPages+1 {
-            if let page = CGPDFDocumentGetPage(pdf, i) {
-                let page = DocumentPage(PDF: page, index: pages.count)
+            if let pagePDF = PDFUtility.getPageAsPDF(i, document: pdf!) {
+                let page = DocumentPage(PDF: pagePDF, index: pages.count)
                 pages.append(page)
             }
         }
+        DocumentInstance.sharedInstance.informDelegateDidAddPage(pages.count-1)
     }
 
     func addEmptyPage() {

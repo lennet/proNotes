@@ -16,10 +16,10 @@ class PDFView: UIView, PageSubView {
 
     weak var delegate: PDFViewDelegate?
 
-    var page: CGPDFPage?
+    var pdf: CGPDFDocument?
 
-    init(page: CGPDFPage, frame: CGRect) {
-        self.page = page
+    init(page: CGPDFDocument, frame: CGRect) {
+        self.pdf = page
         super.init(frame: frame)
     }
 
@@ -28,7 +28,7 @@ class PDFView: UIView, PageSubView {
     }
 
     override func drawRect(rect: CGRect) {
-        if page != nil {
+        if let page = CGPDFDocumentGetPage(pdf, 1) {
 
             let context = UIGraphicsGetCurrentContext()
 

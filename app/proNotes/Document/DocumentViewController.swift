@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DocumentViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, PagesOverviewTableViewCellDelegate, UITextFieldDelegate {
+class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelegate, UITextFieldDelegate, ImportDataViewControllerDelgate {
 
     @IBOutlet weak var settingsWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var pagesOverviewWidthConstraint: NSLayoutConstraint!
@@ -85,31 +85,17 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
     
     // MARK: - Actions
 
-    @IBAction func handleAddPageButtonPressed(sender: AnyObject) {
-        document?.addEmptyPage()
-    }
-
     @IBAction func handleDrawButtonPressed(sender: AnyObject) {
         PagesTableViewController.sharedInstance?.currentPageView()?.handleDrawButtonPressed()
     }
 
     @IBAction func handleImageButtonPressed(sender: AnyObject) {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = .PhotoLibrary
-        imagePicker.allowsEditing = false
-        isLoadingImage = true
-        presentViewController(imagePicker, animated: true, completion: nil)
-    }
-
-    @IBAction func handleTextButtonPressed(sender: AnyObject) {
-        if let textLayer = DocumentInstance.sharedInstance.currentPage?.addTextLayer("") {
-            if let currentPageView = PagesTableViewController.sharedInstance?.currentPageView() {
-                currentPageView.addTextLayer(textLayer)
-                currentPageView.page = DocumentInstance.sharedInstance.currentPage
-                currentPageView.setLayerSelected(currentPageView.subviews.count - 1)
-            }
-        }
+//        let imagePicker = UIImagePickerController()
+//        imagePicker.delegate = self
+//        imagePicker.sourceType = .PhotoLibrary
+//        imagePicker.allowsEditing = false
+//        isLoadingImage = true
+//        presentViewController(imagePicker, animated: true, completion: nil)
     }
 
     @IBAction func handlePageInfoButtonPressed(sender: AnyObject) {
@@ -160,6 +146,10 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
             pagesOverviewController = viewController
         } else if let viewController = segue.destinationViewController as? PagesTableViewController {
             PagesTableViewController.sharedInstance = viewController
+        } else if let navigationController = segue.destinationViewController as? UINavigationController {
+            if let viewController = navigationController.visibleViewController as? ImportDataViewController {
+                viewController.delegate = self
+            }
         }
     }
 
@@ -267,7 +257,7 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
         movableView.handlePanEnded()
     }
 
-    // MARK - UITextfieldDelegate
+    // MARK: - UITextfieldDelegate
 
     func textFieldDidBeginEditing(textField: UITextField) {
         textField.borderStyle = .RoundedRect
@@ -290,5 +280,30 @@ class DocumentViewController: UIViewController, UIImagePickerControllerDelegate,
             })
             textField.borderStyle = .None
         }
+    }
+    
+    // MARK: - ImportDataViewControllerDelegate
+    
+    func addEmptyPage() {
+        document?.addEmptyPage()
+
+        navigationController?.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func addTextField() {
+        if let textLayer = DocumentInstance.sharedInstance.currentPage?.addTextLayer("") {
+            if let currentPageView = PagesTableViewController.sharedInstance?.currentPageView() {
+                currentPageView.addTextLayer(textLayer)
+                currentPageView.page = DocumentInstance.sharedInstance.currentPage
+                currentPageView.setLayerSelected(currentPageView.subviews.count - 1)
+            }
+        }
+        navigationController?.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    
+    func addPDF(url: NSURL) {
+        document?.addPDF(url)
+        navigationController?.dismissViewControllerAnimated(true, completion: nil)
     }
 }

@@ -228,15 +228,29 @@ class TextLayer: MovableLayer {
 }
 
 class DocumentPDFLayer: DocumentLayer {
-    var pdfPage: CGPDFPage?
-    init(index: Int, page: CGPDFPage, docPage: DocumentPage) {
+    private final let pdfKey = "pdf"
+    
+    var pdfPage: CGPDFDocument?
+
+    init(index: Int, page: CGPDFDocument, docPage: DocumentPage) {
         self.pdfPage = page
         super.init(index: index, type: .PDF, docPage: docPage)
     }
 
     required init(coder aDecoder: NSCoder) {
+        if let pdfData = aDecoder.decodeObjectForKey(pdfKey) as? NSData {
+            pdfPage = PDFUtility.createPDFFromData(pdfData as CFDataRef)
+        }
         super.init(coder: aDecoder)
-        // TODO!
+    }
+    
+    override func encodeWithCoder(aCoder: NSCoder) {
+       
+        if pdfPage != nil {
+            aCoder.encodeObject(PDFUtility.getPageAsData(1, document: pdfPage!), forKey: pdfKey)
+        }
+        
+        super.encodeWithCoder(aCoder)
     }
     
     override func isEqual(object: AnyObject?) -> Bool {

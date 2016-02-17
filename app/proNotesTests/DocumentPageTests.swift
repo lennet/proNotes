@@ -89,6 +89,7 @@ class DocumentPageTests: XCTestCase {
     }
     
     func testEncodeDecode() {
+        // TODO add more Testcases for all types
         let page = DocumentPage(index: 0)
         page.addDrawingLayer(nil)
         page.addTextLayer("Text testlayer")
@@ -96,6 +97,18 @@ class DocumentPageTests: XCTestCase {
         let archivedPageData = NSKeyedArchiver.archivedDataWithRootObject(page)
         let unarchivedPage = NSKeyedUnarchiver.unarchiveObjectWithData(archivedPageData) as? DocumentPage
         XCTAssertEqual(page, unarchivedPage)
+        
+        
+        let pdfPage =  DocumentPage(index: 0)
+        let pdfURL = NSBundle(forClass: self.dynamicType).URLForResource("test", withExtension: "pdf")!
+        let documentRef = CGPDFDocumentCreateWithURL(pdfURL as CFURLRef)!
+        pdfPage.addPDFLayer(PDFUtility.getPageAsPDF(1, document: documentRef)!)
+        
+        let archivedPDFPageData = NSKeyedArchiver.archivedDataWithRootObject(pdfPage)
+        let unarchivedPDFPage = NSKeyedUnarchiver.unarchiveObjectWithData(archivedPDFPageData) as? DocumentPage
+
+        
+        XCTAssertEqual(unarchivedPDFPage, pdfPage)
     }
     
     
