@@ -240,14 +240,9 @@
                                     <action selector="handleDrawButtonPressed:" destination="mNn-FC-EJF" id="6lJ-3O-gW8"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem image="ImageViewIcon" id="oTW-FH-JM0" userLabel="Image">
-                                <connections>
-                                    <action selector="handleImageButtonPressed:" destination="mNn-FC-EJF" id="feJ-Zh-2jR"/>
-                                </connections>
-                            </barButtonItem>
                         </leftBarButtonItems>
                         <view key="titleView" contentMode="scaleToFill" id="DCF-1C-qNS">
-                            <rect key="frame" x="376" y="5.5" width="87" height="33"/>
+                            <rect key="frame" x="356.5" y="5.5" width="87" height="33"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Title" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DeR-PR-STL">
@@ -1513,7 +1508,6 @@
     </scenes>
     <resources>
         <image name="DrawIcon" width="25" height="25"/>
-        <image name="ImageViewIcon" width="31" height="25"/>
         <image name="accessoryIcon" width="8" height="13"/>
         <image name="cancel" width="32" height="32"/>
         <image name="centerAlignment" width="31" height="32"/>

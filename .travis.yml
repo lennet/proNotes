@@ -9,9 +9,6 @@ branches:
     - master
     - develop
 before_script: cd app
-before_install:
-  - brew update
-  - if brew outdated | grep -qx xctool; then brew upgrade xctool; fi
 script: 
 - xctool -project proNotes.xcodeproj -scheme proNotes -destination "name=iPad Air 2" -sdk iphonesimulator
 - xctool test -project proNotes.xcodeproj -scheme proNotes -destination "name=iPad Air 2" -sdk iphonesimulator
