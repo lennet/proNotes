@@ -140,11 +140,14 @@ class Document: UIDocument {
     // MARK - Pages Manipulation
 
     func addPDF(url: NSURL) {
-        let pdf = CGPDFDocumentCreateWithURL(url as CFURLRef)
+        guard let pdf = CGPDFDocumentCreateWithURL(url as CFURLRef) else {
+            return
+        }
+        
         let numberOfPages = CGPDFDocumentGetNumberOfPages(pdf)
         for i in 1 ..< numberOfPages+1 {
-            if let pagePDF = PDFUtility.getPageAsPDF(i, document: pdf!) {
-                let page = DocumentPage(PDF: pagePDF, index: pages.count)
+            if let pdfData = PDFUtility.getPageAsData(i, document: pdf) {
+                let page = DocumentPage(pdfData: pdfData, index: pages.count)
                 pages.append(page)
             }
         }

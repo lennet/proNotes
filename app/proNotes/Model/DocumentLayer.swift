@@ -230,24 +230,22 @@ class TextLayer: MovableLayer {
 class DocumentPDFLayer: DocumentLayer {
     private final let pdfKey = "pdf"
     
-    var pdfPage: CGPDFDocument?
+    var pdfData: NSData?
 
-    init(index: Int, page: CGPDFDocument, docPage: DocumentPage) {
-        self.pdfPage = page
+    init(index: Int, pdfData: NSData, docPage: DocumentPage) {
+        self.pdfData = pdfData
         super.init(index: index, type: .PDF, docPage: docPage)
     }
 
     required init(coder aDecoder: NSCoder) {
-        if let pdfData = aDecoder.decodeObjectForKey(pdfKey) as? NSData {
-            pdfPage = PDFUtility.createPDFFromData(pdfData as CFDataRef)
-        }
+        pdfData = aDecoder.decodeObjectForKey(pdfKey) as? NSData
         super.init(coder: aDecoder)
     }
     
     override func encodeWithCoder(aCoder: NSCoder) {
        
-        if pdfPage != nil {
-            aCoder.encodeObject(PDFUtility.getPageAsData(1, document: pdfPage!), forKey: pdfKey)
+        if pdfData != nil {
+            aCoder.encodeObject(pdfData, forKey: pdfKey)
         }
         
         super.encodeWithCoder(aCoder)
@@ -262,12 +260,12 @@ class DocumentPDFLayer: DocumentLayer {
             return false
         }
         
-        if layer.pdfPage == nil && pdfPage == nil {
+        if layer.pdfData == nil && pdfData == nil {
             return true
         }
         
-        if layer.pdfPage != nil && pdfPage != nil {
-            return true
+        if layer.pdfData != nil && pdfData != nil {
+            return layer.pdfData == pdfData
         } else {
             return false
         }

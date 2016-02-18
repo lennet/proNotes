@@ -24,11 +24,11 @@ class DocumentPage: NSObject, NSCoding {
         self.index = index
     }
 
-    init(PDF: CGPDFDocument, index: Int) {
+    init(pdfData: NSData, index: Int) {
         layers = [DocumentLayer]()
         super.init()
         self.index = index
-        addPDFLayer(PDF)
+        addPDFLayer(pdfData)
     }
 
     required init(coder aDecoder: NSCoder) {
@@ -62,8 +62,8 @@ class DocumentPage: NSObject, NSCoding {
         return drawLayer
     }
 
-    func addPDFLayer(PDF: CGPDFDocument) {
-        let pdfLayer = DocumentPDFLayer(index: layers.count, page: PDF, docPage: self)
+    func addPDFLayer(pdfData: NSData) {
+        let pdfLayer = DocumentPDFLayer(index: layers.count, pdfData: pdfData, docPage: self)
         layers.append(pdfLayer)
     }
 

@@ -106,7 +106,7 @@ class PageView: UIView, UIGestureRecognizerDelegate {
     }
 
     func addPDFView(pdfLayer: DocumentPDFLayer) {
-        let view = PDFView(page: pdfLayer.pdfPage!, frame: bounds)
+        let view = PDFView(pdfData: pdfLayer.pdfData!, frame: bounds)
         view.backgroundColor = UIColor.clearColor()
         view.delegate = pdfViewDelegate
         view.hidden = pdfLayer.hidden

@@ -18,8 +18,8 @@ class PDFView: UIView, PageSubView {
 
     var pdf: CGPDFDocument?
 
-    init(page: CGPDFDocument, frame: CGRect) {
-        self.pdf = page
+    init(pdfData: NSData, frame: CGRect) {
+        self.pdf = PDFUtility.createPDFFromData(pdfData as CFData)
         super.init(frame: frame)
     }
 
