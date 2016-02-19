@@ -12,6 +12,8 @@ protocol ImportDataViewControllerDelgate: class {
     func addEmptyPage()
     func addTextField()
     func addPDF(url: NSURL)
+    func addImage(image: UIImage)
+    func dismiss()
 }
 
 class ImportDataViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIDocumentPickerDelegate {
@@ -66,7 +68,6 @@ class ImportDataViewController: UIViewController, UITableViewDataSource, UITable
         imagePicker.delegate = self
         imagePicker.sourceType = .Camera
         imagePicker.allowsEditing = false
-        navigationController?.pushViewController(imagePicker, animated: true)
         presentViewController(imagePicker, animated: true, completion: nil)
     }
     
@@ -141,7 +142,21 @@ class ImportDataViewController: UIViewController, UITableViewDataSource, UITable
     // MARK: - UIDocumentPickerDelegate
     
     func documentPicker(controller: UIDocumentPickerViewController, didPickDocumentAtURL url: NSURL) {
+        dismissViewControllerAnimated(false, completion: nil)
         delegate?.addPDF(url)
+    }
+    
+    // MARK: - UIImagePickerControllerDelegate
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
+        dismissViewControllerAnimated(false, completion: nil)
+        delegate?.addImage(image)
+    }
+
+    
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        dismissViewControllerAnimated(false, completion: nil)
+        delegate?.dismiss()
     }
 
 }

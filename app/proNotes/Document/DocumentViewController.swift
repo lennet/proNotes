@@ -89,15 +89,6 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
         PagesTableViewController.sharedInstance?.currentPageView()?.handleDrawButtonPressed()
     }
 
-    @IBAction func handleImageButtonPressed(sender: AnyObject) {
-//        let imagePicker = UIImagePickerController()
-//        imagePicker.delegate = self
-//        imagePicker.sourceType = .PhotoLibrary
-//        imagePicker.allowsEditing = false
-//        isLoadingImage = true
-//        presentViewController(imagePicker, animated: true, completion: nil)
-    }
-
     @IBAction func handlePageInfoButtonPressed(sender: AnyObject) {
         PagesTableViewController.sharedInstance?.currentPageView()?.deselectSelectedSubview()
         SettingsViewController.sharedInstance?.currentSettingsType = .PageInfo
@@ -164,28 +155,7 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
         SettingsViewController.sharedInstance?.currentSettingsType = .PageInfo
     }
 
-    // MARK: - UIImagePickerControllerDelegate
-
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String:AnyObject]) {
-        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            if let imageLayer = DocumentInstance.sharedInstance.currentPage?.addImageLayer(image) {
-                if let currentPageView = PagesTableViewController.sharedInstance?.currentPageView() {
-                    currentPageView.addImageLayer(imageLayer)
-                    currentPageView.page = DocumentInstance.sharedInstance.currentPage
-                    currentPageView.setLayerSelected(currentPageView.subviews.count - 1)
-                }
-            }
-        }
-        dismissViewControllerAnimated(true, completion: nil)
-    }
-
-    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
-        dismissViewControllerAnimated(true, completion: nil)
-    }
-
     // MARK: - UIKeyCommands
-
-
 
     // TODO add more commands
     // commant + T create Text
@@ -209,8 +179,8 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
             commands.append(UIKeyCommand(input: UIKeyInputUpArrow, modifierFlags: .Command, action: "handleMoveMovableViewKeyPressed:", discoverabilityTitle: "Move Up"))
             commands.append(UIKeyCommand(input: UIKeyInputDownArrow, modifierFlags: .Command, action: "handleMoveMovableViewKeyPressed:", discoverabilityTitle: "Move Down"))
         } else {
-            commands.append(UIKeyCommand(input: UIKeyInputDownArrow, modifierFlags: .Command, action: "handleDownKeyPressed:", discoverabilityTitle: "Scroll Down"))
-            commands.append(UIKeyCommand(input: UIKeyInputUpArrow, modifierFlags: .Command, action: "handleUpKeyPressed:", discoverabilityTitle: "Scroll Up"))
+            commands.append(UIKeyCommand(input: UIKeyInputDownArrow, modifierFlags: [], action: "handleDownKeyPressed:", discoverabilityTitle: "Scroll Down"))
+            commands.append(UIKeyCommand(input: UIKeyInputUpArrow, modifierFlags: [], action: "handleUpKeyPressed:", discoverabilityTitle: "Scroll Up"))
         }
 
         return commands
@@ -301,9 +271,23 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
         navigationController?.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    
     func addPDF(url: NSURL) {
         document?.addPDF(url)
+        navigationController?.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func addImage(image: UIImage) {
+        if let imageLayer = DocumentInstance.sharedInstance.currentPage?.addImageLayer(image) {
+            if let currentPageView = PagesTableViewController.sharedInstance?.currentPageView() {
+                currentPageView.addImageLayer(imageLayer)
+                currentPageView.page = DocumentInstance.sharedInstance.currentPage
+                currentPageView.setLayerSelected(currentPageView.subviews.count - 1)
+            }
+        }
+        navigationController?.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func dismiss() {
         navigationController?.dismissViewControllerAnimated(true, completion: nil)
     }
 }
