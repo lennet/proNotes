@@ -18,6 +18,9 @@ protocol ImportDataViewControllerDelgate: class {
 
 class ImportDataViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIDocumentPickerDelegate {
 
+    final let pdfUTI = "com.adobe.pdf"
+    final let imageUTI = "public.image"
+    
     @IBOutlet weak var tableView: UITableView!
     weak var delegate: ImportDataViewControllerDelgate?
     
@@ -53,6 +56,13 @@ class ImportDataViewController: UIViewController, UITableViewDataSource, UITable
         // Dispose of any resources that can be recreated.
     }
     
+    func showDocumentPicker(documentTypes:[String]) {
+        let documentPicker = CustomDocumentPickerViewController(documentTypes: documentTypes, inMode: .Import)
+        documentPicker.delegate = self;
+        documentPicker.modalPresentationStyle = .PageSheet
+        self.presentViewController(documentPicker, animated: true, completion: nil)
+    }
+    
     // MARK: - Actions 
     
     func handleAddPictureCameraRoll() {
@@ -72,19 +82,15 @@ class ImportDataViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func handleAddImageiCloudDrive() {
-    
+        showDocumentPicker([imageUTI])
     }
     
     func handleAddPdf() {
-        let documentPicker = UIDocumentPickerViewController(documentTypes: ["com.adobe.pdf"], inMode: .Import)
-        documentPicker.delegate = self;
-        documentPicker.modalPresentationStyle = .PageSheet
-        self.presentViewController(documentPicker, animated: true, completion: nil)
+        showDocumentPicker([pdfUTI])
     }
     
     func handleAddTextField() {
         delegate?.addTextField()
-
     }
     
     func handleAddPage(){
@@ -142,8 +148,21 @@ class ImportDataViewController: UIViewController, UITableViewDataSource, UITable
     // MARK: - UIDocumentPickerDelegate
     
     func documentPicker(controller: UIDocumentPickerViewController, didPickDocumentAtURL url: NSURL) {
+
+        if let customDocumentPicker = controller as? CustomDocumentPickerViewController {
+            if customDocumentPicker.documentTypes.contains(imageUTI) {
+                if let imageData = NSData(contentsOfURL: url) {
+                    if let image = UIImage(data: imageData) {
+                        delegate?.addImage(image)
+                    }
+                }
+            } else {
+                delegate?.addPDF(url)
+            }
+        }
+        
         dismissViewControllerAnimated(false, completion: nil)
-        delegate?.addPDF(url)
+
     }
     
     // MARK: - UIImagePickerControllerDelegate

@@ -41,6 +41,7 @@
 		987F6A1F1C74A9FC00572C2F /* ImportDataMainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987F6A1E1C74A9FC00572C2F /* ImportDataMainTableViewCell.swift */; };
 		987F6A211C74AA0800572C2F /* ImportDataSubTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987F6A201C74AA0800572C2F /* ImportDataSubTableViewCell.swift */; };
 		9881D2761C2857DB00A6651A /* ColorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9881D2751C2857DB00A6651A /* ColorButton.swift */; };
+		9896A6871C77906700061986 /* CustomDocumentPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896A6861C77906700061986 /* CustomDocumentPickerViewController.swift */; };
 		98A133DE1C22BB230064D983 /* ColorPickerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A133DD1C22BB230064D983 /* ColorPickerCollectionViewCell.swift */; };
 		98A5673B1C18CC330065B401 /* ImageSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A5673A1C18CC330065B401 /* ImageSettingsViewController.swift */; };
 		98A57C3D1C1DB2A400E6C5DF /* DocumentLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A57C3C1C1DB2A400E6C5DF /* DocumentLayer.swift */; };
@@ -122,6 +123,7 @@
 		987F6A1E1C74A9FC00572C2F /* ImportDataMainTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImportDataMainTableViewCell.swift; sourceTree = "<group>"; };
 		987F6A201C74AA0800572C2F /* ImportDataSubTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImportDataSubTableViewCell.swift; sourceTree = "<group>"; };
 		9881D2751C2857DB00A6651A /* ColorButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorButton.swift; sourceTree = "<group>"; };
+		9896A6861C77906700061986 /* CustomDocumentPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDocumentPickerViewController.swift; sourceTree = "<group>"; };
 		98A133DD1C22BB230064D983 /* ColorPickerCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPickerCollectionViewCell.swift; sourceTree = "<group>"; };
 		98A5673A1C18CC330065B401 /* ImageSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageSettingsViewController.swift; sourceTree = "<group>"; };
 		98A57C3C1C1DB2A400E6C5DF /* DocumentLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentLayer.swift; sourceTree = "<group>"; };
@@ -271,6 +273,7 @@
 				986D605A1C2B21140065D71B /* CustomScrollView.swift */,
 				98AD15E81C49BBDC00EE94A1 /* ReordableTableView.swift */,
 				984242AA1C3EDD0900F90455 /* TouchControlView.swift */,
+				9896A6861C77906700061986 /* CustomDocumentPickerViewController.swift */,
 			);
 			path = "Generic Components";
 			sourceTree = "<group>";
@@ -547,6 +550,7 @@
 				9854310F1C52C4EE0098DAC1 /* CloudDownloadingIndicator.swift in Sources */,
 				987F6A1D1C74A7B600572C2F /* ImportDataViewController.swift in Sources */,
 				98A57C3F1C1DB2BC00E6C5DF /* DocumentPage.swift in Sources */,
+				9896A6871C77906700061986 /* CustomDocumentPickerViewController.swift in Sources */,
 				986D605E1C2C2D700065D71B /* CircleView.swift in Sources */,
 				98CD5AB01C5FE728003F0686 /* CGFloatExtension.swift in Sources */,
 				98F2E3EC1C1A1EE9008A5C6C /* MovableView.swift in Sources */,
