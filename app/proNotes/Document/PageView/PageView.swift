@@ -23,7 +23,7 @@ class PageView: UIView, UIGestureRecognizerDelegate {
     }
 
     weak var selectedSubView: PageSubView?
-    
+
     subscript(subViewIndex: Int) -> PageSubView? {
         get {
             if subViewIndex < subviews.count {
@@ -32,7 +32,7 @@ class PageView: UIView, UIGestureRecognizerDelegate {
             return nil
         }
     }
-    
+
     init(page: DocumentPage) {
         super.init(frame: CGRect(origin: CGPointZero, size: page.size))
         self.page = page
@@ -40,17 +40,17 @@ class PageView: UIView, UIGestureRecognizerDelegate {
         setUpLayer()
         setNeedsDisplay()
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
     }
- 
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         commonInit()
     }
-    
+
     func commonInit() {
         setUpTouchRecognizer()
         clearsContextBeforeDrawing = true
@@ -82,9 +82,9 @@ class PageView: UIView, UIGestureRecognizerDelegate {
         guard page != nil else {
             return
         }
-        
+
         frame.size = page!.size
-        
+
         for view in subviews {
             // could be improved with recycling existings views
             view.removeFromSuperview()
@@ -163,10 +163,10 @@ class PageView: UIView, UIGestureRecognizerDelegate {
     }
 
     func setLayerSelected(index: Int) {
-    
+
         selectedSubView?.handleTap?(nil)
         selectedSubView = nil
-        if let subview = self[index]{
+        if let subview = self[index] {
             subview.setSelected?()
             selectedSubView = subview
             setSubviewsAlpha(index + 1, alphaValue: 0.5)
@@ -188,7 +188,7 @@ class PageView: UIView, UIGestureRecognizerDelegate {
             print("Swap Layerpositions failed with firstIndex:\(firstIndex) and secondIndex\(secondIndex) and subviewsCount \(subviews.count)")
         }
     }
-    
+
     func changeLayerVisibility(docLayer: DocumentLayer) {
         let isHidden = !docLayer.hidden
         if let subview = self[docLayer.index] as? UIView {
@@ -230,20 +230,20 @@ class PageView: UIView, UIGestureRecognizerDelegate {
     }
 
     // MARK: - UIGestureRecognizer
-    
+
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         (selectedSubView as? DrawingView)?.touchesBegan(touches, withEvent: event)
     }
-    
+
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
         (selectedSubView as? DrawingView)?.touchesMoved(touches, withEvent: event)
     }
-    
+
     override func touchesEnded(touches: Set<UITouch>,
                                withEvent event: UIEvent?) {
         (selectedSubView as? DrawingView)?.touchesEnded(touches, withEvent: event)
     }
-    
+
     override func touchesCancelled(touches: Set<UITouch>?,
                                    withEvent event: UIEvent?) {
         (selectedSubView as? DrawingView)?.touchesCancelled(touches, withEvent: event)

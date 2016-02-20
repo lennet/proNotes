@@ -13,7 +13,7 @@ protocol DrawingSettingsDelegate: class {
     func clearDrawing()
 
     func didSelectColor(color: UIColor)
-    
+
     func didSelectDrawingObject(object: DrawingObject)
 
     func removeLayer()
@@ -86,9 +86,9 @@ class DrawingSettingsViewController: SettingsBaseViewController {
                     eraserTopConstraint.constant = defaultTopConstant
                     break
                 }
-                
+
                 var object: DrawingObject?
-                
+
                 switch currentType {
                 case .Pen:
                     penTopConstraint.constant = 0
@@ -108,7 +108,7 @@ class DrawingSettingsViewController: SettingsBaseViewController {
                     () -> Void in
                     self.view.layoutIfNeeded()
                 }, completion: nil)
-                
+
                 DrawingSettingsViewController.delegate?.didSelectDrawingObject(object!)
             }
         }

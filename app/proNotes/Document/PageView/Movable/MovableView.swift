@@ -64,14 +64,14 @@ class MovableView: TouchControlView, PageSubView {
         setNeedsDisplay()
         return frame
     }
-    
+
     func updateFrameChanges() {
         if movableLayer != nil {
             movableLayer?.origin = frame.origin
             if movableLayer!.docPage != nil && oldFrame != nil {
                 DocumentInstance.sharedInstance.registerUndoAction(NSValue(CGRect: oldFrame!), pageIndex: movableLayer!.docPage.index, layerIndex: movableLayer!.index)
             }
-            
+
             var newSize = frame.size
             movableLayer?.size = newSize.increaseSize(controlLength * (-2))
             saveChanges()
@@ -82,7 +82,7 @@ class MovableView: TouchControlView, PageSubView {
         super.handlePanEnded()
         updateFrameChanges()
     }
-    
+
     override func drawRect(rect: CGRect) {
         super.drawRect(rect)
         if isEditing {
@@ -99,15 +99,15 @@ class MovableView: TouchControlView, PageSubView {
     func saveChanges() {
         // empty Base implementation
     }
-    
+
     func setUpSettingsViewController() {
         // empty Base implementation
     }
-    
+
     func setDeselected() {
         // empty Base implementation
     }
-    
+
     func undoAction(oldObject: AnyObject?) {
         guard let value = oldObject as? NSValue else {
             return
@@ -117,9 +117,9 @@ class MovableView: TouchControlView, PageSubView {
         UIView.animateWithDuration(standardAnimationDuration, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .CurveEaseInOut, animations: {
             () -> Void in
             self.frame = frame
-            }, completion: nil)
+        }, completion: nil)
         updateFrameChanges()
     }
-    
-    
+
+
 }

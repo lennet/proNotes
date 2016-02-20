@@ -9,11 +9,11 @@
 import UIKit
 
 class ImportDataSubTableViewCell: UITableViewCell {
-    
+
     static let cellIdentifier = "ImportDataSubCellIdentifier"
-    
+
     @IBOutlet weak var label: UILabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

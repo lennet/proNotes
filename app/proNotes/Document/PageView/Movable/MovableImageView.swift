@@ -32,7 +32,7 @@ class MovableImageView: MovableView, ImageSettingsDelegate {
         imageView.image = image
         imageView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(imageView)
-        
+
         self.imageView = imageView
     }
 
@@ -52,29 +52,29 @@ class MovableImageView: MovableView, ImageSettingsDelegate {
     func getImage() -> UIImage {
         return image
     }
-    
+
     override func undoAction(oldObject: AnyObject?) {
         guard let image = oldObject as? UIImage else {
             super.undoAction(oldObject)
             return
         }
-        
+
         updateImage(image)
         if SettingsViewController.sharedInstance?.currentSettingsType == .Image {
             SettingsViewController.sharedInstance?.currentChildViewController?.update()
         }
     }
-    
+
 
     func updateImage(image: UIImage) {
         guard imageView != nil else {
             return
         }
-        
+
         if movableLayer != nil && movableLayer?.docPage != nil {
             DocumentInstance.sharedInstance.registerUndoAction(self.image, pageIndex: movableLayer!.docPage.index, layerIndex: movableLayer!.index)
         }
-        
+
         let heightRatio = imageView!.bounds.height / self.image.size.height
         let widthRatio = imageView!.bounds.width / self.image.size.width
         imageView?.image = image

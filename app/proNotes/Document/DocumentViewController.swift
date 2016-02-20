@@ -15,15 +15,15 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var undoButton: UIBarButtonItem!
     @IBOutlet weak var redoButton: UIBarButtonItem!
-    
+
     private final let defaultSettingsWidth: CGFloat = 240
     private final let defaultPagesOverViewWidth: CGFloat = 180
 
     var isFullScreen = false
-    
+
     weak var pagesOverviewController: PagesOverviewTableViewController?
     var isLoadingImage = false
-    
+
     var document: Document? {
         get {
             return DocumentInstance.sharedInstance.document
@@ -41,7 +41,7 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
         updateUndoRedoButtons()
         isLoadingImage = false
     }
-    
+
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         titleTextField.delegate = self
@@ -78,11 +78,11 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("updateUndoRedoButtons"), name: NSUndoManagerDidRedoChangeNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("updateUndoRedoButtons"), name: NSUndoManagerCheckpointNotification, object: nil)
     }
-    
+
     func removeNotifications() {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
-    
+
     // MARK: - Actions
 
     @IBAction func handleDrawButtonPressed(sender: AnyObject) {
@@ -115,20 +115,20 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
         }, completion: nil)
 
     }
-    
+
     @IBAction func handleUndoButtonPressed(sender: AnyObject) {
         undoManager?.undo()
     }
-    
+
     @IBAction func handleRedoButtonPressed(sender: AnyObject) {
         undoManager?.redo()
     }
-    
+
     func updateUndoRedoButtons() {
         redoButton.enabled = undoManager?.canRedo ?? false
         undoButton.enabled = undoManager?.canUndo ?? false
     }
-    
+
     // MARK: - Navigation
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -251,15 +251,15 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
             textField.borderStyle = .None
         }
     }
-    
+
     // MARK: - ImportDataViewControllerDelegate
-    
+
     func addEmptyPage() {
         document?.addEmptyPage()
 
         navigationController?.dismissViewControllerAnimated(true, completion: nil)
     }
-    
+
     func addTextField() {
         if let textLayer = DocumentInstance.sharedInstance.currentPage?.addTextLayer("") {
             if let currentPageView = PagesTableViewController.sharedInstance?.currentPageView() {
@@ -270,12 +270,12 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
         }
         navigationController?.dismissViewControllerAnimated(true, completion: nil)
     }
-    
+
     func addPDF(url: NSURL) {
         document?.addPDF(url)
         navigationController?.dismissViewControllerAnimated(true, completion: nil)
     }
-    
+
     func addImage(image: UIImage) {
         if let imageLayer = DocumentInstance.sharedInstance.currentPage?.addImageLayer(image) {
             if let currentPageView = PagesTableViewController.sharedInstance?.currentPageView() {
@@ -286,7 +286,7 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
         }
         navigationController?.dismissViewControllerAnimated(true, completion: nil)
     }
-    
+
     func dismiss() {
         navigationController?.dismissViewControllerAnimated(true, completion: nil)
     }

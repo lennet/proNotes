@@ -9,7 +9,7 @@
 import UIKit
 
 extension CGFloat {
-    
+
     func toDregees() -> CGFloat {
         return self * 180 / π;
     }
@@ -17,7 +17,7 @@ extension CGFloat {
     func toRadians() -> CGFloat {
         return self * π / 180
     }
-    
+
     func normalized(min: CGFloat, max: CGFloat) -> CGFloat {
         return (self - min) / (max - min)
     }

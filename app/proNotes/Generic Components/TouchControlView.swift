@@ -39,7 +39,7 @@ class TouchControlView: UIView {
     // FIXME fix proportionalResize
     var proportionalResize = false
     var widthResizingOnly = false
-    
+
     var oldFrame: CGRect?
     var selectedTouchControl = TouchControl.None
 

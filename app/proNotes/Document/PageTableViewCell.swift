@@ -11,7 +11,7 @@ import UIKit
 class PageTableViewCell: UITableViewCell {
 
     static let identifier = "PageTableViewCellIdentifier"
-    
+
     @IBOutlet weak var pageView: PageView!
     weak var tableView: UITableView?
 
@@ -20,12 +20,12 @@ class PageTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+
         backgroundColor = UIColor.clearColor()
 
         heightConstraint = pageView.getConstraint(.Height)
         widthConstraint = pageView.getConstraint(.Width)
-        
+
         deactivateDelaysContentTouches()
     }
 

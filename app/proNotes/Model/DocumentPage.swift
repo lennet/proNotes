@@ -13,7 +13,7 @@ class DocumentPage: NSObject, NSCoding {
     private final let indexKey = "index"
     private final let sizeKey = "size"
     private final let layersKey = "layers"
-    
+
     var layers: [DocumentLayer]
     var index = 0
     var size = CGSize.dinA4()
@@ -111,26 +111,26 @@ class DocumentPage: NSObject, NSCoding {
             currentLayer.index = index
         }
     }
-    
+
     override func isEqual(object: AnyObject?) -> Bool {
         guard let page = object as? DocumentPage else {
             return false
         }
-        
+
         guard page.index == self.index else {
             return false
         }
-        
+
         guard page.layers.count == layers.count else {
             return false
         }
 
-        for i in 0..<layers.count {
+        for i in 0 ..< layers.count {
             if self[i] != page[i] {
                 return false
             }
         }
-        
+
         return true
     }
 

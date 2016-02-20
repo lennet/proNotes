@@ -11,6 +11,7 @@ import UIKit
 @objc
 protocol DocumentInstanceDelegate: class {
     optional func currentPageDidChange(page: DocumentPage)
+
     optional func didAddPage(index: NSInteger)
 }
 
@@ -24,7 +25,7 @@ class DocumentInstance: NSObject {
             return PagesTableViewController.sharedInstance?.undoManager
         }
     }
-    
+
     weak var currentPage: DocumentPage? {
         didSet {
             if currentPage != nil {
@@ -100,13 +101,13 @@ class DocumentInstance: NSObject {
     func save(completionHandler: ((Bool) -> Void)?) {
         document?.saveToURL(document!.fileURL, forSaveOperation: .ForOverwriting, completionHandler: completionHandler)
     }
-    
+
     // MARK: - NSUndoManager
-    
+
     func registerUndoAction(object: AnyObject?, pageIndex: Int, layerIndex: Int) {
         undoManager?.prepareWithInvocationTarget(self).undoAction(object, pageIndex: pageIndex, layerIndex: layerIndex)
     }
-    
+
     func undoAction(object: AnyObject?, pageIndex: Int, layerIndex: Int) {
         if let pageView = PagesTableViewController.sharedInstance?.currentPageView() {
             if pageView.page?.index == pageIndex {
@@ -116,7 +117,7 @@ class DocumentInstance: NSObject {
                 }
             }
         }
-        
+
         // Swift 😍
         document?[pageIndex]?[layerIndex]?.undoAction(object)
 
@@ -145,7 +146,7 @@ class DocumentInstance: NSObject {
             delegate.currentPageDidChange?(page)
         }
     }
-    
+
     func informDelegateDidAddPage(index: NSInteger) {
         for case let delegate as DocumentInstanceDelegate  in delegates {
             delegate.didAddPage?(index)

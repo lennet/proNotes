@@ -67,7 +67,7 @@ class Document: UIDocument {
             _pages = newValue
         }
     }
-    
+
     subscript(pageIndex: Int) -> DocumentPage? {
         get {
             if pageIndex < pages.count {
@@ -132,11 +132,11 @@ class Document: UIDocument {
 
         return data
     }
-    
+
     func getNumberOfPages() -> Int {
         return pages.count;
     }
-    
+
     func getMaxWidth() -> CGFloat {
         return (pages.sort({ $0.size.width > $1.size.width }).first?.size.width ?? 0)
     }
@@ -147,29 +147,29 @@ class Document: UIDocument {
         guard let pdf = CGPDFDocumentCreateWithURL(url as CFURLRef) else {
             return
         }
-        
+
         let numberOfPages = CGPDFDocumentGetNumberOfPages(pdf)
-        for i in 1 ..< numberOfPages+1 {
+        for i in 1 ..< numberOfPages + 1 {
             if let pdfData = PDFUtility.getPageAsData(i, document: pdf) {
                 let size = PDFUtility.getPDFRect(pdf, pageIndex: i).size
                 let page = DocumentPage(pdfData: pdfData, index: pages.count, pdfSize: size)
                 pages.append(page)
             }
         }
-        DocumentInstance.sharedInstance.informDelegateDidAddPage(pages.count-1)
+        DocumentInstance.sharedInstance.informDelegateDidAddPage(pages.count - 1)
     }
 
     func addEmptyPage() {
         let page = DocumentPage(index: pages.count)
         pages.append(page)
-        DocumentInstance.sharedInstance.informDelegateDidAddPage(pages.count-1)
+        DocumentInstance.sharedInstance.informDelegateDidAddPage(pages.count - 1)
     }
-    
+
     func swapPagePositions(firstIndex: Int, secondIndex: Int) {
         guard _pages != nil else {
             return
         }
-        
+
         if firstIndex != secondIndex && firstIndex >= 0 && secondIndex >= 0 && firstIndex < pages.count && secondIndex < pages.count {
             let tmp = firstIndex
             pages[firstIndex].index = secondIndex
@@ -177,5 +177,5 @@ class Document: UIDocument {
             swap(&_pages![firstIndex], &_pages![secondIndex])
         }
     }
-    
+
 }

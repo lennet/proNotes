@@ -20,10 +20,13 @@ enum RenameError: ErrorType {
 protocol FileManagerDelegate: class {
 
     func reloadObjects()
+
     func reloadObjectAtIndex(index: Int)
+
     func insertObjectAtIndex(index: Int)
+
     func removeObjectAtIndex(index: Int)
-    
+
 }
 
 class FileManager: NSObject {
@@ -192,7 +195,7 @@ class FileManager: NSObject {
             let state = document.documentState
             let version = NSFileVersion.currentVersionOfItemAtURL(fileURL)
             document.addEmptyPage()
-            
+
             document.closeWithCompletionHandler({
                 (sucess) -> Void in
                 dispatch_async(dispatch_get_main_queue(), {

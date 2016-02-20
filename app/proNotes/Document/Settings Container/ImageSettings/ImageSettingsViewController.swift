@@ -85,7 +85,7 @@ class ImageSettingsViewController: SettingsBaseViewController {
             ImageSettingsViewController.delegate?.updateImage(image)
         }
     }
-    
+
     override func update() {
         cropImageView.image = ImageSettingsViewController.delegate?.getImage()
     }

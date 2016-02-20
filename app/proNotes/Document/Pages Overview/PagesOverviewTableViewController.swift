@@ -29,7 +29,7 @@ class PagesOverviewTableViewController: UITableViewController, DocumentInstanceD
         DocumentInstance.sharedInstance.addDelegate(self)
         tableView.reloadData()
     }
-    
+
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         DocumentInstance.sharedInstance.removeDelegate(self)
@@ -69,7 +69,7 @@ class PagesOverviewTableViewController: UITableViewController, DocumentInstanceD
     }
 
     // MARK: - DocumentSynchronizerDelegate
-    
+
     func didAddPage(index: NSInteger) {
         if index < tableView.numberOfRowsInSection(0) {
             let indexPath = NSIndexPath(forRow: index, inSection: 0)
@@ -78,5 +78,5 @@ class PagesOverviewTableViewController: UITableViewController, DocumentInstanceD
             tableView.reloadData()
         }
     }
-    
+
 }

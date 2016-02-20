@@ -22,6 +22,11 @@
 		981CF9AE1C4AC3BE003BA892 /* DocumentOverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981CF9AD1C4AC3BE003BA892 /* DocumentOverviewViewController.swift */; };
 		98262C101C22C29A00B420A8 /* SettingsBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98262C0F1C22C29A00B420A8 /* SettingsBaseViewController.swift */; };
 		98262C121C22D96A00B420A8 /* PageSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98262C111C22D96A00B420A8 /* PageSubView.swift */; };
+		9829ECD11C791E9F00A64009 /* MovableLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9829ECD01C791E9F00A64009 /* MovableLayer.swift */; };
+		9829ECD41C791ED400A64009 /* ImageLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9829ECD31C791ED400A64009 /* ImageLayer.swift */; };
+		9829ECD61C791EF500A64009 /* TextLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9829ECD51C791EF500A64009 /* TextLayer.swift */; };
+		9829ECD81C791F0C00A64009 /* DocumentPDFLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9829ECD71C791F0C00A64009 /* DocumentPDFLayer.swift */; };
+		9829ECDA1C791F2700A64009 /* DocumentDrawLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9829ECD91C791F2700A64009 /* DocumentDrawLayer.swift */; };
 		98312D661C0B65E500F3B1CB /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98312D651C0B65E500F3B1CB /* PageView.swift */; };
 		98312D691C0B79F200F3B1CB /* DocumentInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98312D681C0B79F200F3B1CB /* DocumentInstance.swift */; };
 		983985961C7267D8000B6005 /* CGPDFDocumentExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983985951C7267D8000B6005 /* CGPDFDocumentExtension.swift */; };
@@ -104,6 +109,11 @@
 		981CF9AD1C4AC3BE003BA892 /* DocumentOverviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentOverviewViewController.swift; sourceTree = "<group>"; };
 		98262C0F1C22C29A00B420A8 /* SettingsBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsBaseViewController.swift; sourceTree = "<group>"; };
 		98262C111C22D96A00B420A8 /* PageSubView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageSubView.swift; sourceTree = "<group>"; };
+		9829ECD01C791E9F00A64009 /* MovableLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovableLayer.swift; sourceTree = "<group>"; };
+		9829ECD31C791ED400A64009 /* ImageLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageLayer.swift; sourceTree = "<group>"; };
+		9829ECD51C791EF500A64009 /* TextLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextLayer.swift; sourceTree = "<group>"; };
+		9829ECD71C791F0C00A64009 /* DocumentPDFLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentPDFLayer.swift; sourceTree = "<group>"; };
+		9829ECD91C791F2700A64009 /* DocumentDrawLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentDrawLayer.swift; sourceTree = "<group>"; };
 		98312D651C0B65E500F3B1CB /* PageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
 		98312D681C0B79F200F3B1CB /* DocumentInstance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentInstance.swift; sourceTree = "<group>"; };
 		983985951C7267D8000B6005 /* CGPDFDocumentExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGPDFDocumentExtension.swift; sourceTree = "<group>"; };
@@ -230,6 +240,19 @@
 			path = DocumentOverview;
 			sourceTree = "<group>";
 		};
+		9829ECD21C791EB600A64009 /* DocumentLayer */ = {
+			isa = PBXGroup;
+			children = (
+				9829ECD91C791F2700A64009 /* DocumentDrawLayer.swift */,
+				98A57C3C1C1DB2A400E6C5DF /* DocumentLayer.swift */,
+				9829ECD71C791F0C00A64009 /* DocumentPDFLayer.swift */,
+				9829ECD31C791ED400A64009 /* ImageLayer.swift */,
+				9829ECD01C791E9F00A64009 /* MovableLayer.swift */,
+				9829ECD51C791EF500A64009 /* TextLayer.swift */,
+			);
+			path = DocumentLayer;
+			sourceTree = "<group>";
+		};
 		982FD9EC1C18C92F00058BCF /* Pages Overview */ = {
 			isa = PBXGroup;
 			children = (
@@ -270,10 +293,10 @@
 				980A3F341C22B2010070C618 /* ColorPicker */,
 				986D605D1C2C2D700065D71B /* CircleView.swift */,
 				9854310E1C52C4EE0098DAC1 /* CloudDownloadingIndicator.swift */,
+				9896A6861C77906700061986 /* CustomDocumentPickerViewController.swift */,
 				986D605A1C2B21140065D71B /* CustomScrollView.swift */,
 				98AD15E81C49BBDC00EE94A1 /* ReordableTableView.swift */,
 				984242AA1C3EDD0900F90455 /* TouchControlView.swift */,
-				9896A6861C77906700061986 /* CustomDocumentPickerViewController.swift */,
 			);
 			path = "Generic Components";
 			sourceTree = "<group>";
@@ -281,9 +304,9 @@
 		987F6A1B1C74A79500572C2F /* ImportViewController */ = {
 			isa = PBXGroup;
 			children = (
-				987F6A1C1C74A7B600572C2F /* ImportDataViewController.swift */,
 				987F6A1E1C74A9FC00572C2F /* ImportDataMainTableViewCell.swift */,
 				987F6A201C74AA0800572C2F /* ImportDataSubTableViewCell.swift */,
+				987F6A1C1C74A7B600572C2F /* ImportDataViewController.swift */,
 			);
 			path = ImportViewController;
 			sourceTree = "<group>";
@@ -291,8 +314,8 @@
 		98A57C3B1C1DB29200E6C5DF /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				9829ECD21C791EB600A64009 /* DocumentLayer */,
 				98D8C0B61C0B116F0026EECE /* Document.swift */,
-				98A57C3C1C1DB2A400E6C5DF /* DocumentLayer.swift */,
 				98E0D4071C4C0F5500EF49FD /* DocumentMetaData.swift */,
 				98A57C3E1C1DB2BC00E6C5DF /* DocumentPage.swift */,
 				98E0D4031C4C0CA700EF49FD /* DocumentsOverviewObject.swift */,
@@ -533,6 +556,8 @@
 				98BABB901C1B16A400D9C938 /* PageInfoLayerTableViewCell.swift in Sources */,
 				98101BD71C0A5945001E9555 /* PageTableViewCell.swift in Sources */,
 				98F2E3EE1C1A1EF1008A5C6C /* MovableImageView.swift in Sources */,
+				9829ECD61C791EF500A64009 /* TextLayer.swift in Sources */,
+				9829ECD41C791ED400A64009 /* ImageLayer.swift in Sources */,
 				98D2DA821C6BDE4500B3C76C /* DocumentExporter.swift in Sources */,
 				984242AB1C3EDD0900F90455 /* TouchControlView.swift in Sources */,
 				98E33D4F1C37E8D10065B590 /* CropImageView.swift in Sources */,
@@ -547,6 +572,7 @@
 				98312D661C0B65E500F3B1CB /* PageView.swift in Sources */,
 				98F2E3EA1C1A1ED2008A5C6C /* UIStoryboardExtension.swift in Sources */,
 				98E0D4061C4C0D3C00EF49FD /* NSURLExtension.swift in Sources */,
+				9829ECD11C791E9F00A64009 /* MovableLayer.swift in Sources */,
 				9854310F1C52C4EE0098DAC1 /* CloudDownloadingIndicator.swift in Sources */,
 				987F6A1D1C74A7B600572C2F /* ImportDataViewController.swift in Sources */,
 				98A57C3F1C1DB2BC00E6C5DF /* DocumentPage.swift in Sources */,
@@ -576,6 +602,7 @@
 				98D8C0BA1C0B11750026EECE /* DrawingSettingsViewController.swift in Sources */,
 				986D60601C2C34BD0065D71B /* CALayerExtension.swift in Sources */,
 				98101BD21C0A58AA001E9555 /* PagesOverviewTableViewCell.swift in Sources */,
+				9829ECD81C791F0C00A64009 /* DocumentPDFLayer.swift in Sources */,
 				980A3F331C22B1FC0070C618 /* ColorPickerViewController.swift in Sources */,
 				984242AD1C3EE79900F90455 /* UIColorExtension.swift in Sources */,
 				98006AB91C1A1E8D0091E356 /* TextSettingsViewController.swift in Sources */,
@@ -583,6 +610,7 @@
 				98101BD91C0A5945001E9555 /* PDFView.swift in Sources */,
 				98262C121C22D96A00B420A8 /* PageSubView.swift in Sources */,
 				98D8C0BB1C0B11750026EECE /* DrawingView.swift in Sources */,
+				9829ECDA1C791F2700A64009 /* DocumentDrawLayer.swift in Sources */,
 				987487CB1C18DA45000309D8 /* MovableTextView.swift in Sources */,
 				98101BD31C0A58AA001E9555 /* PagesOverviewTableViewController.swift in Sources */,
 				98AD15E91C49BBDC00EE94A1 /* ReordableTableView.swift in Sources */,

@@ -9,7 +9,7 @@
 import UIKit
 
 extension UIView {
-    
+
     // MARK - AutoLayout
 
     func getConstraint(attribute: NSLayoutAttribute) -> NSLayoutConstraint? {
@@ -20,19 +20,19 @@ extension UIView {
         }
         return nil
     }
-    
+
     func deactivateConstraints() {
         for constraint in constraints {
             self.removeConstraint(constraint)
         }
     }
-    
+
     // MARK: - UITouch
-    
+
     var forceTouchAvailable: Bool {
         return traitCollection.forceTouchCapability == .Available
     }
-    
+
     // MARK: - Sub/ Parentviews
 
     func setSubviewsAlpha(startIndex: Int, alphaValue: CGFloat) {
@@ -41,7 +41,7 @@ extension UIView {
             subview.alpha = alphaValue
         }
     }
-    
+
     var parentViewController: UIViewController? {
         var parentResponder: UIResponder? = self
         while parentResponder != nil {
@@ -52,9 +52,9 @@ extension UIView {
         }
         return nil
     }
-    
+
     // MARK: - Snapshot
-    
+
     func toImage() -> UIImage {
         UIGraphicsBeginImageContextWithOptions(self.bounds.size, false, 0);
         self.layer.renderInContext(UIGraphicsGetCurrentContext()!)
@@ -62,7 +62,7 @@ extension UIView {
         UIGraphicsEndImageContext()
         return snapshot
     }
-    
+
     func toImageView() -> UIView {
         let snapshotView = UIImageView(image: toImage())
         snapshotView.layer.masksToBounds = false
@@ -71,9 +71,9 @@ extension UIView {
         snapshotView.layer.shadowOpacity = 0.4
         return snapshotView
     }
-    
+
     // MARK: - Gesture Recognizer
-    
+
     func removeAllGestureRecognizer() {
         if gestureRecognizers != nil {
             for recognizer in gestureRecognizers! {
@@ -81,12 +81,12 @@ extension UIView {
             }
         }
     }
-    
+
     func deactivateDelaysContentTouches() {
         for case let scrollView as UIScrollView in self.subviews {
             scrollView.delaysContentTouches = false
         }
-        
+
 
         (self as? UIScrollView)?.delaysContentTouches = false
     }

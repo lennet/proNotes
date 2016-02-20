@@ -23,7 +23,7 @@ class SettingsBaseViewController: UIViewController, ColorPickerDelegate {
         // Dispose of any resources that can be recreated.
     }
 
-    
+
     func update() {
         // empty base Implementation
     }

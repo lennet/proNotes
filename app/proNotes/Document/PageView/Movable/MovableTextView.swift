@@ -32,12 +32,12 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
             textView.translatesAutoresizingMaskIntoConstraints = false
             textView.backgroundColor = UIColor.clearColor()
             textView.delegate = self
-            
+
             addSubview(textView)
 
             self.textView = textView
         }
-        
+
 
         textView?.text = text
     }
@@ -99,7 +99,7 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
         textView?.text = text
         updateText(text)
     }
-    
+
     func updateText(newText: String) {
         if let textLayer = movableLayer as? TextLayer {
             if textLayer.docPage != nil {

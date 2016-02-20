@@ -41,7 +41,7 @@ class PageInfoViewController: SettingsBaseViewController, UITableViewDataSource,
         DocumentInstance.sharedInstance.addDelegate(self)
         layoutTableView()
     }
-    
+
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         DocumentInstance.sharedInstance.removeDelegate(self)
@@ -133,9 +133,10 @@ class PageInfoViewController: SettingsBaseViewController, UITableViewDataSource,
     // MARK: - PageInfoLayerTableViewCellDelegate
 
     func didRemovedLayer() {
-        UIView.animateWithDuration(standardAnimationDuration, delay: 0, options: .CurveEaseInOut, animations: { () -> Void in
+        UIView.animateWithDuration(standardAnimationDuration, delay: 0, options: .CurveEaseInOut, animations: {
+            () -> Void in
             self.layoutTableView()
-            }, completion: nil)
+        }, completion: nil)
     }
-    
+
 }

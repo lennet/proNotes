@@ -9,9 +9,9 @@
 import UIKit
 
 class ImportDataMainTableViewCell: UITableViewCell {
-    
+
     static let cellIdentifier = "ImportDataMainCellIdentifier"
-    
+
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var accessoryImageView: UIImageView!
 
@@ -19,11 +19,11 @@ class ImportDataMainTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-    
+
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
+
         // Configure the view for the selected state
     }
-    
+
 }
