@@ -8,13 +8,7 @@
 
 import UIKit
 
-protocol PDFViewDelegate: class {
-    func updateHeight(height: CGFloat)
-}
-
 class PDFView: UIView, PageSubView {
-
-    weak var delegate: PDFViewDelegate?
 
     var pdf: CGPDFDocument?
 
@@ -37,26 +31,9 @@ class PDFView: UIView, PageSubView {
             CGContextTranslateCTM(context, 0, -rect.size.height)
 
             let mediaRect = CGPDFPageGetBoxRect(page, CGPDFBox.CropBox)
-            delegate?.updateHeight(mediaRect.height)
-
-            let heightRatio = rect.size.height / mediaRect.size.height
-            let widthRatio = rect.size.width / mediaRect.size.width
-
-            var height: CGFloat = 0
-
-            if heightRatio > widthRatio {
-                height = mediaRect.height * heightRatio
-                CGContextScaleCTM(context, heightRatio,
-                        heightRatio)
-            } else {
-                height = mediaRect.height * widthRatio
-                CGContextScaleCTM(context, widthRatio,
-                        widthRatio)
-            }
 
             CGContextTranslateCTM(context, -mediaRect.origin.x, -mediaRect.origin.y)
 
-            delegate?.updateHeight(height)
             CGContextDrawPDFPage(context, page);
         }
 

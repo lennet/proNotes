@@ -12,6 +12,8 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
    
    weak static var sharedInstance: PagesTableViewController?
    
+   private let defaultMargin: CGFloat = 10
+   
    @IBOutlet weak var tableView: UITableView!
    @IBOutlet weak var scrollView: UIScrollView!
    @IBOutlet weak var tableViewWidth: NSLayoutConstraint!
@@ -59,7 +61,7 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
       scrollView.maximumZoomScale = minZoomScale * 5
       scrollView.zoomScale = minZoomScale
       scrollView.panGestureRecognizer.minimumNumberOfTouches = 2
-      scrollView.delaysContentTouches = false
+      scrollView.deactivateDelaysContentTouches()
       scrollView.showsVerticalScrollIndicator = false
       UIView.animateWithDuration(standardAnimationDuration, delay: 0, usingSpringWithDamping: 0.85, initialSpringVelocity: 5, options: .CurveEaseInOut, animations: {
          () -> Void in
@@ -68,16 +70,8 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
    }
    
    func setUpTableView() {
-      //        tableView = UITableView(frame: CGRect(origin: CGPointZero, size: CGSize.dinA4())) //TODO add default padding
-      //        tableView.dataSource = self
-      //        tableView.delegate = self
-      //        scrollView.addSubview(tableView)
-      
-      tableViewWidth?.constant = CGSize.dinA4().width;
-      for case let scrollView as UIScrollView in tableView.subviews {
-         scrollView.delaysContentTouches = false
-      }
-      tableView.delaysContentTouches = false
+      tableViewWidth?.constant = (document?.getMaxWidth() ?? 0) + 2 * defaultMargin
+      tableView.deactivateDelaysContentTouches()
       
       view.layoutSubviews()
    }
@@ -152,7 +146,8 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
    }
    
    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-      return UIScreen.mainScreen().bounds.size.height
+      let pageHeight = (document?[indexPath.row]?.size.height ?? 0)
+      return pageHeight + 2 * defaultMargin
    }
    
    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -165,7 +160,6 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
          cell.heightConstraint?.constant = currentPage.size.height
          cell.pageView.page = currentPage
          cell.pageView.setUpLayer()
-         cell.pageView.pdfViewDelegate = cell
          cell.tableView = tableView
       }
       

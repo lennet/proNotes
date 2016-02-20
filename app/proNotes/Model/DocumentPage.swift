@@ -24,10 +24,11 @@ class DocumentPage: NSObject, NSCoding {
         self.index = index
     }
 
-    init(pdfData: NSData, index: Int) {
+    init(pdfData: NSData, index: Int, pdfSize: CGSize) {
         layers = [DocumentLayer]()
-        super.init()
+        self.size = pdfSize
         self.index = index
+        super.init()
         addPDFLayer(pdfData)
     }
 

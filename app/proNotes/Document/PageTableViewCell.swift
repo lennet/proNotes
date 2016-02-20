@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PageTableViewCell: UITableViewCell, PDFViewDelegate {
+class PageTableViewCell: UITableViewCell {
 
     static let identifier = "PageTableViewCellIdentifier"
     
@@ -20,24 +20,13 @@ class PageTableViewCell: UITableViewCell, PDFViewDelegate {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        
         backgroundColor = UIColor.clearColor()
 
         heightConstraint = pageView.getConstraint(.Height)
         widthConstraint = pageView.getConstraint(.Width)
-        updateHeight(UIScreen.mainScreen().bounds.height)
         
-        for case let scrollView as UIScrollView in self.subviews {
-            scrollView.delaysContentTouches = false
-        }
-    }
-
-    func updateHeight(height: CGFloat) {
-        if height != heightConstraint?.constant {
-            heightConstraint?.constant = height
-            setNeedsLayout()
-            layoutIfNeeded()
-            pageView.setNeedsDisplay()
-        }
+        deactivateDelaysContentTouches()
     }
 
 }

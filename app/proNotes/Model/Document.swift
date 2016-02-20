@@ -136,6 +136,10 @@ class Document: UIDocument {
     func getNumberOfPages() -> Int {
         return pages.count;
     }
+    
+    func getMaxWidth() -> CGFloat {
+        return (pages.sort({ $0.size.width > $1.size.width }).first?.size.width ?? 0)
+    }
 
     // MARK - Pages Manipulation
 
@@ -147,7 +151,8 @@ class Document: UIDocument {
         let numberOfPages = CGPDFDocumentGetNumberOfPages(pdf)
         for i in 1 ..< numberOfPages+1 {
             if let pdfData = PDFUtility.getPageAsData(i, document: pdf) {
-                let page = DocumentPage(pdfData: pdfData, index: pages.count)
+                let size = PDFUtility.getPDFRect(pdf, pageIndex: i).size
+                let page = DocumentPage(pdfData: pdfData, index: pages.count, pdfSize: size)
                 pages.append(page)
             }
         }

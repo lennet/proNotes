@@ -24,7 +24,7 @@ class PDFUtility: NSObject {
     
     class func getPageAsData(pageIndex: Int, document: CGPDFDocument) -> CFData? {
         if let page = CGPDFDocumentGetPage(document, pageIndex) {
-            var mediaBox = CGPDFPageGetBoxRect(page, .MediaBox)
+            var mediaBox = CGPDFPageGetBoxRect(page, .CropBox)
             let data = CFDataCreateMutable(kCFAllocatorDefault, 0)
             let consumer = CGDataConsumerCreateWithCFData(data)
             let context = CGPDFContextCreate(consumer, &mediaBox, nil)
@@ -37,6 +37,11 @@ class PDFUtility: NSObject {
         return nil
     }
     
-
+    class func getPDFRect(document: CGPDFDocument, pageIndex: Int) -> CGRect{
+        if let page = CGPDFDocumentGetPage(document, pageIndex) {
+            return CGPDFPageGetBoxRect(page, .CropBox)
+        }
+        return CGRect.zero
+    }
     
 }

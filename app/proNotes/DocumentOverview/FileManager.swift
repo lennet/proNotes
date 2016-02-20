@@ -191,7 +191,8 @@ class FileManager: NSObject {
             let fileURL = document.fileURL
             let state = document.documentState
             let version = NSFileVersion.currentVersionOfItemAtURL(fileURL)
-
+            document.addEmptyPage()
+            
             document.closeWithCompletionHandler({
                 (sucess) -> Void in
                 dispatch_async(dispatch_get_main_queue(), {

@@ -81,5 +81,14 @@ extension UIView {
             }
         }
     }
+    
+    func deactivateDelaysContentTouches() {
+        for case let scrollView as UIScrollView in self.subviews {
+            scrollView.delaysContentTouches = false
+        }
+        
+
+        (self as? UIScrollView)?.delaysContentTouches = false
+    }
 
 }

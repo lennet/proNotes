@@ -47,13 +47,15 @@ class DocumentTests: XCTestCase {
         XCTAssertEqual(document[0]?[2]?.type, DocumentLayerType.Drawing)
     }
     
-    func testAddPages() {
+    func testAddPage() {
         document.addEmptyPage()
         
         pagesCount += 1
         XCTAssertEqual(document.pages.count, pagesCount)
         XCTAssertEqual(document.pages.last?.layers.count, 0)
-        
+    }
+    
+    func testAddPDF() {
         let pdfURL = NSBundle(forClass: self.dynamicType).URLForResource("test", withExtension: "pdf")!
         document.addPDF(pdfURL)
         
@@ -67,6 +69,12 @@ class DocumentTests: XCTestCase {
         XCTAssertEqual(document.pages[pagesCount-2].layers.first?.type, DocumentLayerType.PDF)
         XCTAssertEqual(document.pages[pagesCount-3].layers.first?.type, DocumentLayerType.PDF)
         
+        let lastPage = document.pages.last!
+        let pdfLayer = lastPage.layers.first as! DocumentPDFLayer
+        let pdfDocument = PDFUtility.createPDFFromData(pdfLayer.pdfData! as CFData)
+        let pdfSize = PDFUtility.getPDFRect(pdfDocument!, pageIndex: 1).size
+        
+        XCTAssertEqual(pdfSize, lastPage.size)
     }
     
     func testSwapPages() {

@@ -10,8 +10,6 @@ import UIKit
 
 class PageView: UIView, UIGestureRecognizerDelegate {
 
-    weak var pdfViewDelegate: PDFViewDelegate?
-
     var panGestureRecognizer: UIPanGestureRecognizer?
     var tapGestureRecognizer: UITapGestureRecognizer?
     var doubleTapGestureRecognizer: UITapGestureRecognizer?
@@ -81,7 +79,12 @@ class PageView: UIView, UIGestureRecognizerDelegate {
     }
 
     func setUpLayer() {
-
+        guard page != nil else {
+            return
+        }
+        
+        frame.size = page!.size
+        
         for view in subviews {
             // could be improved with recycling existings views
             view.removeFromSuperview()
@@ -108,7 +111,6 @@ class PageView: UIView, UIGestureRecognizerDelegate {
     func addPDFView(pdfLayer: DocumentPDFLayer) {
         let view = PDFView(pdfData: pdfLayer.pdfData!, frame: bounds)
         view.backgroundColor = UIColor.clearColor()
-        view.delegate = pdfViewDelegate
         view.hidden = pdfLayer.hidden
         addSubview(view)
     }
