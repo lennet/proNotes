@@ -92,7 +92,6 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
     @IBAction func handlePageInfoButtonPressed(sender: AnyObject) {
         PagesTableViewController.sharedInstance?.currentPageView()?.deselectSelectedSubview()
         SettingsViewController.sharedInstance?.currentSettingsType = .PageInfo
-        DocumentExporter.exportAsImages(document!, sourceView: nil, barButtonItem: sender as? UIBarButtonItem)
     }
 
     @IBAction func handleFullscreenToggleButtonPressed(sender: UIBarButtonItem) {

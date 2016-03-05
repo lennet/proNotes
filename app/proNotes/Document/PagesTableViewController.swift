@@ -8,6 +8,8 @@
 
 import UIKit
 
+// todo handle documentmaxwidth changes maybe in cell for row at indexpath
+
 class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource {
 
     weak static var sharedInstance: PagesTableViewController?

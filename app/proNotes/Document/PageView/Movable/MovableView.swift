@@ -120,6 +120,5 @@ class MovableView: TouchControlView, PageSubView {
         }, completion: nil)
         updateFrameChanges()
     }
-
-
+    
 }

@@ -21,6 +21,14 @@ class TouchControlView: UIView {
         case BottomSide
         case Center
         case None
+        
+        func isRight() -> Bool {
+            return self == .TopRightCorner || self == .RightSide || self == .BottomRightCorner
+        }
+        
+        func isBottom() -> Bool {
+            return self == .BottomSide || self == .BottomLeftCorner || self == .BottomRightCorner
+        }
     }
 
     var controlLength: CGFloat = 22 {
@@ -35,10 +43,23 @@ class TouchControlView: UIView {
             setNeedsDisplay()
         }
     }
-
-    // FIXME fix proportionalResize
-    var proportionalResize = false
-    var widthResizingOnly = false
+    
+    // ProportionalResize & WidthResizingOnly is not possible
+    
+    var proportionalResize = false {
+        didSet {
+            if proportionalResize && widthResizingOnly {
+                widthResizingOnly = false
+            }
+        }
+    }
+    var widthResizingOnly = false {
+        didSet {
+            if widthResizingOnly && proportionalResize {
+                proportionalResize = false
+            }
+        }
+    }
 
     var oldFrame: CGRect?
     var selectedTouchControl = TouchControl.None
@@ -71,13 +92,8 @@ class TouchControlView: UIView {
     }
 
     func touchedControlRect(touchLocation: CGPoint) -> TouchControl {
-        for (touchControl, rect) in getControlRects() {
-            if rect.contains(touchLocation) {
-                if widthResizingOnly && touchControl != .LeftSide && touchControl != .RightSide && touchControl != .Center {
-                    return .None
-                }
-                return touchControl
-            }
+        for (touchControl, rect) in getControlRects() where rect.contains(touchLocation) {
+            return touchControl
         }
         return .None
     }
@@ -126,93 +142,81 @@ class TouchControlView: UIView {
 
     func handlePanTranslation(translation: CGPoint) -> CGRect {
         var controlableRect = getMovableRect()
+        var sizeOffset = CGSize(width: getWidthOffset(translation, control:selectedTouchControl), height: widthResizingOnly ? 0 : getHeightOffset(translation, control: selectedTouchControl))
 
-        switch selectedTouchControl {
-        case .TopLeftCorner:
-            controlableRect.origin.addPoint(translation)
-            if proportionalResize {
-                let resizeValue = (translation.x + translation.y) / 2
-                let ratio = controlableRect.size.width / controlableRect.size.height
-                controlableRect.size.width -= resizeValue
-                controlableRect.size.height -= resizeValue
-            } else {
-                controlableRect.size.width -= translation.x
-                controlableRect.size.height -= translation.y
-            }
-            break
-        case .TopRightCorner:
-            if proportionalResize {
-                let resizeValue = (translation.x + translation.y) / 2
-                controlableRect.origin.addPoint(CGPoint(x: resizeValue, y: resizeValue))
-                controlableRect.size.width += resizeValue
-                controlableRect.size.height -= resizeValue
-            } else {
-                controlableRect.origin.addPoint(CGPoint(x: 0, y: translation.y))
-                controlableRect.size.width += translation.x
-                controlableRect.size.height -= translation.y
-            }
-            break
-        case .BottomLeftCorner:
-            if proportionalResize {
-                let resizeValue = (translation.x + translation.y) / 2
-                controlableRect.origin.addPoint(CGPoint(x: translation.x, y: resizeValue))
-                controlableRect.size.width -= resizeValue
-                controlableRect.size.height += resizeValue
-            } else {
-                controlableRect.origin.addPoint(CGPoint(x: translation.x, y: 0))
-                controlableRect.size.width -= translation.x
-                controlableRect.size.height += translation.y
-            }
-            break
-        case .BottomRightCorner:
-            if proportionalResize {
-                let resizeValue = (translation.x + translation.y) / 2
-                controlableRect.size.width += resizeValue
-                controlableRect.size.height += resizeValue
-            } else {
-                controlableRect.size.width += translation.x
-                controlableRect.size.height += translation.y
-            }
-            break
-        case .TopSide:
-            controlableRect.origin.y += translation.y
-            controlableRect.size.height -= translation.y
-            if proportionalResize {
-                controlableRect.size.width -= translation.y
-                controlableRect.origin.x += translation.y / 2
-            }
-            break
-        case .LeftSide:
-            controlableRect.origin.addPoint(CGPoint(x: translation.x, y: 0))
-            controlableRect.size.width -= translation.x
-            if proportionalResize {
-                controlableRect.size.height -= translation.x
-                controlableRect.origin.y += translation.x / 2
-            }
-            break
-        case .RightSide:
-            controlableRect.size.width += translation.x
-            if proportionalResize {
-                controlableRect.size.height += translation.x
-                controlableRect.origin.y -= translation.x / 2
-            }
-            break
-        case .BottomSide:
-            controlableRect.size.height += translation.y
-            if proportionalResize {
-                controlableRect.size.width += translation.y
-                controlableRect.origin.x -= translation.y / 2
-            }
-            break
-        case .Center:
-            controlableRect.origin.addPoint(translation)
-            break
-        case .None:
-            break
+        if proportionalResize {
+            calculateProportionalSizeChange(&sizeOffset, originalSize: controlableRect.size)
         }
+        
+        sizeOffset.width = max(-controlableRect.size.width+1, sizeOffset.width)
+        sizeOffset.height = max(-controlableRect.size.height+1, sizeOffset.height)
+        
+        controlableRect.size.width += sizeOffset.width
+        controlableRect.size.height += sizeOffset.height
+        controlableRect.origin.addPoint(getOriginOffset(sizeOffset, translation: translation, control: selectedTouchControl, proportional: proportionalResize))
         return controlableRect
     }
+    
+    private func getHeightOffset(translation: CGPoint, control: TouchControl) -> CGFloat {
+        switch control {
+        case .TopLeftCorner, .TopRightCorner, .TopSide:
+            return -translation.y
+        case .BottomLeftCorner, .BottomRightCorner, .BottomSide:
+            return translation.y
+        default:
+            return 0
+        }
+    }
+    
+    private func getWidthOffset(translation: CGPoint, control: TouchControl) -> CGFloat {
+        switch control {
+        case .TopLeftCorner, .BottomLeftCorner, .LeftSide:
+            return -translation.x
+        case .TopRightCorner, .BottomRightCorner, .RightSide:
+            return translation.x
+        default:
+            return 0
+        }
+    }
+    
+    private func calculateProportionalSizeChange(inout sizeChange: CGSize, originalSize: CGSize) {
+        var ratio: CGFloat = 1
+        if sizeChange.width != 0 && sizeChange.height != 0 {
+            ratio = min(sizeChange.width / originalSize.width, sizeChange.width / originalSize.height)
+        } else if sizeChange.height != 0 {
+            ratio = sizeChange.height / originalSize.height
+        } else  if sizeChange.width != 0 {
+            ratio = sizeChange.width / originalSize.width
+        } else {
+            return
+        }
+        
+        sizeChange.width = originalSize.width * ratio
+        sizeChange.height = originalSize.height * ratio
+    
+    }
+    
+    private func getOriginOffset(sizeChange: CGSize, translation: CGPoint, control: TouchControl, proportional: Bool) -> CGPoint {
+        
+        var xOffset = control.isRight() ? 0 : -sizeChange.width
+        var yOffset = control.isBottom() ? 0 : -sizeChange.height
 
+        switch control {
+        case .Center:
+            return translation
+        case .TopSide, .BottomSide:
+            xOffset /= 2
+            break
+        case .LeftSide, .RightSide:
+            yOffset /= 2
+            break
+        default:
+            break
+        }
+        
+        return CGPoint(x: xOffset, y: yOffset)
+    }
+    
     func handlePanEnded() {
         selectedTouchControl = .None
     }

@@ -56,6 +56,8 @@ class DocumentPage: NSObject, NSCoding {
         aCoder.encodeObject(layers, forKey: layersKey)
         aCoder.encodeCGSize(size, forKey: sizeKey)
     }
+    
+    // MARK: - Add Layer
 
     func addDrawingLayer(image: UIImage?) -> DocumentDrawLayer {
         let drawLayer = DocumentDrawLayer(index: layers.count, image: image, docPage: self)
@@ -80,6 +82,8 @@ class DocumentPage: NSObject, NSCoding {
         layers.append(textLayer)
         return textLayer
     }
+    
+    // MARK: - LayerManipulation
 
     func changeLayerVisibility(hidden: Bool, layer: DocumentLayer) {
         if layer.index < layers.count {

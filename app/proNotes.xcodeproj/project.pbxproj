@@ -17,6 +17,7 @@
 		98101BD31C0A58AA001E9555 /* PagesOverviewTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98101BCF1C0A58AA001E9555 /* PagesOverviewTableViewController.swift */; };
 		98101BD71C0A5945001E9555 /* PageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98101BD41C0A5945001E9555 /* PageTableViewCell.swift */; };
 		98101BD91C0A5945001E9555 /* PDFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98101BD61C0A5945001E9555 /* PDFView.swift */; };
+		9816186F1C834AF700E1D5EA /* TouchControlViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9816186E1C834AF700E1D5EA /* TouchControlViewTests.swift */; };
 		981CF9A81C4AB04E003BA892 /* DocumentOverview.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 981CF9A71C4AB04E003BA892 /* DocumentOverview.storyboard */; };
 		981CF9AC1C4AC122003BA892 /* DocumentOverviewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981CF9AB1C4AC122003BA892 /* DocumentOverviewCollectionViewCell.swift */; };
 		981CF9AE1C4AC3BE003BA892 /* DocumentOverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981CF9AD1C4AC3BE003BA892 /* DocumentOverviewViewController.swift */; };
@@ -104,6 +105,7 @@
 		98101BCF1C0A58AA001E9555 /* PagesOverviewTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagesOverviewTableViewController.swift; sourceTree = "<group>"; };
 		98101BD41C0A5945001E9555 /* PageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageTableViewCell.swift; sourceTree = "<group>"; };
 		98101BD61C0A5945001E9555 /* PDFView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFView.swift; sourceTree = "<group>"; };
+		9816186E1C834AF700E1D5EA /* TouchControlViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchControlViewTests.swift; sourceTree = "<group>"; };
 		981CF9A71C4AB04E003BA892 /* DocumentOverview.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DocumentOverview.storyboard; sourceTree = "<group>"; };
 		981CF9AB1C4AC122003BA892 /* DocumentOverviewCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentOverviewCollectionViewCell.swift; sourceTree = "<group>"; };
 		981CF9AD1C4AC3BE003BA892 /* DocumentOverviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentOverviewViewController.swift; sourceTree = "<group>"; };
@@ -227,6 +229,16 @@
 				98006ABE1C1A1EAC0091E356 /* PagesTableViewController.swift */,
 			);
 			path = Document;
+			sourceTree = "<group>";
+		};
+		981618701C8382E600E1D5EA /* Test Resources */ = {
+			isa = PBXGroup;
+			children = (
+				98DBAA231C0799CB007EFFE5 /* Info.plist */,
+				98C2E2721C6FC069002F4ADC /* test.ProNote */,
+				98EB1B521C6D344100D104A4 /* test.pdf */,
+			);
+			name = "Test Resources";
 			sourceTree = "<group>";
 		};
 		981CF9A61C4AB034003BA892 /* DocumentOverview */ = {
@@ -423,9 +435,8 @@
 			children = (
 				98E4688C1C6E11AD00AC0E0A /* DocumentPageTests.swift */,
 				98EB1B501C6D319C00D104A4 /* DocumentTests.swift */,
-				98DBAA231C0799CB007EFFE5 /* Info.plist */,
-				98C2E2721C6FC069002F4ADC /* test.ProNote */,
-				98EB1B521C6D344100D104A4 /* test.pdf */,
+				981618701C8382E600E1D5EA /* Test Resources */,
+				9816186E1C834AF700E1D5EA /* TouchControlViewTests.swift */,
 			);
 			path = proNotesTests;
 			sourceTree = "<group>";
@@ -621,6 +632,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9816186F1C834AF700E1D5EA /* TouchControlViewTests.swift in Sources */,
 				98EB1B511C6D319C00D104A4 /* DocumentTests.swift in Sources */,
 				98E4688D1C6E11AD00AC0E0A /* DocumentPageTests.swift in Sources */,
 			);
