@@ -64,18 +64,27 @@ class PagesOverviewTableViewController: UITableViewController, DocumentInstanceD
         cell.numberLabel.text = String(indexPath.row + 1)
         cell.index = indexPath.row
         cell.delegate = pagesOverViewDelegate
+        cell.pageThumbView.setBackgroundImage(document?[indexPath.row]?.previewImage, forState: .Normal)
 
         return cell
     }
 
     // MARK: - DocumentSynchronizerDelegate
 
-    func didAddPage(index: NSInteger) {
+    func didAddPage(index: Int) {
         if index < tableView.numberOfRowsInSection(0) {
             let indexPath = NSIndexPath(forRow: index, inSection: 0)
             tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         } else {
             tableView.reloadData()
+        }
+    }
+    
+    func didUpdatePage(index: Int) {
+        document?.pages[index].removePreviewImage()
+        if index < tableView.numberOfRowsInSection(0) {
+            let indexPath = NSIndexPath(forRow: index, inSection: 0)
+            tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         }
     }
 

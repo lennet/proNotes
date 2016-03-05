@@ -97,7 +97,9 @@ class MovableView: TouchControlView, PageSubView {
     }
 
     func saveChanges() {
-        // empty Base implementation
+        if let pageIndex = movableLayer?.docPage.index {
+            DocumentInstance.sharedInstance.didUpdatePage(pageIndex)
+        }
     }
 
     func setUpSettingsViewController() {

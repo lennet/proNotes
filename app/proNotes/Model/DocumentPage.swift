@@ -17,6 +17,17 @@ class DocumentPage: NSObject, NSCoding {
     var layers: [DocumentLayer]
     var index = 0
     var size = CGSize.dinA4()
+    
+    private var _previewImage: UIImage?
+    var previewImage: UIImage? {
+        get {
+            if _previewImage == nil {
+                let pageView = PageView(page: self)
+                _previewImage = pageView.toThumbImage()
+            }
+            return _previewImage
+        }
+    }
 
     init(index: Int) {
         layers = [DocumentLayer]()
@@ -55,6 +66,10 @@ class DocumentPage: NSObject, NSCoding {
         aCoder.encodeInteger(index, forKey: indexKey)
         aCoder.encodeObject(layers, forKey: layersKey)
         aCoder.encodeCGSize(size, forKey: sizeKey)
+    }
+    
+    func removePreviewImage() {
+        _previewImage = nil
     }
     
     // MARK: - Add Layer

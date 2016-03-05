@@ -16,7 +16,7 @@ class PagesOverviewTableViewCell: UITableViewCell {
 
     static let identifier = "PagesOverViewTableViewCellIdentifier"
 
-    @IBOutlet weak var pageThumbView: UIView!
+    @IBOutlet weak var pageThumbView: UIButton!
     @IBOutlet weak var numberLabel: UILabel!
     var index = 0
     weak var delegate: PagesOverviewTableViewCellDelegate?

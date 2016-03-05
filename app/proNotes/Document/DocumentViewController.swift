@@ -56,7 +56,9 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
                 (Bool) -> Void in
             })
             removeNotifications()
+            undoManager?.removeAllActions()
         }
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -265,6 +267,9 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
                 currentPageView.addTextLayer(textLayer)
                 currentPageView.page = DocumentInstance.sharedInstance.currentPage
                 currentPageView.setLayerSelected(currentPageView.subviews.count - 1)
+                if let pageIndex = currentPageView.page?.index {
+                    DocumentInstance.sharedInstance.didUpdatePage(pageIndex)
+                }
             }
         }
         navigationController?.dismissViewControllerAnimated(true, completion: nil)
@@ -281,6 +286,9 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
                 currentPageView.addImageLayer(imageLayer)
                 currentPageView.page = DocumentInstance.sharedInstance.currentPage
                 currentPageView.setLayerSelected(currentPageView.subviews.count - 1)
+                if let pageIndex = currentPageView.page?.index {
+                    DocumentInstance.sharedInstance.didUpdatePage(pageIndex)
+                }
             }
         }
         navigationController?.dismissViewControllerAnimated(true, completion: nil)

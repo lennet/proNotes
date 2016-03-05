@@ -30,6 +30,16 @@ extension UIImage {
 
         return resultImage
     }
+    
+    func thumbImage() -> UIImage {
+        let newSize = sizeToFit(CGSize(width: 100, height: 100))
+        UIGraphicsBeginImageContextWithOptions( newSize, false, 1.0)
+        self.drawInRect(CGRect(origin: CGPoint.zero, size: newSize))
+        let resultImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return resultImage
+    }
 
     func sizeToFit(size: CGSize) -> CGSize {
         let widthRatio = self.size.width / size.width

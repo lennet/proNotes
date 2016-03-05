@@ -253,6 +253,9 @@ class DrawingView: UIImageView, PageSubView, DrawingSettingsDelegate {
         if image != nil && drawLayer != nil {
             drawLayer?.image = image
         }
+        if let pageIndex = drawLayer?.docPage.index {
+            DocumentInstance.sharedInstance.didUpdatePage(pageIndex)
+        }
     }
 
     // MARK: - DrawingSettingsDelegate

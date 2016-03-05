@@ -204,30 +204,30 @@ class PageView: UIView, UIGestureRecognizerDelegate {
         docLayer.removeFromPage()
     }
 
-    override func drawRect(rect: CGRect) {
-        let path = UIBezierPath()
-
-        let xOffset: CGFloat = 20
-        let yOffset: CGFloat = 20
-
-        var currentXPos = xOffset
-        var currentYPos = yOffset
-
-        while (currentXPos < rect.width) {
-            path.moveToPoint(CGPoint(x: currentXPos, y: 0))
-            path.addLineToPoint(CGPoint(x: currentXPos, y: rect.height))
-
-            currentXPos += xOffset
-        }
-
-        while (currentYPos < rect.height) {
-            path.moveToPoint(CGPoint(x: 0, y: currentYPos))
-            path.addLineToPoint(CGPoint(x: rect.width, y: currentYPos))
-            currentYPos += yOffset
-        }
-
-        path.stroke()
-    }
+//    override func drawRect(rect: CGRect) {
+//        let path = UIBezierPath()
+//
+//        let xOffset: CGFloat = 20
+//        let yOffset: CGFloat = 20
+//
+//        var currentXPos = xOffset
+//        var currentYPos = yOffset
+//
+//        while (currentXPos < rect.width) {
+//            path.moveToPoint(CGPoint(x: currentXPos, y: 0))
+//            path.addLineToPoint(CGPoint(x: currentXPos, y: rect.height))
+//
+//            currentXPos += xOffset
+//        }
+//
+//        while (currentYPos < rect.height) {
+//            path.moveToPoint(CGPoint(x: 0, y: currentYPos))
+//            path.addLineToPoint(CGPoint(x: rect.width, y: currentYPos))
+//            currentYPos += yOffset
+//        }
+//
+//        path.stroke()
+//    }
 
     // MARK: - UIGestureRecognizer
 

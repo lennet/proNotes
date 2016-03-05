@@ -62,6 +62,10 @@ extension UIView {
         UIGraphicsEndImageContext()
         return snapshot
     }
+    
+    func toThumbImage() -> UIImage {
+        return toImage().thumbImage()
+    }
 
     func toImageView() -> UIView {
         let snapshotView = UIImageView(image: toImage())

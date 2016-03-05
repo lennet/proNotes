@@ -12,7 +12,9 @@ import UIKit
 protocol DocumentInstanceDelegate: class {
     optional func currentPageDidChange(page: DocumentPage)
 
-    optional func didAddPage(index: NSInteger)
+    optional func didAddPage(index: Int)
+    
+    optional func didUpdatePage(index: Int)
 }
 
 class DocumentInstance: NSObject {
@@ -97,6 +99,11 @@ class DocumentInstance: NSObject {
             })
         }
     }
+    
+    func didUpdatePage(index: Int) {
+        document?.updateChangeCount(.Done)
+        informDelegateDidUpdatePage(index)
+    }
 
     func save(completionHandler: ((Bool) -> Void)?) {
         document?.saveToURL(document!.fileURL, forSaveOperation: .ForOverwriting, completionHandler: completionHandler)
@@ -147,9 +154,15 @@ class DocumentInstance: NSObject {
         }
     }
 
-    func informDelegateDidAddPage(index: NSInteger) {
+    func informDelegateDidAddPage(index: Int) {
         for case let delegate as DocumentInstanceDelegate  in delegates {
             delegate.didAddPage?(index)
+        }
+    }
+    
+    func informDelegateDidUpdatePage(index: Int) {
+        for case let delegate as DocumentInstanceDelegate  in delegates {
+            delegate.didUpdatePage?(index)
         }
     }
 
