@@ -41,23 +41,21 @@ class ImportDataViewController: UIViewController, UITableViewDataSource, UITable
     }
 
     var dataSourceObjects = [TableViewMainObject]()
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         dataSourceObjects.append(TableViewMainObject(title: "Bild", collapsed: true, subObjects: [TableViewSubObject(title: "Photos", action: handleAddPictureCameraRoll), TableViewSubObject(title: "Camera", action: handleAddPictureCamera), TableViewSubObject(title: "iCloud Drive", action: handleAddImageiCloudDrive)], action: nil))
         dataSourceObjects.append(TableViewMainObject(title: "PDF einfügen", collapsed: true, subObjects: nil, action: handleAddPdf))
         dataSourceObjects.append(TableViewMainObject(title: "Textfeld einfügen", collapsed: true, subObjects: nil, action: handleAddTextField))
         dataSourceObjects.append(TableViewMainObject(title: "Seite einfügen", collapsed: true, subObjects: nil, action: handleAddPage))
-
+        
         tableView.sectionHeaderHeight = 0.0
         tableView.sectionFooterHeight = 0.0
-
     }
-
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        dataSourceObjects.removeAll()
     }
 
     func showDocumentPicker(documentTypes: [String]) {
