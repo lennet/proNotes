@@ -33,6 +33,7 @@
 		983985961C7267D8000B6005 /* CGPDFDocumentExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983985951C7267D8000B6005 /* CGPDFDocumentExtension.swift */; };
 		984242AB1C3EDD0900F90455 /* TouchControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984242AA1C3EDD0900F90455 /* TouchControlView.swift */; };
 		984242AD1C3EE79900F90455 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984242AC1C3EE79900F90455 /* UIColorExtension.swift */; };
+		985282831C8B13B000B72624 /* RetainCycleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 985282821C8B13B000B72624 /* RetainCycleTests.swift */; };
 		9854310D1C52C00F0098DAC1 /* NSMetadataItemExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9854310C1C52C00F0098DAC1 /* NSMetadataItemExtension.swift */; };
 		9854310F1C52C4EE0098DAC1 /* CloudDownloadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9854310E1C52C4EE0098DAC1 /* CloudDownloadingIndicator.swift */; };
 		986D605B1C2B21140065D71B /* CustomScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986D605A1C2B21140065D71B /* CustomScrollView.swift */; };
@@ -121,6 +122,7 @@
 		983985951C7267D8000B6005 /* CGPDFDocumentExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGPDFDocumentExtension.swift; sourceTree = "<group>"; };
 		984242AA1C3EDD0900F90455 /* TouchControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchControlView.swift; sourceTree = "<group>"; };
 		984242AC1C3EE79900F90455 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		985282821C8B13B000B72624 /* RetainCycleTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RetainCycleTests.swift; sourceTree = "<group>"; };
 		9854310C1C52C00F0098DAC1 /* NSMetadataItemExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSMetadataItemExtension.swift; sourceTree = "<group>"; };
 		9854310E1C52C4EE0098DAC1 /* CloudDownloadingIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudDownloadingIndicator.swift; sourceTree = "<group>"; };
 		986D605A1C2B21140065D71B /* CustomScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomScrollView.swift; sourceTree = "<group>"; };
@@ -437,6 +439,7 @@
 				98EB1B501C6D319C00D104A4 /* DocumentTests.swift */,
 				981618701C8382E600E1D5EA /* Test Resources */,
 				9816186E1C834AF700E1D5EA /* TouchControlViewTests.swift */,
+				985282821C8B13B000B72624 /* RetainCycleTests.swift */,
 			);
 			path = proNotesTests;
 			sourceTree = "<group>";
@@ -635,6 +638,7 @@
 				9816186F1C834AF700E1D5EA /* TouchControlViewTests.swift in Sources */,
 				98EB1B511C6D319C00D104A4 /* DocumentTests.swift in Sources */,
 				98E4688D1C6E11AD00AC0E0A /* DocumentPageTests.swift in Sources */,
+				985282831C8B13B000B72624 /* RetainCycleTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

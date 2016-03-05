@@ -140,6 +140,13 @@ class Document: UIDocument {
     func getMaxWidth() -> CGFloat {
         return (pages.sort({ $0.size.width > $1.size.width }).first?.size.width ?? 0)
     }
+    
+    override func closeWithCompletionHandler(completionHandler: ((Bool) -> Void)?) {
+        if DocumentInstance.sharedInstance.document == self {
+            DocumentInstance.sharedInstance.document = nil
+        }
+        super.closeWithCompletionHandler(completionHandler)
+    }
 
     // MARK - Pages Manipulation
 
