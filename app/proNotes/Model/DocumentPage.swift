@@ -68,8 +68,14 @@ class DocumentPage: NSObject, NSCoding {
         aCoder.encodeCGSize(size, forKey: sizeKey)
     }
     
+    // MARK: - Preview Image Handling
+    
     func removePreviewImage() {
         _previewImage = nil
+    }
+    
+    func previewImageAvailable() -> Bool {
+        return _previewImage == nil 
     }
     
     // MARK: - Add Layer
@@ -86,7 +92,7 @@ class DocumentPage: NSObject, NSCoding {
     }
 
     func addImageLayer(image: UIImage) -> ImageLayer {
-        let layerSize = image.sizeToFit(size)
+        let layerSize = image.size.sizeToFit(size)
         let imageLayer = ImageLayer(index: layers.count, docPage: self, origin: CGPointZero, size: layerSize, image: image)
         layers.append(imageLayer)
         return imageLayer

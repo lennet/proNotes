@@ -37,8 +37,14 @@ class ImageSettingsViewController: SettingsBaseViewController {
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        cropImageView.animateLayoutChanges = false
         update()
         cropImageView.layer.setUpDefaultShaddow()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        cropImageView.animateLayoutChanges = true
     }
 
     override func didReceiveMemoryWarning() {

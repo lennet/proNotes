@@ -64,11 +64,21 @@ class PagesOverviewTableViewController: UITableViewController, DocumentInstanceD
         cell.numberLabel.text = String(indexPath.row + 1)
         cell.index = indexPath.row
         cell.delegate = pagesOverViewDelegate
-        let image = document?[indexPath.row]?.previewImage
-        cell.pageThumbViewHeightConstraint.constant = image?.size.height ?? cell.pageThumbViewHeightConstraint.constant
-        cell.pageThumbViewWidthConstraint.constant = image?.size.width ?? cell.pageThumbViewWidthConstraint.constant
-        cell.pageThumbView.setBackgroundImage(image, forState: .Normal)
+        if let page = document?[indexPath.row] {
+            let thumbSize = page.size.sizeToFit(CGSize(width: 100, height: 100))
+            cell.pageThumbViewHeightConstraint.constant = thumbSize.height
+            cell.pageThumbViewWidthConstraint.constant = thumbSize.width
 
+            cell.pageThumbView.setBackgroundImage(nil, forState: .Normal)
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+                let image = page.previewImage
+                dispatch_async(dispatch_get_main_queue(), {
+                    cell.pageThumbView.setBackgroundImage(image, forState: .Normal)
+                });
+            });
+        }
+        
+        cell.layoutIfNeeded()
         return cell
     }
 

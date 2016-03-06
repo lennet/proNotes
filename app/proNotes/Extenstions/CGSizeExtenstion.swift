@@ -27,6 +27,15 @@ extension CGSize {
         self.height *= factor
     }
 
+    func sizeToFit(size: CGSize) -> CGSize {
+        let widthRatio = self.width / size.width
+        let heightRatio = self.height / size.height
+        
+        let ratio = max(widthRatio, heightRatio)
+        
+        return CGSize(width: self.width / ratio, height: self.height / ratio)
+    }
+    
     static func dinA4() -> CGSize {
         return CGSize(width: 2384 / 3, height: 3370 / 3)
     }
