@@ -56,7 +56,7 @@ extension UIView {
     // MARK: - Snapshot
 
     func toImage() -> UIImage {
-        UIGraphicsBeginImageContextWithOptions(self.bounds.size, false, 0);
+        UIGraphicsBeginImageContextWithOptions(self.bounds.size, true, 0);
         self.layer.renderInContext(UIGraphicsGetCurrentContext()!)
         let snapshot = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()

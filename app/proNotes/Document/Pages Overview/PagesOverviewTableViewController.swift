@@ -64,7 +64,10 @@ class PagesOverviewTableViewController: UITableViewController, DocumentInstanceD
         cell.numberLabel.text = String(indexPath.row + 1)
         cell.index = indexPath.row
         cell.delegate = pagesOverViewDelegate
-        cell.pageThumbView.setBackgroundImage(document?[indexPath.row]?.previewImage, forState: .Normal)
+        let image = document?[indexPath.row]?.previewImage
+        cell.pageThumbViewHeightConstraint.constant = image?.size.height ?? cell.pageThumbViewHeightConstraint.constant
+        cell.pageThumbViewWidthConstraint.constant = image?.size.width ?? cell.pageThumbViewWidthConstraint.constant
+        cell.pageThumbView.setBackgroundImage(image, forState: .Normal)
 
         return cell
     }
@@ -84,7 +87,7 @@ class PagesOverviewTableViewController: UITableViewController, DocumentInstanceD
         document?.pages[index].removePreviewImage()
         if index < tableView.numberOfRowsInSection(0) {
             let indexPath = NSIndexPath(forRow: index, inSection: 0)
-            tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .None)
         }
     }
 

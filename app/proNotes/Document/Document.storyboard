@@ -1335,8 +1335,15 @@
                                             <rect key="frame" x="57.5" y="10.5" width="65" height="93.5"/>
                                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
+                                                <constraint firstAttribute="width" constant="65" id="ADP-gc-dVu"/>
+                                                <constraint firstAttribute="height" constant="93.5" id="AEQ-qf-oMd"/>
                                                 <constraint firstAttribute="width" secondItem="kaA-Rf-Fci" secondAttribute="height" multiplier="7:10" id="eu5-P0-Fnc"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="eu5-P0-Fnc"/>
+                                                </mask>
+                                            </variation>
                                             <connections>
                                                 <action selector="handlePageButtonPressed:" destination="Eae-as-Kn4" eventType="touchUpInside" id="Zdk-NN-O6O"/>
                                             </connections>
@@ -1360,6 +1367,7 @@
                                     </constraints>
                                     <variation key="default">
                                         <mask key="constraints">
+                                            <exclude reference="ihy-d3-Nbv"/>
                                             <exclude reference="ypf-sn-EQ7"/>
                                         </mask>
                                     </variation>
@@ -1369,6 +1377,8 @@
                                 <connections>
                                     <outlet property="numberLabel" destination="YY5-xE-UTC" id="gif-KF-RP6"/>
                                     <outlet property="pageThumbView" destination="kaA-Rf-Fci" id="XSc-K3-O1K"/>
+                                    <outlet property="pageThumbViewHeightConstraint" destination="AEQ-qf-oMd" id="RVg-BP-fJ2"/>
+                                    <outlet property="pageThumbViewWidthConstraint" destination="ADP-gc-dVu" id="Jz6-Tc-5Nb"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

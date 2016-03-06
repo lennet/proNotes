@@ -18,8 +18,12 @@ class PagesOverviewTableViewCell: UITableViewCell {
 
     @IBOutlet weak var pageThumbView: UIButton!
     @IBOutlet weak var numberLabel: UILabel!
-    var index = 0
+    
+    @IBOutlet weak var pageThumbViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var pageThumbViewWidthConstraint: NSLayoutConstraint!
+    
     weak var delegate: PagesOverviewTableViewCellDelegate?
+    var index = 0
 
     override func awakeFromNib() {
         super.awakeFromNib()
