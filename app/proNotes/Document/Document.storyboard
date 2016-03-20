@@ -1333,7 +1333,7 @@
                                     <subviews>
                                         <button contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kaA-Rf-Fci">
                                             <rect key="frame" x="57.5" y="10.5" width="65" height="93.5"/>
-                                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="65" id="ADP-gc-dVu"/>
                                                 <constraint firstAttribute="height" constant="93.5" id="AEQ-qf-oMd"/>

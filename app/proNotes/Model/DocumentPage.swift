@@ -22,7 +22,7 @@ class DocumentPage: NSObject, NSCoding {
     var previewImage: UIImage? {
         get {
             if _previewImage == nil {
-                let pageView = PageView(page: self)
+                let pageView = PageView(page: self, renderMode: true)
                 _previewImage = pageView.toThumbImage()
             }
             return _previewImage

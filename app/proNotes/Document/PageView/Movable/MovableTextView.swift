@@ -13,9 +13,9 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
     var text = ""
     weak var textView: UITextView?
 
-    init(text: String, frame: CGRect, movableLayer: MovableLayer) {
+    init(text: String, frame: CGRect, movableLayer: MovableLayer, renderMode: Bool = false) {
         self.text = text
-        super.init(frame: frame, movableLayer: movableLayer)
+        super.init(frame: frame, movableLayer: movableLayer, renderMode: renderMode)
         widthResizingOnly = true
     }
 

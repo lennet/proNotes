@@ -13,9 +13,9 @@ class MovableImageView: MovableView, ImageSettingsDelegate {
     var image: UIImage
     weak var imageView: UIImageView?
 
-    init(image: UIImage, frame: CGRect, movableLayer: MovableLayer) {
+    init(image: UIImage, frame: CGRect, movableLayer: MovableLayer, renderMode: Bool = false) {
         self.image = image
-        super.init(frame: frame, movableLayer: movableLayer)
+        super.init(frame: frame, movableLayer: movableLayer, renderMode: renderMode)
         proportionalResize = true
     }
 

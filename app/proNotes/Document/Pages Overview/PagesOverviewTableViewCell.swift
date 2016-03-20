@@ -34,5 +34,9 @@ class PagesOverviewTableViewCell: UITableViewCell {
     @IBAction func handlePageButtonPressed(sender: AnyObject) {
         delegate?.showPage(index)
     }
+    
+    override func prepareForReuse() {
+        pageThumbView.setBackgroundImage(nil, forState: .Normal)
+    }
 
 }

@@ -68,8 +68,6 @@ class PagesOverviewTableViewController: UITableViewController, DocumentInstanceD
             let thumbSize = page.size.sizeToFit(CGSize(width: 100, height: 100))
             cell.pageThumbViewHeightConstraint.constant = thumbSize.height
             cell.pageThumbViewWidthConstraint.constant = thumbSize.width
-
-            cell.pageThumbView.setBackgroundImage(nil, forState: .Normal)
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                 let image = page.previewImage
                 dispatch_async(dispatch_get_main_queue(), {
@@ -97,7 +95,7 @@ class PagesOverviewTableViewController: UITableViewController, DocumentInstanceD
         document?.pages[index].removePreviewImage()
         if index < tableView.numberOfRowsInSection(0) {
             let indexPath = NSIndexPath(forRow: index, inSection: 0)
-            tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .None)
+            tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         }
     }
 

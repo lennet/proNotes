@@ -13,7 +13,7 @@ class PageView: UIView, UIGestureRecognizerDelegate {
     var panGestureRecognizer: UIPanGestureRecognizer?
     var tapGestureRecognizer: UITapGestureRecognizer?
     var doubleTapGestureRecognizer: UITapGestureRecognizer?
-
+    
     weak var page: DocumentPage? {
         didSet {
             if oldValue == nil {
@@ -32,12 +32,16 @@ class PageView: UIView, UIGestureRecognizerDelegate {
             return nil
         }
     }
-
-    init(page: DocumentPage) {
+    
+     /**
+     - parameter page:       DocumentPage to display
+     - parameter renderMode: Optional Bool var which disables autolayout and GestureRecognizers for better render Perfomance & Background Thread support
+     */
+    init(page: DocumentPage, renderMode: Bool = false) {
         super.init(frame: CGRect(origin: CGPointZero, size: page.size))
         self.page = page
-        commonInit()
-        setUpLayer()
+        commonInit(renderMode)
+        setUpLayer(renderMode)
         setNeedsDisplay()
     }
 
@@ -51,8 +55,11 @@ class PageView: UIView, UIGestureRecognizerDelegate {
         commonInit()
     }
 
-    func commonInit() {
-        setUpTouchRecognizer()
+    func commonInit(renderMode: Bool = false) {
+        if !renderMode {
+            setUpTouchRecognizer()
+        }
+        
         clearsContextBeforeDrawing = true
         backgroundColor = UIColor.whiteColor()
     }
@@ -78,7 +85,7 @@ class PageView: UIView, UIGestureRecognizerDelegate {
         tapGestureRecognizer?.requireGestureRecognizerToFail(doubleTapGestureRecognizer!)
     }
 
-    func setUpLayer() {
+    func setUpLayer(renderMode: Bool = false) {
         guard page != nil else {
             return
         }
@@ -122,17 +129,17 @@ class PageView: UIView, UIGestureRecognizerDelegate {
         addSubview(view)
     }
 
-    func addImageLayer(imageLayer: ImageLayer) {
+    func addImageLayer(imageLayer: ImageLayer, renderMode: Bool = false) {
         let frame = CGRect(origin: imageLayer.origin, size: imageLayer.size)
-        let view = MovableImageView(image: imageLayer.image, frame: frame, movableLayer: imageLayer)
+        let view = MovableImageView(image: imageLayer.image, frame: frame, movableLayer: imageLayer, renderMode: renderMode)
         view.hidden = imageLayer.hidden
         addSubview(view)
         view.setUpImageView()
     }
 
-    func addTextLayer(textLayer: TextLayer) {
+    func addTextLayer(textLayer: TextLayer, renderMode: Bool = false) {
         let frame = CGRect(origin: textLayer.origin, size: textLayer.size)
-        let view = MovableTextView(text: textLayer.text, frame: frame, movableLayer: textLayer)
+        let view = MovableTextView(text: textLayer.text, frame: frame, movableLayer: textLayer, renderMode: renderMode)
         view.hidden = textLayer.hidden
         addSubview(view)
         view.setUpTextView()

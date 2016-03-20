@@ -17,12 +17,16 @@ class MovableView: TouchControlView, PageSubView {
     var movableLayer: MovableLayer?
 
     var debugMode = true
+    
+    private var renderMode = false
 
-    init(frame: CGRect, movableLayer: MovableLayer) {
+    init(frame: CGRect, movableLayer: MovableLayer, renderMode: Bool = false) {
         self.movableLayer = movableLayer
         let newControlLength: CGFloat = 44
+
         super.init(frame: CGRect(origin: frame.origin, size: CGSize(width: frame.size.width + newControlLength * 2, height: frame.size.height + newControlLength * 2)))
         controlLength = newControlLength
+        self.renderMode = renderMode
         backgroundColor = UIColor.clearColor()
     }
 
@@ -31,13 +35,15 @@ class MovableView: TouchControlView, PageSubView {
     }
 
     override func didAddSubview(subview: UIView) {
-        let leftConstraint = NSLayoutConstraint(item: subview, attribute: .Left, relatedBy: .Equal, toItem: self, attribute: .Left, multiplier: 1.0, constant: controlLength)
-        let rightConstraint = NSLayoutConstraint(item: subview, attribute: .Right, relatedBy: .Equal, toItem: self, attribute: .Right, multiplier: 1.0, constant: -controlLength)
-        let bottomConstraint = NSLayoutConstraint(item: subview, attribute: .Bottom, relatedBy: .Equal, toItem: self, attribute: .Bottom, multiplier: 1.0, constant: -controlLength)
-        let topConstraint = NSLayoutConstraint(item: subview, attribute: .Top, relatedBy: .Equal, toItem: self, attribute: .Top, multiplier: 1.0, constant: controlLength)
-
-        addConstraints([leftConstraint, rightConstraint, bottomConstraint, topConstraint])
-        layoutIfNeeded()
+        if !renderMode {
+            let leftConstraint = NSLayoutConstraint(item: subview, attribute: .Left, relatedBy: .Equal, toItem: self, attribute: .Left, multiplier: 1.0, constant: controlLength)
+            let rightConstraint = NSLayoutConstraint(item: subview, attribute: .Right, relatedBy: .Equal, toItem: self, attribute: .Right, multiplier: 1.0, constant: -controlLength)
+            let bottomConstraint = NSLayoutConstraint(item: subview, attribute: .Bottom, relatedBy: .Equal, toItem: self, attribute: .Bottom, multiplier: 1.0, constant: -controlLength)
+            let topConstraint = NSLayoutConstraint(item: subview, attribute: .Top, relatedBy: .Equal, toItem: self, attribute: .Top, multiplier: 1.0, constant: controlLength)
+            
+            addConstraints([leftConstraint, rightConstraint, bottomConstraint, topConstraint])
+            layoutIfNeeded()
+        }
     }
 
     func setSelected() {
