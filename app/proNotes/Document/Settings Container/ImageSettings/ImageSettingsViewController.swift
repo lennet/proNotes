@@ -11,7 +11,7 @@ import UIKit
 protocol ImageSettingsDelegate: class {
     func removeImage()
 
-    func getImage() -> UIImage
+    func getImage() -> UIImage?
 
     func updateImage(image: UIImage)
 }

@@ -10,17 +10,20 @@ import UIKit
 
 class MovableImageView: MovableView, ImageSettingsDelegate {
 
-    var image: UIImage
     weak var imageView: UIImageView?
+    
+    var imageLayer: ImageLayer?  {
+        get {
+            return movableLayer as? ImageLayer
+        }
+    }
 
     init(image: UIImage, frame: CGRect, movableLayer: MovableLayer, renderMode: Bool = false) {
-        self.image = image
         super.init(frame: frame, movableLayer: movableLayer, renderMode: renderMode)
         proportionalResize = true
     }
 
     required init?(coder aDecoder: NSCoder) {
-        self.image = UIImage()
         super.init(coder: aDecoder)
         proportionalResize = true
     }
@@ -28,7 +31,7 @@ class MovableImageView: MovableView, ImageSettingsDelegate {
     func setUpImageView() {
         clipsToBounds = true
         let imageView = UIImageView()
-        imageView.image = image
+        imageView.image = imageLayer?.image
         addSubview(imageView)
         self.imageView = imageView
     }
@@ -46,8 +49,8 @@ class MovableImageView: MovableView, ImageSettingsDelegate {
         SettingsViewController.sharedInstance?.currentSettingsType = .PageInfo
     }
 
-    func getImage() -> UIImage {
-        return image
+    func getImage() -> UIImage? {
+        return imageLayer?.image
     }
 
     override func undoAction(oldObject: AnyObject?) {
@@ -67,20 +70,20 @@ class MovableImageView: MovableView, ImageSettingsDelegate {
         guard imageView != nil else {
             return
         }
-
-        if movableLayer != nil && movableLayer?.docPage != nil {
-            DocumentInstance.sharedInstance.registerUndoAction(self.image, pageIndex: movableLayer!.docPage.index, layerIndex: movableLayer!.index)
+        
+        if let oldImage = imageLayer?.image {
+            if movableLayer != nil && movableLayer?.docPage != nil {
+                DocumentInstance.sharedInstance.registerUndoAction(oldImage, pageIndex: movableLayer!.docPage.index, layerIndex: movableLayer!.index)
+            }
         }
-
-        let heightRatio = imageView!.bounds.height / self.image.size.height
-        let widthRatio = imageView!.bounds.width / self.image.size.width
+        
         imageView?.image = image
+        imageLayer?.image = image
 
-        if let imageLayer = movableLayer as? ImageLayer {
-            imageLayer.image = image
-        }
+        let heightRatio = imageView!.bounds.height / image.size.height
+        let widthRatio = imageView!.bounds.width / image.size.width
+        
 
-        self.image = image
         frame.size.height = (image.size.height * heightRatio) + 2 * controlLength
         frame.size.width = (image.size.width * widthRatio) + 2 * controlLength
         movableLayer?.size = frame.size
