@@ -304,27 +304,28 @@ class FileManager: NSObject {
 
     // MARK - Filename Handling
 
-    func getDocumentURL(var fileName: String, uniqueFileName: Bool) -> NSURL {
+    func getDocumentURL(fileName: String, uniqueFileName: Bool) -> NSURL {
+        var newFileName = fileName
         if uniqueFileName {
-            fileName = getUniqueFileName(fileName) + "." + fileExtension
+            newFileName = getUniqueFileName(newFileName) + "." + fileExtension
         } else {
-            fileName = fileName + "." + fileExtension
+            newFileName = newFileName + "." + fileExtension
         }
 
         if useiCloud() {
             if let docsDir = iCloudRootURL?.URLByAppendingPathComponent("Documents", isDirectory: true) {
-                return docsDir.URLByAppendingPathComponent(fileName)
+                return docsDir.URLByAppendingPathComponent(newFileName)
             }
         }
-        return documentsRootURL.URLByAppendingPathComponent(fileName)
+        return documentsRootURL.URLByAppendingPathComponent(newFileName)
     }
 
-    func getUniqueFileName(fileName: String, var attemptCounter: Int = 0) -> String {
-        fileName
+    func getUniqueFileName(fileName: String, attempts: Int = 0) -> String {
+        var attemptCounter = attempts
         if fileNameExistsInObjects(fileName) {
             attemptCounter += 1
             if fileNameExistsInObjects(fileName + String(attemptCounter)) {
-                return getUniqueFileName(fileName, attemptCounter: attemptCounter)
+                return getUniqueFileName(fileName, attempts: attemptCounter)
             }
             return fileName + String(attemptCounter)
         }
@@ -362,8 +363,8 @@ class FileManager: NSObject {
         stopQuery()
 
         query = documentQuery
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleQueryNotification:", name: NSMetadataQueryDidFinishGatheringNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleQueryNotification:", name: NSMetadataQueryDidUpdateNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FileManager.handleQueryNotification(_:)), name: NSMetadataQueryDidFinishGatheringNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FileManager.handleQueryNotification(_:)), name: NSMetadataQueryDidUpdateNotification, object: nil)
         query?.startQuery()
 
     }

@@ -31,7 +31,7 @@ class PageInfoViewController: SettingsBaseViewController, UITableViewDataSource,
         super.viewDidLoad()
         layerTableView.reordableDelegate = self
 
-        let doupleTapRecognizer = UITapGestureRecognizer(target: self, action: Selector("handleDoubleTap:"))
+        let doupleTapRecognizer = UITapGestureRecognizer(target: self, action: #selector(PageInfoViewController.handleDoubleTap(_:)))
         doupleTapRecognizer.numberOfTapsRequired = 2
         layerTableView.addGestureRecognizer(doupleTapRecognizer)
     }

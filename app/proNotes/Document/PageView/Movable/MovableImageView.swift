@@ -30,7 +30,7 @@ class MovableImageView: MovableView, ImageSettingsDelegate {
 
         let imageView = UIImageView()
         imageView.image = image
-        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.backgroundColor = UIColor.randomColor()
         addSubview(imageView)
 
         self.imageView = imageView

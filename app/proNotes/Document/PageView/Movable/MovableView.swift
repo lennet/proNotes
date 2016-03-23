@@ -12,10 +12,7 @@ class MovableView: TouchControlView, PageSubView {
 
     // TODO style
 
-    var finishedSetup = false
-    var lastPinchScale: CGFloat = 0
-    var movableLayer: MovableLayer?
-
+    var movableLayer: MovableLayer!
     var debugMode = true
     
     private var renderMode = false
@@ -36,6 +33,7 @@ class MovableView: TouchControlView, PageSubView {
 
     override func didAddSubview(subview: UIView) {
         if !renderMode {
+            subview.translatesAutoresizingMaskIntoConstraints = false
             let leftConstraint = NSLayoutConstraint(item: subview, attribute: .Left, relatedBy: .Equal, toItem: self, attribute: .Left, multiplier: 1.0, constant: controlLength)
             let rightConstraint = NSLayoutConstraint(item: subview, attribute: .Right, relatedBy: .Equal, toItem: self, attribute: .Right, multiplier: 1.0, constant: -controlLength)
             let bottomConstraint = NSLayoutConstraint(item: subview, attribute: .Bottom, relatedBy: .Equal, toItem: self, attribute: .Bottom, multiplier: 1.0, constant: -controlLength)
@@ -43,12 +41,16 @@ class MovableView: TouchControlView, PageSubView {
             
             addConstraints([leftConstraint, rightConstraint, bottomConstraint, topConstraint])
             layoutIfNeeded()
+        } else {
+            subview.bounds = CGRect(origin: CGPoint(x: controlLength, y: controlLength), size: CGSize(width: movableLayer.size.width, height: movableLayer.size.height))
         }
     }
 
     func setSelected() {
         handleTap(nil)
     }
+    
+    // MARK: - Gesture Recognizer
 
     func handleTap(recognizer: UITapGestureRecognizer?) {
         isEditing = !isEditing
@@ -63,6 +65,7 @@ class MovableView: TouchControlView, PageSubView {
 
         setNeedsDisplay()
     }
+    
 
     override func handlePanTranslation(translation: CGPoint) -> CGRect {
         frame = super.handlePanTranslation(translation)
@@ -72,16 +75,14 @@ class MovableView: TouchControlView, PageSubView {
     }
 
     func updateFrameChanges() {
-        if movableLayer != nil {
-            movableLayer?.origin = frame.origin
-            if movableLayer!.docPage != nil && oldFrame != nil {
-                DocumentInstance.sharedInstance.registerUndoAction(NSValue(CGRect: oldFrame!), pageIndex: movableLayer!.docPage.index, layerIndex: movableLayer!.index)
-            }
-
-            var newSize = frame.size
-            movableLayer?.size = newSize.increaseSize(controlLength * (-2))
-            saveChanges()
+        movableLayer.origin = frame.origin
+        if movableLayer.docPage != nil && oldFrame != nil {
+            DocumentInstance.sharedInstance.registerUndoAction(NSValue(CGRect: oldFrame!), pageIndex: movableLayer.docPage.index, layerIndex: movableLayer.index)
         }
+
+        var newSize = frame.size
+        movableLayer.size = newSize.increaseSize(controlLength * (-2))
+        saveChanges()
     }
 
     override func handlePanEnded() {
@@ -103,9 +104,8 @@ class MovableView: TouchControlView, PageSubView {
     }
 
     func saveChanges() {
-        if let pageIndex = movableLayer?.docPage.index {
-            DocumentInstance.sharedInstance.didUpdatePage(pageIndex)
-        }
+        let pageIndex = movableLayer.docPage.index
+        DocumentInstance.sharedInstance.didUpdatePage(pageIndex)
     }
 
     func setUpSettingsViewController() {

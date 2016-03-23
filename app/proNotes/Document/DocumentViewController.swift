@@ -76,9 +76,9 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
     }
 
     func registerNotifications() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("updateUndoRedoButtons"), name: NSUndoManagerWillUndoChangeNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("updateUndoRedoButtons"), name: NSUndoManagerDidRedoChangeNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("updateUndoRedoButtons"), name: NSUndoManagerCheckpointNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DocumentViewController.updateUndoRedoButtons), name: NSUndoManagerWillUndoChangeNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DocumentViewController.updateUndoRedoButtons), name: NSUndoManagerDidRedoChangeNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DocumentViewController.updateUndoRedoButtons), name: NSUndoManagerCheckpointNotification, object: nil)
     }
 
     func removeNotifications() {
@@ -166,8 +166,8 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
         if let settingsViewController = SettingsViewController.sharedInstance {
             switch settingsViewController.currentSettingsType {
             case .Image:
-                commands.append(UIKeyCommand(input: UIKeyInputRightArrow, modifierFlags: .Control, action: "handleRotateImageKeyPressed:", discoverabilityTitle: "Rotate Image Right"))
-                commands.append(UIKeyCommand(input: UIKeyInputLeftArrow, modifierFlags: .Control, action: "handleRotateImageKeyPressed:", discoverabilityTitle: "Rotate Image Left"))
+                commands.append(UIKeyCommand(input: UIKeyInputRightArrow, modifierFlags: .Control, action: #selector(DocumentViewController.handleRotateImageKeyPressed(_:)), discoverabilityTitle: "Rotate Image Right"))
+                commands.append(UIKeyCommand(input: UIKeyInputLeftArrow, modifierFlags: .Control, action: #selector(DocumentViewController.handleRotateImageKeyPressed(_:)), discoverabilityTitle: "Rotate Image Left"))
                 break
             default:
                 break
@@ -175,13 +175,13 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
         }
 
         if let _ = PagesTableViewController.sharedInstance?.currentPageView()?.selectedSubView as? MovableView {
-            commands.append(UIKeyCommand(input: UIKeyInputRightArrow, modifierFlags: .Command, action: "handleMoveMovableViewKeyPressed:", discoverabilityTitle: "Move Right"))
-            commands.append(UIKeyCommand(input: UIKeyInputLeftArrow, modifierFlags: .Command, action: "handleMoveMovableViewKeyPressed:", discoverabilityTitle: "Move Left"))
-            commands.append(UIKeyCommand(input: UIKeyInputUpArrow, modifierFlags: .Command, action: "handleMoveMovableViewKeyPressed:", discoverabilityTitle: "Move Up"))
-            commands.append(UIKeyCommand(input: UIKeyInputDownArrow, modifierFlags: .Command, action: "handleMoveMovableViewKeyPressed:", discoverabilityTitle: "Move Down"))
+            commands.append(UIKeyCommand(input: UIKeyInputRightArrow, modifierFlags: .Command, action: #selector(DocumentViewController.handleMoveMovableViewKeyPressed(_:)), discoverabilityTitle: "Move Right"))
+            commands.append(UIKeyCommand(input: UIKeyInputLeftArrow, modifierFlags: .Command, action: #selector(DocumentViewController.handleMoveMovableViewKeyPressed(_:)), discoverabilityTitle: "Move Left"))
+            commands.append(UIKeyCommand(input: UIKeyInputUpArrow, modifierFlags: .Command, action: #selector(DocumentViewController.handleMoveMovableViewKeyPressed(_:)), discoverabilityTitle: "Move Up"))
+            commands.append(UIKeyCommand(input: UIKeyInputDownArrow, modifierFlags: .Command, action: #selector(DocumentViewController.handleMoveMovableViewKeyPressed(_:)), discoverabilityTitle: "Move Down"))
         } else {
-            commands.append(UIKeyCommand(input: UIKeyInputDownArrow, modifierFlags: [], action: "handleDownKeyPressed:", discoverabilityTitle: "Scroll Down"))
-            commands.append(UIKeyCommand(input: UIKeyInputUpArrow, modifierFlags: [], action: "handleUpKeyPressed:", discoverabilityTitle: "Scroll Up"))
+            commands.append(UIKeyCommand(input: UIKeyInputDownArrow, modifierFlags: [], action: #selector(DocumentViewController.handleDownKeyPressed(_:)), discoverabilityTitle: "Scroll Down"))
+            commands.append(UIKeyCommand(input: UIKeyInputUpArrow, modifierFlags: [], action: #selector(DocumentViewController.handleUpKeyPressed(_:)), discoverabilityTitle: "Scroll Up"))
         }
 
         return commands

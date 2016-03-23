@@ -65,18 +65,18 @@ class PageView: UIView, UIGestureRecognizerDelegate {
     }
 
     func setUpTouchRecognizer() {
-        panGestureRecognizer = UIPanGestureRecognizer(target: self, action: Selector("handlePan:"))
+        panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(PageSubView.handlePan(_:)))
         panGestureRecognizer?.cancelsTouchesInView = true
         panGestureRecognizer?.delegate = self
         panGestureRecognizer?.maximumNumberOfTouches = 1
         addGestureRecognizer(panGestureRecognizer!)
 
-        tapGestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("handleTap:"))
+        tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PageSubView.handleTap(_:)))
         tapGestureRecognizer?.cancelsTouchesInView = true
         tapGestureRecognizer?.delegate = self
         addGestureRecognizer(tapGestureRecognizer!)
 
-        doubleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: "handleDoubleTap:")
+        doubleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PageSubView.handleDoubleTap(_:)))
         doubleTapGestureRecognizer?.numberOfTapsRequired = 2
         doubleTapGestureRecognizer?.cancelsTouchesInView = true
         doubleTapGestureRecognizer?.delegate = self
@@ -106,10 +106,10 @@ class PageView: UIView, UIGestureRecognizerDelegate {
                 addDrawingView(layer as! DocumentDrawLayer)
                 break
             case .Image:
-                addImageLayer(layer as! ImageLayer)
+                addImageLayer(layer as! ImageLayer, renderMode: renderMode)
                 break
             case .Text:
-                addTextLayer(layer as! TextLayer)
+                addTextLayer(layer as! TextLayer, renderMode: renderMode)
                 break
             }
         }
@@ -132,7 +132,12 @@ class PageView: UIView, UIGestureRecognizerDelegate {
     func addImageLayer(imageLayer: ImageLayer, renderMode: Bool = false) {
         let frame = CGRect(origin: imageLayer.origin, size: imageLayer.size)
         let view = MovableImageView(image: imageLayer.image, frame: frame, movableLayer: imageLayer, renderMode: renderMode)
+
         view.hidden = imageLayer.hidden
+        if renderMode {
+            print(imageLayer.size)
+            print(view.bounds.size)
+        }
         addSubview(view)
         view.setUpImageView()
     }

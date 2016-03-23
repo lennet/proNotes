@@ -20,7 +20,7 @@ class ReordableTableView: UITableView {
     weak var reordableDelegate: ReordableTableViewDelegate?
 
     override func awakeFromNib() {
-        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: Selector("handleLongPress:"))
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(ReordableTableView.handleLongPress(_:)))
         addGestureRecognizer(longPressRecognizer)
     }
 

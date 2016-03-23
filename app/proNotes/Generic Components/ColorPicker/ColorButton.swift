@@ -22,7 +22,7 @@ class ColorButton: UIButton, ColorPickerDelegate {
     }
 
     func setUp() {
-        addTarget(self, action: "handleTouchUpInside", forControlEvents: .TouchUpInside)
+        addTarget(self, action: #selector(ColorButton.handleTouchUpInside), forControlEvents: .TouchUpInside)
     }
 
     func handleTouchUpInside() {

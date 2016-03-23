@@ -29,7 +29,6 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
         if self.textView == nil {
             let textView = UITextView()
             textView.userInteractionEnabled = false
-            textView.translatesAutoresizingMaskIntoConstraints = false
             textView.backgroundColor = UIColor.clearColor()
             textView.delegate = self
 

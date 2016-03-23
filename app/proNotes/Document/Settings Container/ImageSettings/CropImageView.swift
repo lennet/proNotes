@@ -82,7 +82,7 @@ class CropImageView: TouchControlView {
 
     func setUpPanRecognizer() {
         if isEditing {
-            let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: Selector("handlePan:"))
+            let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(TouchControlView.handlePan(_:)))
             addGestureRecognizer(panGestureRecognizer)
         } else {
             removeAllGestureRecognizer()
@@ -105,12 +105,13 @@ class CropImageView: TouchControlView {
 
     }
 
-    func convertToImageRect(var rect: CGRect, ratio: CGFloat) -> CGRect {
-        rect.origin.x /= ratio
-        rect.origin.y /= ratio
-        rect.size.width /= ratio
-        rect.size.height /= ratio
-        return rect
+    func convertToImageRect(rect: CGRect, ratio: CGFloat) -> CGRect {
+        var newRect = rect
+        newRect.origin.x /= ratio
+        newRect.origin.y /= ratio
+        newRect.size.width /= ratio
+        newRect.size.height /= ratio
+        return newRect
     }
 
     func getImageRatio() -> CGFloat {
