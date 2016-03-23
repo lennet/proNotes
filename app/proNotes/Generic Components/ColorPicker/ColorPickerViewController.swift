@@ -9,7 +9,7 @@
 import UIKit
 
 protocol ColorPickerDelegate: class {
-    func didSelectColor(color: UIColor)
+    func didSelectColor(colorPicker: ColorPickerViewController, color: UIColor)
 }
 
 class ColorPickerViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
@@ -32,6 +32,7 @@ class ColorPickerViewController: UIViewController, UICollectionViewDataSource, U
                   UIColor.brownColor()]
 
     var selectedIndex = 0
+    var identifier: String?
 
     weak var delegate: ColorPickerDelegate?
 
@@ -40,22 +41,10 @@ class ColorPickerViewController: UIViewController, UICollectionViewDataSource, U
         return storyboard.instantiateViewControllerWithIdentifier("ColorPickerViewControllerIdentifier") as! ColorPickerViewController
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
     func getRect() -> CGRect {
         colorCollectionView.layoutIfNeeded()
         return colorCollectionView.bounds
     }
-
 
     // MARK: - UICollectionViewDataSource
 
@@ -67,6 +56,7 @@ class ColorPickerViewController: UIViewController, UICollectionViewDataSource, U
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ColorPickerCollectionViewCell.identifier, forIndexPath: indexPath) as? ColorPickerCollectionViewCell
         cell?.backgroundColor = colors[indexPath.row]
         cell?.isSelectedColor = indexPath.row == selectedIndex
+        cell?.setNeedsDisplay()
         return cell!
     }
 
@@ -77,11 +67,12 @@ class ColorPickerViewController: UIViewController, UICollectionViewDataSource, U
     // MARK: - UICollectionViewDelegate
 
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        delegate?.didSelectColor(colors[indexPath.row])
+        delegate?.didSelectColor(self, color: colors[indexPath.row])
         let lastSelectedIndex = selectedIndex
         selectedIndex = indexPath.row
-        collectionView.reloadItemsAtIndexPaths([NSIndexPath(forItem: selectedIndex, inSection: 0), NSIndexPath(forItem: lastSelectedIndex, inSection: 0)])
-
+        if lastSelectedIndex != lastSelectedIndex {
+            collectionView.reloadItemsAtIndexPaths([NSIndexPath(forItem: selectedIndex, inSection: 0), NSIndexPath(forItem: lastSelectedIndex, inSection: 0)])
+        }
         self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
     }
 }

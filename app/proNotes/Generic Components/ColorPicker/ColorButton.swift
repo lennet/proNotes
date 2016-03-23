@@ -45,7 +45,7 @@ class ColorButton: UIButton, ColorPickerDelegate {
 
     // MARK: - ColorPickerDelegate
 
-    func didSelectColor(color: UIColor) {
+    func didSelectColor(colorPicker: ColorPickerViewController, color: UIColor) {
         backgroundColor = color
         sendActionsForControlEvents(.ValueChanged)
     }

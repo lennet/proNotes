@@ -10,39 +10,22 @@ import UIKit
 
 class SettingsBaseViewController: UIViewController, ColorPickerDelegate {
 
-    weak var colorPickerViewController: ColorPickerViewController?
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-
     func update() {
         // empty base Implementation
     }
 
     // MARK: - ColorPickerDelegate
 
-    func didSelectColor(color: UIColor) {
+    func didSelectColor(colorPicker: ColorPickerViewController, color: UIColor) {
         // empty base Implementation
     }
 
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let viewContoller = segue.destinationViewController as? ColorPickerViewController {
-            viewContoller.delegate = self
-            colorPickerViewController = viewContoller
+        if let colorPickerViewController = segue.destinationViewController as? ColorPickerViewController {
+            colorPickerViewController.delegate = self
+            colorPickerViewController.identifier = segue.identifier
         }
     }
-
-
 }

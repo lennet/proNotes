@@ -68,12 +68,8 @@ class PagesOverviewTableViewController: UITableViewController, DocumentInstanceD
             let thumbSize = page.size.sizeToFit(CGSize(width: 100, height: 100))
             cell.pageThumbViewHeightConstraint.constant = thumbSize.height
             cell.pageThumbViewWidthConstraint.constant = thumbSize.width
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                let image = page.previewImage
-                dispatch_async(dispatch_get_main_queue(), {
-                    cell.pageThumbView.setBackgroundImage(image, forState: .Normal)
-                });
-            });
+            let image = page.previewImage
+            cell.pageThumbView.setBackgroundImage(image, forState: .Normal)
         }
         
         cell.layoutIfNeeded()

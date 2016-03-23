@@ -139,7 +139,7 @@ class PageView: UIView, UIGestureRecognizerDelegate {
 
     func addTextLayer(textLayer: TextLayer, renderMode: Bool = false) {
         let frame = CGRect(origin: textLayer.origin, size: textLayer.size)
-        let view = MovableTextView(text: textLayer.text, frame: frame, movableLayer: textLayer, renderMode: renderMode)
+        let view = MovableTextView(frame: frame, movableLayer: textLayer, renderMode: renderMode)
         view.hidden = textLayer.hidden
         addSubview(view)
         view.setUpTextView()

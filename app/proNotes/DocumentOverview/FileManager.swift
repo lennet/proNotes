@@ -105,7 +105,6 @@ class FileManager: NSObject {
                 }
             }
         }
-
         query?.enableUpdates()
     }
 

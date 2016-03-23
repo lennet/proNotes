@@ -148,7 +148,7 @@ class DrawingSettingsViewController: SettingsBaseViewController {
 
     // MARK: - ColorPickerDelegate 
 
-    override func didSelectColor(color: UIColor) {
+    override func didSelectColor(colorPicker: ColorPickerViewController, color: UIColor) {
         DrawingSettingsViewController.delegate?.didSelectColor(color)
     }
 }

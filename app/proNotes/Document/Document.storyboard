@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="mNn-FC-EJF">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="mNn-FC-EJF">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -764,7 +764,7 @@
                                                     <constraint firstAttribute="height" constant="90" id="5pr-X4-1CQ"/>
                                                 </constraints>
                                                 <connections>
-                                                    <segue destination="T4v-7O-Cd0" kind="embed" id="TwW-HK-FwZ"/>
+                                                    <segue destination="T4v-7O-Cd0" kind="embed" identifier="BackgroundColorIdentifier" id="TwW-HK-FwZ"/>
                                                 </connections>
                                             </containerView>
                                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q20-Am-E8g">
@@ -773,7 +773,7 @@
                                                     <constraint firstAttribute="height" constant="90" id="d3g-Ct-vgI"/>
                                                 </constraints>
                                                 <connections>
-                                                    <segue destination="T4v-7O-Cd0" kind="embed" id="7Nf-M8-jUS"/>
+                                                    <segue destination="T4v-7O-Cd0" kind="embed" identifier="TextColorIdentifier" id="7Nf-M8-jUS"/>
                                                 </connections>
                                             </containerView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Font" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ptP-9y-6W1">
@@ -930,7 +930,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tfw-8g-XQI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="179" y="-1226"/>
+            <point key="canvasLocation" x="123" y="-1176"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="wnM-kU-LmY">
@@ -1498,6 +1498,6 @@
         <image name="visibleIcon" width="21" height="14"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="LCC-YW-Uy0"/>
+        <segue reference="TwW-HK-FwZ"/>
     </inferredMetricsTieBreakers>
 </document>

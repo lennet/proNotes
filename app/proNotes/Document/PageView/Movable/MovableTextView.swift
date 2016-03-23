@@ -9,12 +9,14 @@
 import UIKit
 
 class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
-
-    var text = ""
+    
     weak var textView: UITextView?
+    
+    var textLayer: TextLayer? {
+        return movableLayer as? TextLayer
+    }
 
-    init(text: String, frame: CGRect, movableLayer: MovableLayer, renderMode: Bool = false) {
-        self.text = text
+    override init(frame: CGRect, movableLayer: MovableLayer, renderMode: Bool = false) {
         super.init(frame: frame, movableLayer: movableLayer, renderMode: renderMode)
         widthResizingOnly = true
     }
@@ -36,9 +38,10 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
 
             self.textView = textView
         }
-
-
-        textView?.text = text
+        
+        textView?.backgroundColor = textLayer?.backgroundColor
+        textView?.textColor = textLayer?.textColor
+        textView?.text = textLayer?.text
     }
 
     override func handlePanTranslation(translation: CGPoint) -> CGRect {
@@ -63,11 +66,15 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
     // MARK: - TextSettingsDelegate 
 
     func changeTextColor(color: UIColor) {
+        textLayer?.textColor = color
         textView?.textColor = color
+        saveChanges()
     }
 
     func changeBackgroundColor(color: UIColor) {
+        textLayer?.backgroundColor = color
         textView?.backgroundColor = color
+        saveChanges()
     }
 
     func changeAlignment(textAlignment: NSTextAlignment) {

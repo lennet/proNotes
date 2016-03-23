@@ -26,7 +26,12 @@ protocol TextSettingsDelegate: class {
 
 class TextSettingsViewController: SettingsBaseViewController, UIPickerViewDataSource, UIPickerViewDelegate {
 
-    enum FontPickerRows: Int {
+    private enum ColorPickerIdentifier: String {
+        case BackgroundColor = "BackgroundColorIdentifier"
+        case TextColor = "TextColorIdentifier"
+    }
+    
+    private enum FontPickerRows: Int {
         case Families
         case Names
         case Sizes
@@ -39,6 +44,7 @@ class TextSettingsViewController: SettingsBaseViewController, UIPickerViewDataSo
 
     var fontFamilies = [String]()
     var fontNames = [String]()
+    
     // TODO fill possible Font Sizes
     var fontSizes = [10, 12, 14, 15, 16, 18, 22]
     var selectedRow = 0
@@ -176,9 +182,24 @@ class TextSettingsViewController: SettingsBaseViewController, UIPickerViewDataSo
         case 2:
             break
         default:
+            break
+        }
+    }
+    
+    // MARK: - ColorPickerDelegate
+    
+    override func didSelectColor(colorPicker: ColorPickerViewController, color: UIColor) {
+        guard let colorPickerIdentifier = ColorPickerIdentifier(rawValue: colorPicker.identifier ?? "") else {
             return
         }
-
-
+        switch colorPickerIdentifier {
+        case .BackgroundColor:
+            TextSettingsViewController.delegate?.changeBackgroundColor(color)
+            break
+        case .TextColor:
+            TextSettingsViewController.delegate?.changeTextColor(color)
+            break
+        }
     }
+    
 }
