@@ -42,7 +42,8 @@ class MovableView: TouchControlView, PageSubView {
             addConstraints([leftConstraint, rightConstraint, bottomConstraint, topConstraint])
             layoutIfNeeded()
         } else {
-            subview.bounds = CGRect(origin: CGPoint(x: controlLength, y: controlLength), size: CGSize(width: movableLayer.size.width, height: movableLayer.size.height))
+            clipsToBounds = false
+            subview.frame = CGRect(origin: CGPoint(x: controlLength, y: controlLength), size: CGSize(width: movableLayer.size.width, height: movableLayer.size.height))
         }
     }
 

@@ -27,12 +27,9 @@ class MovableImageView: MovableView, ImageSettingsDelegate {
 
     func setUpImageView() {
         clipsToBounds = true
-
         let imageView = UIImageView()
         imageView.image = image
-        imageView.backgroundColor = UIColor.randomColor()
         addSubview(imageView)
-
         self.imageView = imageView
     }
 
