@@ -46,7 +46,7 @@ class TextSettingsViewController: SettingsBaseViewController, UIPickerViewDataSo
     var fontNames = [String]()
     
     // TODO fill possible Font Sizes
-    var fontSizes = [10, 12, 14, 15, 16, 18, 22]
+    let fontSizes = [10, 12, 14, 15, 16, 18, 22]
     var selectedRow = 0
 
     override func viewDidLoad() {
@@ -119,8 +119,7 @@ class TextSettingsViewController: SettingsBaseViewController, UIPickerViewDataSo
         }
     }
 
-    func getFont(row: Int, forComponent component: Int) -> UIFont {
-        let fontSize = UIFont.systemFontSize()
+    func getFont(row: Int, forComponent component: Int, fontSize: CGFloat = UIFont.systemFontSize()) -> UIFont {
         guard let fontPickerComponent = FontPickerComponent(rawValue: component) else {
             print("Not supported compontentnumber for Fontpicker: \(component)")
             return UIFont.systemFontOfSize(fontSize)
@@ -139,7 +138,6 @@ class TextSettingsViewController: SettingsBaseViewController, UIPickerViewDataSo
     }
 
     func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView?) -> UIView {
-
         var pickerLabel = view as? UILabel;
 
         if (pickerLabel == nil) {
@@ -183,11 +181,15 @@ class TextSettingsViewController: SettingsBaseViewController, UIPickerViewDataSo
             if selectedRow != row {
                 selectedRow = row
                 fontNames = UIFont.fontNamesForFamilyName(fontFamilies[selectedRow])
-                pickerView.reloadComponent(1)
+                pickerView.reloadComponent(FontPickerComponent.Names.rawValue)
             }
         default:
             break
         }
+        let familyRow = pickerView.selectedRowInComponent(FontPickerComponent.Names.rawValue)
+        let fontSize = CGFloat(fontSizes[pickerView.selectedRowInComponent(FontPickerComponent.Sizes.rawValue)])
+        let selectedFont = getFont(familyRow, forComponent: FontPickerComponent.Names.rawValue, fontSize: fontSize)
+        TextSettingsViewController.delegate?.changeFont(selectedFont)
     }
     
     // MARK: - ColorPickerDelegate

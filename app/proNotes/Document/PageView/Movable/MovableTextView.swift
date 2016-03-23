@@ -42,6 +42,7 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
         textView?.backgroundColor = textLayer?.backgroundColor
         textView?.textColor = textLayer?.textColor
         textView?.text = textLayer?.text
+        textView?.font = textLayer?.font
     }
 
     override func handlePanTranslation(translation: CGPoint) -> CGRect {
@@ -82,7 +83,9 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
     }
 
     func changeFont(font: UIFont) {
+        textLayer?.font = font
         textView?.font = font
+        saveChanges()
     }
 
     func disableAutoCorrect(disable: Bool) {

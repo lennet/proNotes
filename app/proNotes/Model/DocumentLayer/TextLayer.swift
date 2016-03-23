@@ -9,17 +9,22 @@
 import UIKit
 
 class TextLayer: MovableLayer {
+    
     private final let textKey = "text"
     private final let textColorKey = "textColor"
     private final let backgroundColorKey = "backgroundColor"
+    private final let fontKey = "font"
+    
     var text: String
     var backgroundColor: UIColor
     var textColor: UIColor
+    var font: UIFont
 
     init(index: Int, docPage: DocumentPage, origin: CGPoint, size: CGSize, text: String) {
         self.text = text
         self.backgroundColor = UIColor.clearColor()
         self.textColor = UIColor.blackColor()
+        self.font = UIFont.systemFontOfSize(UIFont.systemFontSize())
         super.init(index: index, type: .Text, docPage: docPage, origin: origin, size: size)
     }
 
@@ -27,6 +32,7 @@ class TextLayer: MovableLayer {
         text = aDecoder.decodeObjectForKey(textKey) as! String
         backgroundColor = aDecoder.decodeObjectForKey(backgroundColorKey) as! UIColor
         textColor = aDecoder.decodeObjectForKey(textColorKey) as! UIColor
+        font = aDecoder.decodeObjectForKey(fontKey) as! UIFont
         super.init(coder: aDecoder)
     }
 
@@ -34,6 +40,7 @@ class TextLayer: MovableLayer {
         aCoder.encodeObject(text, forKey: textKey)
         aCoder.encodeObject(backgroundColor, forKey: backgroundColorKey)
         aCoder.encodeObject(textColor, forKey: textColorKey)
+        aCoder.encodeObject(font, forKey: fontKey)
         super.encodeWithCoder(aCoder)
     }
 
@@ -60,6 +67,10 @@ class TextLayer: MovableLayer {
         }
         
         if layer.textColor != textColor {
+            return false
+        }
+        
+        if layer.font != font {
             return false
         }
 
