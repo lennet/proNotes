@@ -101,6 +101,14 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
 
     func removeText() {
         textView?.text = ""
+        updateTextView()
+    }
+    
+    func removeLayer() {
+        removeFromSuperview()
+        textLayer?.removeFromPage()
+        movableLayer = nil
+        SettingsViewController.sharedInstance?.currentSettingsType = .PageInfo
     }
     
     func getTextLayer() -> TextLayer? {
@@ -126,8 +134,9 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
         }
 
     }
-
+    
     override func saveChanges() {
+        textLayer?.size = bounds.size
         super.saveChanges()
     }
 
@@ -143,6 +152,7 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
         frame = CGRect(origin: origin, size: size)
         layoutIfNeeded()
         setNeedsDisplay()
+        saveChanges()
     }
 
     // MARK: - UITextViewDelegate
