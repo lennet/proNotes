@@ -29,7 +29,7 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
     func setUpTextView() {
         clipsToBounds = true
         if self.textView == nil {
-            let textView = UITextView()
+            let textView = NoScrollingTextView()
             textView.userInteractionEnabled = false
             textView.backgroundColor = UIColor.clearColor()
             textView.delegate = self
@@ -40,6 +40,7 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
         }
         
         textView?.backgroundColor = textLayer?.backgroundColor
+        
         textView?.textColor = textLayer?.textColor
         textView?.text = textLayer?.text
         textView?.font = textLayer?.font
@@ -59,6 +60,11 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
     override func setUpSettingsViewController() {
         TextSettingsViewController.delegate = self
         SettingsViewController.sharedInstance?.currentSettingsType = .Text
+    }
+    
+    override func setSelected() {
+        super.setSelected()
+        textView?.becomeFirstResponder()
     }
 
     override func setDeselected() {
@@ -82,12 +88,14 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
     func changeAlignment(textAlignment: NSTextAlignment) {
         textLayer?.alignment = textAlignment
         textView?.textAlignment = textAlignment
+        updateTextView()
         saveChanges()
     }
 
     func changeFont(font: UIFont) {
         textLayer?.font = font
         textView?.font = font
+        updateTextView()
         saveChanges()
     }
 
@@ -128,14 +136,13 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
             return
         }
         let heightOffset = textView!.contentSize.height - textView!.bounds.size.height
-        if heightOffset > 0 {
-            let origin = frame.origin
-            var size = bounds.size
-            size.height += heightOffset
-            frame = CGRect(origin: origin, size: size)
-            layoutIfNeeded()
-            setNeedsDisplay()
-        }
+        
+        let origin = frame.origin
+        var size = bounds.size
+        size.height += heightOffset
+        frame = CGRect(origin: origin, size: size)
+        layoutIfNeeded()
+        setNeedsDisplay()
     }
 
     // MARK: - UITextViewDelegate

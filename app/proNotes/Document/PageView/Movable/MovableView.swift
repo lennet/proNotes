@@ -58,7 +58,6 @@ class MovableView: TouchControlView, PageSubView {
 
         if isEditing {
             setUpSettingsViewController()
-
         } else {
             setDeselected()
             SettingsViewController.sharedInstance?.currentSettingsType = .PageInfo
