@@ -18,8 +18,8 @@ protocol TextSettingsDelegate: class {
     func changeAlignment(textAlignment: NSTextAlignment)
 
     func changeFont(font: UIFont)
-
-    func disableAutoCorrect(disable: Bool)
+    
+    func getTextLayer() -> TextLayer?
 }
 
 // TODO finish styling
@@ -39,6 +39,17 @@ class TextSettingsViewController: SettingsBaseViewController, UIPickerViewDataSo
         static let allValues = [Families, Names, Sizes]
     }
 
+    @IBOutlet weak var justifiedAlignmentButton: UIButton!
+    @IBOutlet weak var rightAlignmentButton: UIButton!
+    @IBOutlet weak var centerAlignmentButton: UIButton!
+    @IBOutlet weak var leftAlignmentButton: UIButton!
+    
+    var alignmentButtons: [UIButton] {
+        get {
+            return [leftAlignmentButton, centerAlignmentButton, rightAlignmentButton, justifiedAlignmentButton]
+        }
+    }
+    
     @IBOutlet weak var fontPicker: UIPickerView!
     static weak var delegate: TextSettingsDelegate?
 
@@ -54,21 +65,14 @@ class TextSettingsViewController: SettingsBaseViewController, UIPickerViewDataSo
         fontFamilies = UIFont.familyNames()
         fontNames = UIFont.fontNamesForFamilyName(fontFamilies[selectedRow])
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    @IBAction func handleTextColorValueChanged(button: UIButton) {
-        if let newColor = button.backgroundColor {
-            TextSettingsViewController.delegate?.changeTextColor(newColor)
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        guard let textLayer = TextSettingsViewController.delegate?.getTextLayer() else {
+            return
         }
-    }
-
-    @IBAction func handleBackgroundColorValueChanged(button: UIButton) {
-        if let newColor = button.backgroundColor {
-            TextSettingsViewController.delegate?.changeBackgroundColor(newColor)
+        for button in alignmentButtons where button.tag == textLayer.alignment.rawValue {
+            button.selected = true
         }
     }
 
@@ -76,10 +80,6 @@ class TextSettingsViewController: SettingsBaseViewController, UIPickerViewDataSo
         if let textAlignment = NSTextAlignment(rawValue: control.selectedSegmentIndex) {
             TextSettingsViewController.delegate?.changeAlignment(textAlignment)
         }
-    }
-
-    @IBAction func handleAutoCorrectValueChanged(aSwitch: UISwitch) {
-        TextSettingsViewController.delegate?.disableAutoCorrect(!aSwitch.on)
     }
 
     // MARK: - UIPickerViewDataSource
@@ -166,6 +166,20 @@ class TextSettingsViewController: SettingsBaseViewController, UIPickerViewDataSo
         case .Sizes:
             return width / 5
         }
+    }
+    
+    // MARK: - Actions
+    
+    @IBAction func handleAlignmentButtonPressed(sender: UIButton) {
+        for button in alignmentButtons where button != sender && button.selected {
+            button.selected = false
+        }
+        
+        sender.selected = true
+        guard let textAlignment = NSTextAlignment(rawValue: sender.tag) else {
+            return
+        }
+        TextSettingsViewController.delegate?.changeAlignment(textAlignment)
     }
 
     // MARK: - UIPickerViewDelegate 

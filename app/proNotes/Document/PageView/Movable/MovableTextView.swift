@@ -43,6 +43,7 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
         textView?.textColor = textLayer?.textColor
         textView?.text = textLayer?.text
         textView?.font = textLayer?.font
+        textView?.textAlignment = textLayer?.alignment ?? .Left
     }
 
     override func handlePanTranslation(translation: CGPoint) -> CGRect {
@@ -79,7 +80,9 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
     }
 
     func changeAlignment(textAlignment: NSTextAlignment) {
+        textLayer?.alignment = textAlignment
         textView?.textAlignment = textAlignment
+        saveChanges()
     }
 
     func changeFont(font: UIFont) {
@@ -88,16 +91,12 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
         saveChanges()
     }
 
-    func disableAutoCorrect(disable: Bool) {
-        if disable {
-            textView?.autocorrectionType = .No
-        } else {
-            textView?.autocorrectionType = .Yes
-        }
-    }
-
     func removeText() {
         textView?.text = ""
+    }
+    
+    func getTextLayer() -> TextLayer? {
+        return textLayer
     }
 
     override func undoAction(oldObject: AnyObject?) {

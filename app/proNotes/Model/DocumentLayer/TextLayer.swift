@@ -14,17 +14,20 @@ class TextLayer: MovableLayer {
     private final let textColorKey = "textColor"
     private final let backgroundColorKey = "backgroundColor"
     private final let fontKey = "font"
+    private final let alignmentKey = "alignment"
     
     var text: String
     var backgroundColor: UIColor
     var textColor: UIColor
     var font: UIFont
+    var alignment: NSTextAlignment
 
     init(index: Int, docPage: DocumentPage, origin: CGPoint, size: CGSize, text: String) {
         self.text = text
         self.backgroundColor = UIColor.clearColor()
         self.textColor = UIColor.blackColor()
         self.font = UIFont.systemFontOfSize(UIFont.systemFontSize())
+        self.alignment = .Left
         super.init(index: index, type: .Text, docPage: docPage, origin: origin, size: size)
     }
 
@@ -33,6 +36,7 @@ class TextLayer: MovableLayer {
         backgroundColor = aDecoder.decodeObjectForKey(backgroundColorKey) as! UIColor
         textColor = aDecoder.decodeObjectForKey(textColorKey) as! UIColor
         font = aDecoder.decodeObjectForKey(fontKey) as! UIFont
+        alignment = NSTextAlignment(rawValue: Int(aDecoder.decodeIntForKey(alignmentKey)))!
         super.init(coder: aDecoder)
     }
 
@@ -41,6 +45,7 @@ class TextLayer: MovableLayer {
         aCoder.encodeObject(backgroundColor, forKey: backgroundColorKey)
         aCoder.encodeObject(textColor, forKey: textColorKey)
         aCoder.encodeObject(font, forKey: fontKey)
+        aCoder.encodeInt(Int32(alignment.rawValue), forKey: alignmentKey)
         super.encodeWithCoder(aCoder)
     }
 
@@ -56,7 +61,6 @@ class TextLayer: MovableLayer {
         guard let layer = object as? TextLayer else {
             return false
         }
-
         
         if !super.isEqual(object) {
             return false
@@ -71,6 +75,10 @@ class TextLayer: MovableLayer {
         }
         
         if layer.font != font {
+            return false
+        }
+        
+        if layer.alignment != alignment {
             return false
         }
 
