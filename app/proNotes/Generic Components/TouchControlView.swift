@@ -50,6 +50,18 @@ class TouchControlView: UIView {
         }
     }
     
+    var controlLineWidth: CGFloat {
+        get {
+            return controlLength / 4
+        }
+    }
+    
+    var controlLineLength: CGFloat {
+        get {
+            return controlLength * (2/3)
+        }
+    }
+    
     // ProportionalResize & WidthResizingOnly is not possible
     
     var proportionalResize = false {
@@ -145,6 +157,10 @@ class TouchControlView: UIView {
     func getControllableRect() -> CGRect {
         return bounds
     }
+    
+    func getDrawRect() -> CGRect {
+        return bounds
+    }
 
     func handlePanTranslation(translation: CGPoint) -> CGRect {
         var controlableRect = getMovableRect()
@@ -227,4 +243,34 @@ class TouchControlView: UIView {
         selectedTouchControl = .None
     }
 
+    override func drawRect(rect: CGRect) {
+        UIColor.lightGrayColor().setStroke()
+        let controlPath = UIBezierPath()
+        let overlayRect = getDrawRect()
+        
+        // Top Left Corner
+        controlPath.moveToPoint(CGPoint(x: overlayRect.origin.x, y: overlayRect.origin.y + controlLineLength))
+        controlPath.addLineToPoint(overlayRect.origin)
+        controlPath.addLineToPoint(CGPoint(x: overlayRect.origin.x + controlLineLength, y: overlayRect.origin.y))
+        
+        // Bottom Left Corner
+        controlPath.moveToPoint(CGPoint(x: overlayRect.origin.x, y: overlayRect.height + overlayRect.origin.y - controlLineLength))
+        controlPath.addLineToPoint(CGPoint(x: overlayRect.origin.x, y: overlayRect.height + overlayRect.origin.y))
+        controlPath.addLineToPoint(CGPoint(x: overlayRect.origin.x + controlLineLength, y: overlayRect.height + overlayRect.origin.y))
+        
+        // Top Right Corner
+        controlPath.moveToPoint(CGPoint(x: overlayRect.origin.x + overlayRect.width - controlLineLength, y: overlayRect.origin.y))
+        controlPath.addLineToPoint(CGPoint(x: overlayRect.origin.x + overlayRect.width, y: overlayRect.origin.y))
+        controlPath.addLineToPoint(CGPoint(x: overlayRect.origin.x + overlayRect.width, y: overlayRect.origin.y + controlLineLength))
+        
+        // Bottom Right Corner
+        controlPath.moveToPoint(CGPoint(x: overlayRect.origin.x + overlayRect.width - controlLineLength, y: overlayRect.origin.y + overlayRect.height))
+        controlPath.addLineToPoint(CGPoint(x: overlayRect.origin.x + overlayRect.width, y: overlayRect.origin.y + overlayRect.height))
+        controlPath.addLineToPoint(CGPoint(x: overlayRect.origin.x + overlayRect.width, y: overlayRect.origin.y - controlLineLength + overlayRect.height))
+        
+        controlPath.lineWidth = controlLineWidth
+        controlPath.stroke()
+
+    }
+    
 }

@@ -13,8 +13,7 @@ class MovableView: TouchControlView, PageSubView {
     // TODO style
 
     var movableLayer: MovableLayer!
-    var debugMode = true
-    
+    private let debugMode = false
     private var renderMode = false
 
     init(frame: CGRect, movableLayer: MovableLayer, renderMode: Bool = false) {
@@ -64,7 +63,6 @@ class MovableView: TouchControlView, PageSubView {
 
         setNeedsDisplay()
     }
-    
 
     override func handlePanTranslation(translation: CGPoint) -> CGRect {
         frame = super.handlePanTranslation(translation)
@@ -88,9 +86,13 @@ class MovableView: TouchControlView, PageSubView {
         super.handlePanEnded()
         updateFrameChanges()
     }
+    
+    
+    override func getDrawRect() -> CGRect {
+        return subviews.first?.frame ?? bounds
+    }
 
     override func drawRect(rect: CGRect) {
-        super.drawRect(rect)
         if isEditing {
             let context = UIGraphicsGetCurrentContext()
             if debugMode {
@@ -98,6 +100,8 @@ class MovableView: TouchControlView, PageSubView {
                     UIColor.randomColor().colorWithAlphaComponent(0.5).setFill()
                     CGContextFillRect(context, touchRect)
                 }
+            } else {
+                super.drawRect(rect)
             }
         }
     }

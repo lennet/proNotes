@@ -53,12 +53,18 @@ class CropImageView: TouchControlView {
 
     var overlayRect: CGRect = CGRectZero
     var animateLayoutChanges = true
+    
     override var movable: Bool {
         get {
             return false
         }
     }
     
+    override var controlLineWidth: CGFloat {
+        get {
+            return 4
+        }
+    }
     
     override func setUpEditMode() {
         setUpPanRecognizer()
@@ -143,45 +149,22 @@ class CropImageView: TouchControlView {
     override func getMovableRect() -> CGRect {
         return overlayRect
     }
+    
+    override func getDrawRect() -> CGRect {
+        return getImageRect()
+    }
 
     override func drawRect(rect: CGRect) {
         let imageRect = getImageRect()
-        let lineWidth: CGFloat = 2
         image?.drawInRect(imageRect)
 
         if isEditing {
-            let borderPath = UIBezierPath(rect: imageRect)
-            borderPath.lineWidth = lineWidth
-            UIColor.lightGrayColor().setStroke()
+            super.drawRect(rect)
 
-            let controlLineWidth = lineWidth * 2
-            let controlPath = UIBezierPath()
-
-            // Top Left Corner
-            controlPath.moveToPoint(CGPoint(x: overlayRect.origin.x, y: overlayRect.origin.y + controlLength))
-            controlPath.addLineToPoint(overlayRect.origin)
-            controlPath.addLineToPoint(CGPoint(x: overlayRect.origin.x + controlLength, y: overlayRect.origin.y))
-
-            // Bottom Left Corner
-            controlPath.moveToPoint(CGPoint(x: overlayRect.origin.x, y: overlayRect.height + overlayRect.origin.y - controlLength))
-            controlPath.addLineToPoint(CGPoint(x: overlayRect.origin.x, y: overlayRect.height + overlayRect.origin.y))
-            controlPath.addLineToPoint(CGPoint(x: overlayRect.origin.x + controlLength, y: overlayRect.height + overlayRect.origin.y))
-
-            // Top Right Corner
-            controlPath.moveToPoint(CGPoint(x: overlayRect.origin.x + overlayRect.width - controlLength, y: overlayRect.origin.y))
-            controlPath.addLineToPoint(CGPoint(x: overlayRect.origin.x + overlayRect.width, y: overlayRect.origin.y))
-            controlPath.addLineToPoint(CGPoint(x: overlayRect.origin.x + overlayRect.width, y: overlayRect.origin.y + controlLength))
-
-            // Bottom Right Corner
-            controlPath.moveToPoint(CGPoint(x: overlayRect.origin.x + overlayRect.width - controlLength, y: overlayRect.origin.y + overlayRect.height))
-            controlPath.addLineToPoint(CGPoint(x: overlayRect.origin.x + overlayRect.width, y: overlayRect.origin.y + overlayRect.height))
-            controlPath.addLineToPoint(CGPoint(x: overlayRect.origin.x + overlayRect.width, y: overlayRect.origin.y - controlLength + overlayRect.height))
-
-            controlPath.lineWidth = controlLineWidth
-            controlPath.stroke()
-
+            let borderPath = UIBezierPath(rect: overlayRect)
+            borderPath.lineWidth = controlLineWidth/2
             borderPath.stroke()
-
+            
             if !CGRectEqualToRect(overlayRect, imageRect) {
                 let overlayPath = UIBezierPath(rect: imageRect)
                 overlayPath.appendPath(UIBezierPath(rect: overlayRect).bezierPathByReversingPath())
