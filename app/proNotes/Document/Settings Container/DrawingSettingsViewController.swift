@@ -14,8 +14,10 @@ protocol DrawingSettingsDelegate: class {
 
     func didSelectColor(color: UIColor)
 
-    func didSelectDrawingObject(object: DrawingObject)
+    func didSelectDrawingObject(object: Pen)
 
+    func didSelectLineWidth(width: CGFloat)
+    
     func removeLayer()
 }
 
@@ -23,45 +25,6 @@ enum DrawingType {
     case Pen
     case Marker
     case Eraser
-}
-
-protocol DrawingObject: class {
-    var color: UIColor { get set }
-    var lineWidth: CGFloat { get set }
-    var defaultAlphaValue: CGFloat? { get }
-    var dynamicLineWidth: Bool { get }
-    var enabledShading: Bool { get }
-}
-
-class Marker: DrawingObject {
-    var color = UIColor.blueColor()
-    var lineWidth: CGFloat = 20
-    var defaultAlphaValue: CGFloat? = 0.5
-    var dynamicLineWidth = true
-    var enabledShading = true
-}
-
-class Eraser: DrawingObject {
-    var color: UIColor {
-        get {
-            return .clearColor()
-        }
-        set {
-            return
-        }
-    }
-    var lineWidth: CGFloat = 10
-    var defaultAlphaValue: CGFloat? = 1
-    var dynamicLineWidth = false
-    var enabledShading = false
-}
-
-class Pen: DrawingObject {
-    var color = UIColor.blackColor()
-    var lineWidth: CGFloat = 10
-    var defaultAlphaValue: CGFloat? = 1
-    var dynamicLineWidth = true
-    var enabledShading = false
 }
 
 class DrawingSettingsViewController: SettingsBaseViewController {
@@ -87,12 +50,12 @@ class DrawingSettingsViewController: SettingsBaseViewController {
                     break
                 }
 
-                var object: DrawingObject?
+                var object: Pen?
 
                 switch currentType {
                 case .Pen:
                     penTopConstraint.constant = 0
-                    object = Pen()
+                    object = Pencil()
                     break
                 case .Marker:
                     markerTopConstraint.constant = 0
@@ -144,6 +107,7 @@ class DrawingSettingsViewController: SettingsBaseViewController {
 
     @IBAction func handleLineWidthSliderValueChanged(sender: UISlider) {
         lineWidthCircleView.radius = CGFloat(sender.value)
+        DrawingSettingsViewController.delegate?.didSelectLineWidth(lineWidthCircleView.radius)
     }
 
     // MARK: - ColorPickerDelegate 

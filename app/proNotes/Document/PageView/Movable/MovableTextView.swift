@@ -33,7 +33,7 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
             textView.userInteractionEnabled = false
             textView.backgroundColor = UIColor.clearColor()
             textView.delegate = self
-
+            textView.clipsToBounds = true
             addSubview(textView)
 
             self.textView = textView
@@ -144,6 +144,7 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
         guard textView != nil else {
             return
         }
+        textView?.layoutIfNeeded()
         let heightOffset = textView!.contentSize.height - textView!.bounds.size.height
         
         let origin = frame.origin

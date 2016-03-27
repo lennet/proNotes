@@ -33,25 +33,29 @@ class DrawingView: UIImageView, PageSubView, DrawingSettingsDelegate {
         }
     }
 
-    var drawingObject: DrawingObject = Pen()
+    var penObject: Pen = Pencil()
 
     private let forceSensitivity: CGFloat = 4.0
 
     private let minPenAngle: CGFloat = CGFloat(35).toRadians()
 
+    private var lineWidth : CGFloat = 1
+    
     private var minLineWidth: CGFloat {
         get {
-            return drawingObject.lineWidth * 0.1
+            return lineWidth * 0.1
         }
     }
 
     private var defaultAlphaValue: CGFloat {
         get {
-            return drawingObject.defaultAlphaValue ?? 1
+            return penObject.defaultAlphaValue ?? 1
         }
     }
+    
+    private var minAlphaValue: CGFloat = 0.1
 
-    private var oldAlphaValue: CGFloat = 0
+    private var oldTouchForce: CGFloat = 0
 
     private var drawingImage: UIImage?
 
@@ -118,26 +122,19 @@ class DrawingView: UIImageView, PageSubView, DrawingSettingsDelegate {
         UIGraphicsEndImageContext()
     }
 
-    // With help of http://www.raywenderlich.com/121834/apple-pencil-tutorial
-
     private func drawStroke(context: CGContext?, touch: UITouch) {
         let previousLocation = touch.previousLocationInView(self)
         let location = touch.locationInView(self)
+        
+        penObject.color.setStroke()
 
-        let lineWidth = getLineWidth(context, touch: touch)
-        let alpha = getAlpha(touch)
-
-        drawingObject.color.setStroke()
-
-        if drawingObject.color == UIColor.clearColor() {
+        if penObject.isEraser {
             CGContextSetBlendMode(context, .Clear)
         }
 
-        CGContextSetAlpha(context, alpha)
-
-        CGContextSetLineWidth(context, lineWidth)
+        CGContextSetAlpha(context, getAlpha(touch))
+        CGContextSetLineWidth(context, getLineWidth(context, touch: touch))
         CGContextSetLineCap(context, .Round)
-
         CGContextMoveToPoint(context, previousLocation.x, previousLocation.y)
         CGContextAddLineToPoint(context, location.x, location.y)
 
@@ -146,11 +143,11 @@ class DrawingView: UIImageView, PageSubView, DrawingSettingsDelegate {
     }
 
     private func getLineWidth(context: CGContext?, touch: UITouch) -> CGFloat {
-        if !drawingObject.dynamicLineWidth {
-            return drawingObject.lineWidth
+        if !penObject.dynamicLineWidth {
+            return lineWidth
         }
 
-        if touch.altitudeAngle < minPenAngle && touch.type == .Stylus && drawingObject.enabledShading {
+        if touch.altitudeAngle < minPenAngle && touch.type == .Stylus && penObject.enabledShading {
             return lineWidthForShading(context, touch: touch)
         } else {
             return lineWidthForDrawing(context, touch: touch)
@@ -178,7 +175,7 @@ class DrawingView: UIImageView, PageSubView, DrawingSettingsDelegate {
 
         let normalizedAngle = angle.normalized(0, max: CGFloat(90).toRadians())
 
-        let maxLineWidth: CGFloat = drawingObject.lineWidth * 4
+        let maxLineWidth: CGFloat = penObject.lineWidth * 4
         var lineWidth: CGFloat
         lineWidth = maxLineWidth * normalizedAngle
 
@@ -194,34 +191,30 @@ class DrawingView: UIImageView, PageSubView, DrawingSettingsDelegate {
         return lineWidth
     }
 
-
     private func lineWidthForDrawing(context: CGContext?, touch: UITouch) -> CGFloat {
 
-        var lineWidth = drawingObject.lineWidth
-        if drawingObject.dynamicLineWidth {
+        var result = lineWidth
+        if penObject.dynamicLineWidth {
             if forceTouchAvailable || touch.type == .Stylus {
                 if touch.force > 0 {
-                    lineWidth = touch.force * forceSensitivity
+                    result = touch.force.normalized(0, max: touch.maximumPossibleForce) * lineWidth * 2
                 }
             } else {
-                lineWidth = touch.majorRadius / 2
+                result = touch.majorRadius / 2
             }
         }
 
-        return lineWidth
+        return result
     }
 
     private func getAlpha(touch: UITouch) -> CGFloat {
         var alpha = defaultAlphaValue
         if forceTouchAvailable || touch.type == .Stylus {
-
-            alpha = (touch.force + defaultAlphaValue).normalized(defaultAlphaValue, max: touch.maximumPossibleForce)
-
-            alpha = (alpha + oldAlphaValue) / 2
-
-            oldAlphaValue = alpha
+            alpha = sqrt(pow(touch.force, 2) + pow(oldTouchForce,2))
+            alpha = max((alpha).normalized(0, max: touch.maximumPossibleForce*0.2), minAlphaValue)
+            oldTouchForce = touch.force
         }
-
+        
         return alpha
     }
 
@@ -261,11 +254,16 @@ class DrawingView: UIImageView, PageSubView, DrawingSettingsDelegate {
     // MARK: - DrawingSettingsDelegate
 
     func didSelectColor(color: UIColor) {
-        drawingObject.color = color
+        penObject.color = color
     }
 
-    func didSelectDrawingObject(object: DrawingObject) {
-        drawingObject = object
+    func didSelectDrawingObject(object: Pen) {
+        penObject = object
+        lineWidth = penObject.lineWidth
+    }
+    
+    func didSelectLineWidth(width: CGFloat) {
+        lineWidth = width
     }
 
     func clearDrawing() {
