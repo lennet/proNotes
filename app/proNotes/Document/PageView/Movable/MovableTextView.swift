@@ -153,7 +153,6 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
         frame = CGRect(origin: origin, size: size)
         layoutIfNeeded()
         setNeedsDisplay()
-        saveChanges()
     }
 
     // MARK: - UITextViewDelegate
