@@ -77,17 +77,17 @@ class MovableImageView: MovableView, ImageSettingsDelegate {
             }
         }
         
+        let heightRatio = imageView!.bounds.height / imageView!.image!.size.height
+        let widthRatio = imageView!.bounds.width / imageView!.image!.size.width
+        
         imageView?.image = image
         imageLayer?.image = image
-
-        let heightRatio = imageView!.bounds.height / image.size.height
-        let widthRatio = imageView!.bounds.width / image.size.width
         
-
         frame.size.height = (image.size.height * heightRatio) + 2 * controlLength
         frame.size.width = (image.size.width * widthRatio) + 2 * controlLength
         movableLayer?.size = frame.size
-
+        layoutIfNeeded()
+        setNeedsDisplay()
         saveChanges()
     }
 
