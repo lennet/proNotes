@@ -44,6 +44,12 @@ class TouchControlView: UIView {
         }
     }
     
+    var movable: Bool {
+        get {
+            return true
+        }
+    }
+    
     // ProportionalResize & WidthResizingOnly is not possible
     
     var proportionalResize = false {
@@ -203,7 +209,7 @@ class TouchControlView: UIView {
 
         switch control {
         case .Center:
-            return translation
+            return movable ? translation : .zero
         case .TopSide, .BottomSide:
             xOffset /= 2
             break

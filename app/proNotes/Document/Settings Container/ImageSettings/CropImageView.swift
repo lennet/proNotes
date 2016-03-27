@@ -53,7 +53,13 @@ class CropImageView: TouchControlView {
 
     var overlayRect: CGRect = CGRectZero
     var animateLayoutChanges = true
-
+    override var movable: Bool {
+        get {
+            return false
+        }
+    }
+    
+    
     override func setUpEditMode() {
         setUpPanRecognizer()
     }
@@ -141,8 +147,6 @@ class CropImageView: TouchControlView {
     override func drawRect(rect: CGRect) {
         let imageRect = getImageRect()
         let lineWidth: CGFloat = 2
-
-        // TODO only redraw images on changes
         image?.drawInRect(imageRect)
 
         if isEditing {
