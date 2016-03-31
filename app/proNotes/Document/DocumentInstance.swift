@@ -36,7 +36,7 @@ class DocumentInstance: NSObject {
         }
     }
 
-    weak var document: Document? {
+    var document: Document? {
         didSet {
             if document != nil {
                 if oldValue == nil {
