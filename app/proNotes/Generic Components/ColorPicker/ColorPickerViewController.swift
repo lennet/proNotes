@@ -14,26 +14,31 @@ protocol ColorPickerDelegate: class {
 
 class ColorPickerViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
 
+    struct ColorPickerElement {
+        var pickerColor : UIColor?
+        var resultColor : UIColor
+    }
+    
     @IBOutlet weak var colorCollectionView: UICollectionView!
-
-    let colors = [UIColor.blackColor(),
-                  UIColor.darkGrayColor(),
-                  UIColor.lightGrayColor(),
-                  UIColor.whiteColor(),
-                  UIColor.grayColor(),
-                  UIColor.redColor(),
-                  UIColor.greenColor(),
-                  UIColor.blueColor(),
-                  UIColor.cyanColor(),
-                  UIColor.yellowColor(),
-                  UIColor.magentaColor(),
-                  UIColor.orangeColor(),
-                  UIColor.purpleColor(),
-                  UIColor.brownColor()]
-
+    
+    let colors = [ColorPickerElement(pickerColor: UIColor.clearColorPattern(), resultColor: UIColor.clearColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.blackColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.darkGrayColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.lightGrayColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.whiteColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.grayColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.redColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.greenColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.blueColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.cyanColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.yellowColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.magentaColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.orangeColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.purpleColor())]
     var selectedIndex = 0
     var identifier: String?
-
+    
+    
     weak var delegate: ColorPickerDelegate?
 
     static func getColorPicker() -> ColorPickerViewController {
@@ -54,7 +59,8 @@ class ColorPickerViewController: UIViewController, UICollectionViewDataSource, U
 
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(ColorPickerCollectionViewCell.identifier, forIndexPath: indexPath) as? ColorPickerCollectionViewCell
-        cell?.backgroundColor = colors[indexPath.row]
+        let colorPickerElement = colors[indexPath.row]
+        cell?.backgroundColor = colorPickerElement.pickerColor ?? colorPickerElement.resultColor
         cell?.isSelectedColor = indexPath.row == selectedIndex
         cell?.setNeedsDisplay()
         return cell!
@@ -67,7 +73,7 @@ class ColorPickerViewController: UIViewController, UICollectionViewDataSource, U
     // MARK: - UICollectionViewDelegate
 
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        delegate?.didSelectColor(self, color: colors[indexPath.row])
+        delegate?.didSelectColor(self, color: colors[indexPath.row].resultColor)
         let lastSelectedIndex = selectedIndex
         selectedIndex = indexPath.row
         if lastSelectedIndex != lastSelectedIndex {

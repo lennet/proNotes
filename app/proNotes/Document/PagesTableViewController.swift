@@ -58,6 +58,9 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
    }
    
    func setUpScrollView() {
+      guard tableView.bounds.width != 0 else {
+         return 
+      }
       let minZoomScale = scrollView.bounds.width / tableView.bounds.width * 0.9
       scrollView.minimumZoomScale = minZoomScale
       scrollView.maximumZoomScale = minZoomScale * 5
