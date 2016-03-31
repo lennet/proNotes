@@ -14,18 +14,30 @@ extension UIColor {
         return UIColor(red: CGFloat(drand48()), green: CGFloat(drand48()), blue: CGFloat(drand48()), alpha: 1.0)
     }
     
-    class func clearColorPattern() -> UIColor{
+    class func randomColorPattern() -> UIColor {
+        return UIColor().colorWithPattern({ (i, k) -> UIColor in
+            return UIColor.randomColor()
+        })
+    }
+    
+    class func clearColorPattern() -> UIColor {
+        return UIColor().colorWithPattern({ (i, k) -> UIColor in
+            if k % 2 + i % 2 == 1 {
+                return lightGrayColor()
+            } else {
+                return whiteColor()
+            }
+        })
+    }
+    
+    private func colorWithPattern(fillColorFoRect: (Int, Int) -> UIColor) -> UIColor {
         let size = CGSize(width: 100, height: 100)
         let rectSize = size.width/10
         UIGraphicsBeginImageContext(size)
         let context = UIGraphicsGetCurrentContext()
         for i in 0...Int(rectSize) {
             for k in 0...Int(rectSize) {
-                if k % 2 + i % 2 == 1 {
-                    CGContextSetFillColorWithColor(context, lightGrayColor().CGColor)
-                } else {
-                    CGContextSetFillColorWithColor(context, UIColor.whiteColor().CGColor)
-                }
+                CGContextSetFillColorWithColor(context, fillColorFoRect(i, k).CGColor)
                 let rect = CGRect(origin: CGPoint(x: CGFloat(k) * rectSize,y: CGFloat(i) * rectSize), size: CGSize(width: rectSize, height: rectSize))
                 CGContextFillRect(context, rect)
             }

@@ -40,11 +40,18 @@ class PageInfoLayerTableViewCell: UITableViewCell {
         indexLabel.text = String(documentLayer.index + 1)
         typeLabel.text = String(documentLayer.type)
 
-        let buttonImageName = documentLayer.hidden ? "invisibleIcon" : "visibleIcon"
+        updateVisibilityButton()
+    }
+    
+    func updateVisibilityButton() {
+        guard documentLayer != nil else {
+            return
+        }
+        let buttonImageName = documentLayer!.hidden ? "invisibleIcon" : "visibleIcon"
         UIView.animateWithDuration(standardAnimationDuration, delay: 0, options: .CurveEaseInOut, animations: {
             () -> Void in
-            self.visibilityButton.setImage(UIImage(named: buttonImageName), forState: .Normal)
-        }, completion: nil)
+                self.visibilityButton.setImage(UIImage(named: buttonImageName), forState: .Normal)
+            }, completion: nil)
     }
 
     // MARK: - Actions
@@ -59,6 +66,7 @@ class PageInfoLayerTableViewCell: UITableViewCell {
     @IBAction func handleVisibilityButtonPressed(sender: AnyObject) {
         if documentLayer != nil {
             PagesTableViewController.sharedInstance?.currentPageView()?.changeLayerVisibility(documentLayer!)
+            updateVisibilityButton()
         }
 
     }
