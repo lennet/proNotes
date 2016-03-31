@@ -84,7 +84,10 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
     }
 
     func scroll(down: Bool) {
-        tableView.setContentOffset(CGPoint(x: 0, y: tableView.contentOffset.y + 75 * (down ? 1 : -1)), animated: true)
+      var newYContentOffset = tableView.contentOffset.y + 75 * (down ? 1 : -1)
+      newYContentOffset = max(0, newYContentOffset)
+      newYContentOffset = min(tableView.contentSize.height - tableView.bounds.height , newYContentOffset)
+      tableView.setContentOffset(CGPoint(x: 0, y: newYContentOffset), animated: true)
     }
 
     // MARK: - Screen Rotation

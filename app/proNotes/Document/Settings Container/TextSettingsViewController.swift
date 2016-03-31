@@ -59,7 +59,7 @@ class TextSettingsViewController: SettingsBaseViewController, UIPickerViewDataSo
     var fontNames = [String]()
     var delegateEnabled = true
     
-    let fontSizes = [10, 12, 14, 18, 24, 36, 48]
+    let fontSizes = [10, 12, 14, 18, 24, 36, 48, 72]
     var selectedRow = 0
 
     override func viewDidLoad() {

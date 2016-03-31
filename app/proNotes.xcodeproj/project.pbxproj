@@ -240,7 +240,7 @@
 				98C2E2721C6FC069002F4ADC /* test.ProNote */,
 				98EB1B521C6D344100D104A4 /* test.pdf */,
 			);
-			name = "Test Resources";
+			path = "Test Resources";
 			sourceTree = "<group>";
 		};
 		981CF9A61C4AB034003BA892 /* DocumentOverview */ = {
@@ -292,8 +292,8 @@
 		98312D671C0B65F500F3B1CB /* PageView */ = {
 			isa = PBXGroup;
 			children = (
-				98AFFE6D1C14A685003A4A79 /* Movable */,
 				98E1FF1A1CA8407E00368EAF /* Drawing */,
+				98AFFE6D1C14A685003A4A79 /* Movable */,
 				98101BD61C0A5945001E9555 /* PDFView.swift */,
 				98262C111C22D96A00B420A8 /* PageSubView.swift */,
 				98312D651C0B65E500F3B1CB /* PageView.swift */,
@@ -309,9 +309,9 @@
 				9854310E1C52C4EE0098DAC1 /* CloudDownloadingIndicator.swift */,
 				9896A6861C77906700061986 /* CustomDocumentPickerViewController.swift */,
 				986D605A1C2B21140065D71B /* CustomScrollView.swift */,
+				983B24CC1CA70EB600F4F3AE /* NoScrollingTextView.swift */,
 				98AD15E81C49BBDC00EE94A1 /* ReordableTableView.swift */,
 				984242AA1C3EDD0900F90455 /* TouchControlView.swift */,
-				983B24CC1CA70EB600F4F3AE /* NoScrollingTextView.swift */,
 			);
 			path = "Generic Components";
 			sourceTree = "<group>";
@@ -436,11 +436,11 @@
 		98DBAA201C0799CB007EFFE5 /* proNotesTests */ = {
 			isa = PBXGroup;
 			children = (
+				981618701C8382E600E1D5EA /* Test Resources */,
 				98E4688C1C6E11AD00AC0E0A /* DocumentPageTests.swift */,
 				98EB1B501C6D319C00D104A4 /* DocumentTests.swift */,
-				981618701C8382E600E1D5EA /* Test Resources */,
-				9816186E1C834AF700E1D5EA /* TouchControlViewTests.swift */,
 				985282821C8B13B000B72624 /* RetainCycleTests.swift */,
+				9816186E1C834AF700E1D5EA /* TouchControlViewTests.swift */,
 			);
 			path = proNotesTests;
 			sourceTree = "<group>";
@@ -451,7 +451,7 @@
 				98D8C0B91C0B11750026EECE /* DrawingView.swift */,
 				98E1FF1B1CA840C800368EAF /* PenProtocoll.swift */,
 			);
-			name = Drawing;
+			path = Drawing;
 			sourceTree = "<group>";
 		};
 		98E33D4D1C37E8BB0065B590 /* ImageSettings */ = {
@@ -808,7 +808,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = proNotesTests/Info.plist;
+				INFOPLIST_FILE = "proNotesTests/Test Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = lt.StudentTests;
 				PRODUCT_NAME = proNotesTests;
@@ -820,7 +820,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = proNotesTests/Info.plist;
+				INFOPLIST_FILE = "proNotesTests/Test Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = lt.StudentTests;
 				PRODUCT_NAME = proNotesTests;

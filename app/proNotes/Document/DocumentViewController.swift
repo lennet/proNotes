@@ -16,12 +16,11 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
     @IBOutlet weak var undoButton: UIBarButtonItem!
     @IBOutlet weak var redoButton: UIBarButtonItem!
 
-    private final let defaultSettingsWidth: CGFloat = 240
+    private final let defaultSettingsWidth: CGFloat = 280
     private final let defaultPagesOverViewWidth: CGFloat = 180
 
-    var isFullScreen = false
-
     weak var pagesOverviewController: PagesOverviewTableViewController?
+    var isFullScreen = false
     var isLoadingImage = false
 
     var document: Document? {
@@ -59,11 +58,6 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
             undoManager?.removeAllActions()
         }
         
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     override func canBecomeFirstResponder() -> Bool {
@@ -158,8 +152,6 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
 
     // MARK: - UIKeyCommands
 
-    // TODO add more commands
-    // commant + T create Text
     override var keyCommands: [UIKeyCommand]? {
         var commands = [UIKeyCommand]()
 

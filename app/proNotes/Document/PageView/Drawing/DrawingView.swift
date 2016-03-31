@@ -9,7 +9,7 @@
 import UIKit
 
 class DrawingView: UIImageView, PageSubView, DrawingSettingsDelegate {
-
+    
     init(drawLayer: DocumentDrawLayer, frame: CGRect) {
         self.drawLayer = drawLayer
         super.init(frame: frame)
@@ -19,11 +19,6 @@ class DrawingView: UIImageView, PageSubView, DrawingSettingsDelegate {
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-    }
-
-    func commonInit() {
-        userInteractionEnabled = false
-        backgroundColor = UIColor.clearColor()
     }
 
     weak var drawLayer: DocumentDrawLayer? {
@@ -49,7 +44,7 @@ class DrawingView: UIImageView, PageSubView, DrawingSettingsDelegate {
 
     private var defaultAlphaValue: CGFloat {
         get {
-            return penObject.defaultAlphaValue ?? 1
+            return penObject.alphaValue
         }
     }
     
@@ -100,7 +95,7 @@ class DrawingView: UIImageView, PageSubView, DrawingSettingsDelegate {
         guard let touch = touches.first else {
             return
         }
-
+        
         UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0.0)
         let context = UIGraphicsGetCurrentContext()
 
@@ -132,14 +127,11 @@ class DrawingView: UIImageView, PageSubView, DrawingSettingsDelegate {
             CGContextSetBlendMode(context, .Clear)
         }
 
-        CGContextSetAlpha(context, getAlpha(touch))
         CGContextSetLineWidth(context, getLineWidth(context, touch: touch))
         CGContextSetLineCap(context, .Round)
         CGContextMoveToPoint(context, previousLocation.x, previousLocation.y)
         CGContextAddLineToPoint(context, location.x, location.y)
-
         CGContextStrokePath(context)
-
     }
 
     private func getLineWidth(context: CGContext?, touch: UITouch) -> CGFloat {
@@ -205,17 +197,6 @@ class DrawingView: UIImageView, PageSubView, DrawingSettingsDelegate {
         }
 
         return result
-    }
-
-    private func getAlpha(touch: UITouch) -> CGFloat {
-        var alpha = defaultAlphaValue
-        if forceTouchAvailable || touch.type == .Stylus {
-            alpha = sqrt(pow(touch.force, 2) + pow(oldTouchForce,2))
-            alpha = max((alpha).normalized(0, max: touch.maximumPossibleForce*0.2), minAlphaValue)
-            oldTouchForce = touch.force
-        }
-        
-        return alpha
     }
 
     func removeLayer() {
