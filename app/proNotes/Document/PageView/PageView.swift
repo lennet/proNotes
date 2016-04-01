@@ -22,7 +22,13 @@ class PageView: UIView, UIGestureRecognizerDelegate {
         }
     }
 
-    weak var selectedSubView: PageSubView?
+    weak var selectedSubView: PageSubView? {
+        didSet {
+            oldValue?.setDeselected?()
+            
+            PagesTableViewController.sharedInstance?.twoTouchesForScrollingRequired = selectedSubView != nil
+        }
+    }
 
     subscript(subViewIndex: Int) -> PageSubView? {
         get {

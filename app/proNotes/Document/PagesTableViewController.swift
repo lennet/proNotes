@@ -8,8 +8,6 @@
 
 import UIKit
 
-// todo handle documentmaxwidth changes maybe in cell for row at indexpath
-
 class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource {
    
    weak static var sharedInstance: PagesTableViewController?
@@ -20,6 +18,18 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
    @IBOutlet weak var scrollView: UIScrollView!
    @IBOutlet weak var tableViewWidth: NSLayoutConstraint!
    
+   var twoTouchesForScrollingRequired = false {
+      didSet {
+         if twoTouchesForScrollingRequired {
+            tableView.panGestureRecognizer.minimumNumberOfTouches = 2
+            scrollView.panGestureRecognizer.minimumNumberOfTouches = 2
+         } else {
+            tableView.panGestureRecognizer.minimumNumberOfTouches = 1
+            scrollView.panGestureRecognizer.minimumNumberOfTouches = 1
+         }
+      }
+   }
+   
    var document: Document? {
       get {
          return DocumentInstance.sharedInstance.document
@@ -28,7 +38,7 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
    
    override func viewDidLoad() {
       super.viewDidLoad()
-      tableView.panGestureRecognizer.minimumNumberOfTouches = 2
+      
       setUpTableView()
       loadTableView()
    }
@@ -65,7 +75,6 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
       scrollView.minimumZoomScale = minZoomScale
       scrollView.maximumZoomScale = minZoomScale * 5
       scrollView.zoomScale = minZoomScale
-      scrollView.panGestureRecognizer.minimumNumberOfTouches = 2
       scrollView.deactivateDelaysContentTouches()
       scrollView.showsVerticalScrollIndicator = false
       UIView.animateWithDuration(standardAnimationDuration, delay: 0, usingSpringWithDamping: 0.85, initialSpringVelocity: 5, options: .CurveEaseInOut, animations: {
