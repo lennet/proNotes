@@ -170,9 +170,6 @@ class TouchControlView: UIView {
             calculateProportionalSizeChange(&sizeOffset, originalSize: controlableRect.size)
         }
         
-        sizeOffset.width = max(-controlableRect.size.width+1, sizeOffset.width)
-        sizeOffset.height = max(-controlableRect.size.height+1, sizeOffset.height)
-        
         controlableRect.size.width += sizeOffset.width
         controlableRect.size.height += sizeOffset.height
         controlableRect.origin.addPoint(getOriginOffset(sizeOffset, translation: translation, control: selectedTouchControl, proportional: proportionalResize))
@@ -247,30 +244,39 @@ class TouchControlView: UIView {
         UIColor.lightGrayColor().setStroke()
         let controlPath = UIBezierPath()
         let overlayRect = getDrawRect()
-        
-        // Top Left Corner
-        controlPath.moveToPoint(CGPoint(x: overlayRect.origin.x, y: overlayRect.origin.y + controlLineLength))
-        controlPath.addLineToPoint(overlayRect.origin)
-        controlPath.addLineToPoint(CGPoint(x: overlayRect.origin.x + controlLineLength, y: overlayRect.origin.y))
-        
-        // Bottom Left Corner
-        controlPath.moveToPoint(CGPoint(x: overlayRect.origin.x, y: overlayRect.height + overlayRect.origin.y - controlLineLength))
-        controlPath.addLineToPoint(CGPoint(x: overlayRect.origin.x, y: overlayRect.height + overlayRect.origin.y))
-        controlPath.addLineToPoint(CGPoint(x: overlayRect.origin.x + controlLineLength, y: overlayRect.height + overlayRect.origin.y))
-        
-        // Top Right Corner
-        controlPath.moveToPoint(CGPoint(x: overlayRect.origin.x + overlayRect.width - controlLineLength, y: overlayRect.origin.y))
-        controlPath.addLineToPoint(CGPoint(x: overlayRect.origin.x + overlayRect.width, y: overlayRect.origin.y))
-        controlPath.addLineToPoint(CGPoint(x: overlayRect.origin.x + overlayRect.width, y: overlayRect.origin.y + controlLineLength))
-        
-        // Bottom Right Corner
-        controlPath.moveToPoint(CGPoint(x: overlayRect.origin.x + overlayRect.width - controlLineLength, y: overlayRect.origin.y + overlayRect.height))
-        controlPath.addLineToPoint(CGPoint(x: overlayRect.origin.x + overlayRect.width, y: overlayRect.origin.y + overlayRect.height))
-        controlPath.addLineToPoint(CGPoint(x: overlayRect.origin.x + overlayRect.width, y: overlayRect.origin.y - controlLineLength + overlayRect.height))
-        
         controlPath.lineWidth = controlLineWidth
+        
+        if widthResizingOnly {
+            let midY = CGRectGetMidY(overlayRect)
+            // Center Left Side
+            controlPath.moveToPoint(CGPoint(x: overlayRect.origin.x, y: midY-controlLength/4))
+            controlPath.addLineToPoint(CGPoint(x: overlayRect.origin.x, y: midY+controlLength/4))
+            
+            // Center Right Side
+            controlPath.moveToPoint(CGPoint(x: CGRectGetMaxX(overlayRect), y: midY-controlLength/4))
+            controlPath.addLineToPoint(CGPoint(x: CGRectGetMaxX(overlayRect), y: midY+controlLength/4))
+        } else {
+            // Top Left Corner
+            controlPath.moveToPoint(CGPoint(x: overlayRect.origin.x, y: overlayRect.origin.y + controlLineLength))
+            controlPath.addLineToPoint(overlayRect.origin)
+            controlPath.addLineToPoint(CGPoint(x: overlayRect.origin.x + controlLineLength, y: overlayRect.origin.y))
+            
+            // Bottom Left Corner
+            controlPath.moveToPoint(CGPoint(x: overlayRect.origin.x, y: overlayRect.height + overlayRect.origin.y - controlLineLength))
+            controlPath.addLineToPoint(CGPoint(x: overlayRect.origin.x, y: overlayRect.height + overlayRect.origin.y))
+            controlPath.addLineToPoint(CGPoint(x: overlayRect.origin.x + controlLineLength, y: overlayRect.height + overlayRect.origin.y))
+            
+            // Top Right Corner
+            controlPath.moveToPoint(CGPoint(x: overlayRect.origin.x + overlayRect.width - controlLineLength, y: overlayRect.origin.y))
+            controlPath.addLineToPoint(CGPoint(x: overlayRect.origin.x + overlayRect.width, y: overlayRect.origin.y))
+            controlPath.addLineToPoint(CGPoint(x: overlayRect.origin.x + overlayRect.width, y: overlayRect.origin.y + controlLineLength))
+            
+            // Bottom Right Corner
+            controlPath.moveToPoint(CGPoint(x: overlayRect.origin.x + overlayRect.width - controlLineLength, y: overlayRect.origin.y + overlayRect.height))
+            controlPath.addLineToPoint(CGPoint(x: overlayRect.origin.x + overlayRect.width, y: overlayRect.origin.y + overlayRect.height))
+            controlPath.addLineToPoint(CGPoint(x: overlayRect.origin.x + overlayRect.width, y: overlayRect.origin.y - controlLineLength + overlayRect.height))
+        }
         controlPath.stroke()
-
     }
     
 }

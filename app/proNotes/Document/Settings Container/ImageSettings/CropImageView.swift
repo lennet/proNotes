@@ -56,7 +56,7 @@ class CropImageView: TouchControlView {
     
     override var movable: Bool {
         get {
-            return false
+            return true
         }
     }
     
@@ -106,15 +106,23 @@ class CropImageView: TouchControlView {
 
         let imageRect = getImageRect()
 
-        overlayRect.origin.x = between(newOverlayRect.origin.x, min: imageRect.origin.x, max: CGRectGetMaxX(imageRect))
-        overlayRect.origin.y = between(newOverlayRect.origin.y, min: imageRect.origin.y, max: CGRectGetMaxY(imageRect))
         overlayRect.size.width = between(newOverlayRect.width, min: controlLength * 2, max: imageRect.width)
         overlayRect.size.height = between(newOverlayRect.height, min: controlLength * 2, max: imageRect.height)
+        overlayRect.origin.x = between(newOverlayRect.origin.x, min: imageRect.origin.x, max: CGRectGetMaxX(imageRect))
+        overlayRect.origin.y = between(newOverlayRect.origin.y, min: imageRect.origin.y, max: CGRectGetMaxY(imageRect))
+        
+        let widthOffSet = CGRectGetMaxX(overlayRect) - CGRectGetMaxX(imageRect)
+        if widthOffSet > 0 {
+            overlayRect.size.width -= widthOffSet
+        }
+        let heigthOffSet = CGRectGetMaxY(overlayRect) - CGRectGetMaxY(imageRect)
+        if heigthOffSet > 0 {
+            overlayRect.size.height -= heigthOffSet
+        }
 
         setNeedsDisplay()
 
         return newOverlayRect
-
     }
 
     func convertToImageRect(rect: CGRect, ratio: CGFloat) -> CGRect {
@@ -151,7 +159,7 @@ class CropImageView: TouchControlView {
     }
     
     override func getDrawRect() -> CGRect {
-        return getImageRect()
+        return overlayRect
     }
 
     override func drawRect(rect: CGRect) {

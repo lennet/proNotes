@@ -11,7 +11,7 @@ import UIKit
 class MovableView: TouchControlView, PageSubView {
 
     var movableLayer: MovableLayer!
-    private let debugMode = true
+    private let debugMode = false
     private var renderMode = false
 
     init(frame: CGRect, movableLayer: MovableLayer, renderMode: Bool = false) {
@@ -54,7 +54,14 @@ class MovableView: TouchControlView, PageSubView {
 
         if isEditing {
             setUpSettingsViewController()
+            for view in subviews {
+                view.layer.borderColor = UIColor.lightGrayColor().CGColor
+                view.layer.borderWidth = 1
+            }
         } else {
+            for view in subviews {
+                view.layer.borderWidth = 0
+            }
             setDeselected()
             SettingsViewController.sharedInstance?.currentSettingsType = .PageInfo
         }
@@ -113,7 +120,7 @@ class MovableView: TouchControlView, PageSubView {
     }
 
     func setDeselected() {
-        // empty Base implementation
+
     }
 
     func undoAction(oldObject: AnyObject?) {
