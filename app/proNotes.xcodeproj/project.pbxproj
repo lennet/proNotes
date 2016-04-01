@@ -151,7 +151,6 @@
 		98BABB8F1C1B16A400D9C938 /* PageInfoLayerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageInfoLayerTableViewCell.swift; sourceTree = "<group>"; };
 		98BABB911C1B4D9300D9C938 /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		98C2E2721C6FC069002F4ADC /* test.ProNote */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = test.ProNote; sourceTree = "<group>"; };
-		98C8C4BD1C1D98AB00A1FD2A /* libcompression.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libcompression.tbd; path = usr/lib/libcompression.tbd; sourceTree = SDKROOT; };
 		98CD5AAF1C5FE728003F0686 /* CGFloatExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGFloatExtension.swift; sourceTree = "<group>"; };
 		98CD5AB11C5FE954003F0686 /* CGVectorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGVectorExtension.swift; sourceTree = "<group>"; };
 		98D2DA811C6BDE4500B3C76C /* DocumentExporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentExporter.swift; sourceTree = "<group>"; };
@@ -201,14 +200,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1B67489C00FC15173E9055FF /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				98C8C4BD1C1D98AB00A1FD2A /* libcompression.tbd */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		980A3F341C22B2010070C618 /* ColorPicker */ = {
 			isa = PBXGroup;
 			children = (
@@ -404,7 +395,6 @@
 		98DBA9FD1C0799CB007EFFE5 = {
 			isa = PBXGroup;
 			children = (
-				1B67489C00FC15173E9055FF /* Frameworks */,
 				98DBAA071C0799CB007EFFE5 /* Products */,
 				98DBAA081C0799CB007EFFE5 /* proNotes */,
 				98DBAA201C0799CB007EFFE5 /* proNotesTests */,
