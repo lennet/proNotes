@@ -35,6 +35,9 @@ class Document: UIDocument {
     var _metaData: DocumentMetaData?
     var metaData: DocumentMetaData? {
         get {
+            guard _metaData == nil else {
+                return _metaData
+            }
             if fileWrapper != nil {
                 _metaData = decodeObject(metaDataFileName) as? DocumentMetaData
             }
@@ -111,6 +114,7 @@ class Document: UIDocument {
         }
 
         var wrappers = [String: NSFileWrapper]()
+        metaData?.thumbImage = pages.first?.previewImage
         encodeObject(metaData!, prefferedFileName: metaDataFileName, wrappers: &wrappers)
         encodeObject(pages, prefferedFileName: pagesDataFileName, wrappers: &wrappers)
 

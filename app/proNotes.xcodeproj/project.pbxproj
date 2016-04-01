@@ -18,6 +18,7 @@
 		98101BD71C0A5945001E9555 /* PageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98101BD41C0A5945001E9555 /* PageTableViewCell.swift */; };
 		98101BD91C0A5945001E9555 /* PDFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98101BD61C0A5945001E9555 /* PDFView.swift */; };
 		9814D7A71CAEED5B00D1ADA4 /* DocumentSettingsContainer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9814D7A61CAEED5B00D1ADA4 /* DocumentSettingsContainer.storyboard */; };
+		9814D7A91CAEFA0D00D1ADA4 /* NSDateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9814D7A81CAEFA0D00D1ADA4 /* NSDateExtension.swift */; };
 		9816186F1C834AF700E1D5EA /* TouchControlViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9816186E1C834AF700E1D5EA /* TouchControlViewTests.swift */; };
 		981CF9A81C4AB04E003BA892 /* DocumentOverview.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 981CF9A71C4AB04E003BA892 /* DocumentOverview.storyboard */; };
 		981CF9AC1C4AC122003BA892 /* DocumentOverviewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981CF9AB1C4AC122003BA892 /* DocumentOverviewCollectionViewCell.swift */; };
@@ -31,7 +32,6 @@
 		9829ECDA1C791F2700A64009 /* DocumentDrawLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9829ECD91C791F2700A64009 /* DocumentDrawLayer.swift */; };
 		98312D661C0B65E500F3B1CB /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98312D651C0B65E500F3B1CB /* PageView.swift */; };
 		98312D691C0B79F200F3B1CB /* DocumentInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98312D681C0B79F200F3B1CB /* DocumentInstance.swift */; };
-		983985961C7267D8000B6005 /* CGPDFDocumentExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983985951C7267D8000B6005 /* CGPDFDocumentExtension.swift */; };
 		983B24CD1CA70EB600F4F3AE /* NoScrollingTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983B24CC1CA70EB600F4F3AE /* NoScrollingTextView.swift */; };
 		984242AB1C3EDD0900F90455 /* TouchControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984242AA1C3EDD0900F90455 /* TouchControlView.swift */; };
 		984242AD1C3EE79900F90455 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984242AC1C3EE79900F90455 /* UIColorExtension.swift */; };
@@ -109,6 +109,7 @@
 		98101BD41C0A5945001E9555 /* PageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageTableViewCell.swift; sourceTree = "<group>"; };
 		98101BD61C0A5945001E9555 /* PDFView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFView.swift; sourceTree = "<group>"; };
 		9814D7A61CAEED5B00D1ADA4 /* DocumentSettingsContainer.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DocumentSettingsContainer.storyboard; sourceTree = "<group>"; };
+		9814D7A81CAEFA0D00D1ADA4 /* NSDateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtension.swift; sourceTree = "<group>"; };
 		9816186E1C834AF700E1D5EA /* TouchControlViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchControlViewTests.swift; sourceTree = "<group>"; };
 		981CF9A71C4AB04E003BA892 /* DocumentOverview.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DocumentOverview.storyboard; sourceTree = "<group>"; };
 		981CF9AB1C4AC122003BA892 /* DocumentOverviewCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentOverviewCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -122,7 +123,6 @@
 		9829ECD91C791F2700A64009 /* DocumentDrawLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentDrawLayer.swift; sourceTree = "<group>"; };
 		98312D651C0B65E500F3B1CB /* PageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
 		98312D681C0B79F200F3B1CB /* DocumentInstance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentInstance.swift; sourceTree = "<group>"; };
-		983985951C7267D8000B6005 /* CGPDFDocumentExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGPDFDocumentExtension.swift; sourceTree = "<group>"; };
 		983B24CC1CA70EB600F4F3AE /* NoScrollingTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoScrollingTextView.swift; sourceTree = "<group>"; };
 		984242AA1C3EDD0900F90455 /* TouchControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchControlView.swift; sourceTree = "<group>"; };
 		984242AC1C3EE79900F90455 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
@@ -356,7 +356,6 @@
 			children = (
 				986D605F1C2C34BD0065D71B /* CALayerExtension.swift */,
 				98CD5AAF1C5FE728003F0686 /* CGFloatExtension.swift */,
-				983985951C7267D8000B6005 /* CGPDFDocumentExtension.swift */,
 				98F2E3E41C1A1ED2008A5C6C /* CGPointExtension.swift */,
 				987B570B1C3AF85200141EA5 /* CGRectExtension.swift */,
 				98F2E3E51C1A1ED2008A5C6C /* CGSizeExtenstion.swift */,
@@ -369,6 +368,7 @@
 				987B570F1C3B139700141EA5 /* UIImageExtension.swift */,
 				98F2E3E61C1A1ED2008A5C6C /* UIStoryboardExtension.swift */,
 				98BABB911C1B4D9300D9C938 /* UIViewExtension.swift */,
+				9814D7A81CAEFA0D00D1ADA4 /* NSDateExtension.swift */,
 			);
 			path = Extenstions;
 			sourceTree = "<group>";
@@ -579,7 +579,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				98262C101C22C29A00B420A8 /* SettingsBaseViewController.swift in Sources */,
-				983985961C7267D8000B6005 /* CGPDFDocumentExtension.swift in Sources */,
 				98E1FF1C1CA840C800368EAF /* PenProtocoll.swift in Sources */,
 				98BABB921C1B4D9300D9C938 /* UIViewExtension.swift in Sources */,
 				98BABB901C1B16A400D9C938 /* PageInfoLayerTableViewCell.swift in Sources */,
@@ -609,6 +608,7 @@
 				986D605E1C2C2D700065D71B /* CircleView.swift in Sources */,
 				98CD5AB01C5FE728003F0686 /* CGFloatExtension.swift in Sources */,
 				98F2E3EC1C1A1EE9008A5C6C /* MovableView.swift in Sources */,
+				9814D7A91CAEFA0D00D1ADA4 /* NSDateExtension.swift in Sources */,
 				986D605B1C2B21140065D71B /* CustomScrollView.swift in Sources */,
 				98006ABF1C1A1EAC0091E356 /* PagesTableViewController.swift in Sources */,
 				98E0D4021C4C093900EF49FD /* Preferences.swift in Sources */,

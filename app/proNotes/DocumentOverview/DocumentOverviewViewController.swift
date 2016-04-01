@@ -9,10 +9,9 @@
 import UIKit
 
 class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIDocumentPickerDelegate, FileManagerDelegate {
-
-    @IBOutlet weak var recentlyUsedCollectionView: UICollectionView!
-    @IBOutlet weak var allDocumentsCollectionView: UICollectionView!
-
+    
+    @IBOutlet weak var documentsCollectionViewController: UICollectionView!
+    
     private final let showDocumentSegueIdentifier = "showDocumentSegue"
 
     var fileManager: FileManager {
@@ -28,6 +27,9 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        fileManager.delegate = nil
+        fileManager.reload()
+        documentsCollectionViewController.reloadData()
         fileManager.delegate = self
     }
 
@@ -35,12 +37,6 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
         super.viewWillDisappear(animated)
         fileManager.delegate = nil
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
 
     // MARK: - Actions
 
@@ -66,7 +62,7 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
     }
 
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        return CGSizeMake(recentlyUsedCollectionView.bounds.height, recentlyUsedCollectionView.bounds.height)
+        return CGSize(width: 200, height: 200)
     }
 
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -74,8 +70,15 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
 
         let object = fileManager.objects[indexPath.row]
         cell.nameLabel.text = object.description
+        cell.dateLabel.text = object.metaData?.fileModificationDate?.toString()
         cell.downloadIndicator.hidden = object.downloaded
-
+        if let thumbImage = object.metaData?.thumbImage {
+            cell.thumbImageView.image = thumbImage
+            cell.thumbImageViewHeightConstraint.constant = thumbImage.size.height
+            cell.thumbImageViewWidthConstraint.constant = thumbImage.size.width
+        }
+        
+        cell.layoutIfNeeded()
         return cell
     }
 
@@ -114,31 +117,26 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
     // MARK: - FileManagerDelegate 
 
     func reloadObjects() {
-        recentlyUsedCollectionView.reloadData()
-        allDocumentsCollectionView.reloadData()
+        documentsCollectionViewController.reloadData()
     }
 
     func reloadObjectAtIndex(index: Int) {
         let indexPath = NSIndexPath(forItem: index, inSection: 0)
 
-        guard indexPath.row + 1 > allDocumentsCollectionView.numberOfItemsInSection(0) else {
+        guard indexPath.row + 1 > documentsCollectionViewController.numberOfItemsInSection(0) else {
             reloadObjects()
             return
         }
 
-        recentlyUsedCollectionView.reloadItemsAtIndexPaths([indexPath])
-        allDocumentsCollectionView.reloadItemsAtIndexPaths([indexPath])
+        documentsCollectionViewController.reloadItemsAtIndexPaths([indexPath])
     }
 
     func insertObjectAtIndex(index: Int) {
         let indexPath = NSIndexPath(forItem: index, inSection: 0)
-        allDocumentsCollectionView.insertItemsAtIndexPaths([indexPath])
-        recentlyUsedCollectionView.insertItemsAtIndexPaths([indexPath])
+        documentsCollectionViewController.insertItemsAtIndexPaths([indexPath])
     }
 
     func removeObjectAtIndex(index: Int) {
-        // maybe add a fancy animtaion in the future
-        // FIXME Crash after deleting all Notes 
         reloadObjectAtIndex(index)
     }
 

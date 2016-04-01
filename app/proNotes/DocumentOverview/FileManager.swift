@@ -190,6 +190,7 @@ class FileManager: NSObject {
                 return
             }
             let metaData = document.metaData
+            metaData?.fileModificationDate = document.fileModificationDate
             let fileURL = document.fileURL
             let state = document.documentState
             let version = NSFileVersion.currentVersionOfItemAtURL(fileURL)
@@ -218,6 +219,7 @@ class FileManager: NSObject {
                 }
 
                 let metaData = document.metaData
+                metaData?.fileModificationDate = document.fileModificationDate
                 let fileURL = document.fileURL
                 let state = document.documentState
                 let version = NSFileVersion.currentVersionOfItemAtURL(fileURL)

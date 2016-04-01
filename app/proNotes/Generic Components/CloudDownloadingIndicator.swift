@@ -12,8 +12,6 @@ import UIKit
 @IBDesignable
 class CloudDownloadingIndicator: UIView {
 
-    let pathLayer = CAShapeLayer()
-
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -25,6 +23,7 @@ class CloudDownloadingIndicator: UIView {
     }
 
     private func commonInit() {
+        let pathLayer = CAShapeLayer()
         pathLayer.frame = bounds
         pathLayer.lineWidth = 2
         pathLayer.fillColor = UIColor.blackColor().CGColor
@@ -33,7 +32,7 @@ class CloudDownloadingIndicator: UIView {
         layer.addSublayer(pathLayer)
     }
 
-    func cloudBezierPath(rect: CGRect) -> UIBezierPath {
+    private func cloudBezierPath(rect: CGRect) -> UIBezierPath {
         let bezierPath = UIBezierPath()
         bezierPath.moveToPoint(CGPointMake(320, 32))
         bezierPath.addCurveToPoint(CGPointMake(416, 126.81), controlPoint1: CGPointMake(372.56, 32), controlPoint2: CGPointMake(415.38, 74.44))
