@@ -33,13 +33,7 @@ class SettingsViewController: UIViewController {
         super.viewDidLoad()
         SettingsViewController.sharedInstance = self
         setUpChildViewController(currentSettingsType)
-
         view.layer.setUpDefaultBorder()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     private func setUpChildViewController(settingsViewController: SettingsViewControllerType) {
@@ -47,7 +41,7 @@ class SettingsViewController: UIViewController {
         self.currentChildViewController?.view.removeFromSuperview()
         self.currentChildViewController?.removeFromParentViewController()
 
-        self.currentChildViewController = UIStoryboard.documentStoryboard().instantiateViewControllerWithIdentifier(settingsViewController.rawValue) as? SettingsBaseViewController
+        self.currentChildViewController = UIStoryboard.documentSettingsContainerStoryBoard().instantiateViewControllerWithIdentifier(settingsViewController.rawValue) as? SettingsBaseViewController
         self.currentChildViewController!.view.frame = view.bounds
         self.addChildViewController(self.currentChildViewController!)
         self.view.addSubview(self.currentChildViewController!.view)

@@ -14,5 +14,10 @@ extension UIStoryboard {
         let documentStoryboardName = "Document"
         return UIStoryboard(name: documentStoryboardName, bundle: nil)
     }
+    
+    static func documentSettingsContainerStoryBoard() -> UIStoryboard {
+        let documentStoryboardName = "DocumentSettingsContainer"
+        return UIStoryboard(name: documentStoryboardName, bundle: nil)
+    }
 
 }
