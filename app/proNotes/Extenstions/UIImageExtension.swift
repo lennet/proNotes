@@ -10,6 +10,14 @@ import UIKit
 
 extension UIImage {
 
+    func resetRoation() -> UIImage {
+        UIGraphicsBeginImageContext(size)
+        self.drawAtPoint(CGPointZero)
+        let resultImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return resultImage
+    }
+    
     func cropedImage(rect: CGRect) -> UIImage? {
         if let croppedCGImage = CGImageCreateWithImageInRect(self.CGImage, rect) {
             return UIImage(CGImage: croppedCGImage)
@@ -23,12 +31,7 @@ extension UIImage {
         }
 
         let rotatedImage = UIImage(CGImage: CGImage, scale: self.scale, orientation: rotation)
-        UIGraphicsBeginImageContext(rotatedImage.size)
-        rotatedImage.drawAtPoint(CGPointZero)
-        let resultImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-
-        return resultImage
+        return rotatedImage.resetRoation()
     }
     
     func thumbImage() -> UIImage {

@@ -160,7 +160,7 @@ class ImportDataViewController: UIViewController, UITableViewDataSource, UITable
             if customDocumentPicker.documentTypes.contains(imageUTI) {
                 if let imageData = NSData(contentsOfURL: url) {
                     if let image = UIImage(data: imageData) {
-                        delegate?.addImage(image)
+                        delegate?.addImage(image.resetRoation())
                     }
                 }
             } else {
@@ -176,7 +176,7 @@ class ImportDataViewController: UIViewController, UITableViewDataSource, UITable
 
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String:AnyObject]?) {
         dismissViewControllerAnimated(false, completion: nil)
-        delegate?.addImage(image)
+        delegate?.addImage(image.resetRoation())
     }
 
 
