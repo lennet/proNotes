@@ -42,14 +42,6 @@ class DrawingView: UIImageView, PageSubView, DrawingSettingsDelegate {
         }
     }
 
-    private var defaultAlphaValue: CGFloat {
-        get {
-            return penObject.alphaValue
-        }
-    }
-    
-    private var minAlphaValue: CGFloat = 0.1
-
     private var oldTouchForce: CGFloat = 0
 
     private var drawingImage: UIImage?
