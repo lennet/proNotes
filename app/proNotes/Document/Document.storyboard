@@ -237,7 +237,7 @@
                             </barButtonItem>
                             <barButtonItem image="DrawIcon" id="78j-Lm-gB9">
                                 <connections>
-                                    <action selector="handleDrawButtonPressed:" destination="mNn-FC-EJF" id="6lJ-3O-gW8"/>
+                                    <action selector="handleSketchButtonPressed:" destination="mNn-FC-EJF" id="psh-7h-kXZ"/>
                                 </connections>
                             </barButtonItem>
                         </leftBarButtonItems>

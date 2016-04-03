@@ -55,13 +55,13 @@
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xdq-er-zpW">
-                                                                    <rect key="frame" x="8" y="18.5" width="12" height="20.5"/>
+                                                                    <rect key="frame" x="8" y="18" width="12" height="20.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Typ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AaV-6U-vyc">
-                                                                    <rect key="frame" x="28" y="18.5" width="28.5" height="20.5"/>
+                                                                    <rect key="frame" x="28" y="18" width="28.5" height="20.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
@@ -81,7 +81,7 @@
                                                                     </connections>
                                                                 </button>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Dc-44-01l" userLabel="Separator View">
-                                                                    <rect key="frame" x="0.0" y="56.5" width="543" height="1"/>
+                                                                    <rect key="frame" x="0.0" y="57" width="543" height="1"/>
                                                                     <color key="backgroundColor" red="0.87450980389999999" green="0.87058823529999996" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="1" id="cHf-yd-P8c"/>
@@ -335,8 +335,8 @@
                                                 <state key="normal" image="cropIcon"/>
                                                 <variation key="default">
                                                     <mask key="constraints">
-                                                        <exclude reference="hWs-Vr-JSd"/>
                                                         <exclude reference="CcF-3z-6e9"/>
+                                                        <exclude reference="hWs-Vr-JSd"/>
                                                     </mask>
                                                 </variation>
                                                 <connections>
@@ -647,10 +647,10 @@
             </objects>
             <point key="canvasLocation" x="-704" y="-1008"/>
         </scene>
-        <!--Drawing Settings View Controller-->
+        <!--Sketch Settings View Controller-->
         <scene sceneID="pt2-o4-4oh">
             <objects>
-                <viewController storyboardIdentifier="DrawingSettingsIdentifier" id="dDp-cm-Dsq" customClass="DrawingSettingsViewController" customModule="proNotes" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SketchSettingsIdentifier" id="dDp-cm-Dsq" customClass="SketchSettingsViewController" customModule="proNotes" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="EJ8-VE-DPf"/>
                         <viewControllerLayoutGuide type="bottom" id="qNB-Zt-sgk"/>
@@ -833,11 +833,11 @@
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="Awx-HD-ZYv"/>
-                                                <exclude reference="EIl-hx-Yg5"/>
                                                 <exclude reference="1Pa-oq-VdU"/>
-                                                <exclude reference="qSj-St-1ji"/>
-                                                <exclude reference="IdQ-NH-uDp"/>
+                                                <exclude reference="EIl-hx-Yg5"/>
                                                 <exclude reference="2F2-UU-nF2"/>
+                                                <exclude reference="IdQ-NH-uDp"/>
+                                                <exclude reference="qSj-St-1ji"/>
                                             </mask>
                                         </variation>
                                     </view>
@@ -929,9 +929,9 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="2QK-XO-QMC"/>
                                 <exclude reference="ITX-oP-HbI"/>
                                 <exclude reference="U58-bv-Biq"/>
-                                <exclude reference="2QK-XO-QMC"/>
                                 <exclude reference="DV3-Id-E0V"/>
                             </mask>
                         </variation>

@@ -8,7 +8,6 @@
 
 import UIKit
 
-// TODO handle conflicts
 
 enum RenameError: ErrorType {
     case AlreadyExists

@@ -124,12 +124,6 @@ class PageInfoViewController: SettingsBaseViewController, UITableViewDataSource,
         PagesTableViewController.sharedInstance?.currentPageView()?.swapLayerPositions(firstIndex, secondIndex: secondIndex)
     }
 
-    // MARK: - UICollectionViewDelegate
-
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        // TODO
-    }
-
     // MARK: - PageInfoLayerTableViewCellDelegate
 
     func didRemovedLayer() {

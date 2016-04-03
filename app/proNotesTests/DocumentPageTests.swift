@@ -18,7 +18,7 @@ class DocumentPageTests: XCTestCase {
         XCTAssertEqual(firstPage, firstPage)
         XCTAssertNotEqual(firstPage, secondPage)
 
-        firstPage.addDrawingLayer(nil)
+        firstPage.addSketchLayer(nil)
         firstPage.index = 1
         XCTAssertNotEqual(firstPage, secondPage)
 

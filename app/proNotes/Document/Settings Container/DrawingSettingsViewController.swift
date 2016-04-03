@@ -1,5 +1,5 @@
 //
-//  DrawingSettingsViewController.swift
+//  SketchSettingsViewController.swift
 //  proNotes
 //
 //  Created by Leo Thomas on 29/11/15.
@@ -8,9 +8,9 @@
 
 import UIKit
 
-protocol DrawingSettingsDelegate: class {
+protocol SketchSettingsDelegate: class {
 
-    func clearDrawing()
+    func clearSketch()
 
     func didSelectColor(color: UIColor)
 
@@ -27,9 +27,9 @@ enum DrawingType {
     case Eraser
 }
 
-class DrawingSettingsViewController: SettingsBaseViewController {
+class SketchSettingsViewController: SettingsBaseViewController {
 
-    weak static var delegate: DrawingSettingsDelegate?
+    weak static var delegate: SketchSettingsDelegate?
 
     let defaultTopConstant: CGFloat = -20
     let animationDuration = 0.2
@@ -72,7 +72,7 @@ class DrawingSettingsViewController: SettingsBaseViewController {
                     self.view.layoutIfNeeded()
                 }, completion: nil)
 
-                DrawingSettingsViewController.delegate?.didSelectDrawingObject(object!)
+                SketchSettingsViewController.delegate?.didSelectDrawingObject(object!)
             }
         }
     }
@@ -98,21 +98,21 @@ class DrawingSettingsViewController: SettingsBaseViewController {
     }
 
     @IBAction func handleClearButtonPressed(sender: AnyObject) {
-        DrawingSettingsViewController.delegate?.clearDrawing()
+        SketchSettingsViewController.delegate?.clearSketch() 
     }
 
     @IBAction func handleDeleteButtonPressed(sender: AnyObject) {
-        DrawingSettingsViewController.delegate?.removeLayer()
+        SketchSettingsViewController.delegate?.removeLayer()
     }
 
     @IBAction func handleLineWidthSliderValueChanged(sender: UISlider) {
         lineWidthCircleView.radius = CGFloat(sender.value)
-        DrawingSettingsViewController.delegate?.didSelectLineWidth(lineWidthCircleView.radius)
+        SketchSettingsViewController.delegate?.didSelectLineWidth(lineWidthCircleView.radius)
     }
 
     // MARK: - ColorPickerDelegate 
 
     override func didSelectColor(colorPicker: ColorPickerViewController, color: UIColor) {
-        DrawingSettingsViewController.delegate?.didSelectColor(color)
+        SketchSettingsViewController.delegate?.didSelectColor(color)
     }
 }

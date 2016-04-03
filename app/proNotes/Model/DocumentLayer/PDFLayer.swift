@@ -1,5 +1,5 @@
 //
-//  DocumentPDFLayer.swift
+//  PDFLayer.swift
 //  proNotes
 //
 //  Created by Leo Thomas on 20/02/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DocumentPDFLayer: DocumentLayer {
+class PDFLayer: DocumentLayer {
     private final let pdfKey = "pdf"
 
     var pdfData: NSData?
@@ -33,7 +33,7 @@ class DocumentPDFLayer: DocumentLayer {
     }
 
     override func isEqual(object: AnyObject?) -> Bool {
-        guard let layer = object as? DocumentPDFLayer else {
+        guard let layer = object as? PDFLayer else {
             return false
         }
 
