@@ -11,28 +11,28 @@ import UIKit
 class StrokeBufferView: UIImageView {
 
     // MARK: - Properties
-    
-    var currentStrokeImage: UIImage?
+
     var currentPenObject: Pen {
         get {
             return (superview as? SketchView)?.penObject ?? Pencil()
         }
     }
     
-    var lineWidth: CGFloat {
+    private var lineWidth: CGFloat {
         get {
             return currentPenObject.lineWidth ?? 1
         }
     }
     
-    var strokeColor: UIColor {
+    private var strokeColor: UIColor {
         get {
             return currentPenObject.color
         }
     }
     
-    let minPenAngle: CGFloat = CGFloat(35).toRadians()
-    let minLineWidth: CGFloat = 1
+    private final let minPenAngle: CGFloat = CGFloat(35).toRadians()
+    private final let minLineWidth: CGFloat = 1
+    private var oldLineWidth: CGFloat = 0
     
     // MARK: - Init
     
@@ -51,7 +51,6 @@ class StrokeBufferView: UIImageView {
     }
     
     func reset() {
-        currentStrokeImage = nil
         image = nil
     }
     
@@ -65,20 +64,12 @@ class StrokeBufferView: UIImageView {
         UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0.0)
         let context = UIGraphicsGetCurrentContext()
         
-        currentStrokeImage?.drawInRect(bounds)
-        
-        let touches = event?.coalescedTouchesForTouch(touch) ?? [touch]
-        
-        for touch in touches {
+        image?.drawInRect(bounds)
+        for touch in event?.coalescedTouchesForTouch(touch) ?? [] {
             drawStroke(context, touch: touch)
         }
-        
-        currentStrokeImage = UIGraphicsGetImageFromCurrentImageContext()
-        
-        for touch in event?.predictedTouchesForTouch(touch) ?? [UITouch]() {
-            drawStroke(context, touch: touch)
-        }
-        image = currentStrokeImage
+    
+        image = UIGraphicsGetImageFromCurrentImageContext()
     
         UIGraphicsEndImageContext()
     }
@@ -89,19 +80,22 @@ class StrokeBufferView: UIImageView {
         CGContextSetStrokeColorWithColor(context, strokeColor.CGColor)
         CGContextSetLineWidth(context, getLineWidth(context, touch: touch))
         CGContextSetLineCap(context, .Round)
+        CGContextSetLineJoin(context, .Round)
         CGContextMoveToPoint(context, previousLocation.x, previousLocation.y)
         CGContextAddLineToPoint(context, location.x, location.y)
         CGContextStrokePath(context)
     }
     
     private func getLineWidth(context: CGContext?, touch: UITouch) -> CGFloat {
-        
-        // todo smooth!
+        var newLineWidth: CGFloat = 0
         if touch.type == .Stylus  {
-            return getLineWidthForStylus(touch)
+            newLineWidth = getLineWidthForStylus(touch)
         } else {
-            return getLineWidthForDrawing(touch, defaultLineWidth: nil)
+            newLineWidth = getLineWidthForDrawing(touch, defaultLineWidth: nil)
         }
+        newLineWidth = (newLineWidth + oldLineWidth) / 2
+        oldLineWidth = newLineWidth
+        return newLineWidth
     }
     
     private func getLineWidthForStylus(touch: UITouch) -> CGFloat {

@@ -18,7 +18,7 @@ protocol Pen: class {
 
 class Pencil: Pen {
     var color = UIColor.blackColor()
-    var lineWidth: CGFloat = 10
+    var lineWidth: CGFloat = 5
     var alphaValue: CGFloat = 1
     var enabledShading: Bool = false
     var isEraser: Bool = false

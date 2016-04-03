@@ -18,14 +18,11 @@ class SketchView: UIImageView, PageSubView, SketchSettingsDelegate {
         }
     }
     
-    private var sketchImage: UIImage?
-    
     private var undoImage: UIImage?
     
     weak var sketchLayer: SketchLayer? {
         didSet {
             image = sketchLayer?.image
-            sketchImage = image
         }
     }
     
@@ -46,7 +43,6 @@ class SketchView: UIImageView, PageSubView, SketchSettingsDelegate {
     
     func commonInit() {
         image = sketchLayer?.image
-        sketchImage = image
         let strokeBuffer = StrokeBufferView(frame: bounds)
         strokeBuffer.alpha = penObject.alphaValue
         addSubview(strokeBuffer)
@@ -79,13 +75,13 @@ class SketchView: UIImageView, PageSubView, SketchSettingsDelegate {
         // merge current Stroke
         if let newStrokeImage = strokeBuffer?.image {
             UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0.0)
-            sketchImage?.drawInRect(bounds)
+            image?.drawInRect(bounds)
             newStrokeImage.drawInRect(bounds, blendMode: .Normal, alpha: strokeBuffer?.alpha ?? 1)
-            sketchImage = UIGraphicsGetImageFromCurrentImageContext()
+            image = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext()
         }
         strokeBuffer?.reset()
-        updateImage(sketchImage)
+        updateImage(image)
     }
 
     func updateImage(image: UIImage?) {
@@ -93,9 +89,6 @@ class SketchView: UIImageView, PageSubView, SketchSettingsDelegate {
         if sketchLayer != nil && sketchLayer?.docPage != nil {
             DocumentInstance.sharedInstance.registerUndoAction(undoImage, pageIndex: sketchLayer!.docPage.index, layerIndex: sketchLayer!.index)
         }
-
-        self.image = image
-        sketchImage = image
         saveChanges()
     }
 
@@ -103,23 +96,17 @@ class SketchView: UIImageView, PageSubView, SketchSettingsDelegate {
         guard let touch = touches.first else {
             return
         }
-        
         UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0.0)
         let context = UIGraphicsGetCurrentContext()
-        sketchImage?.drawInRect(bounds)
-        let touches = event?.coalescedTouchesForTouch(touch) ?? [touch]
-        for touch in touches {
-            eraseStroke(context, touch: touch)
+        image?.drawInRect(bounds)
+        for touch in event?.coalescedTouchesForTouch(touch) ?? [touch] {
+            drawEraseStroke(context, touch: touch)
         }
-        sketchImage = UIGraphicsGetImageFromCurrentImageContext()
-        for touch in event?.predictedTouchesForTouch(touch) ?? [UITouch]() {
-            eraseStroke(context, touch: touch)
-        }
-        self.image = UIGraphicsGetImageFromCurrentImageContext()
+        image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
     }
 
-    private func eraseStroke(context: CGContext?, touch: UITouch) {
+    private func drawEraseStroke(context: CGContext?, touch: UITouch) {
         let previousLocation = touch.previousLocationInView(self)
         let location = touch.locationInView(self)
         CGContextSetBlendMode(context, .Clear)
@@ -179,7 +166,6 @@ class SketchView: UIImageView, PageSubView, SketchSettingsDelegate {
 
     func clearSketch() {
         image = nil
-        sketchImage = nil
         strokeBuffer?.reset()
     }
 

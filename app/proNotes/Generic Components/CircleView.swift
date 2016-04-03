@@ -42,8 +42,8 @@ class CircleView: UIView {
 
     override func drawRect(rect: CGRect) {
         let context = UIGraphicsGetCurrentContext()
-
-        let circleRect = CGRect(origin: CGPoint(x: (rect.width / 2) - radius, y: (rect.height / 2) - radius), size: CGSize(width: radius * 2, height: radius * 2))
+        
+        let circleRect = CGRect(center: bounds.getCenter(), size: CGSize(width: radius * 2, height: radius * 2))
 
         strokeColor.setStroke()
         CGContextStrokeEllipseInRect(context, circleRect)
