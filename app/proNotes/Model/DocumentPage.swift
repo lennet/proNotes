@@ -80,14 +80,14 @@ class DocumentPage: NSObject, NSCoding {
     
     // MARK: - Add Layer
 
-    func addDrawingLayer(image: UIImage?) -> DocumentDrawLayer {
-        let drawLayer = DocumentDrawLayer(index: layers.count, image: image, docPage: self)
-        layers.append(drawLayer)
-        return drawLayer
+    func addSketchLayer(image: UIImage?) -> SketchLayer {
+        let sketchLayer = SketchLayer(index: layers.count, image: image, docPage: self)
+        layers.append(sketchLayer)
+        return sketchLayer
     }
 
     func addPDFLayer(pdfData: NSData) {
-        let pdfLayer = DocumentPDFLayer(index: layers.count, pdfData: pdfData, docPage: self)
+        let pdfLayer = PDFLayer(index: layers.count, pdfData: pdfData, docPage: self)
         layers.append(pdfLayer)
     }
 

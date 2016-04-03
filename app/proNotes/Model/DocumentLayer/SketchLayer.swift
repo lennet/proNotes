@@ -1,5 +1,5 @@
 //
-//  DocumentDrawLayer.swift
+//  SketchLayer.swift
 //  proNotes
 //
 //  Created by Leo Thomas on 20/02/16.
@@ -8,10 +8,10 @@
 
 import UIKit
 
-class DocumentDrawLayer: DocumentLayer {
+class SketchLayer: DocumentLayer {
     var image: UIImage?
     init(index: Int, image: UIImage?, docPage: DocumentPage) {
-        super.init(index: index, type: .Drawing, docPage: docPage)
+        super.init(index: index, type: .Sketch, docPage: docPage)
     }
 
     required init(coder aDecoder: NSCoder) {
@@ -43,7 +43,7 @@ class DocumentDrawLayer: DocumentLayer {
     }
 
     override func isEqual(object: AnyObject?) -> Bool {
-        guard let layer = object as? DocumentDrawLayer else {
+        guard let layer = object as? SketchLayer else {
             return false
         }
 

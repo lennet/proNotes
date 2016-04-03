@@ -105,10 +105,10 @@ class PageView: UIView, UIGestureRecognizerDelegate {
         for layer in page!.layers {
             switch layer.type {
             case .PDF:
-                addPDFView(layer as! DocumentPDFLayer)
+                addPDFView(layer as! PDFLayer)
                 break
-            case .Drawing:
-                addDrawingView(layer as! DocumentDrawLayer)
+            case .Sketch:
+                addSketchView(layer as! SketchLayer)
                 break
             case .Image:
                 addImageLayer(layer as! ImageLayer, renderMode: renderMode)
@@ -120,17 +120,17 @@ class PageView: UIView, UIGestureRecognizerDelegate {
         }
     }
 
-    func addPDFView(pdfLayer: DocumentPDFLayer) {
+    func addPDFView(pdfLayer: PDFLayer) {
         let view = PDFView(pdfData: pdfLayer.pdfData!, frame: bounds)
         view.backgroundColor = UIColor.clearColor()
         view.hidden = pdfLayer.hidden
         addSubview(view)
     }
 
-    func addDrawingView(drawLayer: DocumentDrawLayer) {
-        let view = DrawingView(drawLayer: drawLayer, frame: bounds)
+    func addSketchView(sketchLayer: SketchLayer) {
+        let view = SketchView(sketchLayer: sketchLayer, frame: bounds)
         view.backgroundColor = UIColor.clearColor()
-        view.hidden = drawLayer.hidden
+        view.hidden = sketchLayer.hidden
         addSubview(view)
     }
 
@@ -150,22 +150,22 @@ class PageView: UIView, UIGestureRecognizerDelegate {
         view.setUpTextView()
     }
 
-    func getDrawingViews() -> [DrawingView] {
-        var result = [DrawingView]()
+    func getSketchViews() -> [SketchView] {
+        var result = [SketchView]()
         for view in subviews {
-            if let drawingView = view as? DrawingView {
-                result.append(drawingView)
+            if let sketchView = view as? SketchView {
+                result.append(sketchView)
             }
         }
         return result
     }
 
-    func handleDrawButtonPressed() {
+    func handleSketchButtonPressed() {
         guard subviews.count > 0,
-        let subview = subviews.last as? DrawingView else {
-            if let drawLayer = page?.addDrawingLayer(nil) {
-                addDrawingView(drawLayer)
-                handleDrawButtonPressed()
+        let subview = subviews.last as? SketchView else {
+            if let sketchLayer = page?.addSketchLayer(nil) {
+                addSketchView(sketchLayer)
+                handleSketchButtonPressed()
             }
             return
         }
@@ -219,21 +219,21 @@ class PageView: UIView, UIGestureRecognizerDelegate {
     // MARK: - UIGestureRecognizer
 
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        (selectedSubView as? DrawingView)?.touchesBegan(touches, withEvent: event)
+        (selectedSubView as? SketchView)?.touchesBegan(touches, withEvent: event)
     }
 
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        (selectedSubView as? DrawingView)?.touchesMoved(touches, withEvent: event)
+        (selectedSubView as? SketchView)?.touchesMoved(touches, withEvent: event)
     }
 
     override func touchesEnded(touches: Set<UITouch>,
                                withEvent event: UIEvent?) {
-        (selectedSubView as? DrawingView)?.touchesEnded(touches, withEvent: event)
+        (selectedSubView as? SketchView)?.touchesEnded(touches, withEvent: event)
     }
 
     override func touchesCancelled(touches: Set<UITouch>?,
                                    withEvent event: UIEvent?) {
-        (selectedSubView as? DrawingView)?.touchesCancelled(touches, withEvent: event)
+        (selectedSubView as? SketchView)?.touchesCancelled(touches, withEvent: event)
     }
 
     func handlePan(panGestureRecognizer: UIPanGestureRecognizer) {
@@ -264,9 +264,10 @@ class PageView: UIView, UIGestureRecognizerDelegate {
     // MARK: - UIGestureRecognizerDelegate
 
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
-        if let _ = selectedSubView as? DrawingView {
+        if let _ = selectedSubView as? SketchView {
             return false
         }
+        
         return true
     }
 

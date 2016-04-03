@@ -8,11 +8,9 @@
 
 import UIKit
 
-// TODO Error Handling for Decoding Problems
-
 enum DocumentLayerType: Int {
     case PDF = 1
-    case Drawing = 2
+    case Sketch = 2
     case Image = 3
     case Text = 4
 }
@@ -35,7 +33,7 @@ class DocumentLayer: NSObject, NSCoding {
 
     init(fileWrapper: NSFileWrapper, index: Int, docPage: DocumentPage) {
         self.index = index
-        self.type = .Drawing
+        self.type = .Sketch
         self.docPage = docPage
     }
 

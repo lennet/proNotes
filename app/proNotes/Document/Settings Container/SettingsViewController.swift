@@ -13,11 +13,10 @@ class SettingsViewController: UIViewController {
     weak static var sharedInstance: SettingsViewController?
 
     enum SettingsViewControllerType: String {
-        case Drawing = "DrawingSettingsIdentifier"
+        case Sketch = "SketchSettingsIdentifier"
         case Image = "ImageSettingsIdentifier"
         case PageInfo = "PageInfoSettingsIdentifier"
         case Text = "TextSettingsIdentifier"
-        case Plot = "PlotSettingsIdentifier"
     }
 
     weak var currentChildViewController: SettingsBaseViewController?

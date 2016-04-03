@@ -16,6 +16,8 @@ protocol ImportDataViewControllerDelgate: class {
     func addPDF(url: NSURL)
 
     func addImage(image: UIImage)
+    
+    func addSketchLayer()
 
     func dismiss()
 }
@@ -47,7 +49,7 @@ class ImportDataViewController: UIViewController, UITableViewDataSource, UITable
         dataSourceObjects.append(TableViewMainObject(title: "Bild", collapsed: true, subObjects: [TableViewSubObject(title: "Photos", action: handleAddPictureCameraRoll), TableViewSubObject(title: "Camera", action: handleAddPictureCamera), TableViewSubObject(title: "iCloud Drive", action: handleAddImageiCloudDrive)], action: nil))
         dataSourceObjects.append(TableViewMainObject(title: "PDF", collapsed: true, subObjects: nil, action: handleAddPdf))
         dataSourceObjects.append(TableViewMainObject(title: "Textfeld", collapsed: true, subObjects: nil, action: handleAddTextField))
-        dataSourceObjects.append(TableViewMainObject(title: "Zeichenebene", collapsed: true, subObjects: nil, action: handleAddDrawingLayer))
+        dataSourceObjects.append(TableViewMainObject(title: "Zeichenebene", collapsed: true, subObjects: nil, action: handleAddSketchLayer))
         dataSourceObjects.append(TableViewMainObject(title: "Seite einfügen", collapsed: true, subObjects: nil, action: handleAddPage))
         
         tableView.sectionHeaderHeight = 0.0
@@ -100,8 +102,8 @@ class ImportDataViewController: UIViewController, UITableViewDataSource, UITable
         delegate?.addEmptyPage()
     }
     
-    func handleAddDrawingLayer() {
-        // TODO
+    func handleAddSketchLayer() {
+        delegate?.addSketchLayer()
     }
 
     // MARK: - UITableViewDataSource

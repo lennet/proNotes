@@ -70,7 +70,7 @@ class DocumentTests: XCTestCase {
         XCTAssertEqual(document.pages[pagesCount-3].layers.first?.type, DocumentLayerType.PDF)
         
         let lastPage = document.pages.last!
-        let pdfLayer = lastPage.layers.first as! DocumentPDFLayer
+        let pdfLayer = lastPage.layers.first as! PDFLayer
         let pdfDocument = PDFUtility.createPDFFromData(pdfLayer.pdfData! as CFData)
         let pdfSize = PDFUtility.getPDFRect(pdfDocument!, pageIndex: 1).size
         

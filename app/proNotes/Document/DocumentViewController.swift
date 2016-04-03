@@ -81,8 +81,8 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
 
     // MARK: - Actions
 
-    @IBAction func handleDrawButtonPressed(sender: AnyObject) {
-        PagesTableViewController.sharedInstance?.currentPageView()?.handleDrawButtonPressed()
+    @IBAction func handleSketchButtonPressed(sender: AnyObject) {
+        PagesTableViewController.sharedInstance?.currentPageView()?.handleSketchButtonPressed()
     }
 
     @IBAction func handlePageInfoButtonPressed(sender: AnyObject) {
@@ -284,6 +284,10 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
             }
         }
         navigationController?.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func addSketchLayer() {
+        // TODO
     }
 
     func dismiss() {

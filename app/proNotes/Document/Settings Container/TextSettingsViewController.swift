@@ -24,8 +24,6 @@ protocol TextSettingsDelegate: class {
     func getTextLayer() -> TextLayer?
 }
 
-// TODO move FontPicker to an external viewcontroller
-
 class TextSettingsViewController: SettingsBaseViewController, UIPickerViewDataSource, UIPickerViewDelegate {
 
     private enum ColorPickerIdentifier: String {
