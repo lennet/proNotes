@@ -1,0 +1,39 @@
+/* Class = "UILabel"; text = "Layers"; ObjectID = "56p-7K-U8m"; */
+"56p-7K-U8m.text" = "Layers";
+
+/* Class = "UIButton"; normalTitle = "Delete Layer"; ObjectID = "6n1-XX-xhX"; */
+"6n1-XX-xhX.normalTitle" = "Delete Layer";
+
+/* Class = "UIButton"; normalTitle = "Delete Layer"; ObjectID = "AK3-pT-CS7"; */
+"AK3-pT-CS7.normalTitle" = "Delete Layer";
+
+/* Class = "UILabel"; text = "Type"; ObjectID = "AaV-6U-vyc"; */
+"AaV-6U-vyc.text" = "Type";
+
+/* Class = "UILabel"; text = "Color"; ObjectID = "DvP-9h-WyO"; */
+"DvP-9h-WyO.text" = "Color";
+
+/* Class = "UILabel"; text = "Page 1"; ObjectID = "KMl-fW-RD7"; */
+"KMl-fW-RD7.text" = "Page 1";
+
+/* Class = "UIButton"; normalTitle = "Zeichnung Löschen"; ObjectID = "QJL-Sr-pEr"; */
+"QJL-Sr-pEr.normalTitle" = "Zeichnung Löschen";
+
+/* Class = "UILabel"; text = "Radius"; ObjectID = "TX5-O4-aJ1"; */
+"TX5-O4-aJ1.text" = "Radius";
+
+/* Class = "UIButton"; normalTitle = "Delete Text"; ObjectID = "dh3-dc-8Ci"; */
+"dh3-dc-8Ci.normalTitle" = "Delete Text";
+
+/* Class = "UILabel"; text = "Background Color"; ObjectID = "vMZ-LL-gUA"; */
+"vMZ-LL-gUA.text" = "Background Color";
+
+/* Class = "UILabel"; text = "Font"; ObjectID = "vyo-f0-UHo"; */
+"vyo-f0-UHo.text" = "Font";
+
+/* Class = "UILabel"; text = "Text Color"; ObjectID = "xap-rF-y1N"; */
+"xap-rF-y1N.text" = "Text Color";
+
+/* Class = "UILabel"; text = "1."; ObjectID = "xdq-er-zpW"; */
+"xdq-er-zpW.text" = "1.";
+

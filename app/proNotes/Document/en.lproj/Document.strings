@@ -1,0 +1,18 @@
+/* Class = "UINavigationItem"; title = "Hinzufügen"; ObjectID = "02H-Cs-vsR"; */
+"02H-Cs-vsR.title" = "Add";
+
+/* Class = "UITextField"; text = "Title"; ObjectID = "DeR-PR-STL"; */
+"DeR-PR-STL.text" = "Title";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "WZv-xc-0ST"; */
+"WZv-xc-0ST.text" = "Label";
+
+/* Class = "UILabel"; text = "1"; ObjectID = "YY5-xE-UTC"; */
+"YY5-xE-UTC.text" = "1";
+
+/* Class = "UIBarButtonItem"; title = "Documents"; ObjectID = "vAj-VS-OJp"; */
+"vAj-VS-OJp.title" = "Documents";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "z4b-5m-TiM"; */
+"z4b-5m-TiM.text" = "Label";
+

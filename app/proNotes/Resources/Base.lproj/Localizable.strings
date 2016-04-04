@@ -1,0 +1,24 @@
+/* add image from camera button */
+"Camera" = "Camera";
+
+/* add empty page button */
+"EmptyPage" = "Empty Page";
+
+/* add file from iCloud drive button */
+"iCloudDrive" = "iCloud Drive";
+
+/* add image button */
+"Image" = "Image";
+
+/* add pdf button */
+"PDF" = "PDF";
+
+/* add image from Photos library */
+"Photos" = "Photos";
+
+/* add Sketch Canvas to the current visible Page button */
+"SketchCanvas" = "Sketch Canvas";
+
+/* add textfield button */
+"Textfield" = "Textfield";
+

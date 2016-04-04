@@ -46,11 +46,11 @@ class ImportDataViewController: UIViewController, UITableViewDataSource, UITable
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        dataSourceObjects.append(TableViewMainObject(title: "Bild", collapsed: true, subObjects: [TableViewSubObject(title: "Photos", action: handleAddPictureCameraRoll), TableViewSubObject(title: "Camera", action: handleAddPictureCamera), TableViewSubObject(title: "iCloud Drive", action: handleAddImageiCloudDrive)], action: nil))
-        dataSourceObjects.append(TableViewMainObject(title: "PDF", collapsed: true, subObjects: nil, action: handleAddPdf))
-        dataSourceObjects.append(TableViewMainObject(title: "Textfeld", collapsed: true, subObjects: nil, action: handleAddTextField))
-        dataSourceObjects.append(TableViewMainObject(title: "Zeichenebene", collapsed: true, subObjects: nil, action: handleAddSketchLayer))
-        dataSourceObjects.append(TableViewMainObject(title: "Seite einfügen", collapsed: true, subObjects: nil, action: handleAddPage))
+        dataSourceObjects.append(TableViewMainObject(title: NSLocalizedString("Image", comment: ""), collapsed: true, subObjects: [TableViewSubObject(title: NSLocalizedString("Photos", comment: ""), action: handleAddPictureCameraRoll), TableViewSubObject(title: NSLocalizedString("Camera", comment: ""), action: handleAddPictureCamera), TableViewSubObject(title: NSLocalizedString("iCloudDrive", comment: ""), action: handleAddImageiCloudDrive)], action: nil))
+        dataSourceObjects.append(TableViewMainObject(title: NSLocalizedString("PDF", comment: ""), collapsed: true, subObjects: nil, action: handleAddPdf))
+        dataSourceObjects.append(TableViewMainObject(title: NSLocalizedString("Textfield", comment: ""), collapsed: true, subObjects: nil, action: handleAddTextField))
+        dataSourceObjects.append(TableViewMainObject(title: NSLocalizedString("SketchCanvas", comment: ""), collapsed: true, subObjects: nil, action: handleAddSketchLayer))
+        dataSourceObjects.append(TableViewMainObject(title: NSLocalizedString("EmptyPage", comment: ""), collapsed: true, subObjects: nil, action: handleAddPage))
         
         tableView.sectionHeaderHeight = 0.0
         tableView.sectionFooterHeight = 0.0
