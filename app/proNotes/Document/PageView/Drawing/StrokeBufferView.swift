@@ -30,7 +30,6 @@ class StrokeBufferView: UIImageView {
         }
     }
     
-    private final let minPenAngle: CGFloat = CGFloat(35).toRadians()
     private final let minLineWidth: CGFloat = 1
     private var oldLineWidth: CGFloat = 0
     
@@ -99,7 +98,6 @@ class StrokeBufferView: UIImageView {
     }
     
     private func getLineWidthForStylus(touch: UITouch) -> CGFloat {
-        
         let previousLocation = touch.previousLocationInView(self)
         let location = touch.locationInView(self)
         
@@ -116,7 +114,11 @@ class StrokeBufferView: UIImageView {
             angle = CGFloat(180).toRadians() - angle
         }
         
-        let resultLineWidth = angle.normalized(0, max: CGFloat(90).toRadians()) * lineWidth * 2
+        
+        
+        let normalizedAltitude = touch.altitudeAngle.normalized(0, max: CGFloat(90).toRadians())
+        let normalizedAngle = angle.normalized(0, max: CGFloat(90).toRadians())
+        let resultLineWidth = (normalizedAngle * (2/3) + normalizedAltitude * (1/3)) * lineWidth * 2
         
         return currentPenObject.enabledShading ? resultLineWidth : getLineWidthForDrawing(touch, defaultLineWidth: resultLineWidth)
     }

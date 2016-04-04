@@ -8,22 +8,28 @@
 
 import UIKit
 
+protocol SettingsViewControllerDelegate: class {
+    func didChangeSettingsType(newType: SettingsViewControllerType)
+}
+
+enum SettingsViewControllerType: String {
+    case Sketch = "SketchSettingsIdentifier"
+    case Image = "ImageSettingsIdentifier"
+    case PageInfo = "PageInfoSettingsIdentifier"
+    case Text = "TextSettingsIdentifier"
+}
+
 class SettingsViewController: UIViewController {
 
     weak static var sharedInstance: SettingsViewController?
-
-    enum SettingsViewControllerType: String {
-        case Sketch = "SketchSettingsIdentifier"
-        case Image = "ImageSettingsIdentifier"
-        case PageInfo = "PageInfoSettingsIdentifier"
-        case Text = "TextSettingsIdentifier"
-    }
-
     weak var currentChildViewController: SettingsBaseViewController?
+    weak var delegate: SettingsViewControllerDelegate?
+    
     var currentSettingsType: SettingsViewControllerType = .PageInfo {
         didSet {
             if oldValue != currentSettingsType {
                 setUpChildViewController(currentSettingsType)
+                delegate?.didChangeSettingsType(currentSettingsType)
             }
         }
     }

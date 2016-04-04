@@ -163,15 +163,19 @@ class PageView: UIView, UIGestureRecognizerDelegate {
     func handleSketchButtonPressed() {
         guard subviews.count > 0,
         let subview = subviews.last as? SketchView else {
-            if let sketchLayer = page?.addSketchLayer(nil) {
-                addSketchView(sketchLayer)
-                handleSketchButtonPressed()
-            }
+            addSketchLayer()
             return
         }
 
         selectedSubView = subview
         selectedSubView?.setSelected?()
+    }
+    
+    func addSketchLayer() {
+        if let sketchLayer = page?.addSketchLayer(nil) {
+            addSketchView(sketchLayer)
+            handleSketchButtonPressed()
+        }
     }
 
     func setLayerSelected(index: Int) {

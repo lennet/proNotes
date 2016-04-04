@@ -8,11 +8,12 @@
 
 import UIKit
 
-class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelegate, UITextFieldDelegate, ImportDataViewControllerDelgate {
+class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelegate, UITextFieldDelegate, ImportDataViewControllerDelgate, SettingsViewControllerDelegate {
 
     @IBOutlet weak var settingsWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var pagesOverviewWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var titleTextField: UITextField!
+    @IBOutlet weak var pageInfoButton: UIBarButtonItem!
     @IBOutlet weak var undoButton: UIBarButtonItem!
     @IBOutlet weak var redoButton: UIBarButtonItem!
 
@@ -122,25 +123,6 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
     func updateUndoRedoButtons() {
         redoButton.enabled = undoManager?.canRedo ?? false
         undoButton.enabled = undoManager?.canUndo ?? false
-    }
-
-    // MARK: - Navigation
-
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let viewController = segue.destinationViewController as? PagesOverviewTableViewController {
-            viewController.pagesOverViewDelegate = self
-            pagesOverviewController = viewController
-        } else if let viewController = segue.destinationViewController as? PagesTableViewController {
-            PagesTableViewController.sharedInstance = viewController
-        } else if let navigationController = segue.destinationViewController as? UINavigationController {
-            if let viewController = navigationController.visibleViewController as? ImportDataViewController {
-                viewController.delegate = self
-            }
-        }
-    }
-
-    @IBAction func unwind(sender: AnyObject) {
-        navigationController?.popViewControllerAnimated(true)
     }
 
     // MARK: - PagesOverViewDelegate
@@ -287,10 +269,37 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
     }
     
     func addSketchLayer() {
-        // TODO
+        PagesTableViewController.sharedInstance?.currentPageView()?.addSketchLayer()
     }
 
     func dismiss() {
         navigationController?.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    // MARK: - SettingsViewControllerDelegate
+    
+    func didChangeSettingsType(newType: SettingsViewControllerType) {
+        pageInfoButton.setHidden(newType != .PageInfo)
+    }
+    
+    // MARK: - Navigation
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let viewController = segue.destinationViewController as? PagesOverviewTableViewController {
+            viewController.pagesOverViewDelegate = self
+            pagesOverviewController = viewController
+        } else if let viewController = segue.destinationViewController as? PagesTableViewController {
+            PagesTableViewController.sharedInstance = viewController
+        } else if let viewController = segue.destinationViewController as? SettingsViewController {
+            viewController.delegate = self
+        } else if let navigationController = segue.destinationViewController as? UINavigationController {
+            if let viewController = navigationController.visibleViewController as? ImportDataViewController {
+                viewController.delegate = self
+            }
+        }
+    }
+    
+    @IBAction func unwind(sender: AnyObject) {
+        navigationController?.popViewControllerAnimated(true)
     }
 }

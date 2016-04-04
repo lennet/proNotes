@@ -278,6 +278,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="800" height="600"/>
                     <connections>
+                        <outlet property="pageInfoButton" destination="fcn-g7-TEP" id="vJj-v3-YIo"/>
                         <outlet property="pagesOverviewWidthConstraint" destination="ISp-dr-FCw" id="Kh0-oa-KXW"/>
                         <outlet property="redoButton" destination="SsO-6r-ygX" id="Jdc-en-cay"/>
                         <outlet property="settingsWidthConstraint" destination="8cS-CW-1xo" id="VCP-X2-Sod"/>
