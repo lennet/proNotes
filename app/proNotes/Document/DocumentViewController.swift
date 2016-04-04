@@ -246,12 +246,12 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
                 }
             }
         }
-        navigationController?.dismissViewControllerAnimated(true, completion: nil)
+        dismiss()
     }
 
     func addPDF(url: NSURL) {
         document?.addPDF(url)
-        navigationController?.dismissViewControllerAnimated(true, completion: nil)
+        dismiss()
     }
 
     func addImage(image: UIImage) {
@@ -265,11 +265,12 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
                 }
             }
         }
-        navigationController?.dismissViewControllerAnimated(true, completion: nil)
+        dismiss()
     }
     
     func addSketchLayer() {
         PagesTableViewController.sharedInstance?.currentPageView()?.addSketchLayer()
+        dismiss()
     }
 
     func dismiss() {

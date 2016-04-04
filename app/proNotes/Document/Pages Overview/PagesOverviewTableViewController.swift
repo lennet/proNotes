@@ -91,7 +91,7 @@ class PagesOverviewTableViewController: UITableViewController, DocumentInstanceD
         document?.pages[index].removePreviewImage()
         if index < tableView.numberOfRowsInSection(0) {
             let indexPath = NSIndexPath(forRow: index, inSection: 0)
-            tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .None)
         }
     }
 
