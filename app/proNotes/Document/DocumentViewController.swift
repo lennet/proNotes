@@ -10,15 +10,12 @@ import UIKit
 
 class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelegate, UITextFieldDelegate, ImportDataViewControllerDelgate, SettingsViewControllerDelegate {
 
-    @IBOutlet weak var settingsWidthConstraint: NSLayoutConstraint!
-    @IBOutlet weak var pagesOverviewWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var settingsContainerRightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var pagesOverViewLeftConstraint: NSLayoutConstraint!
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var pageInfoButton: UIBarButtonItem!
     @IBOutlet weak var undoButton: UIBarButtonItem!
     @IBOutlet weak var redoButton: UIBarButtonItem!
-
-    private final let defaultSettingsWidth: CGFloat = 280
-    private final let defaultPagesOverViewWidth: CGFloat = 180
 
     weak var pagesOverviewController: PagesOverviewTableViewController?
     var isFullScreen = false
@@ -93,13 +90,13 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
 
     @IBAction func handleFullscreenToggleButtonPressed(sender: UIBarButtonItem) {
         if isFullScreen {
-            settingsWidthConstraint.constant = defaultSettingsWidth
-            pagesOverviewWidthConstraint.constant = defaultPagesOverViewWidth
+            settingsContainerRightConstraint.constant = -SettingsViewController.sharedInstance!.view.bounds.width
+            pagesOverViewLeftConstraint.constant = -pagesOverviewController!.view.bounds.width
             isFullScreen = false
             sender.image = UIImage(named: "fullscreenOn")
         } else {
-            settingsWidthConstraint.constant = 0
-            pagesOverviewWidthConstraint.constant = 0
+            settingsContainerRightConstraint.constant = 0
+            pagesOverViewLeftConstraint.constant = 0
             isFullScreen = true
             sender.image = UIImage(named: "fullscreenOff")
         }

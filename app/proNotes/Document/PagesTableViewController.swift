@@ -77,10 +77,7 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
       scrollView.zoomScale = minZoomScale
       scrollView.deactivateDelaysContentTouches()
       scrollView.showsVerticalScrollIndicator = false
-      UIView.animateWithDuration(standardAnimationDuration, delay: 0, usingSpringWithDamping: 0.85, initialSpringVelocity: 5, options: .CurveEaseInOut, animations: {
-         () -> Void in
-         self.scrollView.alpha = 1
-         }, completion: nil)
+      scrollView.alpha = 1
    }
    
    func setUpTableView() {
