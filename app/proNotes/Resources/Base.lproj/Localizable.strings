@@ -16,9 +16,12 @@
 /* add image from Photos library */
 "Photos" = "Photos";
 
-/* add Sketch Canvas to the current visible Page button */
+/* add sketch canvas button */
 "SketchCanvas" = "Sketch Canvas";
 
 /* add textfield button */
 "Textfield" = "Textfield";
+
+/* default file name */
+"Note" = "Note";
 

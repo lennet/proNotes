@@ -127,7 +127,6 @@ class DocumentInstance: NSObject {
 
         // Swift 😍
         document?[pageIndex]?[layerIndex]?.undoAction(object)
-
     }
 
     // MARK: - Delegate Handling

@@ -22,13 +22,13 @@ class DocumentPageTests: XCTestCase {
         firstPage.index = 1
         XCTAssertNotEqual(firstPage, secondPage)
 
-        secondPage.addDrawingLayer(nil)
+        secondPage.addSketchLayer(nil)
         XCTAssertEqual(firstPage, secondPage)
     }
     
     func testRemoveLayer() {
         let page = DocumentPage(index: 0)
-        page.addDrawingLayer(nil)
+        page.addSketchLayer(nil)
         page.addTextLayer("Text testlayer")
         
         let layerCount = page.layers.count
@@ -47,7 +47,7 @@ class DocumentPageTests: XCTestCase {
     
     func testSwapLayer() {
         let page = DocumentPage(index: 0)
-        page.addDrawingLayer(nil)
+        page.addSketchLayer(nil)
         page.addTextLayer("Text testlayer")
         
         let firstLayer = page[0]
@@ -58,11 +58,11 @@ class DocumentPageTests: XCTestCase {
         XCTAssertEqual(firstLayer, page[0])
         XCTAssertEqual(secondLayer, page[1])
         
-        page.addDrawingLayer(nil)
+        page.addSketchLayer(nil)
         page.addTextLayer("Text testlayer")
-        page.addDrawingLayer(nil)
+        page.addSketchLayer(nil)
         page.addTextLayer("Text testlayer")
-        page.addDrawingLayer(nil)
+        page.addSketchLayer(nil)
         page.addTextLayer("Text testlayer")
         
         let oldPage = page
@@ -78,9 +78,8 @@ class DocumentPageTests: XCTestCase {
     }
     
     func testEncodeDecode() {
-        // TODO add more Testcases for all types
         let page = DocumentPage(index: 0)
-        page.addDrawingLayer(nil)
+        page.addSketchLayer(nil)
         page.addTextLayer("Text testlayer")
         page.swapLayerPositions(0, secondIndex: 1)
         let archivedPageData = NSKeyedArchiver.archivedDataWithRootObject(page)

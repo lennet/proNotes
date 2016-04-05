@@ -33,7 +33,7 @@ class FileManager: NSObject {
     static let sharedInstance = FileManager()
 
     private final let fileExtension = "ProNote"
-    private final let defaultName = "Note"
+    private final let defaultName = NSLocalizedString("Note", comment: "default file name")
 
     weak var delegate: FileManagerDelegate?
 

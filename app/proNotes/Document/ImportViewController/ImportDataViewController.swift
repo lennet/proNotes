@@ -153,7 +153,6 @@ class ImportDataViewController: UIViewController, UITableViewDataSource, UITable
         }
     }
 
-
     // MARK: - UIDocumentPickerDelegate
 
     func documentPicker(controller: UIDocumentPickerViewController, didPickDocumentAtURL url: NSURL) {
