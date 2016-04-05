@@ -5,6 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
@@ -128,6 +129,13 @@
                                 <action selector="handleNewButtonPressed:" destination="yzO-bs-8Vx" id="Ds6-6U-SKf"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="ccLogo" id="RJO-FN-vD2">
+                            <connections>
+                                <segue destination="B0m-Ec-Iki" kind="popoverPresentation" popoverAnchorBarButtonItem="RJO-FN-vD2" id="Ovf-ww-m23">
+                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                </segue>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="documentsCollectionViewController" destination="eEl-8D-Ihh" id="26Q-4M-79O"/>
@@ -136,7 +144,57 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6LG-mz-oK6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1780" y="-1057"/>
+            <point key="canvasLocation" x="1659" y="-1196"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="N2j-xO-XI7">
+            <objects>
+                <viewController id="B0m-Ec-Iki" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="6cl-Rk-lq1"/>
+                        <viewControllerLayoutGuide type="bottom" id="U0V-y7-R5Y"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="CzZ-Dh-AXu">
+                        <rect key="frame" x="0.0" y="0.0" width="240" height="100"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="The icons are made by Freepik from www.flaticon.com and are licensed under CC BY 3.0." textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="IiC-um-d7r">
+                                <rect key="frame" x="0.0" y="12.5" width="240" height="75"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="IiC-um-d7r" firstAttribute="width" secondItem="CzZ-Dh-AXu" secondAttribute="width" id="5T1-at-kmb"/>
+                            <constraint firstItem="IiC-um-d7r" firstAttribute="centerY" secondItem="CzZ-Dh-AXu" secondAttribute="centerY" id="6Hi-vh-Va5"/>
+                            <constraint firstItem="IiC-um-d7r" firstAttribute="top" secondItem="6cl-Rk-lq1" secondAttribute="bottom" id="70m-Tk-Dbx"/>
+                            <constraint firstItem="IiC-um-d7r" firstAttribute="centerX" secondItem="CzZ-Dh-AXu" secondAttribute="centerX" id="OHh-iz-iHc"/>
+                            <constraint firstItem="IiC-um-d7r" firstAttribute="leading" secondItem="CzZ-Dh-AXu" secondAttribute="leadingMargin" id="eqJ-I3-ypV"/>
+                            <constraint firstItem="IiC-um-d7r" firstAttribute="height" secondItem="CzZ-Dh-AXu" secondAttribute="height" constant="-25" id="etm-rI-roW"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="IiC-um-d7r" secondAttribute="bottom" id="pUK-uB-vqi"/>
+                            <constraint firstItem="IiC-um-d7r" firstAttribute="width" secondItem="CzZ-Dh-AXu" secondAttribute="height" multiplier="26:15" id="x2W-HG-q79"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="IiC-um-d7r" secondAttribute="trailing" id="z7U-RJ-pYk"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="70m-Tk-Dbx"/>
+                                <exclude reference="eqJ-I3-ypV"/>
+                                <exclude reference="pUK-uB-vqi"/>
+                                <exclude reference="x2W-HG-q79"/>
+                                <exclude reference="z7U-RJ-pYk"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <value key="contentSizeForViewInPopover" type="size" width="240" height="100"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="240" height="100"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1Fd-lm-hqx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2337" y="-1325"/>
         </scene>
         <!--Document-->
         <scene sceneID="yy0-a9-jLE">
@@ -165,4 +223,7 @@
             <point key="canvasLocation" x="968" y="-1057"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="ccLogo" width="22" height="22"/>
+    </resources>
 </document>
