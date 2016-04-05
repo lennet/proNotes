@@ -15,10 +15,6 @@ protocol PageSubView: class {
 
     optional func handlePan(panGestureRecognizer: UIPanGestureRecognizer)
 
-    optional func handleTap(tapGestureRecognizer: UITapGestureRecognizer?)
-
-    optional func handleDoubleTap(tapGestureRecognizer: UITapGestureRecognizer)
-
     optional func setSelected()
 
     optional func setDeselected()

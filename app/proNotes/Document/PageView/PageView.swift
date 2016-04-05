@@ -12,7 +12,6 @@ class PageView: UIView, UIGestureRecognizerDelegate {
 
     var panGestureRecognizer: UIPanGestureRecognizer?
     var tapGestureRecognizer: UITapGestureRecognizer?
-    var doubleTapGestureRecognizer: UITapGestureRecognizer?
     
     weak var page: DocumentPage? {
         didSet {
@@ -25,6 +24,7 @@ class PageView: UIView, UIGestureRecognizerDelegate {
     weak var selectedSubView: PageSubView? {
         didSet {
             oldValue?.setDeselected?()
+            selectedSubView?.setSelected?()
             if selectedSubView == nil {
                 SettingsViewController.sharedInstance?.currentSettingsType = .PageInfo
             }
@@ -73,24 +73,16 @@ class PageView: UIView, UIGestureRecognizerDelegate {
     }
 
     func setUpTouchRecognizer() {
-        panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(PageSubView.handlePan(_:)))
+        panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(PageView.handlePan(_:)))
         panGestureRecognizer?.cancelsTouchesInView = true
         panGestureRecognizer?.delegate = self
         panGestureRecognizer?.maximumNumberOfTouches = 1
         addGestureRecognizer(panGestureRecognizer!)
 
-        tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PageSubView.handleTap(_:)))
+        tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PageView.handleTap(_:)))
         tapGestureRecognizer?.cancelsTouchesInView = true
         tapGestureRecognizer?.delegate = self
         addGestureRecognizer(tapGestureRecognizer!)
-
-        doubleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PageSubView.handleDoubleTap(_:)))
-        doubleTapGestureRecognizer?.numberOfTapsRequired = 2
-        doubleTapGestureRecognizer?.cancelsTouchesInView = true
-        doubleTapGestureRecognizer?.delegate = self
-        addGestureRecognizer(doubleTapGestureRecognizer!)
-
-        tapGestureRecognizer?.requireGestureRecognizerToFail(doubleTapGestureRecognizer!)
     }
 
     func setUpLayer(renderMode: Bool = false) {
@@ -181,8 +173,7 @@ class PageView: UIView, UIGestureRecognizerDelegate {
     }
 
     func setLayerSelected(index: Int) {
-
-        selectedSubView?.handleTap?(nil)
+        selectedSubView?.setSelected?()
         selectedSubView = nil
         if let subview = self[index] {
             subview.setSelected?()
@@ -194,7 +185,7 @@ class PageView: UIView, UIGestureRecognizerDelegate {
     }
 
     func deselectSelectedSubview() {
-        selectedSubView?.handleTap?(nil)
+        selectedSubView?.setDeselected?()
         selectedSubView = nil
         setSubviewsAlpha(0, alphaValue: 1)
     }
@@ -254,17 +245,12 @@ class PageView: UIView, UIGestureRecognizerDelegate {
             for subview in subviews.reverse() where subview.isKindOfClass(MovableView) {
                 let pageSubview = subview as! PageSubView
                 if (pageSubview as? UIView)?.frame.contains(location) ?? false {
-                    pageSubview.handleTap?(tapGestureRecognizer)
                     selectedSubView = pageSubview
                     return
                 }
             }
         }
 
-    }
-
-    func handleDoubleTap(tapGestureRecognizer: UITapGestureRecognizer) {
-        selectedSubView?.handleDoubleTap?(tapGestureRecognizer)
     }
 
     // MARK: - UIGestureRecognizerDelegate
@@ -284,6 +270,5 @@ class PageView: UIView, UIGestureRecognizerDelegate {
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailByGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return false
     }
-
-
+    
 }

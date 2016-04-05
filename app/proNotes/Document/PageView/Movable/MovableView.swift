@@ -42,32 +42,8 @@ class MovableView: TouchControlView, PageSubView {
             subview.frame = CGRect(origin: CGPoint(x: controlLength, y: controlLength), size: CGSize(width: movableLayer.size.width, height: movableLayer.size.height))
         }
     }
-
-    func setSelected() {
-        handleTap(nil)
-    }
     
     // MARK: - Gesture Recognizer
-
-    func handleTap(recognizer: UITapGestureRecognizer?) {
-        isEditing = !isEditing
-
-        if isEditing {
-            setUpSettingsViewController()
-            for view in subviews {
-                view.layer.borderColor = UIColor.lightGrayColor().CGColor
-                view.layer.borderWidth = 1
-            }
-        } else {
-            for view in subviews {
-                view.layer.borderWidth = 0
-            }
-            setDeselected()
-            SettingsViewController.sharedInstance?.currentSettingsType = .PageInfo
-        }
-
-        setNeedsDisplay()
-    }
 
     override func handlePanTranslation(translation: CGPoint) -> CGRect {
         frame = super.handlePanTranslation(translation)
@@ -119,8 +95,23 @@ class MovableView: TouchControlView, PageSubView {
         // empty Base implementation
     }
 
+    func setSelected() {
+        isEditing = true
+        setUpSettingsViewController()
+        for view in subviews {
+            view.layer.borderColor = UIColor.lightGrayColor().CGColor
+            view.layer.borderWidth = 1
+        }
+        setNeedsDisplay()
+    }
+    
     func setDeselected() {
-
+        isEditing = false
+        for view in subviews {
+            view.layer.borderWidth = 0
+        }
+        SettingsViewController.sharedInstance?.currentSettingsType = .PageInfo
+        setNeedsDisplay()
     }
 
     func undoAction(oldObject: AnyObject?) {

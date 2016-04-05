@@ -53,10 +53,6 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
         return rect
     }
 
-    func handleDoubleTap(tapGestureRecognizer: UITapGestureRecognizer) {
-        textView?.becomeFirstResponder()
-    }
-
     override func setUpSettingsViewController() {
         TextSettingsViewController.delegate = self
         SettingsViewController.sharedInstance?.currentSettingsType = .Text
@@ -68,6 +64,7 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
     }
 
     override func setDeselected() {
+        super.setDeselected()
         textView?.resignFirstResponder()
     }
 
