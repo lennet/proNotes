@@ -16,9 +16,19 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
     @IBOutlet weak var pageInfoButton: UIBarButtonItem!
     @IBOutlet weak var undoButton: UIBarButtonItem!
     @IBOutlet weak var redoButton: UIBarButtonItem!
+    @IBOutlet weak var sketchButton: UIBarButtonItem!
 
     weak var pagesOverviewController: PagesOverviewTableViewController?
     var isFullScreen = false
+    var isSketchMode = false {
+        didSet {
+            if isSketchMode {
+                sketchButton.image = UIImage(named: "sketchIconActive")
+            } else {
+                sketchButton.image = UIImage(named: "sketchIcon")
+            }
+        }
+    }
     var isLoadingImage = false
 
     var document: Document? {
@@ -79,8 +89,13 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
 
     // MARK: - Actions
 
-    @IBAction func handleSketchButtonPressed(sender: AnyObject) {
-        PagesTableViewController.sharedInstance?.currentPageView()?.handleSketchButtonPressed()
+    @IBAction func handleSketchButtonPressed(sender: UIBarButtonItem) {
+        isSketchMode = !isSketchMode
+        if isSketchMode {
+            PagesTableViewController.sharedInstance?.currentPageView()?.handleSketchButtonPressed()
+        } else {
+            PagesTableViewController.sharedInstance?.currentPageView()?.deselectSelectedSubview()
+        }
     }
 
     @IBAction func handlePageInfoButtonPressed(sender: AnyObject) {
@@ -278,6 +293,7 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
     
     func didChangeSettingsType(newType: SettingsViewControllerType) {
         pageInfoButton.setHidden(newType != .PageInfo)
+        isSketchMode = newType == .Sketch
     }
     
     // MARK: - Navigation

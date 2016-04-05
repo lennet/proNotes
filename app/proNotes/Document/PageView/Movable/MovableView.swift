@@ -83,7 +83,7 @@ class MovableView: TouchControlView, PageSubView {
         }
 
         var newSize = frame.size
-        movableLayer.size = newSize.increaseSize(controlLength * (-2))
+        movableLayer.size = newSize.increaseSize(controlLength * (-1))
         saveChanges()
     }
 

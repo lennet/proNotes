@@ -25,7 +25,9 @@ class PageView: UIView, UIGestureRecognizerDelegate {
     weak var selectedSubView: PageSubView? {
         didSet {
             oldValue?.setDeselected?()
-            
+            if selectedSubView == nil {
+                SettingsViewController.sharedInstance?.currentSettingsType = .PageInfo
+            }
             PagesTableViewController.sharedInstance?.twoTouchesForScrollingRequired = selectedSubView != nil
         }
     }

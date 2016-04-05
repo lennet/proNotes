@@ -149,7 +149,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lvC-g7-6cn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="719" y="371"/>
+            <point key="canvasLocation" x="4187" y="-1461"/>
         </scene>
         <!--Document View Controller-->
         <scene sceneID="rpx-2t-i6L">
@@ -237,7 +237,7 @@
                                     </segue>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem image="DrawIcon" id="78j-Lm-gB9">
+                            <barButtonItem image="sketchIcon" id="78j-Lm-gB9">
                                 <connections>
                                     <action selector="handleSketchButtonPressed:" destination="mNn-FC-EJF" id="psh-7h-kXZ"/>
                                 </connections>
@@ -284,6 +284,7 @@
                         <outlet property="pagesOverViewLeftConstraint" destination="zVD-Do-ImL" id="h8L-EG-31g"/>
                         <outlet property="redoButton" destination="SsO-6r-ygX" id="Jdc-en-cay"/>
                         <outlet property="settingsContainerRightConstraint" destination="zt3-ma-QzS" id="OMo-gv-UPn"/>
+                        <outlet property="sketchButton" destination="78j-Lm-gB9" id="Vtf-sd-mwH"/>
                         <outlet property="titleTextField" destination="DeR-PR-STL" id="sPx-kb-eA2"/>
                         <outlet property="undoButton" destination="kI2-fq-zX2" id="SNq-PB-1t4"/>
                     </connections>
@@ -422,7 +423,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G7A-HW-iSN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="243" y="896"/>
+            <point key="canvasLocation" x="3435" y="384"/>
         </scene>
         <!--DocumentSettingsContainer-->
         <scene sceneID="yOi-cj-7tz">
@@ -430,7 +431,7 @@
                 <viewControllerPlaceholder storyboardName="DocumentSettingsContainer" id="8zx-Kh-in1" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tyu-WS-KZD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2896" y="347"/>
+            <point key="canvasLocation" x="3696" y="-249"/>
         </scene>
         <!--Pages Overview Table View Controller-->
         <scene sceneID="nUp-gk-Tms">
@@ -509,7 +510,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YyK-wO-lbZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3743" y="-233"/>
+            <point key="canvasLocation" x="2847" y="-1"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="iS1-ia-Yuc">
@@ -527,13 +528,13 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bjA-G0-Nid" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1779" y="-365"/>
+            <point key="canvasLocation" x="3267" y="-1461"/>
         </scene>
     </scenes>
     <resources>
-        <image name="DrawIcon" width="25" height="25"/>
         <image name="accessoryIcon" width="8" height="13"/>
         <image name="fullscreenOn" width="25" height="25"/>
         <image name="layerIcon" width="34" height="25"/>
+        <image name="sketchIcon" width="25" height="25"/>
     </resources>
 </document>
