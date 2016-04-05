@@ -85,9 +85,10 @@ class SketchView: UIImageView, PageSubView, SketchSettingsDelegate {
     }
 
     func updateImage(image: UIImage?) {
-
+        self.image = image
         if sketchLayer != nil && sketchLayer?.docPage != nil {
             DocumentInstance.sharedInstance.registerUndoAction(undoImage, pageIndex: sketchLayer!.docPage.index, layerIndex: sketchLayer!.index)
+            undoImage = nil
         }
         saveChanges()
     }
@@ -129,9 +130,6 @@ class SketchView: UIImageView, PageSubView, SketchSettingsDelegate {
 
     func undoAction(oldObject: AnyObject?) {
         if let oldImage = oldObject as? UIImage {
-            if sketchLayer != nil && sketchLayer?.docPage != nil {
-                DocumentInstance.sharedInstance.registerUndoAction(image, pageIndex: sketchLayer!.docPage.index, layerIndex: sketchLayer!.index)
-            }
             updateImage(oldImage)
         }
     }

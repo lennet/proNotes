@@ -15,7 +15,6 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var pageInfoButton: UIBarButtonItem!
     @IBOutlet weak var undoButton: UIBarButtonItem!
-    @IBOutlet weak var redoButton: UIBarButtonItem!
     @IBOutlet weak var sketchButton: UIBarButtonItem!
 
     weak var pagesOverviewController: PagesOverviewTableViewController?
@@ -45,7 +44,7 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         registerNotifications()
-        updateUndoRedoButtons()
+        updateUndoButton()
         isLoadingImage = false
     }
 
@@ -78,9 +77,8 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
     }
 
     func registerNotifications() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DocumentViewController.updateUndoRedoButtons), name: NSUndoManagerWillUndoChangeNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DocumentViewController.updateUndoRedoButtons), name: NSUndoManagerDidRedoChangeNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DocumentViewController.updateUndoRedoButtons), name: NSUndoManagerCheckpointNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DocumentViewController.updateUndoButton), name: NSUndoManagerWillUndoChangeNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DocumentViewController.updateUndoButton), name: NSUndoManagerCheckpointNotification, object: nil)
     }
 
     func removeNotifications() {
@@ -128,12 +126,7 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
         undoManager?.undo()
     }
 
-    @IBAction func handleRedoButtonPressed(sender: AnyObject) {
-        undoManager?.redo()
-    }
-
-    func updateUndoRedoButtons() {
-        redoButton.enabled = undoManager?.canRedo ?? false
+    func updateUndoButton() {
         undoButton.enabled = undoManager?.canUndo ?? false
     }
 

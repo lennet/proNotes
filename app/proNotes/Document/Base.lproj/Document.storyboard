@@ -225,23 +225,6 @@
                                     <action selector="handleUndoButtonPressed:" destination="mNn-FC-EJF" id="vTo-rm-kRo"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem systemItem="redo" id="SsO-6r-ygX">
-                                <connections>
-                                    <action selector="handleRedoButtonPressed:" destination="mNn-FC-EJF" id="Uuh-fQ-gjW"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem systemItem="add" id="grs-ES-bYt">
-                                <connections>
-                                    <segue destination="mRA-wv-6qy" kind="popoverPresentation" popoverAnchorBarButtonItem="grs-ES-bYt" id="MNk-3N-0Hg">
-                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                    </segue>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem image="sketchIcon" id="78j-Lm-gB9">
-                                <connections>
-                                    <action selector="handleSketchButtonPressed:" destination="mNn-FC-EJF" id="psh-7h-kXZ"/>
-                                </connections>
-                            </barButtonItem>
                         </leftBarButtonItems>
                         <view key="titleView" contentMode="scaleToFill" id="DCF-1C-qNS">
                             <rect key="frame" x="356.5" y="5.5" width="87" height="33"/>
@@ -267,6 +250,18 @@
                                     <action selector="handleFullscreenToggleButtonPressed:" destination="mNn-FC-EJF" id="KM3-lV-VkZ"/>
                                 </connections>
                             </barButtonItem>
+                            <barButtonItem systemItem="add" id="grs-ES-bYt">
+                                <connections>
+                                    <segue destination="mRA-wv-6qy" kind="popoverPresentation" popoverAnchorBarButtonItem="grs-ES-bYt" id="MNk-3N-0Hg">
+                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                    </segue>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem image="sketchIcon" id="78j-Lm-gB9">
+                                <connections>
+                                    <action selector="handleSketchButtonPressed:" destination="mNn-FC-EJF" id="psh-7h-kXZ"/>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem image="layerIcon" id="fcn-g7-TEP">
                                 <connections>
                                     <action selector="handlePageInfoButtonPressed:" destination="mNn-FC-EJF" id="XQ1-8D-Jx9"/>
@@ -282,7 +277,6 @@
                     <connections>
                         <outlet property="pageInfoButton" destination="fcn-g7-TEP" id="vJj-v3-YIo"/>
                         <outlet property="pagesOverViewLeftConstraint" destination="zVD-Do-ImL" id="h8L-EG-31g"/>
-                        <outlet property="redoButton" destination="SsO-6r-ygX" id="Jdc-en-cay"/>
                         <outlet property="settingsContainerRightConstraint" destination="zt3-ma-QzS" id="OMo-gv-UPn"/>
                         <outlet property="sketchButton" destination="78j-Lm-gB9" id="Vtf-sd-mwH"/>
                         <outlet property="titleTextField" destination="DeR-PR-STL" id="sPx-kb-eA2"/>

@@ -123,7 +123,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="miz-Lh-icK">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="7kS-3A-shd">
+                        <barButtonItem key="leftBarButtonItem" systemItem="add" id="7kS-3A-shd">
                             <connections>
                                 <action selector="handleNewButtonPressed:" destination="yzO-bs-8Vx" id="Ds6-6U-SKf"/>
                             </connections>
