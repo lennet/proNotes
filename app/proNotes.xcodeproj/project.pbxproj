@@ -66,7 +66,7 @@
 		98CD5AB21C5FE954003F0686 /* CGVectorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CD5AB11C5FE954003F0686 /* CGVectorExtension.swift */; };
 		98D2DA821C6BDE4500B3C76C /* DocumentExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D2DA811C6BDE4500B3C76C /* DocumentExporter.swift */; };
 		98D8C0B71C0B116F0026EECE /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D8C0B61C0B116F0026EECE /* Document.swift */; };
-		98D8C0BA1C0B11750026EECE /* DrawingSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D8C0B81C0B11750026EECE /* DrawingSettingsViewController.swift */; };
+		98D8C0BA1C0B11750026EECE /* SketchSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D8C0B81C0B11750026EECE /* SketchSettingsViewController.swift */; };
 		98D8C0BB1C0B11750026EECE /* SketchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D8C0B91C0B11750026EECE /* SketchView.swift */; };
 		98DBAA0A1C0799CB007EFFE5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DBAA091C0799CB007EFFE5 /* AppDelegate.swift */; };
 		98DBAA141C0799CB007EFFE5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 98DBAA131C0799CB007EFFE5 /* Assets.xcassets */; };
@@ -165,7 +165,7 @@
 		98CD5AB11C5FE954003F0686 /* CGVectorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGVectorExtension.swift; sourceTree = "<group>"; };
 		98D2DA811C6BDE4500B3C76C /* DocumentExporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentExporter.swift; sourceTree = "<group>"; };
 		98D8C0B61C0B116F0026EECE /* Document.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
-		98D8C0B81C0B11750026EECE /* DrawingSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawingSettingsViewController.swift; sourceTree = "<group>"; };
+		98D8C0B81C0B11750026EECE /* SketchSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SketchSettingsViewController.swift; sourceTree = "<group>"; };
 		98D8C0B91C0B11750026EECE /* SketchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SketchView.swift; sourceTree = "<group>"; };
 		98D8C0BE1C0B16610026EECE /* proNotes.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = proNotes.entitlements; sourceTree = "<group>"; };
 		98DBAA061C0799CB007EFFE5 /* proNotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = proNotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -285,7 +285,7 @@
 				98E33D4D1C37E8BB0065B590 /* ImageSettings */,
 				98BABB8E1C1B169000D9C938 /* PageInfo */,
 				989C518E1CB30BAE007D3DCE /* DocumentSettingsContainer.storyboard */,
-				98D8C0B81C0B11750026EECE /* DrawingSettingsViewController.swift */,
+				98D8C0B81C0B11750026EECE /* SketchSettingsViewController.swift */,
 				98262C0F1C22C29A00B420A8 /* SettingsBaseViewController.swift */,
 				98006ABA1C1A1E960091E356 /* SettingsViewController.swift */,
 				98006AB81C1A1E8D0091E356 /* TextSettingsViewController.swift */,
@@ -635,7 +635,7 @@
 				98A5673B1C18CC330065B401 /* ImageSettingsViewController.swift in Sources */,
 				98E0D4001C4C087700EF49FD /* FileManager.swift in Sources */,
 				987F6A181C738A9600572C2F /* PDF.swift in Sources */,
-				98D8C0BA1C0B11750026EECE /* DrawingSettingsViewController.swift in Sources */,
+				98D8C0BA1C0B11750026EECE /* SketchSettingsViewController.swift in Sources */,
 				986D60601C2C34BD0065D71B /* CALayerExtension.swift in Sources */,
 				98101BD21C0A58AA001E9555 /* PagesOverviewTableViewCell.swift in Sources */,
 				9829ECD81C791F0C00A64009 /* PDFLayer.swift in Sources */,

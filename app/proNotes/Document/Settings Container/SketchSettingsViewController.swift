@@ -51,24 +51,28 @@ class SketchSettingsViewController: SettingsBaseViewController {
                 }
 
                 var object: Pen?
-
+                
+                
+                // -1 instead of 0 to avoid whitespaces during spring animation
                 switch currentType {
                 case .Pen:
-                    penTopConstraint.constant = 0
+                    penTopConstraint.constant = -1
                     object = Pencil()
                     break
                 case .Marker:
-                    markerTopConstraint.constant = 0
+                    markerTopConstraint.constant = -1
                     object = Marker()
                     break
                 case .Eraser:
-                    eraserTopConstraint.constant = 0
+                    eraserTopConstraint.constant = -1
                     object = Eraser()
                     break
                 }
 
                 UIView.animateWithDuration(animationDuration, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 5, options: .CurveEaseInOut, animations: {
                     () -> Void in
+                    self.lineWidthCircleView.radius = object?.lineWidth ?? self.lineWidthCircleView.radius
+                    self.lineWidthSlider.value = Float(self.lineWidthCircleView.radius)
                     self.view.layoutIfNeeded()
                 }, completion: nil)
 
@@ -81,6 +85,7 @@ class SketchSettingsViewController: SettingsBaseViewController {
     @IBOutlet weak var markerTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var eraserTopConstraint: NSLayoutConstraint!
 
+    @IBOutlet weak var lineWidthSlider: UISlider!
     @IBOutlet weak var lineWidthCircleView: CircleView!
 
     // MARK: - Actions
