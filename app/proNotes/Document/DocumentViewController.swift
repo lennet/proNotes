@@ -90,14 +90,14 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
     @IBAction func handleSketchButtonPressed(sender: UIBarButtonItem) {
         isSketchMode = !isSketchMode
         if isSketchMode {
-            PagesTableViewController.sharedInstance?.currentPageView()?.handleSketchButtonPressed()
+            PagesTableViewController.sharedInstance?.currentPageView?.handleSketchButtonPressed()
         } else {
-            PagesTableViewController.sharedInstance?.currentPageView()?.deselectSelectedSubview()
+            PagesTableViewController.sharedInstance?.currentPageView?.deselectSelectedSubview()
         }
     }
 
     @IBAction func handlePageInfoButtonPressed(sender: AnyObject) {
-        PagesTableViewController.sharedInstance?.currentPageView()?.deselectSelectedSubview()
+        PagesTableViewController.sharedInstance?.currentPageView?.deselectSelectedSubview()
         SettingsViewController.sharedInstance?.currentSettingsType = .PageInfo
     }
 
@@ -134,7 +134,6 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
 
     func showPage(index: Int) {
         PagesTableViewController.sharedInstance?.showPage(index)
-        SettingsViewController.sharedInstance?.currentSettingsType = .PageInfo
     }
 
     // MARK: - UIKeyCommands
@@ -153,7 +152,7 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
             }
         }
 
-        if let _ = PagesTableViewController.sharedInstance?.currentPageView()?.selectedSubView as? MovableView {
+        if let _ = PagesTableViewController.sharedInstance?.currentPageView?.selectedSubView as? MovableView {
             commands.append(UIKeyCommand(input: UIKeyInputRightArrow, modifierFlags: .Command, action: #selector(DocumentViewController.handleMoveMovableViewKeyPressed(_:)), discoverabilityTitle: "Move Right"))
             commands.append(UIKeyCommand(input: UIKeyInputLeftArrow, modifierFlags: .Command, action: #selector(DocumentViewController.handleMoveMovableViewKeyPressed(_:)), discoverabilityTitle: "Move Left"))
             commands.append(UIKeyCommand(input: UIKeyInputUpArrow, modifierFlags: .Command, action: #selector(DocumentViewController.handleMoveMovableViewKeyPressed(_:)), discoverabilityTitle: "Move Up"))
@@ -181,7 +180,7 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
     }
 
     func handleMoveMovableViewKeyPressed(sender: UIKeyCommand) {
-        guard let movableView = PagesTableViewController.sharedInstance?.currentPageView()?.selectedSubView as? MovableView else {
+        guard let movableView = PagesTableViewController.sharedInstance?.currentPageView?.selectedSubView as? MovableView else {
             return
         }
         let offSet = 10
@@ -242,7 +241,7 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
 
     func addTextField() {
         if let textLayer = DocumentInstance.sharedInstance.currentPage?.addTextLayer("") {
-            if let currentPageView = PagesTableViewController.sharedInstance?.currentPageView() {
+            if let currentPageView = PagesTableViewController.sharedInstance?.currentPageView {
                 currentPageView.addTextLayer(textLayer)
                 currentPageView.page = DocumentInstance.sharedInstance.currentPage
                 currentPageView.setLayerSelected(currentPageView.subviews.count - 1)
@@ -261,7 +260,7 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
 
     func addImage(image: UIImage) {
         if let imageLayer = DocumentInstance.sharedInstance.currentPage?.addImageLayer(image) {
-            if let currentPageView = PagesTableViewController.sharedInstance?.currentPageView() {
+            if let currentPageView = PagesTableViewController.sharedInstance?.currentPageView {
                 currentPageView.addImageLayer(imageLayer)
                 currentPageView.page = DocumentInstance.sharedInstance.currentPage
                 currentPageView.setLayerSelected(currentPageView.subviews.count - 1)
@@ -274,7 +273,7 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
     }
     
     func addSketchLayer() {
-        PagesTableViewController.sharedInstance?.currentPageView()?.addSketchLayer()
+        PagesTableViewController.sharedInstance?.currentPageView?.addSketchLayer()
         dismiss()
     }
 

@@ -66,21 +66,21 @@
                                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8px-Qx-gdR">
+                                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8px-Qx-gdR">
                                                                     <rect key="frame" x="563" y="18" width="21" height="22"/>
                                                                     <state key="normal" image="visibleIcon"/>
                                                                     <connections>
                                                                         <action selector="handleVisibilityButtonPressed:" destination="cJq-aW-vw8" eventType="touchUpInside" id="SWI-rn-aKk"/>
                                                                     </connections>
                                                                 </button>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7dR-ur-2lS">
+                                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7dR-ur-2lS">
                                                                     <rect key="frame" x="543" y="18" width="12" height="22"/>
                                                                     <state key="normal" image="deleteIcon"/>
                                                                     <connections>
                                                                         <action selector="handleDeleteButtonPressed:" destination="cJq-aW-vw8" eventType="touchUpInside" id="vSy-Mh-RU8"/>
                                                                     </connections>
                                                                 </button>
-                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Dc-44-01l" userLabel="Separator View">
+                                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Dc-44-01l" userLabel="Separator View">
                                                                     <rect key="frame" x="0.0" y="57" width="543" height="1"/>
                                                                     <color key="backgroundColor" red="0.87450980389999999" green="0.87058823529999996" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <constraints>
@@ -177,6 +177,7 @@
                     <connections>
                         <outlet property="layerTableView" destination="mHY-29-b9p" id="UXW-VR-JOs"/>
                         <outlet property="layerTableViewHeightConstraint" destination="fCZ-a2-nOW" id="Fj4-iQ-Y7y"/>
+                        <outlet property="titleLabel" destination="KMl-fW-RD7" id="XLj-T3-zcy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zzd-fP-8Yr" userLabel="First Responder" sceneMemberID="firstResponder"/>

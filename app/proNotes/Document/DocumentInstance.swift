@@ -30,7 +30,7 @@ class DocumentInstance: NSObject {
 
     weak var currentPage: DocumentPage? {
         didSet {
-            if currentPage != nil {
+            if currentPage != nil && oldValue != currentPage {
                 informDelegateToUpdateCurrentPage(currentPage!)
             }
         }
@@ -117,7 +117,7 @@ class DocumentInstance: NSObject {
     }
 
     func undoAction(object: AnyObject?, pageIndex: Int, layerIndex: Int) {
-        if let pageView = PagesTableViewController.sharedInstance?.currentPageView() {
+        if let pageView = PagesTableViewController.sharedInstance?.currentPageView {
             if pageView.page?.index == pageIndex {
                 if let pageSubView = pageView[layerIndex] {
                     pageSubView.undoAction?(object)

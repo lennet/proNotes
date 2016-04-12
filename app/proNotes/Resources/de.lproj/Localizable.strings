@@ -25,3 +25,5 @@
 /* default file name */
 "Note" = "Notiz";
 
+/* Title PageInfoViewController */
+"PageInfoTitle" = "Seite %i";

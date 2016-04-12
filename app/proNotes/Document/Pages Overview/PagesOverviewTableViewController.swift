@@ -15,6 +15,14 @@ class PagesOverviewTableViewController: UITableViewController, DocumentInstanceD
             return DocumentInstance.sharedInstance.document
         }
     }
+    
+    var currentVisibleIndex = 0 {
+        didSet {
+            let oldIndexPath = NSIndexPath(forRow: oldValue, inSection: 0)
+            let newIndexPath = NSIndexPath(forRow: currentVisibleIndex, inSection: 0)
+            tableView.reloadRowsAtIndexPaths([newIndexPath, oldIndexPath], withRowAnimation: .None)
+        }
+    }
 
     weak var pagesOverViewDelegate: PagesOverviewTableViewCellDelegate?
 
@@ -60,23 +68,29 @@ class PagesOverviewTableViewController: UITableViewController, DocumentInstanceD
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(PagesOverviewTableViewCell.identifier, forIndexPath: indexPath) as! PagesOverviewTableViewCell
-
-        cell.numberLabel.text = String(indexPath.row + 1)
+        let highlighted = indexPath.row == currentVisibleIndex
+        cell.numberLabel.text = "\(indexPath.row + 1)"
+        cell.numberLabel.textColor = highlighted ? UIColor.blackColor() : UIColor.lightGrayColor()
         cell.index = indexPath.row
         cell.delegate = pagesOverViewDelegate
         if let page = document?[indexPath.row] {
             let thumbSize = page.size.sizeToFit(CGSize(width: 100, height: 100))
-            cell.pageThumbViewHeightConstraint.constant = thumbSize.height
-            cell.pageThumbViewWidthConstraint.constant = thumbSize.width
+            cell.pageThumbViewHeightConstraint.constant = thumbSize.height * (highlighted ? 1.1 : 1)
+            cell.pageThumbViewWidthConstraint.constant = thumbSize.width * (highlighted ? 1.1 : 1)
             let image = page.previewImage
             cell.pageThumbView.setBackgroundImage(image, forState: .Normal)
         }
         
-        cell.layoutIfNeeded()
+        if highlighted {
+            cell.pageThumbView.layer.setUpHighlitedShadow()
+        } else {
+            cell.pageThumbView.layer.setUpDefaultShaddow()
+        }
+        
         return cell
     }
 
-    // MARK: - DocumentSynchronizerDelegate
+    // MARK: - DocumentInstanceDelegate
 
     func didAddPage(index: Int) {
         if index < tableView.numberOfRowsInSection(0) {
@@ -93,6 +107,10 @@ class PagesOverviewTableViewController: UITableViewController, DocumentInstanceD
             let indexPath = NSIndexPath(forRow: index, inSection: 0)
             tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .None)
         }
+    }
+    
+    func currentPageDidChange(page: DocumentPage) {
+        currentVisibleIndex = page.index
     }
 
 }

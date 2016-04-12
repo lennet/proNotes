@@ -13,10 +13,32 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
    weak static var sharedInstance: PagesTableViewController?
    
    private let defaultMargin: CGFloat = 10
+   private var pageUpdateEnabled = true
+   private var documentViewController: DocumentViewController? {
+      get {
+         return parentViewController as? DocumentViewController
+      }
+   }
    
    @IBOutlet weak var tableView: UITableView!
    @IBOutlet weak var scrollView: UIScrollView!
    @IBOutlet weak var tableViewWidth: NSLayoutConstraint!
+   
+   weak var currentPageView: PageView? {
+      didSet {
+         guard oldValue?.page != currentPageView?.page else {
+            return
+         }
+         let isSketchMode = documentViewController?.isSketchMode ?? false
+
+         oldValue?.selectedSubView = nil
+         if  isSketchMode {
+            currentPageView?.handleSketchButtonPressed()
+         }
+         
+         DocumentInstance.sharedInstance.currentPage = currentPageView?.page
+      }
+   }
    
    var twoTouchesForScrollingRequired = false {
       didSet {
@@ -122,13 +144,14 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
    
    func showPage(pageNumber: Int) {
       if pageNumber < tableView.numberOfRowsInSection(0) {
+         pageUpdateEnabled = false
          let indexPath = NSIndexPath(forRow: pageNumber, inSection: 0)
          DocumentInstance.sharedInstance.currentPage = document?[pageNumber]
          tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
       }
    }
    
-   func currentPageView() -> PageView? {
+   private func getVisiblePageView() -> PageView? {
       if let indexPaths = tableView.indexPathsForVisibleRows {
          for indexPath in indexPaths {
             if let cell = tableView.cellForRowAtIndexPath(indexPath) as? PageTableViewCell {
@@ -231,6 +254,15 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
       if (self.scrollView.contentOffset.y != 0) {
          self.scrollView.contentOffset = CGPoint(x: self.scrollView.contentOffset.x, y: 0);
       }
+      
+      if pageUpdateEnabled {
+         currentPageView = getVisiblePageView()
+      }
+   }
+   
+   func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
+      pageUpdateEnabled = true
+      currentPageView = getVisiblePageView()
    }
    
    // MARK: - DocumentSynchronizerDelegate

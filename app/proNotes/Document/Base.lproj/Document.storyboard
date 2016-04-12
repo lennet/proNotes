@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
@@ -192,7 +191,6 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="HLr-2m-r2k" firstAttribute="top" secondItem="QEy-3B-FtG" secondAttribute="bottom" id="5eT-MR-rGO"/>
                             <constraint firstItem="HLr-2m-r2k" firstAttribute="top" secondItem="QEy-3B-FtG" secondAttribute="bottom" id="Qj9-0l-8Sz"/>
                             <constraint firstItem="2TW-S1-jjs" firstAttribute="leading" secondItem="5xc-My-fbo" secondAttribute="trailing" id="Sqw-eH-t4e"/>
                             <constraint firstItem="5xc-My-fbo" firstAttribute="top" secondItem="QEy-3B-FtG" secondAttribute="bottom" id="ThM-fH-5il"/>
@@ -206,11 +204,6 @@
                             <constraint firstItem="HLr-2m-r2k" firstAttribute="leading" secondItem="yeZ-Ze-976" secondAttribute="leading" id="zVD-Do-ImL"/>
                             <constraint firstAttribute="trailing" secondItem="2TW-S1-jjs" secondAttribute="trailing" id="zt3-ma-QzS"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="5eT-MR-rGO"/>
-                            </mask>
-                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="kk1-F7-vWG">
                         <nil key="title"/>
@@ -431,39 +424,33 @@
         <scene sceneID="nUp-gk-Tms">
             <objects>
                 <tableViewController id="Opm-Dr-mgF" customClass="PagesOverviewTableViewController" customModule="proNotes" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="127" sectionHeaderHeight="28" sectionFooterHeight="28" id="thq-kh-QdA" customClass="ReordableTableView" customModule="proNotes" customModuleProvider="target">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="140" sectionHeaderHeight="28" sectionFooterHeight="28" id="thq-kh-QdA" customClass="ReordableTableView" customModule="proNotes" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="180" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <color key="sectionIndexTrackingBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="PagesOverViewTableViewCellIdentifier" rowHeight="135" id="Eae-as-Kn4" customClass="PagesOverviewTableViewCell" customModule="proNotes" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="180" height="135"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="PagesOverViewTableViewCellIdentifier" rowHeight="145" id="Eae-as-Kn4" customClass="PagesOverviewTableViewCell" customModule="proNotes" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="180" height="145"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Eae-as-Kn4" id="zrI-RX-d0i">
-                                    <rect key="frame" x="0.0" y="0.0" width="180" height="135"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="180" height="145"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <button contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kaA-Rf-Fci">
-                                            <rect key="frame" x="58" y="11" width="65" height="93"/>
+                                            <rect key="frame" x="58" y="16" width="65" height="93"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="65" id="ADP-gc-dVu"/>
                                                 <constraint firstAttribute="height" constant="93.5" id="AEQ-qf-oMd"/>
-                                                <constraint firstAttribute="width" secondItem="kaA-Rf-Fci" secondAttribute="height" multiplier="7:10" id="eu5-P0-Fnc"/>
                                             </constraints>
-                                            <variation key="default">
-                                                <mask key="constraints">
-                                                    <exclude reference="eu5-P0-Fnc"/>
-                                                </mask>
-                                            </variation>
                                             <connections>
                                                 <action selector="handlePageButtonPressed:" destination="Eae-as-Kn4" eventType="touchUpInside" id="Zdk-NN-O6O"/>
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YY5-xE-UTC">
-                                            <rect key="frame" x="86" y="114" width="8" height="21"/>
+                                            <rect key="frame" x="86" y="119" width="8" height="26"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
