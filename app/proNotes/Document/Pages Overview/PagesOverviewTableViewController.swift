@@ -30,8 +30,7 @@ class PagesOverviewTableViewController: UITableViewController, DocumentInstanceD
         super.viewDidLoad()
         (tableView as? ReordableTableView)?.reordableDelegate = self
     }
-
-
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         DocumentInstance.sharedInstance.addDelegate(self)
@@ -41,11 +40,6 @@ class PagesOverviewTableViewController: UITableViewController, DocumentInstanceD
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         DocumentInstance.sharedInstance.removeDelegate(self)
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     // MARK: - ReordableTableViewDelegate
@@ -65,11 +59,9 @@ class PagesOverviewTableViewController: UITableViewController, DocumentInstanceD
         return document?.getNumberOfPages() ?? 0
     }
 
-
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(PagesOverviewTableViewCell.identifier, forIndexPath: indexPath) as! PagesOverviewTableViewCell
         let highlighted = indexPath.row == currentVisibleIndex
-        cell.numberLabel.text = "\(indexPath.row + 1)"
         cell.numberLabel.textColor = highlighted ? UIColor.blackColor() : UIColor.lightGrayColor()
         cell.index = indexPath.row
         cell.delegate = pagesOverViewDelegate

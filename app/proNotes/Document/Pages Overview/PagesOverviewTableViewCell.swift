@@ -23,7 +23,11 @@ class PagesOverviewTableViewCell: UITableViewCell {
     @IBOutlet weak var pageThumbViewWidthConstraint: NSLayoutConstraint!
     
     weak var delegate: PagesOverviewTableViewCellDelegate?
-    var index = 0
+    var index = 0 {
+        didSet {
+            numberLabel.text = "\(index + 1)"
+        }
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()

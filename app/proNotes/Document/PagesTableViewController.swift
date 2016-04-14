@@ -10,6 +10,11 @@ import UIKit
 
 class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource {
    
+   // MARK: - Outlets
+   @IBOutlet weak var tableView: UITableView!
+   @IBOutlet weak var scrollView: UIScrollView!
+   @IBOutlet weak var tableViewWidth: NSLayoutConstraint!
+   
    weak static var sharedInstance: PagesTableViewController?
    
    private let defaultMargin: CGFloat = 10
@@ -19,11 +24,7 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
          return parentViewController as? DocumentViewController
       }
    }
-   
-   @IBOutlet weak var tableView: UITableView!
-   @IBOutlet weak var scrollView: UIScrollView!
-   @IBOutlet weak var tableViewWidth: NSLayoutConstraint!
-   
+
    weak var currentPageView: PageView? {
       didSet {
          guard oldValue?.page != currentPageView?.page else {
@@ -109,11 +110,6 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
       view.layoutSubviews()
    }
    
-   override func didReceiveMemoryWarning() {
-      super.didReceiveMemoryWarning()
-      // Dispose of any resources that can be recreated.
-   }
-   
    func scroll(down: Bool) {
       var newYContentOffset = tableView.contentOffset.y + 75 * (down ? 1 : -1)
       newYContentOffset = max(0, newYContentOffset)
@@ -130,14 +126,11 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
       coordinator.animateAlongsideTransition({
          (context) -> Void in
+         self.setUpScrollView()
          self.layoutDidChange()
       }) {
          (context) -> Void in
       }
-   }
-   
-   override func willTransitionToTraitCollection(newCollection: UITraitCollection, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-      
    }
    
    // MARK: - Page Handling
@@ -152,15 +145,23 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
    }
    
    private func getVisiblePageView() -> PageView? {
+      var visiblePageView: PageView? = nil
       if let indexPaths = tableView.indexPathsForVisibleRows {
+         let visibleRect = CGRect(origin: tableView.contentOffset, size: tableView.bounds.size)
+         var maxSize = CGSize.zero
          for indexPath in indexPaths {
-            if let cell = tableView.cellForRowAtIndexPath(indexPath) as? PageTableViewCell {
-               return cell.pageView
+            let cellRect = tableView.rectForRowAtIndexPath(indexPath)
+            let intersectionSize = CGRectIntersection(visibleRect, cellRect).size
+            if intersectionSize.height > maxSize.height {
+               maxSize = intersectionSize
+               if let cell = tableView.cellForRowAtIndexPath(indexPath) as? PageTableViewCell {
+                  visiblePageView = cell.pageView
+               }
             }
          }
       }
       
-      return nil
+      return visiblePageView
    }
    
    func swapPagePositions(firstIndex: Int, secondIndex: Int) {
