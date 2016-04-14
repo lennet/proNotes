@@ -26,18 +26,27 @@ class ColorPickerViewController: UIViewController, UICollectionViewDataSource, U
     
     private let allColors = [ColorPickerElement(pickerColor: UIColor.clearColorPattern(), resultColor: UIColor.clearColor()),
                   ColorPickerElement(pickerColor: nil, resultColor: UIColor.blackColor()),
-                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.darkGrayColor()),
-                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.lightGrayColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNAsbestonsColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNConcreteColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNSilverColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNCloudsColor()),
                   ColorPickerElement(pickerColor: nil, resultColor: UIColor.whiteColor()),
-                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.grayColor()),
-                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.redColor()),
-                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.greenColor()),
-                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.blueColor()),
-                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.cyanColor()),
-                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.yellowColor()),
-                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.magentaColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNMidnightBlueColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNWetAsphaltColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNAmethystColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNWisteriaColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNBelizeHoleColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNPeterRiverColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNNephritisColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNEmeraldColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNGreenSeaColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNTurqoiseColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNPomegranateColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNAlizarinColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNPumpkinColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNCarrotColor()),
                   ColorPickerElement(pickerColor: nil, resultColor: UIColor.orangeColor()),
-                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.purpleColor())]
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.SunFlowerColor())]
     
     private var colors : [ColorPickerElement] {
         get {
