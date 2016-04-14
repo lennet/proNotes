@@ -292,4 +292,21 @@ class TextSettingsViewController: SettingsBaseViewController, UIPickerViewDataSo
         }
     }
     
+    func setupColorPicker(colorPicker: ColorPickerViewController) {
+        guard let textLayer = TextSettingsViewController.delegate?.getTextLayer() else {
+            return
+        }
+        
+        guard let colorPickerIdentifier = ColorPickerIdentifier(rawValue: colorPicker.identifier ?? "") else {
+            return
+        }
+        switch colorPickerIdentifier {
+        case .BackgroundColor:
+            colorPicker.setColorSelected(textLayer.backgroundColor)
+            break
+        case .TextColor:
+            colorPicker.setColorSelected(textLayer.textColor)
+            break
+        }
+    }
 }

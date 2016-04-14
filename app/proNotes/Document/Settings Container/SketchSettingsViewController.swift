@@ -21,7 +21,7 @@ protocol SketchSettingsDelegate: class {
     func removeLayer()
 }
 
-enum DrawingType {
+enum SketchType {
     case Pen
     case Marker
     case Eraser
@@ -34,7 +34,7 @@ class SketchSettingsViewController: SettingsBaseViewController {
     let defaultTopConstant: CGFloat = -20
     let animationDuration = 0.2
 
-    var currentType = DrawingType.Pen {
+    var currentType = SketchType.Pen {
         didSet {
             if oldValue != currentType {
 
