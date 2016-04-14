@@ -120,4 +120,8 @@ class SketchSettingsViewController: SettingsBaseViewController {
     override func didSelectColor(colorPicker: ColorPickerViewController, color: UIColor) {
         SketchSettingsViewController.delegate?.didSelectColor(color)
     }
+    
+    override func canSelectClearColor(colorPicker: ColorPickerViewController) -> Bool {
+        return false
+    }
 }

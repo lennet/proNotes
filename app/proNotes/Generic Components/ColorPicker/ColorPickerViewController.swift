@@ -10,6 +10,7 @@ import UIKit
 
 protocol ColorPickerDelegate: class {
     func didSelectColor(colorPicker: ColorPickerViewController, color: UIColor)
+    func canSelectClearColor(colorPicker: ColorPickerViewController) -> Bool
 }
 
 class ColorPickerViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
@@ -21,7 +22,7 @@ class ColorPickerViewController: UIViewController, UICollectionViewDataSource, U
     
     @IBOutlet weak var colorCollectionView: UICollectionView!
     
-    let colors = [ColorPickerElement(pickerColor: UIColor.clearColorPattern(), resultColor: UIColor.clearColor()),
+    private let allColors = [ColorPickerElement(pickerColor: UIColor.clearColorPattern(), resultColor: UIColor.clearColor()),
                   ColorPickerElement(pickerColor: nil, resultColor: UIColor.blackColor()),
                   ColorPickerElement(pickerColor: nil, resultColor: UIColor.darkGrayColor()),
                   ColorPickerElement(pickerColor: nil, resultColor: UIColor.lightGrayColor()),
@@ -35,6 +36,19 @@ class ColorPickerViewController: UIViewController, UICollectionViewDataSource, U
                   ColorPickerElement(pickerColor: nil, resultColor: UIColor.magentaColor()),
                   ColorPickerElement(pickerColor: nil, resultColor: UIColor.orangeColor()),
                   ColorPickerElement(pickerColor: nil, resultColor: UIColor.purpleColor())]
+    
+    private var colors : [ColorPickerElement] {
+        get {
+            if delegate?.canSelectClearColor(self) ?? true {
+                return allColors
+            } else {
+                return allColors.filter({ (element) -> Bool in
+                    return element.resultColor != .clearColor()
+                })
+            }
+        }
+    }
+    
     var selectedIndex = 0
     var identifier: String?
     

@@ -19,6 +19,10 @@ class SettingsBaseViewController: UIViewController, ColorPickerDelegate {
     func didSelectColor(colorPicker: ColorPickerViewController, color: UIColor) {
         // empty base Implementation
     }
+    
+    func canSelectClearColor(colorPicker: ColorPickerViewController) -> Bool {
+        return true
+    }
 
     // MARK: - Navigation
 

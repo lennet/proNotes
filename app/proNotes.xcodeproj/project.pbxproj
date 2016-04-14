@@ -47,7 +47,6 @@
 		987F6A1D1C74A7B600572C2F /* ImportDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987F6A1C1C74A7B600572C2F /* ImportDataViewController.swift */; };
 		987F6A1F1C74A9FC00572C2F /* ImportDataMainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987F6A1E1C74A9FC00572C2F /* ImportDataMainTableViewCell.swift */; };
 		987F6A211C74AA0800572C2F /* ImportDataSubTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987F6A201C74AA0800572C2F /* ImportDataSubTableViewCell.swift */; };
-		9881D2761C2857DB00A6651A /* ColorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9881D2751C2857DB00A6651A /* ColorButton.swift */; };
 		9889AE6F1CB4368A0014F451 /* test.ProNote in Resources */ = {isa = PBXBuildFile; fileRef = 9889AE6E1CB4368A0014F451 /* test.ProNote */; };
 		9896A6871C77906700061986 /* CustomDocumentPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896A6861C77906700061986 /* CustomDocumentPickerViewController.swift */; };
 		989C51821CB2F709007D3DCE /* UIBarButtonItemExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989C51811CB2F709007D3DCE /* UIBarButtonItemExtension.swift */; };
@@ -140,7 +139,6 @@
 		987F6A1C1C74A7B600572C2F /* ImportDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImportDataViewController.swift; sourceTree = "<group>"; };
 		987F6A1E1C74A9FC00572C2F /* ImportDataMainTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImportDataMainTableViewCell.swift; sourceTree = "<group>"; };
 		987F6A201C74AA0800572C2F /* ImportDataSubTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImportDataSubTableViewCell.swift; sourceTree = "<group>"; };
-		9881D2751C2857DB00A6651A /* ColorButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorButton.swift; sourceTree = "<group>"; };
 		9889AE6E1CB4368A0014F451 /* test.ProNote */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = test.ProNote; sourceTree = "<group>"; };
 		9896A6861C77906700061986 /* CustomDocumentPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDocumentPickerViewController.swift; sourceTree = "<group>"; };
 		989C51811CB2F709007D3DCE /* UIBarButtonItemExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIBarButtonItemExtension.swift; sourceTree = "<group>"; };
@@ -213,7 +211,6 @@
 		980A3F341C22B2010070C618 /* ColorPicker */ = {
 			isa = PBXGroup;
 			children = (
-				9881D2751C2857DB00A6651A /* ColorButton.swift */,
 				98A133DD1C22BB230064D983 /* ColorPickerCollectionViewCell.swift */,
 				980A3F321C22B1FC0070C618 /* ColorPickerViewController.swift */,
 			);
@@ -600,7 +597,6 @@
 				98CD5AB21C5FE954003F0686 /* CGVectorExtension.swift in Sources */,
 				98DBAA0A1C0799CB007EFFE5 /* AppDelegate.swift in Sources */,
 				98101BD11C0A58AA001E9555 /* DocumentViewController.swift in Sources */,
-				9881D2761C2857DB00A6651A /* ColorButton.swift in Sources */,
 				981CF9AE1C4AC3BE003BA892 /* DocumentOverviewViewController.swift in Sources */,
 				98A57C3D1C1DB2A400E6C5DF /* DocumentLayer.swift in Sources */,
 				98312D661C0B65E500F3B1CB /* PageView.swift in Sources */,
