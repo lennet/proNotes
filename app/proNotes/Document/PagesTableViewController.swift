@@ -61,7 +61,6 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
    
    override func viewDidLoad() {
       super.viewDidLoad()
-      
       setUpTableView()
       loadTableView()
    }
@@ -69,6 +68,7 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
    override func viewWillAppear(animated: Bool) {
       super.viewWillAppear(animated)
       DocumentInstance.sharedInstance.addDelegate(self)
+      updateCurrentPageView()
    }
    
    override func viewDidAppear(animated: Bool) {
@@ -144,6 +144,12 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
       }
    }
    
+   private func updateCurrentPageView() {
+      if pageUpdateEnabled {
+         currentPageView = getVisiblePageView()
+      }
+   }
+   
    private func getVisiblePageView() -> PageView? {
       var visiblePageView: PageView? = nil
       if let indexPaths = tableView.indexPathsForVisibleRows {
@@ -204,7 +210,6 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
       cell.layoutIfNeeded()
       
       return cell
-      
    }
    
    func layoutTableView() {
@@ -256,14 +261,12 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
          self.scrollView.contentOffset = CGPoint(x: self.scrollView.contentOffset.x, y: 0);
       }
       
-      if pageUpdateEnabled {
-         currentPageView = getVisiblePageView()
-      }
+      updateCurrentPageView()
    }
    
    func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
       pageUpdateEnabled = true
-      currentPageView = getVisiblePageView()
+      updateCurrentPageView()
    }
    
    // MARK: - DocumentSynchronizerDelegate
