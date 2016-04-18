@@ -1,11 +1,11 @@
 /* Class = "UILabel"; text = "Layers"; ObjectID = "56p-7K-U8m"; */
-"56p-7K-U8m.text" = "Ebene";
+"56p-7K-U8m.text" = "Ebenen";
 
 /* Class = "UIButton"; normalTitle = "Delete Layer"; ObjectID = "6n1-XX-xhX"; */
 "6n1-XX-xhX.normalTitle" = "Ebene löschen";
 
 /* Class = "UIButton"; normalTitle = "Delete Layer"; ObjectID = "AK3-pT-CS7"; */
-"AK3-pT-CS7.normalTitle" = "Layer löschen\n\n\n";
+"AK3-pT-CS7.normalTitle" = "Ebene löschen\n\n\n";
 
 /* Class = "UILabel"; text = "Type"; ObjectID = "AaV-6U-vyc"; */
 "AaV-6U-vyc.text" = "Type";

@@ -64,7 +64,11 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
             removeNotifications()
             undoManager?.removeAllActions()
         }
-        
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        DocumentInstance.sharedInstance.undoManager?.removeAllActions()
     }
 
     override func canBecomeFirstResponder() -> Bool {

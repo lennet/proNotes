@@ -47,7 +47,7 @@ class ReordableTableView: UITableView {
         guard let cell = cellForRowAtIndexPath(indexPath) else {
             return
         }
-        let currentSnapShowView = cell.toImageView()
+        let currentSnapShowView = cell.toImageView(false)
         currentSnapShowView.center = cell.center
         currentSnapShowView.alpha = 0
         addSubview(currentSnapShowView)

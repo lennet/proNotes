@@ -99,7 +99,7 @@ class DocumentPage: NSObject, NSCoding {
     }
 
     func addTextLayer(text: String) -> TextLayer {
-        let textLayer = TextLayer(index: layers.count, docPage: self, origin: CGPointZero, size: CGSize(width: 200, height: 200), text: "")
+        let textLayer = TextLayer(index: layers.count, docPage: self, origin: CGPointZero, size: CGSize(width: 200, height: 30), text: "")
         layers.append(textLayer)
         return textLayer
     }

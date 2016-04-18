@@ -229,7 +229,8 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
       var frame = tableView.frame
       frame.size.height = max(scrollView.bounds.height, scrollView.contentSize.height)
       tableView.frame = frame
-      scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: tableView.bounds.height)
+      scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: frame.height)
+      print(scrollView.contentSize)
    }
    
    func layoutDidChange() {
@@ -237,7 +238,6 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
       var frame = tableView.frame
       frame.origin = CGPoint(x: frame.origin.x, y: 0)
       tableView.frame = frame
-      
    }
    
    // MARK: - UIScrollViewDelegate
@@ -251,6 +251,7 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
    }
    
    func scrollViewDidScroll(scrollView: UIScrollView) {
+      
       // only update tableview height if scrollview is'nt bouncing
       if !(scrollView.contentOffset.y > scrollView.contentSize.height - scrollView.bounds.height
          && scrollView.contentSize.height > scrollView.bounds.height) && !(scrollView.contentOffset.y < 0) {
