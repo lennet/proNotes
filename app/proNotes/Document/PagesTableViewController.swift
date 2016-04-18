@@ -230,7 +230,6 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
       frame.size.height = max(scrollView.bounds.height, scrollView.contentSize.height)
       tableView.frame = frame
       scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: frame.height)
-      print(scrollView.contentSize)
    }
    
    func layoutDidChange() {

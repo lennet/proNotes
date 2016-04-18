@@ -46,22 +46,37 @@ class ImportDataViewController: UIViewController, UITableViewDataSource, UITable
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        dataSourceObjects.append(TableViewMainObject(title: NSLocalizedString("Image", comment: ""), collapsed: true, subObjects: [TableViewSubObject(title: NSLocalizedString("Photos", comment: ""), action: handleAddPictureCameraRoll), TableViewSubObject(title: NSLocalizedString("Camera", comment: ""), action: handleAddPictureCamera), TableViewSubObject(title: NSLocalizedString("iCloudDrive", comment: ""), action: handleAddImageiCloudDrive)], action: nil))
-        dataSourceObjects.append(TableViewMainObject(title: NSLocalizedString("PDF", comment: ""), collapsed: true, subObjects: nil, action: handleAddPdf))
-        dataSourceObjects.append(TableViewMainObject(title: NSLocalizedString("Textfield", comment: ""), collapsed: true, subObjects: nil, action: handleAddTextField))
-        dataSourceObjects.append(TableViewMainObject(title: NSLocalizedString("SketchCanvas", comment: ""), collapsed: true, subObjects: nil, action: handleAddSketchLayer))
-        dataSourceObjects.append(TableViewMainObject(title: NSLocalizedString("EmptyPage", comment: ""), collapsed: true, subObjects: nil, action: handleAddPage))
-        
-        tableView.sectionHeaderHeight = 0.0
-        tableView.sectionFooterHeight = 0.0
+        setUpDataSource()
+        setUpTableView()
+        addDoneButtonIfNeeded()
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         dataSourceObjects.removeAll()
     }
+    
+    private func setUpTableView() {
+        tableView.sectionHeaderHeight = 0.0
+        tableView.sectionFooterHeight = 0.0
+    }
+    
+    private func setUpDataSource() {
+        dataSourceObjects.append(TableViewMainObject(title: NSLocalizedString("Image", comment: ""), collapsed: true, subObjects: [TableViewSubObject(title: NSLocalizedString("Photos", comment: ""), action: handleAddPictureCameraRoll), TableViewSubObject(title: NSLocalizedString("Camera", comment: ""), action: handleAddPictureCamera), TableViewSubObject(title: NSLocalizedString("iCloudDrive", comment: ""), action: handleAddImageiCloudDrive)], action: nil))
+        dataSourceObjects.append(TableViewMainObject(title: NSLocalizedString("PDF", comment: ""), collapsed: true, subObjects: nil, action: handleAddPdf))
+        dataSourceObjects.append(TableViewMainObject(title: NSLocalizedString("Textfield", comment: ""), collapsed: true, subObjects: nil, action: handleAddTextField))
+        dataSourceObjects.append(TableViewMainObject(title: NSLocalizedString("SketchCanvas", comment: ""), collapsed: true, subObjects: nil, action: handleAddSketchLayer))
+        dataSourceObjects.append(TableViewMainObject(title: NSLocalizedString("EmptyPage", comment: ""), collapsed: true, subObjects: nil, action: handleAddPage))
+    }
+    
+    private func addDoneButtonIfNeeded() {
+        if UIDevice.currentDevice().userInterfaceIdiom != .Pad {
+            let doneBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(ImportDataViewController.handleDoneButtonPressed))
+            navigationItem.setRightBarButtonItem(doneBarButtonItem, animated: false)
+        }
+    }
 
-    func showDocumentPicker(documentTypes: [String]) {
+    private func showDocumentPicker(documentTypes: [String]) {
         let documentPicker = CustomDocumentPickerViewController(documentTypes: documentTypes, inMode: .Import)
         documentPicker.delegate = self;
         documentPicker.modalPresentationStyle = .PageSheet
@@ -104,6 +119,10 @@ class ImportDataViewController: UIViewController, UITableViewDataSource, UITable
     
     func handleAddSketchLayer() {
         delegate?.addSketchLayer()
+    }
+    
+    func handleDoneButtonPressed() {
+        delegate?.dismiss()
     }
 
     // MARK: - UITableViewDataSource

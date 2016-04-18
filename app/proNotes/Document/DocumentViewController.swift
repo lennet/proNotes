@@ -28,7 +28,7 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
             }
         }
     }
-    var isLoadingImage = false
+    var isLoadingData = false
 
     var document: Document? {
         get {
@@ -39,13 +39,14 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpTitle()
+        pageInfoButton.setHidden(true)
     }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         registerNotifications()
         updateUndoButton()
-        isLoadingImage = false
+        isLoadingData = false
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -55,7 +56,7 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
 
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        if !isLoadingImage {
+        if !isLoadingData {
             titleTextField.delegate = nil
             DocumentInstance.sharedInstance.save(nil)
             document?.closeWithCompletionHandler({
@@ -290,7 +291,7 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
     // MARK: - SettingsViewControllerDelegate
     
     func didChangeSettingsType(newType: SettingsViewControllerType) {
-        pageInfoButton.setHidden(newType != .PageInfo)
+        pageInfoButton.setHidden(newType == .PageInfo)
         isSketchMode = newType == .Sketch
     }
     
@@ -306,6 +307,7 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
             viewController.delegate = self
         } else if let navigationController = segue.destinationViewController as? UINavigationController {
             if let viewController = navigationController.visibleViewController as? ImportDataViewController {
+                isLoadingData = true
                 viewController.delegate = self
             }
             importDataNavigationController = navigationController
