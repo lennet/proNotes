@@ -182,6 +182,7 @@ class FileManager: NSObject {
         let fileUrl = getDocumentURL(defaultName, uniqueFileName: true)
 
         let document = Document(fileURL: fileUrl)
+        document.addEmptyPage()
         document.saveToURL(fileUrl, forSaveOperation: .ForCreating) {
             (success) -> Void in
             if !success {
@@ -193,7 +194,7 @@ class FileManager: NSObject {
             let fileURL = document.fileURL
             let state = document.documentState
             let version = NSFileVersion.currentVersionOfItemAtURL(fileURL)
-            document.addEmptyPage()
+
 
             document.closeWithCompletionHandler({
                 (sucess) -> Void in

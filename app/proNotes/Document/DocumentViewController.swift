@@ -232,11 +232,12 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
     }
 
     // MARK: - ImportDataViewControllerDelegate
+    
+    weak var importDataNavigationController: UINavigationController?
 
     func addEmptyPage() {
         document?.addEmptyPage()
-
-        navigationController?.dismissViewControllerAnimated(true, completion: nil)
+        dismiss()
     }
 
     func addTextField() {
@@ -278,7 +279,8 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
     }
 
     func dismiss() {
-        navigationController?.dismissViewControllerAnimated(true, completion: nil)
+        importDataNavigationController?.dismissViewControllerAnimated(true, completion: nil)
+        importDataNavigationController = nil
     }
     
     // MARK: - SettingsViewControllerDelegate
@@ -302,6 +304,7 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
             if let viewController = navigationController.visibleViewController as? ImportDataViewController {
                 viewController.delegate = self
             }
+            importDataNavigationController = navigationController
         }
     }
     
