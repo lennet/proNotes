@@ -16,6 +16,7 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
     @IBOutlet weak var pageInfoButton: UIBarButtonItem!
     @IBOutlet weak var undoButton: UIBarButtonItem!
     @IBOutlet weak var sketchButton: UIBarButtonItem!
+    @IBOutlet weak var fullScreenButton: UIBarButtonItem!
 
     weak var pagesOverviewController: PagesOverviewTableViewController?
     var isFullScreen = false
@@ -41,7 +42,7 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
         setUpTitle()
         pageInfoButton.setHidden(true)
     }
-
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         registerNotifications()
@@ -89,6 +90,32 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
     func removeNotifications() {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
+    
+    private func toggleFullScreen(animated: Bool = true) {
+        if isFullScreen {
+            settingsContainerRightConstraint.constant = 0
+            pagesOverViewLeftConstraint.constant = 0
+            isFullScreen = false
+            SettingsViewController.sharedInstance?.view.alpha = 1
+            pagesOverviewController?.view.alpha = 1
+            fullScreenButton.image = UIImage(named: "fullscreenOn")
+        } else {
+            settingsContainerRightConstraint.constant = -SettingsViewController.sharedInstance!.view.bounds.width
+            pagesOverViewLeftConstraint.constant = -pagesOverviewController!.view.bounds.width
+            isFullScreen = true
+            fullScreenButton.image = UIImage(named: "fullscreenOff")
+        }
+        UIView.animateWithDuration(animated ? standardAnimationDuration : 0, delay: 0, options: .CurveEaseInOut, animations: {
+            self.view.layoutIfNeeded()
+            PagesTableViewController.sharedInstance?.setUpScrollView()
+            PagesTableViewController.sharedInstance?.layoutDidChange()
+            }, completion: { (_) in
+                if self.isFullScreen {
+                    SettingsViewController.sharedInstance?.view.alpha = 0
+                    self.pagesOverviewController?.view.alpha = 0
+                }
+        })
+    }
 
     // MARK: - Actions
 
@@ -107,24 +134,7 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
     }
 
     @IBAction func handleFullscreenToggleButtonPressed(sender: UIBarButtonItem) {
-        if isFullScreen {
-            settingsContainerRightConstraint.constant = -SettingsViewController.sharedInstance!.view.bounds.width
-            pagesOverViewLeftConstraint.constant = -pagesOverviewController!.view.bounds.width
-            isFullScreen = false
-            sender.image = UIImage(named: "fullscreenOn")
-        } else {
-            settingsContainerRightConstraint.constant = 0
-            pagesOverViewLeftConstraint.constant = 0
-            isFullScreen = true
-            sender.image = UIImage(named: "fullscreenOff")
-        }
-
-        UIView.animateWithDuration(standardAnimationDuration, delay: 0, usingSpringWithDamping: 0.85, initialSpringVelocity: 5, options: .CurveEaseInOut, animations: {
-            () -> Void in
-            self.view.layoutIfNeeded()
-            PagesTableViewController.sharedInstance?.layoutDidChange()
-        }, completion: nil)
-
+        toggleFullScreen()
     }
 
     @IBAction func handleUndoButtonPressed(sender: AnyObject) {

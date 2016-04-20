@@ -32,7 +32,6 @@ class SketchSettingsViewController: SettingsBaseViewController {
     weak static var delegate: SketchSettingsDelegate?
 
     let defaultTopConstant: CGFloat = -20
-    let animationDuration = 0.2
 
     var currentType = SketchType.Pen {
         didSet {
@@ -69,7 +68,7 @@ class SketchSettingsViewController: SettingsBaseViewController {
                     break
                 }
 
-                UIView.animateWithDuration(animationDuration, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 5, options: .CurveEaseInOut, animations: {
+                UIView.animateWithDuration(standardAnimationDuration, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 5, options: .CurveEaseInOut, animations: {
                     () -> Void in
                     self.lineWidthCircleView.radius = object?.lineWidth ?? self.lineWidthCircleView.radius
                     self.lineWidthSlider.value = Float(self.lineWidthCircleView.radius)

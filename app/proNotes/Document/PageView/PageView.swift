@@ -43,7 +43,7 @@ class PageView: UIView, UIGestureRecognizerDelegate {
     
      /**
      - parameter page:       DocumentPage to display
-     - parameter renderMode: Optional Bool var which disables autolayout and GestureRecognizers for better render Perfomance & Background Thread support
+     - parameter renderMode: Optional Bool var which disables GestureRecognizers and AutoLayout for better render Perfomance 
      */
     init(page: DocumentPage, renderMode: Bool = false) {
         super.init(frame: CGRect(origin: CGPointZero, size: page.size))
