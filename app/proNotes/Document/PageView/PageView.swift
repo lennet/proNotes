@@ -43,7 +43,7 @@ class PageView: UIView, UIGestureRecognizerDelegate {
     
      /**
      - parameter page:       DocumentPage to display
-     - parameter renderMode: Optional Bool var which disables GestureRecognizers and AutoLayout for better render Perfomance 
+     - parameter renderMode: Optional Bool var which disables GestureRecognizers and AutoLayout for better render Perfomance
      */
     init(page: DocumentPage, renderMode: Bool = false) {
         super.init(frame: CGRect(origin: CGPointZero, size: page.size))
@@ -244,7 +244,7 @@ class PageView: UIView, UIGestureRecognizerDelegate {
             let location = tapGestureRecognizer.locationInView(self)
             for subview in subviews.reverse() where subview.isKindOfClass(MovableView) {
                 let pageSubview = subview as! PageSubView
-                if (pageSubview as? UIView)?.frame.contains(location) ?? false {
+                if !subview.hidden && (pageSubview as? UIView)?.frame.contains(location) ?? false {
                     selectedSubView = pageSubview
                     return
                 }
