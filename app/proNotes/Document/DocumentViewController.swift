@@ -263,6 +263,7 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
                 currentPageView.setLayerSelected(currentPageView.subviews.count - 1)
                 if let pageIndex = currentPageView.page?.index {
                     DocumentInstance.sharedInstance.didUpdatePage(pageIndex)
+                    showPage(pageIndex)
                 }
             }
         }
@@ -282,6 +283,7 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
                 currentPageView.setLayerSelected(currentPageView.subviews.count - 1)
                 if let pageIndex = currentPageView.page?.index {
                     DocumentInstance.sharedInstance.didUpdatePage(pageIndex)
+                    showPage(pageIndex)
                 }
             }
         }
