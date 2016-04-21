@@ -111,6 +111,9 @@ class TouchControlView: UIView {
 
     func touchedControlRect(touchLocation: CGPoint) -> TouchControl {
         for (touchControl, rect) in getControlRects() where rect.contains(touchLocation) {
+            if widthResizingOnly && (touchControl == .TopSide || touchControl == .BottomSide) {
+                return .Center
+            }
             return touchControl
         }
         return .None

@@ -133,7 +133,7 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
     }
     
     override func saveChanges() {
-        textLayer?.size = bounds.size
+        textLayer?.size = textView?.bounds.size ?? bounds.size
         super.saveChanges()
     }
 

@@ -13,7 +13,6 @@ class PageTableViewCell: UITableViewCell {
     static let identifier = "PageTableViewCellIdentifier"
 
     @IBOutlet weak var pageView: PageView!
-    weak var tableView: UITableView?
 
     var heightConstraint: NSLayoutConstraint?
     var widthConstraint: NSLayoutConstraint?
@@ -25,7 +24,7 @@ class PageTableViewCell: UITableViewCell {
 
         heightConstraint = pageView.getConstraint(.Height)
         widthConstraint = pageView.getConstraint(.Width)
-
+        layer.setUpDefaultShaddow()
         deactivateDelaysContentTouches()
     }
 

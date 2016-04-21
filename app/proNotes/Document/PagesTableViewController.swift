@@ -197,14 +197,11 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
       let cell = tableView.dequeueReusableCellWithIdentifier(PageTableViewCell.identifier, forIndexPath: indexPath) as! PageTableViewCell
       
-      cell.layer.setUpDefaultShaddow()
-      
       if let currentPage = document?[indexPath.row] {
          cell.widthConstraint?.constant = currentPage.size.width
          cell.heightConstraint?.constant = currentPage.size.height
          cell.pageView.page = currentPage
          cell.pageView.setUpLayer()
-         cell.tableView = tableView
       }
       
       cell.layoutIfNeeded()

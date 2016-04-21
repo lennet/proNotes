@@ -16,7 +16,7 @@ class PageView: UIView, UIGestureRecognizerDelegate {
     weak var page: DocumentPage? {
         didSet {
             if oldValue == nil {
-                setUpLayer()
+//                setUpLayer()
             }
         }
     }
@@ -86,15 +86,14 @@ class PageView: UIView, UIGestureRecognizerDelegate {
     }
 
     func setUpLayer(renderMode: Bool = false) {
+        for view in subviews {
+            view.removeFromSuperview()
+        }
         guard page != nil else {
             return
         }
 
         frame.size = page!.size
-
-        for view in subviews {
-            view.removeFromSuperview()
-        }
 
         for layer in page!.layers {
             switch layer.type {
