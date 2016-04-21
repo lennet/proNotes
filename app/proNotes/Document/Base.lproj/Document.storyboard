@@ -301,7 +301,7 @@
                                         <subviews>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" indicatorStyle="black" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="quj-w4-0Bo">
                                                 <rect key="frame" x="-70.5" y="204" width="480" height="128"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" red="0.43529411764705883" green="0.44313725490196076" blue="0.47450980392156861" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" priority="1" constant="128" placeholder="YES" id="3l8-MI-i6E"/>
                                                     <constraint firstAttribute="height" constant="128" id="7Yf-Su-7TO"/>
@@ -313,7 +313,7 @@
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PageTableViewCellIdentifier" rowHeight="120" id="pV7-Hh-pEl" customClass="PageTableViewCell" customModule="proNotes" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="28" width="480" height="120"/>
                                                         <autoresizingMask key="autoresizingMask"/>
-                                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pV7-Hh-pEl" id="ZLX-wb-Dv3">
+                                                        <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pV7-Hh-pEl" id="ZLX-wb-Dv3">
                                                             <rect key="frame" x="0.0" y="0.0" width="480" height="120"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
@@ -326,7 +326,7 @@
                                                                     </constraints>
                                                                 </view>
                                                             </subviews>
-                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            <color key="backgroundColor" red="0.43529411764705883" green="0.44313725490196076" blue="0.47450980392156861" alpha="1" colorSpace="calibratedRGB"/>
                                                             <constraints>
                                                                 <constraint firstItem="EAC-hF-dGJ" firstAttribute="centerX" secondItem="ZLX-wb-Dv3" secondAttribute="centerX" id="C96-Jc-KTR"/>
                                                                 <constraint firstItem="EAC-hF-dGJ" firstAttribute="leading" secondItem="ZLX-wb-Dv3" secondAttribute="leading" id="OJj-KI-F5p"/>
@@ -348,7 +348,7 @@
                                                                 </mask>
                                                             </variation>
                                                         </tableViewCellContentView>
-                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <color key="backgroundColor" red="0.43529411764705883" green="0.44313725490196076" blue="0.47450980392156861" alpha="1" colorSpace="calibratedRGB"/>
                                                         <connections>
                                                             <outlet property="pageView" destination="EAC-hF-dGJ" id="nq5-2Q-bma"/>
                                                         </connections>
@@ -366,7 +366,7 @@
                                                 </connections>
                                             </tableView>
                                         </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" red="0.43529411764705883" green="0.44313725490196076" blue="0.47450980392156861" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstItem="quj-w4-0Bo" firstAttribute="centerY" secondItem="C2x-L0-crG" secondAttribute="centerY" id="2SO-8N-YcX"/>
                                             <constraint firstItem="quj-w4-0Bo" firstAttribute="centerX" secondItem="C2x-L0-crG" secondAttribute="centerX" id="3dF-MS-AGd"/>
@@ -381,7 +381,7 @@
                                         </variation>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.43529411764705883" green="0.44313725490196076" blue="0.47450980392156861" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="C2x-L0-crG" secondAttribute="bottom" id="CN7-GT-xXP"/>
                                     <constraint firstItem="C2x-L0-crG" firstAttribute="leading" secondItem="2z1-xO-aEk" secondAttribute="leading" id="V8v-9g-Xry"/>

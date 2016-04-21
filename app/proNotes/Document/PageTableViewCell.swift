@@ -19,9 +19,6 @@ class PageTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-
-        backgroundColor = UIColor.clearColor()
-
         heightConstraint = pageView.getConstraint(.Height)
         widthConstraint = pageView.getConstraint(.Width)
         layer.setUpDefaultShaddow()
