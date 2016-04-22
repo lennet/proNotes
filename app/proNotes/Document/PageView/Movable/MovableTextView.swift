@@ -31,9 +31,7 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
         if self.textView == nil {
             let textView = NoScrollingTextView()
             textView.userInteractionEnabled = false
-            textView.backgroundColor = UIColor.clearColor()
             textView.delegate = self
-            textView.clipsToBounds = true
             addSubview(textView)
 
             self.textView = textView

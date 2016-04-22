@@ -53,10 +53,12 @@
 		989C51851CB30AC3007D3DCE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 989C51871CB30AC3007D3DCE /* Localizable.strings */; };
 		989C518C1CB30BAE007D3DCE /* DocumentSettingsContainer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 989C518E1CB30BAE007D3DCE /* DocumentSettingsContainer.storyboard */; };
 		989C51931CB30BDA007D3DCE /* Document.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 989C51951CB30BDA007D3DCE /* Document.storyboard */; };
+		989FDFF71CCA0BF10091C9D7 /* ImportExportBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989FDFF61CCA0BF10091C9D7 /* ImportExportBaseViewController.swift */; };
 		98A133DE1C22BB230064D983 /* ColorPickerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A133DD1C22BB230064D983 /* ColorPickerCollectionViewCell.swift */; };
 		98A5673B1C18CC330065B401 /* ImageSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A5673A1C18CC330065B401 /* ImageSettingsViewController.swift */; };
 		98A57C3D1C1DB2A400E6C5DF /* DocumentLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A57C3C1C1DB2A400E6C5DF /* DocumentLayer.swift */; };
 		98A57C3F1C1DB2BC00E6C5DF /* DocumentPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A57C3E1C1DB2BC00E6C5DF /* DocumentPage.swift */; };
+		98A6072F1CCA0D7C00DB3A13 /* ExportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A6072E1CCA0D7C00DB3A13 /* ExportViewController.swift */; };
 		98AD15E91C49BBDC00EE94A1 /* ReordableTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98AD15E81C49BBDC00EE94A1 /* ReordableTableView.swift */; };
 		98BABB8D1C1B142C00D9C938 /* PageInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BABB8C1C1B142C00D9C938 /* PageInfoViewController.swift */; };
 		98BABB901C1B16A400D9C938 /* PageInfoLayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BABB8F1C1B16A400D9C938 /* PageInfoLayerTableViewCell.swift */; };
@@ -151,10 +153,12 @@
 		989C51941CB30BDA007D3DCE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Document.storyboard; sourceTree = "<group>"; };
 		989C51971CB30BDD007D3DCE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Document.strings; sourceTree = "<group>"; };
 		989C51991CB30BE0007D3DCE /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Document.strings; sourceTree = "<group>"; };
+		989FDFF61CCA0BF10091C9D7 /* ImportExportBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImportExportBaseViewController.swift; sourceTree = "<group>"; };
 		98A133DD1C22BB230064D983 /* ColorPickerCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPickerCollectionViewCell.swift; sourceTree = "<group>"; };
 		98A5673A1C18CC330065B401 /* ImageSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageSettingsViewController.swift; sourceTree = "<group>"; };
 		98A57C3C1C1DB2A400E6C5DF /* DocumentLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentLayer.swift; sourceTree = "<group>"; };
 		98A57C3E1C1DB2BC00E6C5DF /* DocumentPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentPage.swift; sourceTree = "<group>"; };
+		98A6072E1CCA0D7C00DB3A13 /* ExportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExportViewController.swift; sourceTree = "<group>"; };
 		98AD15E81C49BBDC00EE94A1 /* ReordableTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReordableTableView.swift; sourceTree = "<group>"; };
 		98BABB8C1C1B142C00D9C938 /* PageInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageInfoViewController.swift; sourceTree = "<group>"; };
 		98BABB8F1C1B16A400D9C938 /* PageInfoLayerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageInfoLayerTableViewCell.swift; sourceTree = "<group>"; };
@@ -220,7 +224,7 @@
 		98101BCB1C0A5873001E9555 /* Document */ = {
 			isa = PBXGroup;
 			children = (
-				987F6A1B1C74A79500572C2F /* ImportViewController */,
+				987F6A1B1C74A79500572C2F /* Import Export */,
 				98312D671C0B65F500F3B1CB /* PageView */,
 				982FD9EC1C18C92F00058BCF /* Pages Overview */,
 				982FD9ED1C18C97600058BCF /* Settings Container */,
@@ -317,13 +321,16 @@
 			path = "Generic Components";
 			sourceTree = "<group>";
 		};
-		987F6A1B1C74A79500572C2F /* ImportViewController */ = {
+		987F6A1B1C74A79500572C2F /* Import Export */ = {
 			isa = PBXGroup;
 			children = (
 				987F6A1E1C74A9FC00572C2F /* ImportDataMainTableViewCell.swift */,
 				987F6A201C74AA0800572C2F /* ImportDataSubTableViewCell.swift */,
 				987F6A1C1C74A7B600572C2F /* ImportDataViewController.swift */,
+				989FDFF61CCA0BF10091C9D7 /* ImportExportBaseViewController.swift */,
+				98A6072E1CCA0D7C00DB3A13 /* ExportViewController.swift */,
 			);
+			name = "Import Export";
 			path = ImportViewController;
 			sourceTree = "<group>";
 		};
@@ -608,6 +615,7 @@
 				98A57C3F1C1DB2BC00E6C5DF /* DocumentPage.swift in Sources */,
 				9896A6871C77906700061986 /* CustomDocumentPickerViewController.swift in Sources */,
 				986D605E1C2C2D700065D71B /* CircleView.swift in Sources */,
+				98A6072F1CCA0D7C00DB3A13 /* ExportViewController.swift in Sources */,
 				98CD5AB01C5FE728003F0686 /* CGFloatExtension.swift in Sources */,
 				98F2E3EC1C1A1EE9008A5C6C /* MovableView.swift in Sources */,
 				9814D7A91CAEFA0D00D1ADA4 /* NSDateExtension.swift in Sources */,
@@ -645,6 +653,7 @@
 				9829ECDA1C791F2700A64009 /* SketchLayer.swift in Sources */,
 				987487CB1C18DA45000309D8 /* MovableTextView.swift in Sources */,
 				98101BD31C0A58AA001E9555 /* PagesOverviewTableViewController.swift in Sources */,
+				989FDFF71CCA0BF10091C9D7 /* ImportExportBaseViewController.swift in Sources */,
 				98AD15E91C49BBDC00EE94A1 /* ReordableTableView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

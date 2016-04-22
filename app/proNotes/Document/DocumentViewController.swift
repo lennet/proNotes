@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelegate, UITextFieldDelegate, ImportDataViewControllerDelgate, SettingsViewControllerDelegate {
+class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelegate, UITextFieldDelegate, ImportExportDataViewControllerDelgate, SettingsViewControllerDelegate {
 
     @IBOutlet weak var settingsContainerRightConstraint: NSLayoutConstraint!
     @IBOutlet weak var pagesOverViewLeftConstraint: NSLayoutConstraint!
@@ -17,6 +17,7 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
     @IBOutlet weak var undoButton: UIBarButtonItem!
     @IBOutlet weak var sketchButton: UIBarButtonItem!
     @IBOutlet weak var fullScreenButton: UIBarButtonItem!
+    @IBOutlet weak var actionBarButtonItem: UIBarButtonItem!
 
     weak var pagesOverviewController: PagesOverviewTableViewController?
     var isFullScreen = false
@@ -294,9 +295,25 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
         PagesTableViewController.sharedInstance?.currentPageView?.addSketchLayer()
         dismiss()
     }
+    
+    func exportAsPDF() {
+        dismiss()
+        DocumentExporter.exportAsPDF(nil, barButtonItem: actionBarButtonItem, viewController: self)
+    }
+    
+    func exportAsImages() {
+        dismiss(false)
+        DocumentExporter.exportAsImages(nil, barButtonItem: actionBarButtonItem, viewController: self)
+    }
+    
+    func exportAsProNote() {
+        dismiss()
+        DocumentExporter.exportAsProNote(nil, barButtonItem: actionBarButtonItem, viewController: self)
+        
+    }
 
-    func dismiss() {
-        importDataNavigationController?.dismissViewControllerAnimated(true, completion: nil)
+    func dismiss(animated: Bool = true) {
+        importDataNavigationController?.dismissViewControllerAnimated(animated, completion: nil)
         importDataNavigationController = nil
     }
     
@@ -318,9 +335,12 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
         } else if let viewController = segue.destinationViewController as? SettingsViewController {
             viewController.delegate = self
         } else if let navigationController = segue.destinationViewController as? UINavigationController {
-            if let viewController = navigationController.visibleViewController as? ImportDataViewController {
+            if let viewController = navigationController.visibleViewController as? ImportExportBaseViewController {
                 isLoadingData = true
                 viewController.delegate = self
+            }
+            if importDataNavigationController != nil {
+                dismiss()
             }
             importDataNavigationController = navigationController
         }

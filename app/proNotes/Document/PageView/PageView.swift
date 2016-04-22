@@ -249,7 +249,6 @@ class PageView: UIView, UIGestureRecognizerDelegate {
                 }
             }
         }
-
     }
 
     // MARK: - UIGestureRecognizerDelegate

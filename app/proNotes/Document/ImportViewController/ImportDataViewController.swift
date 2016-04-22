@@ -8,72 +8,17 @@
 
 import UIKit
 
-protocol ImportDataViewControllerDelgate: class {
-    func addEmptyPage()
-
-    func addTextField()
-
-    func addPDF(url: NSURL)
-
-    func addImage(image: UIImage)
-    
-    func addSketchLayer()
-
-    func dismiss()
-}
-
-class ImportDataViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIDocumentPickerDelegate {
+class ImportDataViewController: ImportExportBaseViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIDocumentPickerDelegate {
 
     final let pdfUTI = "com.adobe.pdf"
     final let imageUTI = "public.image"
 
-    @IBOutlet weak var tableView: UITableView!
-    weak var delegate: ImportDataViewControllerDelgate?
-
-    struct TableViewSubObject {
-        var title: String
-        var action: (() -> ())
-    }
-
-    struct TableViewMainObject {
-        var title: String
-        var collapsed: Bool
-        var subObjects: [TableViewSubObject]?
-        var action: (() -> ())?
-    }
-
-    var dataSourceObjects = [TableViewMainObject]()
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        setUpDataSource()
-        setUpTableView()
-        addDoneButtonIfNeeded()
-    }
-    
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-        dataSourceObjects.removeAll()
-    }
-    
-    private func setUpTableView() {
-        tableView.sectionHeaderHeight = 0.0
-        tableView.sectionFooterHeight = 0.0
-    }
-    
-    private func setUpDataSource() {
+    override func setUpDataSource() {
         dataSourceObjects.append(TableViewMainObject(title: NSLocalizedString("Image", comment: ""), collapsed: true, subObjects: [TableViewSubObject(title: NSLocalizedString("Photos", comment: ""), action: handleAddPictureCameraRoll), TableViewSubObject(title: NSLocalizedString("Camera", comment: ""), action: handleAddPictureCamera), TableViewSubObject(title: NSLocalizedString("iCloudDrive", comment: ""), action: handleAddImageiCloudDrive)], action: nil))
         dataSourceObjects.append(TableViewMainObject(title: NSLocalizedString("PDF", comment: ""), collapsed: true, subObjects: nil, action: handleAddPdf))
         dataSourceObjects.append(TableViewMainObject(title: NSLocalizedString("Textfield", comment: ""), collapsed: true, subObjects: nil, action: handleAddTextField))
         dataSourceObjects.append(TableViewMainObject(title: NSLocalizedString("SketchCanvas", comment: ""), collapsed: true, subObjects: nil, action: handleAddSketchLayer))
         dataSourceObjects.append(TableViewMainObject(title: NSLocalizedString("EmptyPage", comment: ""), collapsed: true, subObjects: nil, action: handleAddPage))
-    }
-    
-    private func addDoneButtonIfNeeded() {
-        if UIDevice.currentDevice().userInterfaceIdiom != .Pad {
-            let doneBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(ImportDataViewController.handleDoneButtonPressed))
-            navigationItem.setRightBarButtonItem(doneBarButtonItem, animated: false)
-        }
     }
 
     private func showDocumentPicker(documentTypes: [String]) {
@@ -82,7 +27,7 @@ class ImportDataViewController: UIViewController, UITableViewDataSource, UITable
         documentPicker.modalPresentationStyle = .PageSheet
         self.presentViewController(documentPicker, animated: true, completion: nil)
     }
-
+    
     // MARK: - Actions 
 
     func handleAddPictureCameraRoll() {
@@ -121,57 +66,6 @@ class ImportDataViewController: UIViewController, UITableViewDataSource, UITable
         delegate?.addSketchLayer()
     }
     
-    func handleDoneButtonPressed() {
-        delegate?.dismiss()
-    }
-
-    // MARK: - UITableViewDataSource
-
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return dataSourceObjects.count
-    }
-
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let sectionObject = dataSourceObjects[section]
-        return sectionObject.collapsed ? 1 : (sectionObject.subObjects?.count ?? 0) + 1
-    }
-
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-
-        let dataSourceObject = dataSourceObjects[indexPath.section]
-
-        if indexPath.row > 0 {
-            let cell = tableView.dequeueReusableCellWithIdentifier(ImportDataSubTableViewCell.cellIdentifier, forIndexPath: indexPath) as! ImportDataSubTableViewCell
-            cell.label.text = dataSourceObject.subObjects?[indexPath.row - 1].title
-
-            return cell
-        } else {
-            let cell = tableView.dequeueReusableCellWithIdentifier(ImportDataMainTableViewCell.cellIdentifier, forIndexPath: indexPath) as! ImportDataMainTableViewCell
-            cell.label.text = dataSourceObject.title
-
-            if !dataSourceObject.collapsed {
-                cell.accessoryImageView?.transform = CGAffineTransformMakeRotation(π / 2)
-            } else {
-                cell.accessoryImageView?.transform = CGAffineTransformIdentity
-            }
-
-            return cell
-        }
-    }
-
-    // MARK: - UITableViewDelegate
-
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.cellForRowAtIndexPath(indexPath)?.setSelected(false, animated: true)
-        let sectionObject = dataSourceObjects[indexPath.section]
-        if indexPath.row > 0 {
-            sectionObject.subObjects?[indexPath.row - 1].action()
-        } else if ((sectionObject.action?()) == nil) {
-            dataSourceObjects[indexPath.section].collapsed = !sectionObject.collapsed
-            tableView.reloadSections(NSIndexSet(index: indexPath.section), withRowAnimation: .None)
-        }
-    }
-
     // MARK: - UIDocumentPickerDelegate
 
     func documentPicker(controller: UIDocumentPickerViewController, didPickDocumentAtURL url: NSURL) {
@@ -189,7 +83,6 @@ class ImportDataViewController: UIViewController, UITableViewDataSource, UITable
         }
 
         dismissViewControllerAnimated(false, completion: nil)
-
     }
 
     // MARK: - UIImagePickerControllerDelegate
@@ -198,7 +91,6 @@ class ImportDataViewController: UIViewController, UITableViewDataSource, UITable
         dismissViewControllerAnimated(false, completion: nil)
         delegate?.addImage(image.resetRoation())
     }
-
 
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
         dismissViewControllerAnimated(false, completion: nil)
