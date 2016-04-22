@@ -421,7 +421,7 @@
             </objects>
             <point key="canvasLocation" x="3435" y="384"/>
         </scene>
-        <!--Export View Controller-->
+        <!--Export-->
         <scene sceneID="zOL-G5-dTj">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="bhe-Vm-Raz" customClass="ExportViewController" customModule="proNotes" customModuleProvider="target" sceneMemberID="viewController">
@@ -560,7 +560,7 @@
                             <constraint firstItem="K42-u2-jfT" firstAttribute="top" secondItem="JEG-Sf-o2z" secondAttribute="bottom" id="jjh-aZ-jZI"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="LQn-aO-FNm"/>
+                    <navigationItem key="navigationItem" title="Export" id="LQn-aO-FNm"/>
                     <connections>
                         <outlet property="tableView" destination="K42-u2-jfT" id="Hhw-mI-IJr"/>
                     </connections>

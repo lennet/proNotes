@@ -94,7 +94,7 @@ class ImportDataViewController: ImportExportBaseViewController, UIImagePickerCon
 
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
         dismissViewControllerAnimated(false, completion: nil)
-        delegate?.dismiss()
+        delegate?.dismiss(true)
     }
 
 }

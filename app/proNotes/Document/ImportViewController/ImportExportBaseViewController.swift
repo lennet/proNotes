@@ -46,10 +46,18 @@ class ImportExportBaseViewController: UIViewController,  UITableViewDataSource, 
         var action: (() -> ())?
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setUpDataSource()
+        if UIDevice.currentDevice().userInterfaceIdiom != .Phone {
+            preferredContentSize = CGSize(width: preferredContentSize.width, height: CGFloat(dataSourceObjects.count * 44))
+        }
+
+    }
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         setUpTableView()
-        setUpDataSource()
         addDoneButtonIfNeeded()
     }
     
