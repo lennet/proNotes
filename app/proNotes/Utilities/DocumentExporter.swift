@@ -11,21 +11,21 @@ import UIKit
 class DocumentExporter: NSObject {
 
     class func exportAsImages(sourceView: UIView? = nil, barButtonItem: UIBarButtonItem? = nil, viewController: UIViewController) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-            () -> Void in
+//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+//            () -> Void in
             guard let document = DocumentInstance.sharedInstance.document else {
                 return
             }
             let images = getImageArrayForDocument(document)
-            dispatch_async(dispatch_get_main_queue(),{
+//            dispatch_async(dispatch_get_main_queue(),{
                 presentActivityViewController(viewController, sourceView: sourceView, barbuttonItem: barButtonItem, items: images)
-            })
-        }
+//            })
+//        }
     }
 
     class func exportAsPDF(sourceView: UIView? = nil, barButtonItem: UIBarButtonItem? = nil, viewController: UIViewController) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-            () -> Void in
+//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+//            () -> Void in
             guard let document = DocumentInstance.sharedInstance.document else {
                 return
             }
@@ -40,30 +40,31 @@ class DocumentExporter: NSObject {
             }
             UIGraphicsEndPDFContext()
 
-            dispatch_async(dispatch_get_main_queue(),{
+//            dispatch_async(dispatch_get_main_queue(),{
                 presentActivityViewController(viewController, sourceView: sourceView, barbuttonItem: barButtonItem, items: [document.name, mutableData])
-            })
-        }
+//            })
+//        }
     }
 
     class func exportAsProNote(sourceView: UIView? = nil, barButtonItem: UIBarButtonItem? = nil, viewController: UIViewController) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-            () -> Void in
+//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+//            () -> Void in
             DocumentInstance.sharedInstance.save({ (_) in
                 guard let document = DocumentInstance.sharedInstance.document else {
                     return
                 }
-                dispatch_async(dispatch_get_main_queue(),{
+//                dispatch_async(dispatch_get_main_queue(),{
                     presentActivityViewController(viewController, sourceView: sourceView, barbuttonItem: barButtonItem, items: [document.fileURL])
-                })
+//                })
             })
-        }
+//        }
     }
     
     class func getImageArrayForDocument(document: Document) -> [UIImage] {
         var images = [UIImage]()
         for page in document.pages {
             let pageView = PageView(page: page, renderMode: true)
+            pageView.layoutIfNeeded()
             images.append(pageView.toImage())
         }
         return images

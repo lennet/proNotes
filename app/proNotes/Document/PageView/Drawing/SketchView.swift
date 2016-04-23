@@ -43,6 +43,12 @@ class SketchView: UIImageView, PageSubView, SketchSettingsDelegate {
     
     func commonInit() {
         image = sketchLayer?.image
+    }
+    
+    private func setUpStrokeBuffer() {
+        guard self.strokeBuffer == nil else {
+            return
+        }
         let strokeBuffer = StrokeBufferView(frame: bounds)
         strokeBuffer.alpha = penObject.alphaValue
         addSubview(strokeBuffer)
@@ -137,6 +143,12 @@ class SketchView: UIImageView, PageSubView, SketchSettingsDelegate {
     func setSelected() {
         SettingsViewController.sharedInstance?.currentSettingsType = .Sketch
         SketchSettingsViewController.delegate = self
+        setUpStrokeBuffer()
+    }
+    
+    func setDeselected() {
+        strokeBuffer?.removeFromSuperview()
+        strokeBuffer = nil
     }
 
     func saveChanges() {
