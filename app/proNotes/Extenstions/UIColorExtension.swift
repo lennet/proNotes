@@ -50,6 +50,22 @@ extension UIColor {
     // MARK Custom Colors
     // from http://flatuicolors.com
 
+    class func PNYellowColor() -> UIColor {
+        return UIColor(red: 256/255, green: 205/255, blue: 0/255, alpha: 1)
+    }
+    
+    class func PNRedColor() -> UIColor {
+        return UIColor(red: 254/255, green: 56/255, blue: 36/255, alpha: 1)
+    }
+    
+    class func PNLightBlueColor() -> UIColor {
+        return UIColor(red: 84/255, green: 199/255, blue: 252/255, alpha: 1)
+    }
+    
+    class func PNGreenColor() -> UIColor {
+        return UIColor(red: 68/255, green: 219/255, blue: 94/255, alpha: 1)
+    }
+    
     class func PNTurqoiseColor() -> UIColor {
         return UIColor(red: 41/255, green: 187/255, blue: 156/255, alpha: 1)
     }

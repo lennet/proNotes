@@ -41,12 +41,15 @@ class ColorPickerViewController: UIViewController, UICollectionViewDataSource, U
                   ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNEmeraldColor()),
                   ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNGreenSeaColor()),
                   ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNTurqoiseColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNRedColor()),
                   ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNPomegranateColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNRedColor()),
                   ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNAlizarinColor()),
                   ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNPumpkinColor()),
                   ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNCarrotColor()),
                   ColorPickerElement(pickerColor: nil, resultColor: UIColor.orangeColor()),
-                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.SunFlowerColor())]
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.SunFlowerColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNYellowColor())]
     
     private var colors : [ColorPickerElement] {
         get {
