@@ -163,7 +163,7 @@ class SketchView: UIImageView, PageSubView, SketchSettingsDelegate {
     // MARK: - DrawingSettingsDelegate
 
     func didSelectColor(color: UIColor) {
-        penObject.color = color
+        strokeBuffer?.strokeColor = color
     }
 
     func didSelectDrawingObject(object: Pen) {

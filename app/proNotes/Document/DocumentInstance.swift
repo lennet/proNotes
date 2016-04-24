@@ -24,7 +24,9 @@ class DocumentInstance: NSObject {
 
     var undoManager: NSUndoManager? {
         get {
-            return PagesTableViewController.sharedInstance?.undoManager
+            let manager = PagesTableViewController.sharedInstance?.undoManager
+            manager?.levelsOfUndo = 5
+            return manager
         }
     }
 

@@ -21,7 +21,7 @@ class PageTableViewCell: UITableViewCell {
         super.awakeFromNib()
         heightConstraint = pageView.getConstraint(.Height)
         widthConstraint = pageView.getConstraint(.Width)
-        layer.setUpDefaultShaddow()
+        pageView.layer.setUpDefaultShaddow()
         deactivateDelaysContentTouches()
     }
 

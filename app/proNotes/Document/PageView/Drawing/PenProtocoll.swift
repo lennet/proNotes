@@ -9,7 +9,6 @@
 import UIKit
 
 protocol Pen: class {
-    var color: UIColor { get set }
     var lineWidth: CGFloat { get set }
     var alphaValue: CGFloat { get }
     var enabledShading: Bool { get }
@@ -17,7 +16,6 @@ protocol Pen: class {
 }
 
 class Pencil: Pen {
-    var color = UIColor.blackColor()
     var lineWidth: CGFloat = 5
     var alphaValue: CGFloat = 1
     var enabledShading: Bool = false
@@ -25,7 +23,6 @@ class Pencil: Pen {
 }
 
 class Marker: Pen {
-    var color = UIColor.blueColor()
     var lineWidth: CGFloat = 20
     var alphaValue: CGFloat = 0.5
     var enabledShading = true
@@ -33,14 +30,6 @@ class Marker: Pen {
 }
 
 class Eraser: Pen {
-    var color: UIColor {
-        get {
-            return .clearColor()
-        }
-        set {
-            return
-        }
-    }
     var lineWidth: CGFloat = 10
     var alphaValue: CGFloat = 1
     var isEraser: Bool = true

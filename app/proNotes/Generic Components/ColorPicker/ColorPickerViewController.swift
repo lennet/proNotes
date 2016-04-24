@@ -108,6 +108,10 @@ class ColorPickerViewController: UIViewController, UICollectionViewDataSource, U
         }
     }
     
+    func getSelectedColor() -> UIColor {
+        return colors[selectedIndex].resultColor
+    }
+    
     // MARK: - UICollectionViewDataSource
 
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

@@ -24,12 +24,8 @@ class StrokeBufferView: UIImageView {
         }
     }
     
-    private var strokeColor: UIColor {
-        get {
-            return currentPenObject.color
-        }
-    }
-    
+    var strokeColor: UIColor = SettingsViewController.sharedInstance?.currentChildViewController?.colorPicker?.getSelectedColor() ?? UIColor.blackColor()
+            
     private final let minLineWidth: CGFloat = 1
     private var oldLineWidth: CGFloat = 0
     

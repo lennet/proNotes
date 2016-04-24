@@ -10,6 +10,8 @@ import UIKit
 
 class SettingsBaseViewController: UIViewController, ColorPickerDelegate {
 
+    weak var colorPicker: ColorPickerViewController?
+    
     func update() {
         // empty base Implementation
     }
@@ -30,6 +32,7 @@ class SettingsBaseViewController: UIViewController, ColorPickerDelegate {
         if let colorPickerViewController = segue.destinationViewController as? ColorPickerViewController {
             colorPickerViewController.delegate = self
             colorPickerViewController.identifier = segue.identifier
+            self.colorPicker = colorPickerViewController
         }
     }
 }
