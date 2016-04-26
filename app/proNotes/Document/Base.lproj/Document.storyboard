@@ -283,6 +283,9 @@
                         <outlet property="sketchButton" destination="78j-Lm-gB9" id="Vtf-sd-mwH"/>
                         <outlet property="titleTextField" destination="DeR-PR-STL" id="sPx-kb-eA2"/>
                         <outlet property="undoButton" destination="kI2-fq-zX2" id="SNq-PB-1t4"/>
+                        <outletCollection property="bottomConstraints" destination="VVr-3M-fpd" collectionClass="NSMutableArray" id="A7s-g6-8lN"/>
+                        <outletCollection property="bottomConstraints" destination="XRH-8S-93s" collectionClass="NSMutableArray" id="3U6-Mu-kbJ"/>
+                        <outletCollection property="bottomConstraints" destination="uky-e0-tYT" collectionClass="NSMutableArray" id="ozc-2V-2Xp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QeH-aA-dmU" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -485,8 +488,8 @@
                                             <variation key="default">
                                                 <mask key="constraints">
                                                     <exclude reference="oTS-XI-Vfh"/>
-                                                    <exclude reference="Oo3-Lt-hZg"/>
                                                     <exclude reference="L3X-xo-xBH"/>
+                                                    <exclude reference="Oo3-Lt-hZg"/>
                                                     <exclude reference="zDr-hn-jbr"/>
                                                 </mask>
                                             </variation>
@@ -689,7 +692,7 @@
     </scenes>
     <resources>
         <image name="accessoryIcon" width="8" height="13"/>
-        <image name="fullscreenOn" width="25" height="25"/>
+        <image name="fullscreenOn" width="32" height="32"/>
         <image name="layerIcon" width="34" height="25"/>
         <image name="sketchIcon" width="25" height="25"/>
     </resources>

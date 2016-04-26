@@ -18,6 +18,8 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
     @IBOutlet weak var sketchButton: UIBarButtonItem!
     @IBOutlet weak var fullScreenButton: UIBarButtonItem!
     @IBOutlet weak var actionBarButtonItem: UIBarButtonItem!
+    
+    @IBOutlet var bottomConstraints: [NSLayoutConstraint]!
 
     weak var pagesOverviewController: PagesOverviewTableViewController?
     var isFullScreen = false
@@ -78,17 +80,19 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
         return true
     }
 
-    func setUpTitle() {
+    private func setUpTitle() {
         titleTextField.text = document?.name
         titleTextField.sizeToFit()
     }
 
-    func registerNotifications() {
+    private func registerNotifications() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DocumentViewController.updateUndoButton), name: NSUndoManagerWillUndoChangeNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DocumentViewController.updateUndoButton), name: NSUndoManagerCheckpointNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DocumentViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DocumentViewController.keyboardWillBeHidden(_:)), name: UIKeyboardWillHideNotification, object: nil)
     }
 
-    func removeNotifications() {
+    private func removeNotifications() {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
@@ -118,6 +122,40 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
         })
     }
 
+    func keyboardWillShow(notification: NSNotification){
+        
+        let info = notification.userInfo
+        guard let duration = info![UIKeyboardAnimationDurationUserInfoKey] as? Double else {
+            return
+        }
+        guard let keyboardSize = (info?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.CGRectValue().size else {
+            return
+        }
+        
+        for constraint in bottomConstraints {
+            constraint.constant = keyboardSize.height
+        }
+        
+        UIView.animateWithDuration(duration, delay: 0, options: .CurveEaseInOut, animations: { 
+            self.view.layoutIfNeeded()
+            PagesTableViewController.sharedInstance?.layoutDidChange()
+            }, completion: nil)
+    }
+    
+    func keyboardWillBeHidden(notification: NSNotification){
+        let info = notification.userInfo
+        let duration = info![UIKeyboardAnimationDurationUserInfoKey] as! Double
+        
+        for constraint in bottomConstraints {
+            constraint.constant = 0
+        }
+        
+        UIView.animateWithDuration(duration, delay: 0, options: .CurveEaseInOut, animations: {
+            self.view.layoutIfNeeded()
+            PagesTableViewController.sharedInstance?.layoutDidChange()
+            }, completion: nil)
+    }
+    
     // MARK: - Actions
 
     @IBAction func handleSketchButtonPressed(sender: UIBarButtonItem) {

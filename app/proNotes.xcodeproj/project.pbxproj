@@ -69,6 +69,7 @@
 		98D8C0B71C0B116F0026EECE /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D8C0B61C0B116F0026EECE /* Document.swift */; };
 		98D8C0BA1C0B11750026EECE /* SketchSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D8C0B81C0B11750026EECE /* SketchSettingsViewController.swift */; };
 		98D8C0BB1C0B11750026EECE /* SketchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D8C0B91C0B11750026EECE /* SketchView.swift */; };
+		98DB503B1CCE6A3E0022B995 /* LeonardThomas.ProNote in Resources */ = {isa = PBXBuildFile; fileRef = 98DB503A1CCE6A3E0022B995 /* LeonardThomas.ProNote */; };
 		98DBAA0A1C0799CB007EFFE5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DBAA091C0799CB007EFFE5 /* AppDelegate.swift */; };
 		98DBAA141C0799CB007EFFE5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 98DBAA131C0799CB007EFFE5 /* Assets.xcassets */; };
 		98DBAA171C0799CB007EFFE5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98DBAA151C0799CB007EFFE5 /* LaunchScreen.storyboard */; };
@@ -170,6 +171,7 @@
 		98D8C0B81C0B11750026EECE /* SketchSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SketchSettingsViewController.swift; sourceTree = "<group>"; };
 		98D8C0B91C0B11750026EECE /* SketchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SketchView.swift; sourceTree = "<group>"; };
 		98D8C0BE1C0B16610026EECE /* proNotes.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = proNotes.entitlements; sourceTree = "<group>"; };
+		98DB503A1CCE6A3E0022B995 /* LeonardThomas.ProNote */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = LeonardThomas.ProNote; sourceTree = "<group>"; };
 		98DBAA061C0799CB007EFFE5 /* proNotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = proNotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98DBAA091C0799CB007EFFE5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		98DBAA131C0799CB007EFFE5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -400,6 +402,7 @@
 		98D2DA831C6BDE7200B3C76C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				98DB503A1CCE6A3E0022B995 /* LeonardThomas.ProNote */,
 				98DBAA131C0799CB007EFFE5 /* Assets.xcassets */,
 				98DBAA181C0799CB007EFFE5 /* Info.plist */,
 				98D8C0BE1C0B16610026EECE /* proNotes.entitlements */,
@@ -564,6 +567,7 @@
 				989C518C1CB30BAE007D3DCE /* DocumentSettingsContainer.storyboard in Resources */,
 				989C51851CB30AC3007D3DCE /* Localizable.strings in Resources */,
 				98DBAA171C0799CB007EFFE5 /* LaunchScreen.storyboard in Resources */,
+				98DB503B1CCE6A3E0022B995 /* LeonardThomas.ProNote in Resources */,
 				989C51931CB30BDA007D3DCE /* Document.storyboard in Resources */,
 				98DBAA141C0799CB007EFFE5 /* Assets.xcassets in Resources */,
 			);
@@ -814,6 +818,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = NO;
+				ENABLE_BITCODE = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -826,6 +831,7 @@
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -835,9 +841,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = proNotes/Resources/proNotes.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEFINES_MODULE = NO;
+				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = proNotes/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -845,6 +852,7 @@
 				PRODUCT_NAME = proNotes;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

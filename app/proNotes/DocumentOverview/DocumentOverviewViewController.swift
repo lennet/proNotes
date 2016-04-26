@@ -31,6 +31,7 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
         fileManager.reload()
         documentsCollectionViewController.reloadData()
         fileManager.delegate = self
+        FileManager.sharedInstance.moveStaticDocument()
     }
 
     override func viewWillDisappear(animated: Bool) {

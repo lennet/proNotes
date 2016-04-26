@@ -81,7 +81,7 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
       DocumentInstance.sharedInstance.removeDelegate(self)
    }
    
-   func loadTableView() {
+   private func loadTableView() {
       tableView.reloadData()
       tableView.setNeedsLayout()
       tableView.layoutIfNeeded()
@@ -103,7 +103,7 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
       scrollView.alpha = 1
    }
    
-   func setUpTableView() {
+   private func setUpTableView() {
       tableViewWidth?.constant = (document?.getMaxWidth() ?? 0) + 2 * defaultMargin
       tableView.deactivateDelaysContentTouches()
       
