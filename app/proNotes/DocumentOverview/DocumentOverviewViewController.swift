@@ -32,6 +32,7 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
         documentsCollectionViewController.reloadData()
         fileManager.delegate = self
         FileManager.sharedInstance.moveStaticDocument()
+        
     }
 
     override func viewWillDisappear(animated: Bool) {
@@ -86,6 +87,10 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
     // MARK: - UICollectionViewDelegate
 
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? DocumentOverviewCollectionViewCell {
+            cell.activityIndicator.startAnimating()
+            cell.activityIndicator.hidden = false
+        }
         let selectedObject = fileManager.objects[indexPath.row]
         if selectedObject.downloaded {
             let document = Document(fileURL: selectedObject.fileURL)

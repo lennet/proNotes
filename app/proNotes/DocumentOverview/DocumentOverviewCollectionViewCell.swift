@@ -17,6 +17,7 @@ class DocumentOverviewCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var downloadIndicator: CloudDownloadingIndicator!
 
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var thumbImageViewWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var thumbImageViewHeightConstraint: NSLayoutConstraint!
     
@@ -30,5 +31,7 @@ class DocumentOverviewCollectionViewCell: UICollectionViewCell {
         thumbImageViewWidthConstraint.constant = 65
         thumbImageViewHeightConstraint.constant = 100
         thumbImageView.image = nil
+        activityIndicator.stopAnimating()
+        activityIndicator.hidden = true
     }
 }

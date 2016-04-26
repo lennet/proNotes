@@ -56,13 +56,13 @@
                                                     </variation>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iso-lb-XgY">
-                                                    <rect key="frame" x="79" y="163.5" width="42" height="20.5"/>
+                                                    <rect key="frame" x="79" y="163" width="42" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="afQ-YP-4le">
-                                                    <rect key="frame" x="82" y="184.5" width="35.5" height="17"/>
+                                                    <rect key="frame" x="82" y="184" width="35.5" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -75,6 +75,20 @@
                                                         <constraint firstAttribute="width" constant="30" id="NBm-EN-fr7"/>
                                                     </constraints>
                                                 </view>
+                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="S5y-W0-RTn">
+                                                    <rect key="frame" x="84.5" y="94" width="30" height="30"/>
+                                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="30" id="QPZ-zv-pFq"/>
+                                                        <constraint firstAttribute="height" constant="30" id="UMg-gl-pHj"/>
+                                                    </constraints>
+                                                    <color key="color" name="keyboardFocusIndicatorColor" catalog="System" colorSpace="catalog"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="4"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </activityIndicatorView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
@@ -85,7 +99,9 @@
                                             <constraint firstItem="YlS-fc-hMK" firstAttribute="height" secondItem="PFU-fr-ceI" secondAttribute="height" multiplier="1:2" id="J41-Kt-6va"/>
                                             <constraint firstItem="afQ-YP-4le" firstAttribute="top" secondItem="iso-lb-XgY" secondAttribute="bottom" id="XyK-J3-Po1"/>
                                             <constraint firstItem="7Bo-e7-xdC" firstAttribute="centerX" secondItem="YlS-fc-hMK" secondAttribute="trailing" id="Yu9-mV-8tL"/>
+                                            <constraint firstItem="S5y-W0-RTn" firstAttribute="centerX" secondItem="YlS-fc-hMK" secondAttribute="centerX" id="ZuQ-oV-X5U"/>
                                             <constraint firstItem="YlS-fc-hMK" firstAttribute="centerX" secondItem="PFU-fr-ceI" secondAttribute="centerX" id="ab0-Nc-104"/>
+                                            <constraint firstItem="S5y-W0-RTn" firstAttribute="centerY" secondItem="YlS-fc-hMK" secondAttribute="centerY" id="ciP-CQ-vde"/>
                                             <constraint firstItem="afQ-YP-4le" firstAttribute="centerX" secondItem="YlS-fc-hMK" secondAttribute="centerX" id="jtI-K2-2Wh"/>
                                             <constraint firstItem="iso-lb-XgY" firstAttribute="centerX" secondItem="YlS-fc-hMK" secondAttribute="centerX" id="r1M-2g-DqT"/>
                                         </constraints>
@@ -95,6 +111,7 @@
                                             </mask>
                                         </variation>
                                         <connections>
+                                            <outlet property="activityIndicator" destination="S5y-W0-RTn" id="BxX-Wt-9fZ"/>
                                             <outlet property="dateLabel" destination="afQ-YP-4le" id="Puj-A9-2m6"/>
                                             <outlet property="downloadIndicator" destination="7Bo-e7-xdC" id="kVZ-CJ-lMF"/>
                                             <outlet property="nameLabel" destination="iso-lb-XgY" id="25Y-rH-lWM"/>
