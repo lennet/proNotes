@@ -10,6 +10,7 @@ import UIKit
 
 protocol ReordableTableViewDelegate: class {
     func didSwapElements(firstIndex: Int, secondIndex: Int)
+    func finishedSwappingElements()
 }
 
 class ReordableTableView: UITableView {
@@ -96,6 +97,7 @@ class ReordableTableView: UITableView {
                 self.currentSnapShowView?.removeFromSuperview()
         })
         reloadData()
+        reordableDelegate?.finishedSwappingElements()
     }
     
 }

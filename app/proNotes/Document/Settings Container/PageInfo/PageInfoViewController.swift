@@ -98,6 +98,12 @@ class PageInfoViewController: SettingsBaseViewController, UITableViewDataSource,
         DocumentInstance.sharedInstance.flushUndoManager()
     }
 
+    func finishedSwappingElements() {
+        if let pageIndex = page?.index {
+            DocumentInstance.sharedInstance.didUpdatePage(pageIndex)
+        }
+    }
+    
     // MARK: - PageInfoLayerTableViewCellDelegate
 
     func didRemovedLayer() {
