@@ -107,11 +107,15 @@ class DocumentInstance: NSObject {
         document?.updateChangeCount(.Done)
         informDelegateDidUpdatePage(index)
     }
-
+    
     func save(completionHandler: ((Bool) -> Void)?) {
         document?.saveToURL(document!.fileURL, forSaveOperation: .ForOverwriting, completionHandler: completionHandler)
     }
-
+    
+    func flushUndoManager() {
+        undoManager?.removeAllActions()
+        NSNotificationCenter.defaultCenter().postNotificationName(NSUndoManagerWillUndoChangeNotification, object: nil)
+    }
     // MARK: - NSUndoManager
 
     func registerUndoAction(object: AnyObject?, pageIndex: Int, layerIndex: Int) {

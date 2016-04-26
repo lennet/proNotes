@@ -47,6 +47,7 @@ class PagesOverviewTableViewController: UITableViewController, DocumentInstanceD
     func didSwapElements(firstIndex: Int, secondIndex: Int) {
         document?.swapPagePositions(firstIndex, secondIndex: secondIndex)
         PagesTableViewController.sharedInstance?.swapPagePositions(firstIndex, secondIndex: secondIndex)
+        DocumentInstance.sharedInstance.flushUndoManager()
     }
 
     // MARK: - Table view data source

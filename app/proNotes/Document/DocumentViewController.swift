@@ -62,7 +62,7 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
         super.viewWillDisappear(animated)
         if !isLoadingData {
             titleTextField.delegate = nil
-            DocumentInstance.sharedInstance.save(nil)
+            
             document?.closeWithCompletionHandler({
                 (Bool) -> Void in
             })
@@ -73,7 +73,7 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        DocumentInstance.sharedInstance.undoManager?.removeAllActions()
+        DocumentInstance.sharedInstance.flushUndoManager()
     }
 
     override func canBecomeFirstResponder() -> Bool {
