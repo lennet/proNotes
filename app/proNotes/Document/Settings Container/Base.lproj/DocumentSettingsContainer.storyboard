@@ -66,22 +66,22 @@
                                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8px-Qx-gdR">
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8px-Qx-gdR">
                                                                     <rect key="frame" x="563" y="18" width="21" height="22"/>
                                                                     <state key="normal" image="visibleIcon"/>
                                                                     <connections>
                                                                         <action selector="handleVisibilityButtonPressed:" destination="cJq-aW-vw8" eventType="touchUpInside" id="SWI-rn-aKk"/>
                                                                     </connections>
                                                                 </button>
-                                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7dR-ur-2lS">
-                                                                    <rect key="frame" x="543" y="18" width="12" height="22"/>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7dR-ur-2lS">
+                                                                    <rect key="frame" x="539" y="18" width="12" height="22"/>
                                                                     <state key="normal" image="deleteIcon"/>
                                                                     <connections>
                                                                         <action selector="handleDeleteButtonPressed:" destination="cJq-aW-vw8" eventType="touchUpInside" id="vSy-Mh-RU8"/>
                                                                     </connections>
                                                                 </button>
-                                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Dc-44-01l" userLabel="Separator View">
-                                                                    <rect key="frame" x="0.0" y="57" width="543" height="1"/>
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Dc-44-01l" userLabel="Separator View">
+                                                                    <rect key="frame" x="0.0" y="57" width="539" height="1"/>
                                                                     <color key="backgroundColor" red="0.87450980389999999" green="0.87058823529999996" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="1" id="cHf-yd-P8c"/>
@@ -95,7 +95,7 @@
                                                                 <constraint firstAttribute="bottom" secondItem="4Dc-44-01l" secondAttribute="bottom" id="D1X-nG-7Cl"/>
                                                                 <constraint firstItem="7dR-ur-2lS" firstAttribute="centerY" secondItem="w8a-U6-igW" secondAttribute="centerY" id="Enl-PC-710"/>
                                                                 <constraint firstItem="7dR-ur-2lS" firstAttribute="leading" secondItem="4Dc-44-01l" secondAttribute="trailing" id="GPd-ML-hLF"/>
-                                                                <constraint firstItem="8px-Qx-gdR" firstAttribute="leading" secondItem="7dR-ur-2lS" secondAttribute="trailing" constant="8" id="Iqz-mJ-8z9"/>
+                                                                <constraint firstItem="8px-Qx-gdR" firstAttribute="leading" secondItem="7dR-ur-2lS" secondAttribute="trailing" constant="12" id="Iqz-mJ-8z9"/>
                                                                 <constraint firstAttribute="trailingMargin" secondItem="8px-Qx-gdR" secondAttribute="trailing" constant="8" id="a0R-LB-g3t"/>
                                                                 <constraint firstItem="AaV-6U-vyc" firstAttribute="centerY" secondItem="w8a-U6-igW" secondAttribute="centerY" id="f3w-dL-Cd2"/>
                                                                 <constraint firstItem="AaV-6U-vyc" firstAttribute="leading" secondItem="xdq-er-zpW" secondAttribute="trailing" constant="8" id="hE0-vu-608"/>
