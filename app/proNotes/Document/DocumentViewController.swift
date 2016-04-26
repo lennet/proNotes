@@ -123,7 +123,7 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
     }
 
     func keyboardWillShow(notification: NSNotification){
-        
+        return
         let info = notification.userInfo
         guard let duration = info![UIKeyboardAnimationDurationUserInfoKey] as? Double else {
             return
@@ -142,7 +142,9 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
             }, completion: nil)
     }
     
-    func keyboardWillBeHidden(notification: NSNotification){
+    func keyboardWillBeHidden(notification: NSNotification) {
+        return
+        
         let info = notification.userInfo
         let duration = info![UIKeyboardAnimationDurationUserInfoKey] as! Double
         

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import CloudKit
 
 enum RenameError: ErrorType {
     case AlreadyExists
@@ -62,6 +62,25 @@ class FileManager: NSObject {
     override init() {
         super.init()
         reload()
+        downloadFromCloudKit()
+    }
+    
+    func downloadFromCloudKit() {
+        return
+        let container = CKContainer.defaultContainer()
+        let publicDataBase = container.publicCloudDatabase
+        let predicate = NSPredicate(value: true)
+    
+        let query = CKQuery(recordType: "Document", predicate: predicate)
+        publicDataBase.performQuery(query, inZoneWithID: nil) { (records, error) in
+            if let record = records?.first {
+                if let asset = record.objectForKey("data") as? CKAsset {
+
+                    try!  NSFileManager.defaultManager().copyItemAtURL(asset.fileURL, toURL: self.getDocumentURL("cloudTest", uniqueFileName: true))
+            
+                }
+            }
+        }
     }
     
     func moveStaticDocument() {
@@ -393,7 +412,7 @@ class FileManager: NSObject {
 
     func handleQueryNotification(notification: NSNotification) {
         if let userInfo = notification.userInfo {
-            guard let items = userInfo[NSMetadataQueryUpdateRemovedItemsKey] as? [NSMetadataItem] else {
+            guard let items = userInfo[NSMetadataQueryUpdateRemovedItemsKey] as? [NSMetadataItem] where items.count > 0 else {
                 checkFiles()
                 return
             }

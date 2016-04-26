@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -42,8 +41,8 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YlS-fc-hMK">
-                                                    <rect key="frame" x="67" y="59" width="65" height="100"/>
-                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <rect key="frame" x="67" y="49" width="65" height="100"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="YlS-fc-hMK" secondAttribute="height" multiplier="5:8" id="Dkl-Hs-EbH"/>
                                                         <constraint firstAttribute="height" constant="100" id="TKS-ot-Bxz"/>
@@ -55,28 +54,20 @@
                                                         </mask>
                                                     </variation>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iso-lb-XgY">
-                                                    <rect key="frame" x="79" y="163" width="42" height="20.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="iso-lb-XgY">
+                                                    <rect key="frame" x="12" y="153.5" width="176" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="afQ-YP-4le">
-                                                    <rect key="frame" x="82" y="184" width="35.5" height="17"/>
+                                                    <rect key="frame" x="82" y="174" width="35.5" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Bo-e7-xdC" customClass="CloudDownloadingIndicator" customModule="proNotes" customModuleProvider="target">
-                                                    <rect key="frame" x="117" y="44" width="30" height="30"/>
-                                                    <color key="backgroundColor" red="0.2624116017" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="7QR-gO-PE6"/>
-                                                        <constraint firstAttribute="width" constant="30" id="NBm-EN-fr7"/>
-                                                    </constraints>
-                                                </view>
                                                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="S5y-W0-RTn">
-                                                    <rect key="frame" x="84.5" y="94" width="30" height="30"/>
+                                                    <rect key="frame" x="84" y="84" width="30" height="30"/>
                                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="30" id="QPZ-zv-pFq"/>
@@ -94,16 +85,16 @@
                                         </view>
                                         <constraints>
                                             <constraint firstItem="iso-lb-XgY" firstAttribute="top" secondItem="YlS-fc-hMK" secondAttribute="bottom" constant="4" id="69T-uY-oWg"/>
-                                            <constraint firstItem="YlS-fc-hMK" firstAttribute="centerY" secondItem="PFU-fr-ceI" secondAttribute="centerY" constant="-10" id="DNH-wd-N6O"/>
-                                            <constraint firstItem="7Bo-e7-xdC" firstAttribute="centerY" secondItem="YlS-fc-hMK" secondAttribute="top" id="Ekc-y2-ADC"/>
+                                            <constraint firstItem="iso-lb-XgY" firstAttribute="leading" secondItem="PFU-fr-ceI" secondAttribute="leadingMargin" constant="4" id="ADr-x1-mig"/>
+                                            <constraint firstItem="YlS-fc-hMK" firstAttribute="centerY" secondItem="PFU-fr-ceI" secondAttribute="centerY" constant="-20" id="DNH-wd-N6O"/>
                                             <constraint firstItem="YlS-fc-hMK" firstAttribute="height" secondItem="PFU-fr-ceI" secondAttribute="height" multiplier="1:2" id="J41-Kt-6va"/>
                                             <constraint firstItem="afQ-YP-4le" firstAttribute="top" secondItem="iso-lb-XgY" secondAttribute="bottom" id="XyK-J3-Po1"/>
-                                            <constraint firstItem="7Bo-e7-xdC" firstAttribute="centerX" secondItem="YlS-fc-hMK" secondAttribute="trailing" id="Yu9-mV-8tL"/>
                                             <constraint firstItem="S5y-W0-RTn" firstAttribute="centerX" secondItem="YlS-fc-hMK" secondAttribute="centerX" id="ZuQ-oV-X5U"/>
                                             <constraint firstItem="YlS-fc-hMK" firstAttribute="centerX" secondItem="PFU-fr-ceI" secondAttribute="centerX" id="ab0-Nc-104"/>
                                             <constraint firstItem="S5y-W0-RTn" firstAttribute="centerY" secondItem="YlS-fc-hMK" secondAttribute="centerY" id="ciP-CQ-vde"/>
                                             <constraint firstItem="afQ-YP-4le" firstAttribute="centerX" secondItem="YlS-fc-hMK" secondAttribute="centerX" id="jtI-K2-2Wh"/>
                                             <constraint firstItem="iso-lb-XgY" firstAttribute="centerX" secondItem="YlS-fc-hMK" secondAttribute="centerX" id="r1M-2g-DqT"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="iso-lb-XgY" secondAttribute="trailing" constant="4" id="uUU-pr-bQo"/>
                                         </constraints>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -113,7 +104,6 @@
                                         <connections>
                                             <outlet property="activityIndicator" destination="S5y-W0-RTn" id="BxX-Wt-9fZ"/>
                                             <outlet property="dateLabel" destination="afQ-YP-4le" id="Puj-A9-2m6"/>
-                                            <outlet property="downloadIndicator" destination="7Bo-e7-xdC" id="kVZ-CJ-lMF"/>
                                             <outlet property="nameLabel" destination="iso-lb-XgY" id="25Y-rH-lWM"/>
                                             <outlet property="thumbImageView" destination="YlS-fc-hMK" id="OqZ-Sr-5cV"/>
                                             <outlet property="thumbImageViewHeightConstraint" destination="TKS-ot-Bxz" id="cpY-rd-gWB"/>

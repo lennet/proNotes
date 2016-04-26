@@ -33,8 +33,8 @@
 		983B24CD1CA70EB600F4F3AE /* NoScrollingTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983B24CC1CA70EB600F4F3AE /* NoScrollingTextView.swift */; };
 		984242AB1C3EDD0900F90455 /* TouchControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984242AA1C3EDD0900F90455 /* TouchControlView.swift */; };
 		984242AD1C3EE79900F90455 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984242AC1C3EE79900F90455 /* UIColorExtension.swift */; };
+		9844C9581CCFFD3500D15921 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9844C9571CCFFD3500D15921 /* CloudKit.framework */; };
 		9854310D1C52C00F0098DAC1 /* NSMetadataItemExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9854310C1C52C00F0098DAC1 /* NSMetadataItemExtension.swift */; };
-		9854310F1C52C4EE0098DAC1 /* CloudDownloadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9854310E1C52C4EE0098DAC1 /* CloudDownloadingIndicator.swift */; };
 		986D605B1C2B21140065D71B /* CustomScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986D605A1C2B21140065D71B /* CustomScrollView.swift */; };
 		986D605E1C2C2D700065D71B /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986D605D1C2C2D700065D71B /* CircleView.swift */; };
 		986D60601C2C34BD0065D71B /* CALayerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986D605F1C2C34BD0065D71B /* CALayerExtension.swift */; };
@@ -69,7 +69,6 @@
 		98D8C0B71C0B116F0026EECE /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D8C0B61C0B116F0026EECE /* Document.swift */; };
 		98D8C0BA1C0B11750026EECE /* SketchSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D8C0B81C0B11750026EECE /* SketchSettingsViewController.swift */; };
 		98D8C0BB1C0B11750026EECE /* SketchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D8C0B91C0B11750026EECE /* SketchView.swift */; };
-		98DB503B1CCE6A3E0022B995 /* LeonardThomas.ProNote in Resources */ = {isa = PBXBuildFile; fileRef = 98DB503A1CCE6A3E0022B995 /* LeonardThomas.ProNote */; };
 		98DBAA0A1C0799CB007EFFE5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DBAA091C0799CB007EFFE5 /* AppDelegate.swift */; };
 		98DBAA141C0799CB007EFFE5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 98DBAA131C0799CB007EFFE5 /* Assets.xcassets */; };
 		98DBAA171C0799CB007EFFE5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98DBAA151C0799CB007EFFE5 /* LaunchScreen.storyboard */; };
@@ -128,8 +127,8 @@
 		983B24CC1CA70EB600F4F3AE /* NoScrollingTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoScrollingTextView.swift; sourceTree = "<group>"; };
 		984242AA1C3EDD0900F90455 /* TouchControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchControlView.swift; sourceTree = "<group>"; };
 		984242AC1C3EE79900F90455 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		9844C9571CCFFD3500D15921 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		9854310C1C52C00F0098DAC1 /* NSMetadataItemExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSMetadataItemExtension.swift; sourceTree = "<group>"; };
-		9854310E1C52C4EE0098DAC1 /* CloudDownloadingIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudDownloadingIndicator.swift; sourceTree = "<group>"; };
 		986D605A1C2B21140065D71B /* CustomScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomScrollView.swift; sourceTree = "<group>"; };
 		986D605D1C2C2D700065D71B /* CircleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
 		986D605F1C2C34BD0065D71B /* CALayerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CALayerExtension.swift; sourceTree = "<group>"; };
@@ -201,6 +200,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9844C9581CCFFD3500D15921 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -313,7 +313,6 @@
 			children = (
 				980A3F341C22B2010070C618 /* ColorPicker */,
 				986D605D1C2C2D700065D71B /* CircleView.swift */,
-				9854310E1C52C4EE0098DAC1 /* CloudDownloadingIndicator.swift */,
 				9896A6861C77906700061986 /* CustomDocumentPickerViewController.swift */,
 				986D605A1C2B21140065D71B /* CustomScrollView.swift */,
 				983B24CC1CA70EB600F4F3AE /* NoScrollingTextView.swift */,
@@ -402,6 +401,7 @@
 		98D2DA831C6BDE7200B3C76C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				9844C9571CCFFD3500D15921 /* CloudKit.framework */,
 				98DB503A1CCE6A3E0022B995 /* LeonardThomas.ProNote */,
 				98DBAA131C0799CB007EFFE5 /* Assets.xcassets */,
 				98DBAA181C0799CB007EFFE5 /* Info.plist */,
@@ -567,7 +567,6 @@
 				989C518C1CB30BAE007D3DCE /* DocumentSettingsContainer.storyboard in Resources */,
 				989C51851CB30AC3007D3DCE /* Localizable.strings in Resources */,
 				98DBAA171C0799CB007EFFE5 /* LaunchScreen.storyboard in Resources */,
-				98DB503B1CCE6A3E0022B995 /* LeonardThomas.ProNote in Resources */,
 				989C51931CB30BDA007D3DCE /* Document.storyboard in Resources */,
 				98DBAA141C0799CB007EFFE5 /* Assets.xcassets in Resources */,
 			);
@@ -614,7 +613,6 @@
 				98F2E3EA1C1A1ED2008A5C6C /* UIStoryboardExtension.swift in Sources */,
 				98E0D4061C4C0D3C00EF49FD /* NSURLExtension.swift in Sources */,
 				9829ECD11C791E9F00A64009 /* MovableLayer.swift in Sources */,
-				9854310F1C52C4EE0098DAC1 /* CloudDownloadingIndicator.swift in Sources */,
 				987F6A1D1C74A7B600572C2F /* ImportDataViewController.swift in Sources */,
 				98A57C3F1C1DB2BC00E6C5DF /* DocumentPage.swift in Sources */,
 				9896A6871C77906700061986 /* CustomDocumentPickerViewController.swift in Sources */,
