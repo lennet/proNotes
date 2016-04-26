@@ -31,6 +31,7 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
         if self.textView == nil {
             let textView = NoScrollingTextView()
             textView.userInteractionEnabled = false
+            textView.scrollEnabled = false
             textView.delegate = self
             addSubview(textView)
 
