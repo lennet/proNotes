@@ -24,6 +24,14 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
         case RecentlyUsed = 0
         case AllDocuments = 1
     }
+    
+    var objects: [DocumentsOverviewObject] {
+        get {
+            return fileManager.objects.sort({ (first, second) -> Bool in
+                return first.description.localizedCaseInsensitiveCompare(second.description) == NSComparisonResult.OrderedAscending
+            })
+        }
+    }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -63,7 +71,7 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(DocumentOverviewCollectionViewCell.reusableIdentifier, forIndexPath: indexPath) as! DocumentOverviewCollectionViewCell
 
-        let object = fileManager.objects[indexPath.row]
+        let object = objects[indexPath.row]
         cell.nameLabel.text = object.description
         cell.dateLabel.text = object.metaData?.fileModificationDate?.toString()
         if !object.downloaded {
@@ -75,7 +83,6 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
             cell.thumbImageViewHeightConstraint.constant = thumbImage.size.height
             cell.thumbImageViewWidthConstraint.constant = thumbImage.size.width
         }
-        
         cell.layoutIfNeeded()
         return cell
     }
@@ -88,12 +95,11 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
         }
         cell.activityIndicator.startAnimating()
         cell.activityIndicator.hidden = false
-        let selectedObject = fileManager.objects[indexPath.row]
+        let selectedObject = objects[indexPath.row]
         if selectedObject.downloaded {
             let document = Document(fileURL: selectedObject.fileURL)
             document.openWithCompletionHandler({
                 (success) -> Void in
-                cell.activityIndicator.stopAnimating()
                 if success {
                     DocumentInstance.sharedInstance.document = document
                     self.performSegueWithIdentifier(self.showDocumentSegueIdentifier, sender: nil)
