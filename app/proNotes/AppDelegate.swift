@@ -44,7 +44,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
-        
+        guard let message = notification.alertBody else {
+            return
+        }
+        let notifyView = NotificationView(message: message) {
+            print("tapped")
+        }
+        window?.addSubview(notifyView)
     }
 
 }

@@ -57,14 +57,14 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
         guard !Preferences.AlreadyDownloadedDefaultNote() else {
             return
         }
-        
+        NotifyHelper.fireNotification()
         let alert = UIAlertController(title: "Welcome", message: "Do you want to get notified", preferredStyle: .Alert)
         alert.addAction(UIAlertAction(title: "No Thanks", style: .Cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Yes", style: .Default, handler: { (action) in
             UIApplication.sharedApplication().registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil))
-            
+            Preferences.setAllowsNotification(true)
             }
-))
+        ))
         
         self.presentViewController(alert, animated: true, completion: nil)
     }

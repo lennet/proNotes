@@ -12,7 +12,8 @@ class Preferences {
 
     static private let iCloudActiveKey = "iCloudActive"
     static private let iCloudWasActiveKey = "iCloudWasActive"
-    static private let DownloadedDefaultNote = "DownloadedDefaultNote"
+    static private let DownloadedDefaultNoteKey = "DownloadedDefaultNote"
+    static private let allowsNotificationKey = "allowsNotification"
 
 
     //MARK - iCloud Handling
@@ -36,11 +37,19 @@ class Preferences {
     }
     
     class func AlreadyDownloadedDefaultNote() -> Bool {
-        return NSUserDefaults.standardUserDefaults().boolForKey(DownloadedDefaultNote)
+        return NSUserDefaults.standardUserDefaults().boolForKey(DownloadedDefaultNoteKey)
     }
     
     class func setAlreadyDownloadedDefaultNote(value: Bool) {
-        NSUserDefaults.standardUserDefaults().setBool(value, forKey: DownloadedDefaultNote)
+        NSUserDefaults.standardUserDefaults().setBool(value, forKey: DownloadedDefaultNoteKey)
+    }
+    
+    class func allowsNotification() -> Bool {
+        return NSUserDefaults.standardUserDefaults().boolForKey(allowsNotificationKey)
+    }
+    
+    class func setAllowsNotification(value: Bool) {
+        NSUserDefaults.standardUserDefaults().setBool(value, forKey: allowsNotificationKey)
     }
 
 }

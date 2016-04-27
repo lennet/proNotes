@@ -79,17 +79,8 @@ class FileManager: NSObject {
                 if let asset = record.objectForKey("data") as? CKAsset {
                     
                     try!  NSFileManager.defaultManager().copyItemAtURL(asset.fileURL, toURL: self.getDocumentURL("Neu1234", uniqueFileName: true))
-                    var localNotification = UILocalNotification()
-                    localNotification.fireDate = NSDate(timeIntervalSinceNow: 2)
-                    localNotification.alertBody = "The Data is ready"
-//                    localNotification.timeZone = NSTimeZone.localTimeZone()
-//                    localNotification.repeatInterval = NSCalendarUnit.CalendarUnitMinute
-//                    localNotification.userInfo = ["Important":"Data"];
-                    localNotification.soundName = UILocalNotificationDefaultSoundName
-                    localNotification.applicationIconBadgeNumber = 1
-//                    localNotification.category = "Message"
-                    UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
-                    print("fire")
+                    NotifyHelper.fireNotification()
+                    Preferences.setAlreadyDownloadedDefaultNote(true)
                 }
             }
             UIApplication.sharedApplication().endBackgroundTask(taskID)
