@@ -66,7 +66,9 @@ class FileManager: NSObject {
     }
     
     func downloadFromCloudKit() {
-        return
+        return 
+        print(NSDate())
+        let taskID = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler(nil)
         let container = CKContainer.defaultContainer()
         let publicDataBase = container.publicCloudDatabase
         let predicate = NSPredicate(value: true)
@@ -75,11 +77,22 @@ class FileManager: NSObject {
         publicDataBase.performQuery(query, inZoneWithID: nil) { (records, error) in
             if let record = records?.first {
                 if let asset = record.objectForKey("data") as? CKAsset {
-
-                    try!  NSFileManager.defaultManager().copyItemAtURL(asset.fileURL, toURL: self.getDocumentURL("cloudTest", uniqueFileName: true))
-            
+                    
+                    try!  NSFileManager.defaultManager().copyItemAtURL(asset.fileURL, toURL: self.getDocumentURL("Neu1234", uniqueFileName: true))
+                    var localNotification = UILocalNotification()
+                    localNotification.fireDate = NSDate(timeIntervalSinceNow: 2)
+                    localNotification.alertBody = "The Data is ready"
+//                    localNotification.timeZone = NSTimeZone.localTimeZone()
+//                    localNotification.repeatInterval = NSCalendarUnit.CalendarUnitMinute
+//                    localNotification.userInfo = ["Important":"Data"];
+                    localNotification.soundName = UILocalNotificationDefaultSoundName
+                    localNotification.applicationIconBadgeNumber = 1
+//                    localNotification.category = "Message"
+                    UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
+                    print("fire")
                 }
             }
+            UIApplication.sharedApplication().endBackgroundTask(taskID)
         }
     }
     

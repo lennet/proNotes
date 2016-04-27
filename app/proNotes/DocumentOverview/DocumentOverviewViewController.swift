@@ -43,9 +43,30 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
         
     }
 
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        showDownloadDefaultNotePromptIfNeeded()
+    }
+    
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         fileManager.delegate = nil
+    }
+    
+    private func showDownloadDefaultNotePromptIfNeeded() {
+        guard !Preferences.AlreadyDownloadedDefaultNote() else {
+            return
+        }
+        
+        let alert = UIAlertController(title: "Welcome", message: "Do you want to get notified", preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "No Thanks", style: .Cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Yes", style: .Default, handler: { (action) in
+            UIApplication.sharedApplication().registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil))
+            
+            }
+))
+        
+        self.presentViewController(alert, animated: true, completion: nil)
     }
 
     // MARK: - Actions
@@ -65,7 +86,7 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
     }
 
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        return CGSize(width: 150, height: 150)
+        return CGSize(width: UIDevice.currentDevice().userInterfaceIdiom == .Phone ? 100 : 150 , height: 150)
     }
 
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {

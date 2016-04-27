@@ -12,6 +12,7 @@ class Preferences {
 
     static private let iCloudActiveKey = "iCloudActive"
     static private let iCloudWasActiveKey = "iCloudWasActive"
+    static private let DownloadedDefaultNote = "DownloadedDefaultNote"
 
 
     //MARK - iCloud Handling
@@ -32,6 +33,14 @@ class Preferences {
     class func setiCloudWasActive(active: Bool) {
         NSUserDefaults.standardUserDefaults().setBool(active, forKey: iCloudWasActiveKey)
         NSUserDefaults.standardUserDefaults().synchronize()
+    }
+    
+    class func AlreadyDownloadedDefaultNote() -> Bool {
+        return NSUserDefaults.standardUserDefaults().boolForKey(DownloadedDefaultNote)
+    }
+    
+    class func setAlreadyDownloadedDefaultNote(value: Bool) {
+        NSUserDefaults.standardUserDefaults().setBool(value, forKey: DownloadedDefaultNote)
     }
 
 }
