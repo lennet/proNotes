@@ -36,6 +36,8 @@
 		9844C9581CCFFD3500D15921 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9844C9571CCFFD3500D15921 /* CloudKit.framework */; };
 		9851B85F1CD0BDAC00112BDB /* NotifyHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9851B85E1CD0BDAC00112BDB /* NotifyHelper.swift */; };
 		9851B8611CD0C12000112BDB /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9851B8601CD0C12000112BDB /* NotificationView.swift */; };
+		9851B86C1CD140F500112BDB /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9851B86B1CD140F500112BDB /* WelcomeViewController.swift */; };
+		9851B86E1CD141DF00112BDB /* NoAnimationSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9851B86D1CD141DF00112BDB /* NoAnimationSegue.swift */; };
 		9854310D1C52C00F0098DAC1 /* NSMetadataItemExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9854310C1C52C00F0098DAC1 /* NSMetadataItemExtension.swift */; };
 		986D605B1C2B21140065D71B /* CustomScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986D605A1C2B21140065D71B /* CustomScrollView.swift */; };
 		986D605E1C2C2D700065D71B /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986D605D1C2C2D700065D71B /* CircleView.swift */; };
@@ -132,6 +134,8 @@
 		9844C9571CCFFD3500D15921 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		9851B85E1CD0BDAC00112BDB /* NotifyHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotifyHelper.swift; sourceTree = "<group>"; };
 		9851B8601CD0C12000112BDB /* NotificationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
+		9851B86B1CD140F500112BDB /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		9851B86D1CD141DF00112BDB /* NoAnimationSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoAnimationSegue.swift; sourceTree = "<group>"; };
 		9854310C1C52C00F0098DAC1 /* NSMetadataItemExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSMetadataItemExtension.swift; sourceTree = "<group>"; };
 		986D605A1C2B21140065D71B /* CustomScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomScrollView.swift; sourceTree = "<group>"; };
 		986D605D1C2C2D700065D71B /* CircleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
@@ -260,6 +264,7 @@
 				981CF9AB1C4AC122003BA892 /* DocumentOverviewCollectionViewCell.swift */,
 				981CF9AD1C4AC3BE003BA892 /* DocumentOverviewViewController.swift */,
 				98E0D3FF1C4C087700EF49FD /* FileManager.swift */,
+				9851B86B1CD140F500112BDB /* WelcomeViewController.swift */,
 			);
 			path = DocumentOverview;
 			sourceTree = "<group>";
@@ -324,6 +329,7 @@
 				984242AA1C3EDD0900F90455 /* TouchControlView.swift */,
 				9851B85E1CD0BDAC00112BDB /* NotifyHelper.swift */,
 				9851B8601CD0C12000112BDB /* NotificationView.swift */,
+				9851B86D1CD141DF00112BDB /* NoAnimationSegue.swift */,
 			);
 			path = "Generic Components";
 			sourceTree = "<group>";
@@ -623,11 +629,13 @@
 				98F2E3EA1C1A1ED2008A5C6C /* UIStoryboardExtension.swift in Sources */,
 				98E0D4061C4C0D3C00EF49FD /* NSURLExtension.swift in Sources */,
 				9829ECD11C791E9F00A64009 /* MovableLayer.swift in Sources */,
+				9851B86C1CD140F500112BDB /* WelcomeViewController.swift in Sources */,
 				987F6A1D1C74A7B600572C2F /* ImportDataViewController.swift in Sources */,
 				98A57C3F1C1DB2BC00E6C5DF /* DocumentPage.swift in Sources */,
 				9896A6871C77906700061986 /* CustomDocumentPickerViewController.swift in Sources */,
 				986D605E1C2C2D700065D71B /* CircleView.swift in Sources */,
 				98A6072F1CCA0D7C00DB3A13 /* ExportViewController.swift in Sources */,
+				9851B86E1CD141DF00112BDB /* NoAnimationSegue.swift in Sources */,
 				98CD5AB01C5FE728003F0686 /* CGFloatExtension.swift in Sources */,
 				98F2E3EC1C1A1EE9008A5C6C /* MovableView.swift in Sources */,
 				9814D7A91CAEFA0D00D1ADA4 /* NSDateExtension.swift in Sources */,

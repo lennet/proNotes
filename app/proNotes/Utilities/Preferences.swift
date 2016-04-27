@@ -14,6 +14,7 @@ class Preferences {
     static private let iCloudWasActiveKey = "iCloudWasActive"
     static private let DownloadedDefaultNoteKey = "DownloadedDefaultNote"
     static private let allowsNotificationKey = "allowsNotification"
+    static private let isFirstRunKey = "isFirstRun"
 
 
     //MARK - iCloud Handling
@@ -50,6 +51,17 @@ class Preferences {
     
     class func setAllowsNotification(value: Bool) {
         NSUserDefaults.standardUserDefaults().setBool(value, forKey: allowsNotificationKey)
+    }
+    
+    class func isFirstRun() -> Bool {
+        if NSUserDefaults.standardUserDefaults().valueForKey(isFirstRunKey) != nil {
+            return NSUserDefaults.standardUserDefaults().boolForKey(isFirstRunKey)
+        }
+        return true
+    }
+    
+    class func setIsFirstRun(value: Bool) {
+        return NSUserDefaults.standardUserDefaults().setBool(value, forKey: isFirstRunKey)
     }
 
 }

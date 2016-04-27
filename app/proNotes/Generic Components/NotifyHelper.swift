@@ -10,13 +10,13 @@ import UIKit
 
 class NotifyHelper {
     class func fireNotification() {
-//        if Preferences.allowsNotification() {
+        if Preferences.allowsNotification() {
             let localNotification = UILocalNotification()
             localNotification.fireDate = NSDate(timeIntervalSinceNow: 1)
             localNotification.alertBody = "The Data is ready"
             localNotification.soundName = UILocalNotificationDefaultSoundName
             localNotification.applicationIconBadgeNumber = 1
             UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
-//        }
+        }
     }
 }
