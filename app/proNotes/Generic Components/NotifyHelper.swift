@@ -9,13 +9,14 @@
 import UIKit
 
 class NotifyHelper {
-    class func fireNotification() {
+    class func fireNotification(error: Bool = false) {
         if Preferences.allowsNotification() {
             let localNotification = UILocalNotification()
             localNotification.fireDate = NSDate(timeIntervalSinceNow: 1)
-            localNotification.alertBody = "The Data is ready"
+            localNotification.alertBody = error ? "Something went wrong" : "The Data is ready"
             localNotification.soundName = UILocalNotificationDefaultSoundName
             localNotification.applicationIconBadgeNumber = 1
+            localNotification.userInfo = ["error": error]
             UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
         }
     }

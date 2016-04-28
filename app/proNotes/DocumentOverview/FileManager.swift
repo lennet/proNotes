@@ -66,8 +66,9 @@ class FileManager: NSObject {
     }
     
     func downloadFromCloudKit() {
-        return 
-        print(NSDate())
+        guard !Preferences.AlreadyDownloadedDefaultNote() else {
+            return 
+        }
         let taskID = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler(nil)
         let container = CKContainer.defaultContainer()
         let publicDataBase = container.publicCloudDatabase
@@ -82,6 +83,8 @@ class FileManager: NSObject {
                     NotifyHelper.fireNotification()
                     Preferences.setAlreadyDownloadedDefaultNote(true)
                 }
+            } else {
+                NotifyHelper.fireNotification(true)
             }
             UIApplication.sharedApplication().endBackgroundTask(taskID)
         }

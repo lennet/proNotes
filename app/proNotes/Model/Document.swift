@@ -106,6 +106,14 @@ class Document: UIDocument {
         return unarchiver.decodeObjectForKey("data")
     }
 
+    override func saveToURL(url: NSURL, forSaveOperation saveOperation: UIDocumentSaveOperation, completionHandler: ((Bool) -> Void)?) {
+        super.saveToURL(url, forSaveOperation: saveOperation, completionHandler: completionHandler)
+    }
+    
+    override func autosaveWithCompletionHandler(completionHandler: ((Bool) -> Void)?) {
+        super.autosaveWithCompletionHandler(completionHandler)
+    }
+    
     // MARK - Store Document
 
     override func contentsForType(typeName: String) throws -> AnyObject {

@@ -14,11 +14,11 @@ class NotificationView: UIView {
     weak var topConstraint: NSLayoutConstraint?
     var tapAction: () -> Void
     
-    init(message: String, tapAction: () -> Void) {
+    init(message: String, error: Bool,  tapAction: () -> Void) {
         self.message = message
         self.tapAction = tapAction
         super.init(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: 100, height: 64)))
-        backgroundColor = UIColor.PNLightBlueColor()
+        backgroundColor = error ? UIColor.PNRedColor() : UIColor.PNLightBlueColor()
         addLabel()
     }
     
@@ -60,6 +60,7 @@ class NotificationView: UIView {
             self.addGestureRecognizer(tapGestureRecognizer)
             NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: #selector(NotificationView.hide), userInfo: nil, repeats: false)
         }
+        UIApplication.sharedApplication().applicationIconBadgeNumber = 0
     }
     
     func hide() {

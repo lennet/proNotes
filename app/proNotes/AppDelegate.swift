@@ -47,8 +47,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         guard let message = notification.alertBody else {
             return
         }
-        let notifyView = NotificationView(message: message) {
-            print("tapped")
+        let error = notification.userInfo?["error"] as? Bool ?? false
+        let notifyView = NotificationView(message: message, error: error) {
+            if error {
+                UIApplication.sharedApplication().openURL(NSURL(string:UIApplicationOpenSettingsURLString)!)
+            } else {
+                // todo show overview 
+            }
         }
         window?.addSubview(notifyView)
     }

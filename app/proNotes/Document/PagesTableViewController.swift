@@ -27,17 +27,18 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
 
    weak var currentPageView: PageView? {
       didSet {
-         guard oldValue?.page != currentPageView?.page else {
+         guard oldValue?.page != currentPageView?.page || forcePageUpdate else {
             return
          }
          let isSketchMode = documentViewController?.isSketchMode ?? false
 
          oldValue?.selectedSubView = nil
-         if  isSketchMode {
+         if isSketchMode {
             currentPageView?.handleSketchButtonPressed()
          }
          
          DocumentInstance.sharedInstance.currentPage = currentPageView?.page
+         forcePageUpdate = false
       }
    }
    
@@ -144,8 +145,8 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
       }
    }
    
-   private func updateCurrentPageView() {
-      if pageUpdateEnabled {
+   private func updateCurrentPageView(force: Bool = false) {
+      if pageUpdateEnabled || force {
          currentPageView = getVisiblePageView()
       }
    }
@@ -267,9 +268,14 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
       updateCurrentPageView()
    }
    
+   var forcePageUpdate = false
    func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
-      pageUpdateEnabled = true
-      updateCurrentPageView()
+      if !pageUpdateEnabled {
+         pageUpdateEnabled = true
+         forcePageUpdate = true
+         updateCurrentPageView()
+      }
+      
    }
    
    // MARK: - DocumentSynchronizerDelegate

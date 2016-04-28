@@ -50,6 +50,9 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
         super.viewWillAppear(animated)
         registerNotifications()
         updateUndoButton()
+        if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
+            setUpForIphone()
+        }
         isLoadingData = false
     }
 
@@ -69,6 +72,10 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
             removeNotifications()
             undoManager?.removeAllActions()
         }
+    }
+    
+    func setUpForIphone() {
+        titleTextField.hidden = true
     }
     
     override func didReceiveMemoryWarning() {
@@ -172,6 +179,9 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
     @IBAction func handlePageInfoButtonPressed(sender: AnyObject) {
         PagesTableViewController.sharedInstance?.currentPageView?.deselectSelectedSubview()
         SettingsViewController.sharedInstance?.currentSettingsType = .PageInfo
+        if isFullScreen {
+            toggleFullScreen()
+        }
     }
 
     @IBAction func handleFullscreenToggleButtonPressed(sender: UIBarButtonItem) {

@@ -54,7 +54,7 @@ class ImageLayer: MovableLayer {
             return false
         }
 
-        return layer.image == image
+        return true
     }
 
 }
