@@ -266,7 +266,7 @@
                                     <constraint firstAttribute="height" constant="1" id="f7Y-6h-38w"/>
                                 </constraints>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Welcome5" translatesAutoresizingMaskIntoConstraints="NO" id="8Jk-Fj-afA">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Welcome5" translatesAutoresizingMaskIntoConstraints="NO" id="8Jk-Fj-afA">
                                 <rect key="frame" x="233" y="235" width="133.5" height="89"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="8Jk-Fj-afA" secondAttribute="height" multiplier="3:2" id="jti-ma-GdH"/>
@@ -278,7 +278,7 @@
                                     <rect key="frame" x="111" y="320" width="177.5" height="118"/>
                                 </variation>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Welcome4" translatesAutoresizingMaskIntoConstraints="NO" id="fpr-Hm-Ogj">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Welcome4" translatesAutoresizingMaskIntoConstraints="NO" id="fpr-Hm-Ogj">
                                 <rect key="frame" x="233" y="235" width="133.5" height="89"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="fpr-Hm-Ogj" secondAttribute="height" multiplier="3:2" id="PmU-mv-qQJ"/>
@@ -290,7 +290,7 @@
                                     <rect key="frame" x="111" y="320" width="177.5" height="118"/>
                                 </variation>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Welcome3" translatesAutoresizingMaskIntoConstraints="NO" id="Cin-2U-X2K">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Welcome3" translatesAutoresizingMaskIntoConstraints="NO" id="Cin-2U-X2K">
                                 <rect key="frame" x="200" y="213" width="200" height="133"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Cin-2U-X2K" secondAttribute="height" multiplier="3:2" id="HuM-h3-7Cn"/>
@@ -302,7 +302,7 @@
                                     <rect key="frame" x="266" y="270.5" width="268" height="178"/>
                                 </variation>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Welcome2" translatesAutoresizingMaskIntoConstraints="NO" id="rEP-EO-HTO">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Welcome2" translatesAutoresizingMaskIntoConstraints="NO" id="rEP-EO-HTO">
                                 <rect key="frame" x="200" y="213" width="200" height="133"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="rEP-EO-HTO" secondAttribute="height" multiplier="3:2" id="ITR-nL-T9r"/>
@@ -314,7 +314,7 @@
                                     <rect key="frame" x="266" y="270.5" width="268" height="178"/>
                                 </variation>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Welcome1" translatesAutoresizingMaskIntoConstraints="NO" id="fZE-lt-TQq">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Welcome1" translatesAutoresizingMaskIntoConstraints="NO" id="fZE-lt-TQq">
                                 <rect key="frame" x="150" y="180" width="300" height="200"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="fZE-lt-TQq" secondAttribute="height" multiplier="3:2" id="4Kh-4R-Lhu"/>

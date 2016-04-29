@@ -19,11 +19,11 @@ protocol ImportExportDataViewControllerDelgate: class {
     
     func addSketchLayer()
     
-    func exportAsImages()
+    func exportAsImages(images: [UIImage])
     
-    func exportAsPDF()
+    func exportAsPDF(data: NSData)
     
-    func exportAsProNote()
+    func exportAsProNote(url: NSURL)
     
     func dismiss(animated: Bool)
 }

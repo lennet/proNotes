@@ -10,62 +10,51 @@ import UIKit
 
 class DocumentExporter: NSObject {
 
-    class func exportAsImages(sourceView: UIView? = nil, barButtonItem: UIBarButtonItem? = nil, viewController: UIViewController) {
-//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-//            () -> Void in
-            guard let document = DocumentInstance.sharedInstance.document else {
-                return
-            }
-            let images = getImageArrayForDocument(document)
-//            dispatch_async(dispatch_get_main_queue(),{
-                presentActivityViewController(viewController, sourceView: sourceView, barbuttonItem: barButtonItem, items: images)
-//            })
-//        }
+    class func exportAsImages(progress: (Float) -> Void) -> [UIImage]{
+        guard let document = DocumentInstance.sharedInstance.document else {
+            return []
+        }
+        let images = getImageArrayForDocument(document, progress: progress)
+        return images
     }
 
-    class func exportAsPDF(sourceView: UIView? = nil, barButtonItem: UIBarButtonItem? = nil, viewController: UIViewController) {
-//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-//            () -> Void in
+    class func exportAsPDF(progress: (Float) -> Void) -> NSData? {
             guard let document = DocumentInstance.sharedInstance.document else {
-                return
+                return nil
             }
             let mutableData = NSMutableData()
             let rect = CGRect(origin: CGPoint.zero, size: document.pages.first!.size)
             UIGraphicsBeginPDFContextToData(mutableData, rect, nil)
             let context = UIGraphicsGetCurrentContext()
-            for image in getImageArrayForDocument(document) {
+            for image in getImageArrayForDocument(document, progress: progress) {
                 let imageRect = CGRect(origin: CGPoint.zero, size: image.size)
                 UIGraphicsBeginPDFPageWithInfo(imageRect, nil)
                 CGContextDrawImage(context, imageRect, image.CGImage!)
             }
             UIGraphicsEndPDFContext()
-
-//            dispatch_async(dispatch_get_main_queue(),{
-                presentActivityViewController(viewController, sourceView: sourceView, barbuttonItem: barButtonItem, items: [document.name, mutableData])
-//            })
-//        }
+            return mutableData
     }
 
-    class func exportAsProNote(sourceView: UIView? = nil, barButtonItem: UIBarButtonItem? = nil, viewController: UIViewController) {
-//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-//            () -> Void in
-            DocumentInstance.sharedInstance.save({ (_) in
-                guard let document = DocumentInstance.sharedInstance.document else {
-                    return
-                }
-//                dispatch_async(dispatch_get_main_queue(),{
-                    presentActivityViewController(viewController, sourceView: sourceView, barbuttonItem: barButtonItem, items: [document.fileURL])
-//                })
-            })
-//        }
+    class func exportAsProNote(progress: (Float) -> Void, url: (NSURL?) -> Void) {
+        progress(0.5)
+        DocumentInstance.sharedInstance.save({ (_) in
+        progress(1)
+            guard let document = DocumentInstance.sharedInstance.document else {
+                url(nil)
+                return
+            }
+            url(document.fileURL)
+        })
+        
     }
     
-    class func getImageArrayForDocument(document: Document) -> [UIImage] {
+    class func getImageArrayForDocument(document: Document, progress: (Float) -> Void) -> [UIImage] {
         var images = [UIImage]()
-        for page in document.pages {
+        for (index, page) in document.pages.enumerate() {
             let pageView = PageView(page: page, renderMode: true)
             pageView.layoutIfNeeded()
             images.append(pageView.toImage())
+            progress(Float(index+1)/Float(document.pages.count))
         }
         return images
     }

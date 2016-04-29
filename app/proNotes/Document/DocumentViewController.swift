@@ -346,19 +346,19 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
         dismiss()
     }
     
-    func exportAsPDF() {
+    func exportAsPDF(data: NSData) {
         dismiss()
-        DocumentExporter.exportAsPDF(nil, barButtonItem: actionBarButtonItem, viewController: self)
+        DocumentExporter.presentActivityViewController(self, sourceView: nil, barbuttonItem: actionBarButtonItem, items: [data])
     }
     
-    func exportAsImages() {
+    func exportAsImages(images: [UIImage]) {
         dismiss(false)
-        DocumentExporter.exportAsImages(nil, barButtonItem: actionBarButtonItem, viewController: self)
+        DocumentExporter.presentActivityViewController(self, sourceView: nil, barbuttonItem: actionBarButtonItem, items: images)
     }
     
-    func exportAsProNote() {
+    func exportAsProNote(url: NSURL) {
         dismiss()
-        DocumentExporter.exportAsProNote(nil, barButtonItem: actionBarButtonItem, viewController: self)
+                DocumentExporter.presentActivityViewController(self, sourceView: nil, barbuttonItem: actionBarButtonItem, items: [url])
         
     }
 

@@ -436,6 +436,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="trG-Ih-wxt">
+                                <rect key="frame" x="0.0" y="64" width="600" height="0.0"/>
+                                <subviews>
+                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="o1R-Co-OKK">
+                                        <rect key="frame" x="150" y="-1" width="300" height="2"/>
+                                    </progressView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" id="85s-mX-TVY"/>
+                                    <constraint firstItem="o1R-Co-OKK" firstAttribute="width" secondItem="trG-Ih-wxt" secondAttribute="width" multiplier="1:2" id="8G3-De-grx"/>
+                                    <constraint firstItem="o1R-Co-OKK" firstAttribute="centerY" secondItem="trG-Ih-wxt" secondAttribute="centerY" id="bv9-U0-UEW"/>
+                                    <constraint firstItem="o1R-Co-OKK" firstAttribute="centerX" secondItem="trG-Ih-wxt" secondAttribute="centerX" id="tNh-RP-MGG"/>
+                                </constraints>
+                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="K42-u2-jfT">
                                 <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -557,14 +572,29 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="trG-Ih-wxt" firstAttribute="leading" secondItem="9Dx-De-p2g" secondAttribute="leading" id="4l1-ZO-dkU"/>
                             <constraint firstItem="q2R-ee-5Yr" firstAttribute="top" secondItem="K42-u2-jfT" secondAttribute="bottom" id="7Ha-9q-BaM"/>
+                            <constraint firstItem="trG-Ih-wxt" firstAttribute="leading" secondItem="9Dx-De-p2g" secondAttribute="leadingMargin" id="82F-B1-Ki1"/>
+                            <constraint firstAttribute="trailing" secondItem="trG-Ih-wxt" secondAttribute="trailing" id="8Fo-U1-l7O"/>
                             <constraint firstAttribute="trailing" secondItem="K42-u2-jfT" secondAttribute="trailing" id="JxQ-8d-3W9"/>
+                            <constraint firstItem="trG-Ih-wxt" firstAttribute="top" secondItem="JEG-Sf-o2z" secondAttribute="bottom" id="Z5R-Z7-feQ"/>
                             <constraint firstItem="K42-u2-jfT" firstAttribute="leading" secondItem="9Dx-De-p2g" secondAttribute="leading" id="dp7-Jn-5Tq"/>
                             <constraint firstItem="K42-u2-jfT" firstAttribute="top" secondItem="JEG-Sf-o2z" secondAttribute="bottom" id="jjh-aZ-jZI"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="trG-Ih-wxt" secondAttribute="trailing" id="mvU-5w-A2b"/>
+                            <constraint firstItem="K42-u2-jfT" firstAttribute="top" secondItem="trG-Ih-wxt" secondAttribute="bottom" id="rmT-yn-uyp"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="82F-B1-Ki1"/>
+                                <exclude reference="mvU-5w-A2b"/>
+                                <exclude reference="jjh-aZ-jZI"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Export" id="LQn-aO-FNm"/>
                     <connections>
+                        <outlet property="exportProgressView" destination="o1R-Co-OKK" id="ave-Fm-B44"/>
+                        <outlet property="progressBarHeight" destination="85s-mX-TVY" id="Kvl-9v-krP"/>
                         <outlet property="tableView" destination="K42-u2-jfT" id="Hhw-mI-IJr"/>
                     </connections>
                 </viewController>
