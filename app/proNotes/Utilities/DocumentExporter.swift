@@ -59,10 +59,10 @@ class DocumentExporter: NSObject {
         return images
     }
     
-    class func presentActivityViewController(viewController: UIViewController, sourceView: UIView?, barbuttonItem: UIBarButtonItem?, items: [AnyObject] ) {
+    class func presentActivityViewController(viewController: UIViewController, barbuttonItem: UIBarButtonItem?, items: [AnyObject] ) {
         let activityViewController = UIActivityViewController(activityItems: items, applicationActivities: nil)
-        activityViewController.popoverPresentationController?.sourceView = sourceView
         activityViewController.popoverPresentationController?.barButtonItem = barbuttonItem
         viewController.presentViewController(activityViewController, animated: true, completion: nil)
+        
     }
 }

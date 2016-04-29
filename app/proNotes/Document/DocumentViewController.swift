@@ -22,6 +22,7 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
     @IBOutlet var bottomConstraints: [NSLayoutConstraint]!
 
     weak var pagesOverviewController: PagesOverviewTableViewController?
+    
     var isFullScreen = false
     var isSketchMode = false {
         didSet {
@@ -63,7 +64,7 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
 
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        if !isLoadingData {
+        if !isLoadingData || UIDevice.currentDevice().userInterfaceIdiom == .Pad {
             titleTextField.delegate = nil
             
             document?.closeWithCompletionHandler({
@@ -348,22 +349,22 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
     
     func exportAsPDF(data: NSData) {
         dismiss()
-        DocumentExporter.presentActivityViewController(self, sourceView: nil, barbuttonItem: actionBarButtonItem, items: [data])
+        DocumentExporter.presentActivityViewController(self, barbuttonItem: actionBarButtonItem, items: [data])
     }
     
     func exportAsImages(images: [UIImage]) {
         dismiss(false)
-        DocumentExporter.presentActivityViewController(self, sourceView: nil, barbuttonItem: actionBarButtonItem, items: images)
+        DocumentExporter.presentActivityViewController(self, barbuttonItem: actionBarButtonItem, items: images)
     }
     
     func exportAsProNote(url: NSURL) {
         dismiss()
-                DocumentExporter.presentActivityViewController(self, sourceView: nil, barbuttonItem: actionBarButtonItem, items: [url])
-        
+        DocumentExporter.presentActivityViewController(self, barbuttonItem: actionBarButtonItem, items: [url])
     }
 
     func dismiss(animated: Bool = true) {
         importDataNavigationController?.dismissViewControllerAnimated(animated, completion: nil)
+        importDataNavigationController?.delegate = nil
         importDataNavigationController = nil
     }
     

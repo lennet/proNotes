@@ -13,7 +13,8 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
     @IBOutlet weak var documentsCollectionViewController: UICollectionView!
     
     private final let showDocumentSegueIdentifier = "showDocumentSegue"
-
+    private var alreadyOpeningFile = false
+    
     var fileManager: FileManager {
         get {
             return FileManager.sharedInstance
@@ -47,7 +48,7 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
         documentsCollectionViewController.reloadData()
         fileManager.delegate = self
         FileManager.sharedInstance.moveStaticDocument()
-        
+        alreadyOpeningFile = false
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -104,6 +105,10 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
         cell.activityIndicator.hidden = false
         let selectedObject = objects[indexPath.row]
         if selectedObject.downloaded {
+            guard !alreadyOpeningFile else {
+                return 
+            }
+            alreadyOpeningFile = true
             let document = Document(fileURL: selectedObject.fileURL)
             document.openWithCompletionHandler({
                 (success) -> Void in
