@@ -107,13 +107,11 @@ class Document: UIDocument {
     }
 
     override func saveToURL(url: NSURL, forSaveOperation saveOperation: UIDocumentSaveOperation, completionHandler: ((Bool) -> Void)?) {
+        forceSave = true
         super.saveToURL(url, forSaveOperation: saveOperation, completionHandler: completionHandler)
+        forceSave = false
     }
-    
-    override func autosaveWithCompletionHandler(completionHandler: ((Bool) -> Void)?) {
-        super.autosaveWithCompletionHandler(completionHandler)
-    }
-    
+        
     // MARK - Store Document
 
     override func contentsForType(typeName: String) throws -> AnyObject {
@@ -143,6 +141,11 @@ class Document: UIDocument {
         archiver.finishEncoding()
 
         return data
+    }
+    
+    var forceSave: Bool = false
+    override func hasUnsavedChanges() -> Bool {
+        return forceSave
     }
 
     func getNumberOfPages() -> Int {

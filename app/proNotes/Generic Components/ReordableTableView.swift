@@ -41,7 +41,6 @@ class ReordableTableView: UITableView {
     }
     
     func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
-        print(forceTouchAvailable)
         let location = gestureRecognizer.locationInView(self)
         switch gestureRecognizer.state {
         case .Began:

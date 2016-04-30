@@ -80,6 +80,7 @@ class FileManager: NSObject {
                 if let asset = record.objectForKey("data") as? CKAsset {
                     let newURL = self.getDocumentURL("HelloWorld🦄", uniqueFileName: true)
                     try!  NSFileManager.defaultManager().copyItemAtURL(asset.fileURL, toURL: newURL)
+                    self.checkForLocalFiles()
                     NotifyHelper.fireNotification(false, url: newURL)
                     Preferences.setAlreadyDownloadedDefaultNote(true)
                     WelcomeViewController.sharedInstance?.alredyDownloaded = true
@@ -101,11 +102,11 @@ class FileManager: NSObject {
                 self.startQuery()
             }
         }
+        checkForLocalFiles()
     }
 
     func checkFiles() {
         query?.disableUpdates()
-
         guard let results = query?.results as? [NSMetadataItem] else {
             query?.enableUpdates()
             return
@@ -132,6 +133,19 @@ class FileManager: NSObject {
             }
         }
         query?.enableUpdates()
+    }
+    
+    func checkForLocalFiles() {
+        do {
+            let allFilesArray = try NSFileManager.defaultManager().contentsOfDirectoryAtPath(documentsRootURL.path!)
+            for fileName in allFilesArray {
+                let fileURL = NSURL(fileURLWithPath: documentsRootURL.path! + "/" + fileName)
+                updateMetadata(fileURL)
+            }
+        } catch {
+            print("Error occured while fetching local files: \(error)")
+        }
+
     }
 
     func useiCloud() -> Bool {
@@ -207,7 +221,7 @@ class FileManager: NSObject {
 
     func createDocument(completionHandler: (NSURL) -> Void) {
         let fileUrl = getDocumentURL(defaultName, uniqueFileName: true)
-
+        print(fileUrl)
         let document = Document(fileURL: fileUrl)
         document.addEmptyPage()
         document.saveToURL(fileUrl, forSaveOperation: .ForCreating) {

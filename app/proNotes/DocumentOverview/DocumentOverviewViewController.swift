@@ -44,8 +44,8 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         fileManager.delegate = nil
-        fileManager.reload()
         documentsCollectionViewController.reloadData()
+        fileManager.reload()
         fileManager.delegate = self
         alreadyOpeningFile = false
     }

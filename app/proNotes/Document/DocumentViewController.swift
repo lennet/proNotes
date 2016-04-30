@@ -67,8 +67,8 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
         if !isLoadingData {
             titleTextField.delegate = nil
             DocumentInstance.sharedInstance.removeAllDelegates()
-            document?.closeWithCompletionHandler({
-                (Bool) -> Void in
+            DocumentInstance.sharedInstance.save({ (_) in
+                self.document?.closeWithCompletionHandler(nil)
             })
             removeNotifications()
             undoManager?.removeAllActions()
