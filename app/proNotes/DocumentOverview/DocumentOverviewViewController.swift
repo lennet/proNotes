@@ -163,5 +163,17 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
     func removeObjectAtIndex(index: Int) {
         documentsCollectionViewController.reloadData()
     }
-
+    
+    // MARK: - Navigation 
+    
+    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+        if identifier == "CCBYAttributionIdentifier" && UIDevice.currentDevice().userInterfaceIdiom == .Phone {
+            let alertViewController = UIAlertController(title: "Creative Commons", message: "The icons are made by Freepik from www.flaticon.com and are licensed under CC BY 3.0.", preferredStyle: .ActionSheet)
+            alertViewController.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: { (_) in
+            }))
+            presentViewController(alertViewController, animated: true, completion: nil)
+            return false
+        }
+        return true
+    }
 }

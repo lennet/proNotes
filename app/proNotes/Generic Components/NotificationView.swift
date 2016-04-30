@@ -64,6 +64,9 @@ class NotificationView: UIView {
         topConstraint?.constant = 0
         animateLayoutChanges { (_) in
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(NotificationView.handleTap))
+            let swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(NotificationView.handleSwipe))
+            swipeGestureRecognizer.direction = .Up
+            self.addGestureRecognizer(swipeGestureRecognizer)
             self.addGestureRecognizer(tapGestureRecognizer)
             NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: #selector(NotificationView.hide), userInfo: nil, repeats: false)
         }
@@ -91,6 +94,13 @@ class NotificationView: UIView {
             removeGestureRecognizer(recognizer)
         }
         tapAction()
+    }
+    
+    func handleSwipe() {
+        hide()
+        for recognizer in gestureRecognizers ?? [] {
+            removeGestureRecognizer(recognizer)
+        }
     }
     
 }

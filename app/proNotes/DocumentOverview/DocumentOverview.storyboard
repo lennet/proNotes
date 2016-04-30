@@ -138,7 +138,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="ccLogo" id="RJO-FN-vD2">
                             <connections>
-                                <segue destination="B0m-Ec-Iki" kind="popoverPresentation" popoverAnchorBarButtonItem="RJO-FN-vD2" id="Ovf-ww-m23">
+                                <segue destination="B0m-Ec-Iki" kind="popoverPresentation" identifier="CCBYAttributionIdentifier" popoverAnchorBarButtonItem="RJO-FN-vD2" id="Ovf-ww-m23">
                                     <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                                 </segue>
                             </connections>
@@ -157,21 +157,37 @@
         <!--View Controller-->
         <scene sceneID="N2j-xO-XI7">
             <objects>
-                <viewController id="B0m-Ec-Iki" sceneMemberID="viewController">
+                <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="overFullScreen" id="B0m-Ec-Iki" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="6cl-Rk-lq1"/>
                         <viewControllerLayoutGuide type="bottom" id="U0V-y7-R5Y"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="CzZ-Dh-AXu">
+                    <view key="view" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" id="CzZ-Dh-AXu">
                         <rect key="frame" x="0.0" y="0.0" width="240" height="100"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="The icons are made by Freepik from www.flaticon.com and are licensed under CC BY 3.0." textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="IiC-um-d7r">
                                 <rect key="frame" x="0.0" y="12.5" width="240" height="75"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="1Pb-MD-rPv"/>
+                                    <constraint firstAttribute="height" constant="75" id="CaX-hF-qpH"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="1Pb-MD-rPv"/>
+                                        <exclude reference="CaX-hF-qpH"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <mask key="constraints">
+                                        <include reference="1Pb-MD-rPv"/>
+                                        <include reference="CaX-hF-qpH"/>
+                                    </mask>
+                                </variation>
                             </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
