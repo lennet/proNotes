@@ -44,13 +44,19 @@ class NotificationView: UIView {
     func addLabel() {
         let label = UILabel(frame: CGRect.zero)
         label.text = message
+        label.textAlignment = .Center
+        label.numberOfLines = 0
         label.textColor = UIColor.whiteColor()
         addSubview(label)
         
         label.translatesAutoresizingMaskIntoConstraints = false
         let labelCenterX = NSLayoutConstraint(item: label, attribute: .CenterX, relatedBy: .Equal, toItem: self, attribute: .CenterX, multiplier: 1, constant: 0)
         let labelCenterY = NSLayoutConstraint(item: label, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1, constant: 0)
-        addConstraints([labelCenterX, labelCenterY])
+        let leftConstraint = NSLayoutConstraint(item: label, attribute: .Left, relatedBy: .Equal, toItem: self, attribute: .Left, multiplier: 1.0, constant: 8)
+        let rightConstraint = NSLayoutConstraint(item: label, attribute: .Right, relatedBy: .Equal, toItem: self, attribute: .Right, multiplier: 1.0, constant: 8)
+        let topConstraint = NSLayoutConstraint(item: label, attribute: .Top, relatedBy: .Equal, toItem: self, attribute: .Top, multiplier: 1.0, constant: -8)
+        let bottomConstraint = NSLayoutConstraint(item: label, attribute: .Bottom, relatedBy: .Equal, toItem: self, attribute: .Bottom, multiplier: 1.0, constant: 8)
+        addConstraints([labelCenterX, labelCenterY, leftConstraint, topConstraint, rightConstraint, bottomConstraint])
         layoutIfNeeded()
     }
     
