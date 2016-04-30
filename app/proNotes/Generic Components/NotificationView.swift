@@ -18,7 +18,7 @@ class NotificationView: UIView {
         self.message = message
         self.tapAction = tapAction
         super.init(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: 100, height: 64)))
-        backgroundColor = error ? UIColor.PNRedColor() : UIColor.PNLightBlueColor()
+        backgroundColor = error ? UIColor.PNRedColor() : UIColor.PNIconBlueColor()
         addLabel()
     }
     
@@ -44,6 +44,7 @@ class NotificationView: UIView {
     func addLabel() {
         let label = UILabel(frame: CGRect.zero)
         label.text = message
+        label.textColor = UIColor.whiteColor()
         addSubview(label)
         
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -58,7 +59,7 @@ class NotificationView: UIView {
         animateLayoutChanges { (_) in
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(NotificationView.handleTap))
             self.addGestureRecognizer(tapGestureRecognizer)
-            NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: #selector(NotificationView.hide), userInfo: nil, repeats: false)
+            NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: #selector(NotificationView.hide), userInfo: nil, repeats: false)
         }
         UIApplication.sharedApplication().applicationIconBadgeNumber = 0
     }

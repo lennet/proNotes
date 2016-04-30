@@ -146,4 +146,8 @@ extension UIColor {
         return UIColor(red: 127/255, green: 140/255, blue: 141/255, alpha: 1)
     }
     
+    class func PNIconBlueColor() -> UIColor {
+        return UIColor(red: 28/255, green: 129/255, blue: 255/255, alpha: 1)
+    }
+    
 }

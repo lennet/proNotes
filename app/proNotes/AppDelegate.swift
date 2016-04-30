@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application.applicationIconBadgeNumber = 0    }
 
     func applicationDidEnterBackground(application: UIApplication) {
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
+        application.applicationIconBadgeNumber = 0
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
@@ -35,8 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillTerminate(application: UIApplication) {
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-        // Saves changes in the application's managed object context before the application terminates.
+        application.applicationIconBadgeNumber = 0
         DocumentInstance.sharedInstance.save {
             (success) -> Void in
             DocumentInstance.sharedInstance.document?.closeWithCompletionHandler(nil)
@@ -52,7 +51,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if error {
                 UIApplication.sharedApplication().openURL(NSURL(string:UIApplicationOpenSettingsURLString)!)
             } else {
-                // todo show overview 
+                if let navViewController = self.window?.rootViewController as? UINavigationController {
+                    if navViewController.visibleViewController is DocumentViewController {
+                        navViewController.popViewControllerAnimated(true)
+                    }
+                }
             }
         }
         window?.addSubview(notifyView)

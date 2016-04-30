@@ -64,7 +64,7 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
 
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        if !isLoadingData || UIDevice.currentDevice().userInterfaceIdiom == .Pad {
+        if !isLoadingData {
             titleTextField.delegate = nil
             
             document?.closeWithCompletionHandler({
@@ -342,6 +342,7 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
         dismiss()
     }
     
+    
     func addSketchLayer() {
         PagesTableViewController.sharedInstance?.currentPageView?.addSketchLayer()
         dismiss()
@@ -386,8 +387,10 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
         } else if let viewController = segue.destinationViewController as? SettingsViewController {
             viewController.delegate = self
         } else if let navigationController = segue.destinationViewController as? UINavigationController {
-            if let viewController = navigationController.visibleViewController as? ImportExportBaseViewController {
+            if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
                 isLoadingData = true
+            }
+            if let viewController = navigationController.visibleViewController as? ImportExportBaseViewController {
                 viewController.delegate = self
             }
             if importDataNavigationController != nil {
