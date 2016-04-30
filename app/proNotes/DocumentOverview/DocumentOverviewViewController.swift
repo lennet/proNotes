@@ -53,6 +53,7 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         fileManager.delegate = nil
+        alreadyOpeningFile = false
     }
     
     // MARK: - Actions
@@ -63,14 +64,18 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
     
     func createNewDocument() {
         fileManager.createDocument { (url) in
-            for (index, object) in self.objects.enumerate() {
-                if object.fileURL == url {
-                    dispatch_async(dispatch_get_main_queue(),{
-                        let index = NSIndexPath(forItem: index, inSection: 0)
-                        self.documentsCollectionViewController.selectItemAtIndexPath(index, animated: true, scrollPosition: .CenteredVertically)
-                        self.collectionView(self.documentsCollectionViewController, didSelectItemAtIndexPath: index)
-                    })
-                }
+            self.openDocument(url)
+        }
+    }
+    
+    func openDocument(url: NSURL) {
+        for (index, object) in self.objects.enumerate() {
+            if object.fileURL == url {
+                dispatch_async(dispatch_get_main_queue(),{
+                    let index = NSIndexPath(forItem: index, inSection: 0)
+                    self.documentsCollectionViewController.selectItemAtIndexPath(index, animated: false, scrollPosition: .None)
+                    self.collectionView(self.documentsCollectionViewController, didSelectItemAtIndexPath: index)
+                })
             }
         }
     }

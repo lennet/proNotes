@@ -86,7 +86,7 @@ class Document: UIDocument {
         if let wrapper = decodeData(contents as! NSData) as? NSFileWrapper {
             fileWrapper = wrapper
         } else {
-            print(contents)
+//            print(contents)
         }
     }
 

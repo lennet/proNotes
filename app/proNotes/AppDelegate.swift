@@ -43,25 +43,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
-        guard let message = notification.alertBody else {
-            return
+        if application.applicationState == .Inactive {
+            handleTapOnNotification(notification.userInfo)
+        } else {
+            guard let message = notification.alertBody else {
+                return
+            }
+            let error = notification.userInfo?["error"] as? Bool ?? false
+            let notifyView = NotificationView(message: message, error: error) {
+                self.handleTapOnNotification(notification.userInfo)
+            }
+            window?.addSubview(notifyView)
         }
-        let error = notification.userInfo?["error"] as? Bool ?? false
-        let notifyView = NotificationView(message: message, error: error) {
-            if error {
-                UIApplication.sharedApplication().openURL(NSURL(string:UIApplicationOpenSettingsURLString)!)
-            } else {
-                self.moveToOverViewIfNeeded(true)
+    }
+    
+    func handleTapOnNotification(userInfo: [NSObject : AnyObject]?) {
+        let error = userInfo?["error"] as? Bool ?? false
+        if error {
+            UIApplication.sharedApplication().openURL(NSURL(string:UIApplicationOpenSettingsURLString)!)
+        } else {
+            let overViewController = self.moveToOverViewIfNeeded(true)
+            if let path = userInfo?["url"] as? String {
+                let url = NSURL.fileURLWithPath(path)
+                overViewController?.openDocument(url)
             }
         }
-        window?.addSubview(notifyView)
     }
     
     func application(application: UIApplication, performActionForShortcutItem shortcutItem: UIApplicationShortcutItem, completionHandler: (Bool) -> Void) {
         let overViewController = moveToOverViewIfNeeded(false)
         overViewController?.createNewDocument()
-        
-        
     }
     
     private func moveToOverViewIfNeeded(animated: Bool) -> DocumentOverviewViewController? {

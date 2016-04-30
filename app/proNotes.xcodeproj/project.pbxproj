@@ -180,7 +180,6 @@
 		98D8C0B81C0B11750026EECE /* SketchSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SketchSettingsViewController.swift; sourceTree = "<group>"; };
 		98D8C0B91C0B11750026EECE /* SketchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SketchView.swift; sourceTree = "<group>"; };
 		98D8C0BE1C0B16610026EECE /* proNotes.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = proNotes.entitlements; sourceTree = "<group>"; };
-		98DB503A1CCE6A3E0022B995 /* LeonardThomas.ProNote */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = LeonardThomas.ProNote; sourceTree = "<group>"; };
 		98DBAA061C0799CB007EFFE5 /* proNotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = proNotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98DBAA091C0799CB007EFFE5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		98DBAA131C0799CB007EFFE5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -417,7 +416,6 @@
 			isa = PBXGroup;
 			children = (
 				9844C9571CCFFD3500D15921 /* CloudKit.framework */,
-				98DB503A1CCE6A3E0022B995 /* LeonardThomas.ProNote */,
 				98DBAA131C0799CB007EFFE5 /* Assets.xcassets */,
 				98DBAA181C0799CB007EFFE5 /* Info.plist */,
 				98D8C0BE1C0B16610026EECE /* proNotes.entitlements */,

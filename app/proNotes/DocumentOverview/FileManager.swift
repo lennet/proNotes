@@ -78,9 +78,9 @@ class FileManager: NSObject {
         publicDataBase.performQuery(query, inZoneWithID: nil) { (records, error) in
             if let record = records?.first {
                 if let asset = record.objectForKey("data") as? CKAsset {
-                    
-                    try!  NSFileManager.defaultManager().copyItemAtURL(asset.fileURL, toURL: self.getDocumentURL("Neu1234", uniqueFileName: true))
-                    NotifyHelper.fireNotification()
+                    let newURL = self.getDocumentURL("Neu1234", uniqueFileName: true)
+                    try!  NSFileManager.defaultManager().copyItemAtURL(asset.fileURL, toURL: newURL)
+                    NotifyHelper.fireNotification(false, url: newURL)
                     Preferences.setAlreadyDownloadedDefaultNote(true)
                 }
             } else {
