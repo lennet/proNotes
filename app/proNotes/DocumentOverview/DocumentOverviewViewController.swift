@@ -47,7 +47,6 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
         fileManager.reload()
         documentsCollectionViewController.reloadData()
         fileManager.delegate = self
-        FileManager.sharedInstance.moveStaticDocument()
         alreadyOpeningFile = false
     }
     
@@ -82,15 +81,18 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
         let object = objects[indexPath.row]
         cell.nameLabel.text = object.description
         cell.dateLabel.text = object.metaData?.fileModificationDate?.toString()
+        
         if !object.downloaded {
             cell.thumbImageView.image = UIImage(named: "cloud")
             cell.thumbImageView.contentMode = .Center
         }
+        
         if let thumbImage = object.metaData?.thumbImage {
             cell.thumbImageView.image = thumbImage
             cell.thumbImageViewHeightConstraint.constant = thumbImage.size.height
             cell.thumbImageViewWidthConstraint.constant = thumbImage.size.width
         }
+        
         cell.layoutIfNeeded()
         return cell
     }

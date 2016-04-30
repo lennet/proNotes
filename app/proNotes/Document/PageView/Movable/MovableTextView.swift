@@ -11,17 +11,20 @@ import UIKit
 class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
     
     weak var textView: UITextView?
+    var renderMode: Bool
     
     var textLayer: TextLayer? {
         return movableLayer as? TextLayer
     }
 
     override init(frame: CGRect, movableLayer: MovableLayer, renderMode: Bool = false) {
+        self.renderMode = renderMode
         super.init(frame: frame, movableLayer: movableLayer, renderMode: renderMode)
         widthResizingOnly = true
     }
 
     required init?(coder aDecoder: NSCoder) {
+        renderMode = false
         super.init(coder: aDecoder)
         widthResizingOnly = true
     }
@@ -31,10 +34,9 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
         if self.textView == nil {
             let textView = NoScrollingTextView()
             textView.userInteractionEnabled = false
-            textView.scrollEnabled = false
+            textView.scrollEnabled = !renderMode
             textView.delegate = self
             addSubview(textView)
-
             self.textView = textView
         }
         

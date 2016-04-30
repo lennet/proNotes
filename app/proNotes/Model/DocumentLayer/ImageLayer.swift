@@ -46,7 +46,7 @@ class ImageLayer: MovableLayer {
     }
 
     override func isEqual(object: AnyObject?) -> Bool {
-        guard let layer = object as? ImageLayer else {
+        guard object is ImageLayer else {
             return false
         }
 

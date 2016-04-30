@@ -89,18 +89,6 @@ class FileManager: NSObject {
             UIApplication.sharedApplication().endBackgroundTask(taskID)
         }
     }
-    
-    func moveStaticDocument() {
-        return
-        let fileURL = NSBundle.mainBundle().URLForResource("LeonardThomas", withExtension: "ProNote")
-        
-        do {
-            try  NSFileManager.defaultManager().copyItemAtURL(fileURL!, toURL: getDocumentURL("LeonardThomas1234", uniqueFileName: true))
-
-        } catch {
-            print(error)
-        }
-    }
 
     func reload() {
         objects.removeAll()
@@ -110,7 +98,6 @@ class FileManager: NSObject {
             self.iCloudAvailable = success
             if self.iCloudAvailable {
                 self.startQuery()
-                self.moveStaticDocument()
             }
         }
     }

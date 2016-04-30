@@ -47,7 +47,6 @@ class ExportViewController: ImportExportBaseViewController {
                 self.delegate?.exportAsPDF(data)
             }
         }
-
     }
     
     func handleExportProNote() {
