@@ -16,6 +16,9 @@ class WelcomeViewController: UIViewController {
     @IBOutlet weak var middleRightXConstraint: NSLayoutConstraint!
     @IBOutlet weak var topImageView: UIImageView!
     @IBOutlet weak var hintLabel: UILabel!
+    @IBOutlet weak var notifyButton: UIButton!
+    
+    static weak var sharedInstance: WelcomeViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +32,11 @@ class WelcomeViewController: UIViewController {
         super.viewDidAppear(animated)
         Preferences.setIsFirstRun(false)
         animateImageViews()
+        WelcomeViewController.sharedInstance = self
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        WelcomeViewController.sharedInstance = nil
     }
     
     func animateImageViews() {
@@ -49,9 +57,32 @@ class WelcomeViewController: UIViewController {
     }
 
     @IBAction func handleNotifyButtonPressed(sender: UIButton) {
-        sender.hidden = true
-        hintLabel.hidden = true
-        Preferences.setAllowsNotification(true)
-        UIApplication.sharedApplication().registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil))
+        if alredyDownloaded {
+        
+        } else {
+            sender.hidden = true
+            hintLabel.hidden = true
+            Preferences.setAllowsNotification(true)
+            UIApplication.sharedApplication().registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil))
+        }
+    }
+    
+    var alredyDownloaded: Bool = false {
+        didSet {
+            dispatch_async(dispatch_get_main_queue(),{
+                if self.alredyDownloaded {
+                    self.notifyButton.hidden = true
+                    let attributedString = NSMutableAttributedString(string: "A sample Note has will been downloaded via CloudKit")
+                    
+                    attributedString.addAttributes([NSStrikethroughStyleAttributeName: NSNumber(integer: NSUnderlineStyle.StyleSingle.rawValue)], range: NSRange(location: 18, length: 4))
+                    UIView.transitionWithView(self.hintLabel, duration: standardAnimationDuration, options: [.TransitionCrossDissolve], animations: {
+                        self.hintLabel.attributedText = attributedString
+                        }, completion: nil)
+                    
+                    
+                }
+                self.notifyButton.userInteractionEnabled = !self.alredyDownloaded
+            })
+        }
     }
 }

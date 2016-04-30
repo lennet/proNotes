@@ -82,6 +82,7 @@ class FileManager: NSObject {
                     try!  NSFileManager.defaultManager().copyItemAtURL(asset.fileURL, toURL: newURL)
                     NotifyHelper.fireNotification(false, url: newURL)
                     Preferences.setAlreadyDownloadedDefaultNote(true)
+                    WelcomeViewController.sharedInstance?.alredyDownloaded = true
                 }
             } else {
                 NotifyHelper.fireNotification(true)
