@@ -585,9 +585,9 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="jjh-aZ-jZI"/>
                                 <exclude reference="82F-B1-Ki1"/>
                                 <exclude reference="mvU-5w-A2b"/>
-                                <exclude reference="jjh-aZ-jZI"/>
                             </mask>
                         </variation>
                     </view>
@@ -614,7 +614,7 @@
         <scene sceneID="nUp-gk-Tms">
             <objects>
                 <tableViewController id="Opm-Dr-mgF" customClass="PagesOverviewTableViewController" customModule="proNotes" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="140" sectionHeaderHeight="28" sectionFooterHeight="28" id="thq-kh-QdA" customClass="ReordableTableView" customModule="proNotes" customModuleProvider="target">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="145" sectionHeaderHeight="28" sectionFooterHeight="28" id="thq-kh-QdA" customClass="ReordableTableView" customModule="proNotes" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="160" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
@@ -651,6 +651,7 @@
                                         <constraint firstItem="YY5-xE-UTC" firstAttribute="centerX" secondItem="zrI-RX-d0i" secondAttribute="centerX" id="2Pe-si-LjK"/>
                                         <constraint firstItem="YY5-xE-UTC" firstAttribute="top" secondItem="kaA-Rf-Fci" secondAttribute="bottom" constant="10" id="3F9-Ai-AIP"/>
                                         <constraint firstAttribute="bottom" secondItem="YY5-xE-UTC" secondAttribute="bottom" id="IFK-jl-CfP"/>
+                                        <constraint firstAttribute="bottom" secondItem="YY5-xE-UTC" secondAttribute="bottom" id="UXT-d5-0xL"/>
                                         <constraint firstItem="kaA-Rf-Fci" firstAttribute="centerX" secondItem="zrI-RX-d0i" secondAttribute="centerX" id="d5G-5Z-pAi"/>
                                         <constraint firstItem="kaA-Rf-Fci" firstAttribute="height" secondItem="zrI-RX-d0i" secondAttribute="height" multiplier="9:13" id="ihy-d3-Nbv"/>
                                         <constraint firstItem="kaA-Rf-Fci" firstAttribute="centerY" secondItem="zrI-RX-d0i" secondAttribute="centerY" constant="-5" id="xee-5s-FeD"/>

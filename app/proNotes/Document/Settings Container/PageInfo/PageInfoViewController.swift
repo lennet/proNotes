@@ -38,6 +38,7 @@ class PageInfoViewController: SettingsBaseViewController, UITableViewDataSource,
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         DocumentInstance.sharedInstance.addDelegate(self)
+        layerTableView.setUp()
         layoutTableView()
     }
 

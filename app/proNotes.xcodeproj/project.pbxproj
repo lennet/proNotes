@@ -17,6 +17,7 @@
 		98101BD71C0A5945001E9555 /* PageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98101BD41C0A5945001E9555 /* PageTableViewCell.swift */; };
 		98101BD91C0A5945001E9555 /* PDFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98101BD61C0A5945001E9555 /* PDFView.swift */; };
 		9814D7A91CAEFA0D00D1ADA4 /* NSDateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9814D7A81CAEFA0D00D1ADA4 /* NSDateExtension.swift */; };
+		9815CD8B1CD4BFC500191495 /* 3DTouchGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9815CD8A1CD4BFC500191495 /* 3DTouchGestureRecognizer.swift */; };
 		9816186F1C834AF700E1D5EA /* TouchControlViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9816186E1C834AF700E1D5EA /* TouchControlViewTests.swift */; };
 		981CF9A81C4AB04E003BA892 /* DocumentOverview.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 981CF9A71C4AB04E003BA892 /* DocumentOverview.storyboard */; };
 		981CF9AC1C4AC122003BA892 /* DocumentOverviewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981CF9AB1C4AC122003BA892 /* DocumentOverviewCollectionViewCell.swift */; };
@@ -115,6 +116,7 @@
 		98101BD41C0A5945001E9555 /* PageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageTableViewCell.swift; sourceTree = "<group>"; };
 		98101BD61C0A5945001E9555 /* PDFView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFView.swift; sourceTree = "<group>"; };
 		9814D7A81CAEFA0D00D1ADA4 /* NSDateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtension.swift; sourceTree = "<group>"; };
+		9815CD8A1CD4BFC500191495 /* 3DTouchGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = 3DTouchGestureRecognizer.swift; sourceTree = "<group>"; };
 		9816186E1C834AF700E1D5EA /* TouchControlViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchControlViewTests.swift; sourceTree = "<group>"; };
 		981CF9A71C4AB04E003BA892 /* DocumentOverview.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DocumentOverview.storyboard; sourceTree = "<group>"; };
 		981CF9AB1C4AC122003BA892 /* DocumentOverviewCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentOverviewCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -330,6 +332,7 @@
 				9851B85E1CD0BDAC00112BDB /* NotifyHelper.swift */,
 				9851B8601CD0C12000112BDB /* NotificationView.swift */,
 				9851B86D1CD141DF00112BDB /* NoAnimationSegue.swift */,
+				9815CD8A1CD4BFC500191495 /* 3DTouchGestureRecognizer.swift */,
 			);
 			path = "Generic Components";
 			sourceTree = "<group>";
@@ -610,6 +613,7 @@
 				98BABB921C1B4D9300D9C938 /* UIViewExtension.swift in Sources */,
 				98BABB901C1B16A400D9C938 /* PageInfoLayerTableViewCell.swift in Sources */,
 				98101BD71C0A5945001E9555 /* PageTableViewCell.swift in Sources */,
+				9815CD8B1CD4BFC500191495 /* 3DTouchGestureRecognizer.swift in Sources */,
 				98F2E3EE1C1A1EF1008A5C6C /* MovableImageView.swift in Sources */,
 				9829ECD61C791EF500A64009 /* TextLayer.swift in Sources */,
 				9829ECD41C791ED400A64009 /* ImageLayer.swift in Sources */,

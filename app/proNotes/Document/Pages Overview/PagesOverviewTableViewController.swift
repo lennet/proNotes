@@ -33,6 +33,7 @@ class PagesOverviewTableViewController: UITableViewController, DocumentInstanceD
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        (tableView as? ReordableTableView)?.setUp()
         DocumentInstance.sharedInstance.addDelegate(self)
         tableView.reloadData()
     }
