@@ -51,14 +51,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if error {
                 UIApplication.sharedApplication().openURL(NSURL(string:UIApplicationOpenSettingsURLString)!)
             } else {
-                if let navViewController = self.window?.rootViewController as? UINavigationController {
-                    if navViewController.visibleViewController is DocumentViewController {
-                        navViewController.popViewControllerAnimated(true)
-                    }
-                }
+                self.moveToOverViewIfNeeded(true)
             }
         }
         window?.addSubview(notifyView)
+    }
+    
+    func application(application: UIApplication, performActionForShortcutItem shortcutItem: UIApplicationShortcutItem, completionHandler: (Bool) -> Void) {
+        let overViewController = moveToOverViewIfNeeded(false)
+        overViewController?.createNewDocument()
+        
+        
+    }
+    
+    private func moveToOverViewIfNeeded(animated: Bool) -> DocumentOverviewViewController? {
+        if let navViewController = self.window?.rootViewController as? UINavigationController {
+            if navViewController.visibleViewController is DocumentViewController {
+                navViewController.popViewControllerAnimated(animated)
+                DocumentInstance.sharedInstance.removeAllDelegates()
+            }
+            return navViewController.viewControllers.first as? DocumentOverviewViewController
+        }
+        return nil 
     }
 
 }

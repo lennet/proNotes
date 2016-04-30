@@ -58,7 +58,21 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
     // MARK: - Actions
 
     @IBAction func handleNewButtonPressed(sender: AnyObject) {
-        fileManager.createDocument()
+        createNewDocument()
+    }
+    
+    func createNewDocument() {
+        fileManager.createDocument { (url) in
+            for (index, object) in self.objects.enumerate() {
+                if object.fileURL == url {
+                    dispatch_async(dispatch_get_main_queue(),{
+                        let index = NSIndexPath(forItem: index, inSection: 0)
+                        self.documentsCollectionViewController.selectItemAtIndexPath(index, animated: true, scrollPosition: .CenteredVertically)
+                        self.collectionView(self.documentsCollectionViewController, didSelectItemAtIndexPath: index)
+                    })
+                }
+            }
+        }
     }
 
     // MARK: - UICollectionViewDataSource

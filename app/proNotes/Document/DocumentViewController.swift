@@ -66,7 +66,7 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
         super.viewWillDisappear(animated)
         if !isLoadingData {
             titleTextField.delegate = nil
-            
+            DocumentInstance.sharedInstance.removeAllDelegates()
             document?.closeWithCompletionHandler({
                 (Bool) -> Void in
             })

@@ -204,7 +204,7 @@ class FileManager: NSObject {
 
     }
 
-    func createDocument() {
+    func createDocument(completionHandler: (NSURL) -> Void) {
         let fileUrl = getDocumentURL(defaultName, uniqueFileName: true)
 
         let document = Document(fileURL: fileUrl)
@@ -226,6 +226,7 @@ class FileManager: NSObject {
                 (sucess) -> Void in
                 dispatch_async(dispatch_get_main_queue(), {
                     self.updateObject(fileURL, metaData: metaData, state: state, version: version, downloaded: true)
+                    completionHandler(fileURL)
                 })
             })
         }

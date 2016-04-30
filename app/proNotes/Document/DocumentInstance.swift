@@ -153,6 +153,12 @@ class DocumentInstance: NSObject {
             }
         }
     }
+    
+    func removeAllDelegates() {
+        for case let delegate as DocumentInstanceDelegate in delegates {
+            removeDelegate(delegate)
+        }
+    }
 
     func informDelegateToUpdateCurrentPage(page: DocumentPage) {
         for case let delegate as DocumentInstanceDelegate  in delegates {
