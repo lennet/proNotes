@@ -36,13 +36,14 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if Preferences.isFirstRun() {
+        if Preferences.shouldShowWelcomeScreen() {
             performSegueWithIdentifier("WelcomSegueIdentifier", sender: nil)
         }
     }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        fileManager.downloadFromCloudKit()
         fileManager.delegate = nil
         documentsCollectionViewController.reloadData()
         fileManager.reload()

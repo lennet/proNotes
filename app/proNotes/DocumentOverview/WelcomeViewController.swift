@@ -32,6 +32,9 @@ class WelcomeViewController: UIViewController {
         super.viewDidAppear(animated)
         Preferences.setIsFirstRun(false)
         animateImageViews()
+        if Preferences.AlreadyDownloadedDefaultNote() {
+            alredyDownloaded = true
+        }
         WelcomeViewController.sharedInstance = self
     }
     
@@ -53,6 +56,7 @@ class WelcomeViewController: UIViewController {
     }
 
     @IBAction func handleContinueButtonPressed(sender: AnyObject) {
+        Preferences.setShoudlShowWelcomeScreen(false)
         presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
 
@@ -72,9 +76,9 @@ class WelcomeViewController: UIViewController {
             dispatch_async(dispatch_get_main_queue(),{
                 if self.alredyDownloaded {
                     self.notifyButton.hidden = true
-                    let attributedString = NSMutableAttributedString(string: "A sample Note has will been downloaded via CloudKit")
+                    let attributedString = NSMutableAttributedString(string: "A sample Note has will be been downloaded via CloudKit")
                     
-                    attributedString.addAttributes([NSStrikethroughStyleAttributeName: NSNumber(integer: NSUnderlineStyle.StyleSingle.rawValue)], range: NSRange(location: 18, length: 4))
+                    attributedString.addAttributes([NSStrikethroughStyleAttributeName: NSNumber(integer: NSUnderlineStyle.StyleSingle.rawValue)], range: NSRange(location: 18, length: 7))
                     UIView.transitionWithView(self.hintLabel, duration: standardAnimationDuration, options: [.TransitionCrossDissolve], animations: {
                         self.hintLabel.attributedText = attributedString
                         }, completion: nil)

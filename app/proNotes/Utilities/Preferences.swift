@@ -15,9 +15,14 @@ class Preferences {
     static private let DownloadedDefaultNoteKey = "DownloadedDefaultNote"
     static private let allowsNotificationKey = "allowsNotification"
     static private let isFirstRunKey = "isFirstRun"
-
+    static private let shouldShowWelcomeScreenKey = "shouldShowWelcomeScreen"
 
     //MARK - iCloud Handling
+    
+    class func setUpDefaults() {
+        setShoudlShowWelcomeScreen(true)
+        setIsFirstRun(false)
+    }
 
     class func iCloudActive() -> Bool {
         return NSUserDefaults.standardUserDefaults().boolForKey(iCloudActiveKey)
@@ -62,6 +67,14 @@ class Preferences {
     
     class func setIsFirstRun(value: Bool) {
         return NSUserDefaults.standardUserDefaults().setBool(value, forKey: isFirstRunKey)
+    }
+    
+    class func setShoudlShowWelcomeScreen(value: Bool) {
+        return NSUserDefaults.standardUserDefaults().setBool(value, forKey: shouldShowWelcomeScreenKey)
+    }
+    
+    class func shouldShowWelcomeScreen() -> Bool {
+        return NSUserDefaults.standardUserDefaults().boolForKey(shouldShowWelcomeScreenKey)
     }
 
 }

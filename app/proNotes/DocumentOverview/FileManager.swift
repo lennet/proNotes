@@ -62,13 +62,15 @@ class FileManager: NSObject {
     override init() {
         super.init()
         reload()
-        downloadFromCloudKit()
     }
     
+    var alreadyDownloadingFromCloudKit = false
+    
     func downloadFromCloudKit() {
-        guard !Preferences.AlreadyDownloadedDefaultNote() else {
+        guard !Preferences.AlreadyDownloadedDefaultNote() && !alreadyDownloadingFromCloudKit else {
             return 
         }
+        alreadyDownloadingFromCloudKit = true
         let taskID = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler(nil)
         let container = CKContainer.defaultContainer()
         let publicDataBase = container.publicCloudDatabase
@@ -76,6 +78,7 @@ class FileManager: NSObject {
     
         let query = CKQuery(recordType: "Document", predicate: predicate)
         publicDataBase.performQuery(query, inZoneWithID: nil) { (records, error) in
+            self.alreadyDownloadingFromCloudKit = false
             if let record = records?.first {
                 if let asset = record.objectForKey("data") as? CKAsset {
                     let newURL = self.getDocumentURL("HelloWorld🦄", uniqueFileName: true)
