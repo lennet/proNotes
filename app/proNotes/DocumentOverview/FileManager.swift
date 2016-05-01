@@ -81,7 +81,7 @@ class FileManager: NSObject {
             self.alreadyDownloadingFromCloudKit = false
             if let record = records?.first {
                 if let asset = record.objectForKey("data") as? CKAsset {
-                    let newURL = self.getDocumentURL("HelloWorld🦄", uniqueFileName: true)
+                    let newURL = self.getDocumentURL("Hello🦄", uniqueFileName: true)
                     try!  NSFileManager.defaultManager().copyItemAtURL(asset.fileURL, toURL: newURL)
                     self.checkForLocalFiles()
                     NotifyHelper.fireNotification(false, url: newURL)
