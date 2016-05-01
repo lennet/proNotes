@@ -39,6 +39,7 @@ class PageInfoViewController: SettingsBaseViewController, UITableViewDataSource,
         super.viewWillAppear(animated)
         DocumentInstance.sharedInstance.addDelegate(self)
         layerTableView.setUp()
+        layerTableView.deactivateDelaysContentTouches()
         layoutTableView()
     }
 
