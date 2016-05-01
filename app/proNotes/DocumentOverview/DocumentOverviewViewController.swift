@@ -140,7 +140,6 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
                 } else {
                     // TODO show error
                 }
-                collectionView.reloadItemsAtIndexPaths([indexPath])
             })
         } else {
             fileManager.downloadObject(selectedObject)
