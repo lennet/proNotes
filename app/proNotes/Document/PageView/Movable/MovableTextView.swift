@@ -33,6 +33,7 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
         clipsToBounds = true
         if self.textView == nil {
             let textView = NoScrollingTextView()
+            
             textView.userInteractionEnabled = false
             textView.scrollEnabled = !renderMode
             textView.delegate = self
@@ -62,11 +63,13 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
     override func setSelected() {
         super.setSelected()
         textView?.becomeFirstResponder()
+        textView?.userInteractionEnabled = true
     }
 
     override func setDeselected() {
         super.setDeselected()
         textView?.resignFirstResponder()
+        textView?.userInteractionEnabled = false
     }
 
     // MARK: - TextSettingsDelegate 
