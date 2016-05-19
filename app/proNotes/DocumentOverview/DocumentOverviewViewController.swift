@@ -70,15 +70,15 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
     }
     
     func openDocument(url: NSURL) {
+        dispatch_async(dispatch_get_main_queue(),{
         for (index, object) in self.objects.enumerate() {
             if object.fileURL == url {
-                dispatch_async(dispatch_get_main_queue(),{
                     let index = NSIndexPath(forItem: index, inSection: 0)
                     self.documentsCollectionViewController.selectItemAtIndexPath(index, animated: false, scrollPosition: .None)
                     self.collectionView(self.documentsCollectionViewController, didSelectItemAtIndexPath: index)
-                })
             }
         }
+        })
     }
 
     // MARK: - UICollectionViewDataSource

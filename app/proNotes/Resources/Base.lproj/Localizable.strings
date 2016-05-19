@@ -34,6 +34,6 @@
 
 "As ProNote" = "As ProNote file";
 
-"downloaddata.success" = "The Download is finished. Tap to see it";
+"downloaddata.success" = "The Download is finished. Tap here to open it";
 
 "downloaddata.error" = "Oups! Something wen't wrong. Please check your internet connection";

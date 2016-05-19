@@ -51,6 +51,17 @@
 			<string>Any</string>
 		</dict>
 	</dict>
+	<key>UIApplicationShortcutItems</key>
+	<array>
+		<dict>
+			<key>UIApplicationShortcutItemIconType</key>
+			<string>UIApplicationShortcutIconTypeAdd</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>Create new Note</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>lt.com.proNote.createNote</string>
+		</dict>
+	</array>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
@@ -107,17 +118,6 @@
 					<string>proNote</string>
 				</array>
 			</dict>
-		</dict>
-	</array>
-	<key>UIApplicationShortcutItems</key>
-	<array>
-		<dict>
-			<key>UIApplicationShortcutItemIconType</key>
-			<string>UIApplicationShortcutIconTypeAdd</string>
-			<key>UIApplicationShortcutItemTitle</key>
-			<string>Create new Note</string>
-			<key>UIApplicationShortcutItemType</key>
-			<string>lt.com.proNote.createNote</string>
 		</dict>
 	</array>
 </dict>
