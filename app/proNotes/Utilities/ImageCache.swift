@@ -42,6 +42,7 @@ class ImageCache: NSObject {
     private override init() {
         cache = NSCache()
         super.init()
+        cache.countLimit = 20
         cache.delegate = self
     }
     
