@@ -94,6 +94,7 @@
 		98F2E3EC1C1A1EE9008A5C6C /* MovableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F2E3EB1C1A1EE9008A5C6C /* MovableView.swift */; };
 		98F2E3EE1C1A1EF1008A5C6C /* MovableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F2E3ED1C1A1EF1008A5C6C /* MovableImageView.swift */; };
 		98F650CA1CFE0B83003443C3 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F650C91CFE0B83003443C3 /* ImageCache.swift */; };
+		98F650CE1CFE273C003443C3 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F650CD1CFE273C003443C3 /* Cache.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -204,6 +205,7 @@
 		98F2E3EB1C1A1EE9008A5C6C /* MovableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovableView.swift; sourceTree = "<group>"; };
 		98F2E3ED1C1A1EF1008A5C6C /* MovableImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovableImageView.swift; sourceTree = "<group>"; };
 		98F650C91CFE0B83003443C3 /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
+		98F650CD1CFE273C003443C3 /* Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -334,6 +336,7 @@
 				9851B8601CD0C12000112BDB /* NotificationView.swift */,
 				9851B86D1CD141DF00112BDB /* NoAnimationSegue.swift */,
 				9815CD8A1CD4BFC500191495 /* 3DTouchGestureRecognizer.swift */,
+				98F650CD1CFE273C003443C3 /* Cache.swift */,
 			);
 			name = Components;
 			path = "Generic Components";
@@ -655,6 +658,7 @@
 				98BABB8D1C1B142C00D9C938 /* PageInfoViewController.swift in Sources */,
 				987B57101C3B139700141EA5 /* UIImageExtension.swift in Sources */,
 				987F6A211C74AA0800572C2F /* ImportDataSubTableViewCell.swift in Sources */,
+				98F650CE1CFE273C003443C3 /* Cache.swift in Sources */,
 				983B24CD1CA70EB600F4F3AE /* NoScrollingTextView.swift in Sources */,
 				987F6A1F1C74A9FC00572C2F /* ImportDataMainTableViewCell.swift in Sources */,
 				98F2E3E81C1A1ED2008A5C6C /* CGPointExtension.swift in Sources */,

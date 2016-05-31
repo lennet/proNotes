@@ -21,29 +21,35 @@ class ImageCacheObject: NSObject {
 class ImageCache: NSObject {
     
     static let sharedInstance = ImageCache()
-    private let cache: NSCache
+    private let cache: Cache<ImageCacheObject>
 
-    
     subscript(key :String) -> UIImage? {
         get {
-            if let imageCacheObject = cache.objectForKey(key) as? ImageCacheObject {
+            if let imageCacheObject = cache[key] {
                 return imageCacheObject.image
             }
-            return loadImageFromDisk(key)
+            if let image = loadImageFromDisk(key) {
+                cache[key] = ImageCacheObject(image: image, key: key)
+            }
+            return nil
         }
         
         set {
             if let image = newValue {
-                cache.setObject(ImageCacheObject(image: image, key: key), forKey: key)
+                cache[key] = ImageCacheObject(image: image, key: key)
             }
         }
     }
     
     private override init() {
-        cache = NSCache()
+        cache = Cache()
         super.init()
         cache.countLimit = 20
         cache.delegate = self
+    }
+    
+    func clearCache() {
+        cache.removeAllObjects()
     }
     
     private func loadImageFromDisk(key: String) -> UIImage? {
@@ -53,7 +59,6 @@ class ImageCache: NSObject {
             return nil
         }
         
-        cache.setObject(image, forKey: key)
         return image
     }
     
