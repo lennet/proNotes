@@ -13,13 +13,7 @@ class PageView: UIView, UIGestureRecognizerDelegate {
     var panGestureRecognizer: UIPanGestureRecognizer?
     var tapGestureRecognizer: UITapGestureRecognizer?
     
-    weak var page: DocumentPage? {
-        didSet {
-            if oldValue == nil {
-//                setUpLayer()
-            }
-        }
-    }
+    weak var page: DocumentPage?
 
     weak var selectedSubView: PageSubView? {
         didSet {

@@ -9,32 +9,47 @@
 import UIKit
 
 class ImageLayer: MovableLayer {
-    var image: UIImage
+    
+    var image: UIImage? {
+        get {
+            return ImageCache.sharedInstance[imageKey]
+        }
+        
+        set {
+            ImageCache.sharedInstance[imageKey] = newValue
+        }
+    }
+    
+    let imageKey = NSUUID().UUIDString
 
     init(index: Int, docPage: DocumentPage, origin: CGPoint, size: CGSize?, image: UIImage) {
-        self.image = image
         super.init(index: index, type: .Image, docPage: docPage, origin: origin, size: size ?? image.size)
+        self.image = image
     }
 
     required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
         if let imageData = aDecoder.decodeObjectForKey(imageDataKey) as? NSData {
             image = UIImage(data: imageData)!
         } else {
             image = UIImage()
         }
-
-        super.init(coder: aDecoder)
     }
 
     private final let imageDataKey = "imageData"
 
     override func encodeWithCoder(aCoder: NSCoder) {
+        super.encodeWithCoder(aCoder)
+        guard let image = image else {
+            return
+        }
+        
         if let imageData = UIImageJPEGRepresentation(image, 1.0) {
             aCoder.encodeObject(imageData, forKey: imageDataKey)
         } else {
             print("Could not save drawing Image")
         }
-        super.encodeWithCoder(aCoder)
+        
     }
 
     override func undoAction(oldObject: AnyObject?) {

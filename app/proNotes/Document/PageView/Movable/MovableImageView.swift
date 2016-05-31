@@ -65,7 +65,6 @@ class MovableImageView: MovableView, ImageSettingsDelegate {
         }
     }
 
-
     func updateImage(image: UIImage) {
         guard imageView != nil else {
             return

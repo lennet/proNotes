@@ -48,7 +48,7 @@
 		987B570C1C3AF85200141EA5 /* CGRectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987B570B1C3AF85200141EA5 /* CGRectExtension.swift */; };
 		987B570E1C3B10F300141EA5 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987B570D1C3B10F300141EA5 /* Global.swift */; };
 		987B57101C3B139700141EA5 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987B570F1C3B139700141EA5 /* UIImageExtension.swift */; };
-		987F6A181C738A9600572C2F /* PDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987F6A171C738A9600572C2F /* PDF.swift */; };
+		987F6A181C738A9600572C2F /* PDFUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987F6A171C738A9600572C2F /* PDFUtility.swift */; };
 		987F6A1D1C74A7B600572C2F /* ImportDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987F6A1C1C74A7B600572C2F /* ImportDataViewController.swift */; };
 		987F6A1F1C74A9FC00572C2F /* ImportDataMainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987F6A1E1C74A9FC00572C2F /* ImportDataMainTableViewCell.swift */; };
 		987F6A211C74AA0800572C2F /* ImportDataSubTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987F6A201C74AA0800572C2F /* ImportDataSubTableViewCell.swift */; };
@@ -93,6 +93,7 @@
 		98F2E3EA1C1A1ED2008A5C6C /* UIStoryboardExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F2E3E61C1A1ED2008A5C6C /* UIStoryboardExtension.swift */; };
 		98F2E3EC1C1A1EE9008A5C6C /* MovableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F2E3EB1C1A1EE9008A5C6C /* MovableView.swift */; };
 		98F2E3EE1C1A1EF1008A5C6C /* MovableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F2E3ED1C1A1EF1008A5C6C /* MovableImageView.swift */; };
+		98F650CA1CFE0B83003443C3 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F650C91CFE0B83003443C3 /* ImageCache.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -147,7 +148,7 @@
 		987B570B1C3AF85200141EA5 /* CGRectExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGRectExtension.swift; sourceTree = "<group>"; };
 		987B570D1C3B10F300141EA5 /* Global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		987B570F1C3B139700141EA5 /* UIImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
-		987F6A171C738A9600572C2F /* PDF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDF.swift; sourceTree = "<group>"; };
+		987F6A171C738A9600572C2F /* PDFUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PDFUtility.swift; path = ../Extenstions/PDFUtility.swift; sourceTree = "<group>"; };
 		987F6A1C1C74A7B600572C2F /* ImportDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImportDataViewController.swift; sourceTree = "<group>"; };
 		987F6A1E1C74A9FC00572C2F /* ImportDataMainTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImportDataMainTableViewCell.swift; sourceTree = "<group>"; };
 		987F6A201C74AA0800572C2F /* ImportDataSubTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImportDataSubTableViewCell.swift; sourceTree = "<group>"; };
@@ -202,6 +203,7 @@
 		98F2E3E61C1A1ED2008A5C6C /* UIStoryboardExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIStoryboardExtension.swift; sourceTree = "<group>"; };
 		98F2E3EB1C1A1EE9008A5C6C /* MovableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovableView.swift; sourceTree = "<group>"; };
 		98F2E3ED1C1A1EF1008A5C6C /* MovableImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovableImageView.swift; sourceTree = "<group>"; };
+		98F650C91CFE0B83003443C3 /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -318,7 +320,7 @@
 			path = PageView;
 			sourceTree = "<group>";
 		};
-		986D605C1C2C2D410065D71B /* Generic Components */ = {
+		986D605C1C2C2D410065D71B /* Components */ = {
 			isa = PBXGroup;
 			children = (
 				980A3F341C22B2010070C618 /* ColorPicker */,
@@ -333,6 +335,7 @@
 				9851B86D1CD141DF00112BDB /* NoAnimationSegue.swift */,
 				9815CD8A1CD4BFC500191495 /* 3DTouchGestureRecognizer.swift */,
 			);
+			name = Components;
 			path = "Generic Components";
 			sourceTree = "<group>";
 		};
@@ -384,7 +387,6 @@
 				9814D7A81CAEFA0D00D1ADA4 /* NSDateExtension.swift */,
 				9854310C1C52C00F0098DAC1 /* NSMetadataItemExtension.swift */,
 				98E0D4051C4C0D3C00EF49FD /* NSURLExtension.swift */,
-				987F6A171C738A9600572C2F /* PDF.swift */,
 				989C51811CB2F709007D3DCE /* UIBarButtonItemExtension.swift */,
 				984242AC1C3EE79900F90455 /* UIColorExtension.swift */,
 				987B570F1C3B139700141EA5 /* UIImageExtension.swift */,
@@ -406,8 +408,10 @@
 		98D2DA801C6BDE3300B3C76C /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				987F6A171C738A9600572C2F /* PDFUtility.swift */,
 				98D2DA811C6BDE4500B3C76C /* DocumentExporter.swift */,
 				98E0D4011C4C093900EF49FD /* Preferences.swift */,
+				98F650C91CFE0B83003443C3 /* ImageCache.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -448,7 +452,7 @@
 				98101BCB1C0A5873001E9555 /* Document */,
 				981CF9A61C4AB034003BA892 /* DocumentOverview */,
 				98AFFE721C14AEC9003A4A79 /* Extenstions */,
-				986D605C1C2C2D410065D71B /* Generic Components */,
+				986D605C1C2C2D410065D71B /* Components */,
 				98A57C3B1C1DB29200E6C5DF /* Model */,
 				98D2DA831C6BDE7200B3C76C /* Resources */,
 				98D2DA801C6BDE3300B3C76C /* Utilities */,
@@ -615,6 +619,7 @@
 				98F2E3EE1C1A1EF1008A5C6C /* MovableImageView.swift in Sources */,
 				9829ECD61C791EF500A64009 /* TextLayer.swift in Sources */,
 				9829ECD41C791ED400A64009 /* ImageLayer.swift in Sources */,
+				98F650CA1CFE0B83003443C3 /* ImageCache.swift in Sources */,
 				9851B8611CD0C12000112BDB /* NotificationView.swift in Sources */,
 				98D2DA821C6BDE4500B3C76C /* DocumentExporter.swift in Sources */,
 				984242AB1C3EDD0900F90455 /* TouchControlView.swift in Sources */,
@@ -661,7 +666,7 @@
 				98D8C0B71C0B116F0026EECE /* Document.swift in Sources */,
 				98A5673B1C18CC330065B401 /* ImageSettingsViewController.swift in Sources */,
 				98E0D4001C4C087700EF49FD /* FileManager.swift in Sources */,
-				987F6A181C738A9600572C2F /* PDF.swift in Sources */,
+				987F6A181C738A9600572C2F /* PDFUtility.swift in Sources */,
 				98D8C0BA1C0B11750026EECE /* SketchSettingsViewController.swift in Sources */,
 				986D60601C2C34BD0065D71B /* CALayerExtension.swift in Sources */,
 				98101BD21C0A58AA001E9555 /* PagesOverviewTableViewCell.swift in Sources */,

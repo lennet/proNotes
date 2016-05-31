@@ -1,5 +1,5 @@
 //
-//  PDF.swift
+//  PDFUtility.swift
 //  proNotes
 //
 //  Created by Leo Thomas on 16/02/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PDFUtility: NSObject {
+class PDFUtility {
 
     class func getPageAsPDF(pageIndex: Int, document: CGPDFDocument) -> CGPDFDocument? {
         if let data = getPageAsData(pageIndex, document: document) {
