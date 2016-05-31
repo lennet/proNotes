@@ -129,7 +129,7 @@ class PageView: UIView, UIGestureRecognizerDelegate {
 
     func addImageLayer(imageLayer: ImageLayer, renderMode: Bool = false) {
         let frame = CGRect(origin: imageLayer.origin, size: imageLayer.size)
-        let view = MovableImageView(image: imageLayer.image, frame: frame, movableLayer: imageLayer, renderMode: renderMode)
+        let view = MovableImageView(frame: frame, movableLayer: imageLayer, renderMode: renderMode)
         view.hidden = imageLayer.hidden
         addSubview(view)
         view.setUpImageView()

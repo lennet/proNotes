@@ -18,7 +18,7 @@ class MovableImageView: MovableView, ImageSettingsDelegate {
         }
     }
 
-    init(image: UIImage, frame: CGRect, movableLayer: MovableLayer, renderMode: Bool = false) {
+    override init(frame: CGRect, movableLayer: MovableLayer, renderMode: Bool = false) {
         super.init(frame: frame, movableLayer: movableLayer, renderMode: renderMode)
         proportionalResize = true
     }
