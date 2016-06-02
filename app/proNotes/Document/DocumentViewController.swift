@@ -96,8 +96,6 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
     private func registerNotifications() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DocumentViewController.updateUndoButton), name: NSUndoManagerWillUndoChangeNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DocumentViewController.updateUndoButton), name: NSUndoManagerCheckpointNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DocumentViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DocumentViewController.keyboardWillBeHidden(_:)), name: UIKeyboardWillHideNotification, object: nil)
     }
 
     private func removeNotifications() {
@@ -130,42 +128,6 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
         })
     }
 
-    func keyboardWillShow(notification: NSNotification){
-        return
-        let info = notification.userInfo
-        guard let duration = info![UIKeyboardAnimationDurationUserInfoKey] as? Double else {
-            return
-        }
-        guard let keyboardSize = (info?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.CGRectValue().size else {
-            return
-        }
-        
-        for constraint in bottomConstraints {
-            constraint.constant = keyboardSize.height
-        }
-        
-        UIView.animateWithDuration(duration, delay: 0, options: .CurveEaseInOut, animations: { 
-            self.view.layoutIfNeeded()
-            PagesTableViewController.sharedInstance?.layoutDidChange()
-            }, completion: nil)
-    }
-    
-    func keyboardWillBeHidden(notification: NSNotification) {
-        return
-        
-        let info = notification.userInfo
-        let duration = info![UIKeyboardAnimationDurationUserInfoKey] as! Double
-        
-        for constraint in bottomConstraints {
-            constraint.constant = 0
-        }
-        
-        UIView.animateWithDuration(duration, delay: 0, options: .CurveEaseInOut, animations: {
-            self.view.layoutIfNeeded()
-            PagesTableViewController.sharedInstance?.layoutDidChange()
-            }, completion: nil)
-    }
-    
     // MARK: - Actions
 
     @IBAction func handleSketchButtonPressed(sender: UIBarButtonItem) {
