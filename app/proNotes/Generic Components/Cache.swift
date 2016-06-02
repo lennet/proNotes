@@ -17,6 +17,8 @@ class Cache<T: AnyObject>: NSCache {
         set {
             if let value = newValue {
                 setObject(value, forKey: key)
+            } else {
+                removeObjectForKey(key)
             }
         }
     }
