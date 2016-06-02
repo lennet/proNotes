@@ -42,6 +42,7 @@ class SketchView: UIImageView, PageSubView, SketchSettingsDelegate {
     }
     
     func commonInit() {
+        userInteractionEnabled = false 
         image = sketchLayer?.image
     }
     
@@ -144,11 +145,13 @@ class SketchView: UIImageView, PageSubView, SketchSettingsDelegate {
         SettingsViewController.sharedInstance?.currentSettingsType = .Sketch
         SketchSettingsViewController.delegate = self
         setUpStrokeBuffer()
+        userInteractionEnabled = true
     }
     
     func setDeselected() {
         strokeBuffer?.removeFromSuperview()
         strokeBuffer = nil
+        userInteractionEnabled = false
     }
 
     func saveChanges() {

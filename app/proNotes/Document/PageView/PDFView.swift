@@ -15,6 +15,7 @@ class PDFView: UIView, PageSubView {
     init(pdfData: NSData, frame: CGRect) {
         self.pdf = PDFUtility.createPDFFromData(pdfData as CFData)
         super.init(frame: frame)
+        userInteractionEnabled = false
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -36,7 +37,6 @@ class PDFView: UIView, PageSubView {
 
             CGContextDrawPDFPage(context, page);
         }
-
     }
 
 }
