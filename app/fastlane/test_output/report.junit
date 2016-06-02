@@ -1,20 +1,20 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <testsuites tests='11' failures='0'>
   <testsuite name='proNotesTests.DocumentPageTests' tests='4' failures='0'>
-    <testcase classname='proNotesTests.DocumentPageTests' name='testEncodeDecode' time='0.053'/>
-    <testcase classname='proNotesTests.DocumentPageTests' name='testEquals' time='0.001'/>
+    <testcase classname='proNotesTests.DocumentPageTests' name='testEncodeDecode' time='0.016'/>
+    <testcase classname='proNotesTests.DocumentPageTests' name='testEquals' time='0.000'/>
     <testcase classname='proNotesTests.DocumentPageTests' name='testRemoveLayer' time='0.003'/>
     <testcase classname='proNotesTests.DocumentPageTests' name='testSwapLayer' time='0.001'/>
   </testsuite>
   <testsuite name='proNotesTests.DocumentTests' tests='4' failures='0'>
-    <testcase classname='proNotesTests.DocumentTests' name='testAddPage' time='0.073'/>
-    <testcase classname='proNotesTests.DocumentTests' name='testAddPDF' time='0.027'/>
-    <testcase classname='proNotesTests.DocumentTests' name='testOpenDocument' time='0.021'/>
-    <testcase classname='proNotesTests.DocumentTests' name='testSwapPages' time='0.021'/>
+    <testcase classname='proNotesTests.DocumentTests' name='testAddPage' time='0.049'/>
+    <testcase classname='proNotesTests.DocumentTests' name='testAddPDF' time='0.017'/>
+    <testcase classname='proNotesTests.DocumentTests' name='testOpenDocument' time='0.013'/>
+    <testcase classname='proNotesTests.DocumentTests' name='testSwapPages' time='0.015'/>
   </testsuite>
   <testsuite name='proNotesTests.TouchControlViewTests' tests='3' failures='0'>
-    <testcase classname='proNotesTests.TouchControlViewTests' name='testProportionalResize' time='0.002'/>
+    <testcase classname='proNotesTests.TouchControlViewTests' name='testProportionalResize' time='0.001'/>
     <testcase classname='proNotesTests.TouchControlViewTests' name='testResizeWidthOnly' time='0.001'/>
-    <testcase classname='proNotesTests.TouchControlViewTests' name='testTouchedControlView' time='0.008'/>
+    <testcase classname='proNotesTests.TouchControlViewTests' name='testTouchedControlView' time='0.003'/>
   </testsuite>
 </testsuites>
