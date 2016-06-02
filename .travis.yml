@@ -10,5 +10,6 @@ branches:
     - develop
 before_script: cd app
 script: 
+- brew upgrade xctool
 - xctool -project proNotes.xcodeproj -scheme proNotes -destination "name=iPad Air 2" -sdk iphonesimulator
 - xctool test -project proNotes.xcodeproj -scheme proNotes -destination "name=iPad Air 2" -sdk iphonesimulator
