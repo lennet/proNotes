@@ -9,7 +9,7 @@
 import UIKit
 
 protocol SettingsViewControllerDelegate: class {
-    func didChangeSettingsType(newType: SettingsViewControllerType)
+    func didChangeSettingsType(_ newType: SettingsViewControllerType)
 }
 
 enum SettingsViewControllerType: String {
@@ -41,17 +41,17 @@ class SettingsViewController: UIViewController {
         view.layer.setUpDefaultBorder()
     }
 
-    private func setUpChildViewController(settingsViewController: SettingsViewControllerType) {
-        self.currentChildViewController?.willMoveToParentViewController(nil)
+    private func setUpChildViewController(_ settingsViewController: SettingsViewControllerType) {
+        self.currentChildViewController?.willMove(toParentViewController: nil)
         self.currentChildViewController?.view.removeFromSuperview()
         self.currentChildViewController?.removeFromParentViewController()
 
-        self.currentChildViewController = UIStoryboard.documentSettingsContainerStoryBoard().instantiateViewControllerWithIdentifier(settingsViewController.rawValue) as? SettingsBaseViewController
+        self.currentChildViewController = UIStoryboard.documentSettingsContainerStoryBoard().instantiateViewController(withIdentifier: settingsViewController.rawValue) as? SettingsBaseViewController
         self.currentChildViewController!.view.frame = view.bounds
         self.addChildViewController(self.currentChildViewController!)
         self.view.addSubview(self.currentChildViewController!.view)
         self.currentChildViewController!.view.layoutIfNeeded()
-        self.currentChildViewController?.didMoveToParentViewController(self)
+        self.currentChildViewController?.didMove(toParentViewController: self)
     }
 
 }

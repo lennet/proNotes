@@ -10,15 +10,15 @@ import UIKit
 
 extension NSMetadataItem {
 
-    var fileURL: NSURL? {
+    var fileURL: URL? {
         get {
-            return valueForAttribute(NSMetadataItemURLKey) as? NSURL
+            return value(forAttribute: NSMetadataItemURLKey) as? URL
         }
     }
 
     func printAttributes() {
         for attribute in attributes {
-            print("\(attribute): \(valueForAttribute(attribute))")
+            print("\(attribute): \(value(forAttribute: attribute))")
         }
     }
 
@@ -26,6 +26,6 @@ extension NSMetadataItem {
         guard let path = fileURL?.path else {
             return false
         }
-        return NSFileManager.defaultManager().fileExistsAtPath(path)
+        return Foundation.FileManager.default().fileExists(atPath: path)
     }
 }

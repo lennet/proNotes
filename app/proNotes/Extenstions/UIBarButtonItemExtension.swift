@@ -10,9 +10,9 @@ import UIKit
 
 extension UIBarButtonItem {
 
-    func setHidden(hidden: Bool) {
-        enabled = !hidden
-        tintColor = !hidden ? nil : .clearColor()
+    func setHidden(_ hidden: Bool) {
+        isEnabled = !hidden
+        tintColor = !hidden ? nil : .clear()
     }
     
 }

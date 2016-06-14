@@ -12,19 +12,19 @@ protocol SketchSettingsDelegate: class {
 
     func clearSketch()
 
-    func didSelectColor(color: UIColor)
+    func didSelectColor(_ color: UIColor)
 
-    func didSelectDrawingObject(object: Pen)
+    func didSelectDrawingObject(_ object: Pen)
 
-    func didSelectLineWidth(width: CGFloat)
+    func didSelectLineWidth(_ width: CGFloat)
     
     func removeLayer()
 }
 
 enum SketchType {
-    case Pen
-    case Marker
-    case Eraser
+    case pen
+    case marker
+    case eraser
 }
 
 class SketchSettingsViewController: SettingsBaseViewController {
@@ -33,18 +33,18 @@ class SketchSettingsViewController: SettingsBaseViewController {
 
     let defaultTopConstant: CGFloat = -20
 
-    var currentType = SketchType.Pen {
+    var currentType = SketchType.pen {
         didSet {
             if oldValue != currentType {
 
                 switch oldValue {
-                case .Pen:
+                case .pen:
                     penTopConstraint.constant = defaultTopConstant
                     break
-                case .Marker:
+                case .marker:
                     markerTopConstraint.constant = defaultTopConstant
                     break
-                case .Eraser:
+                case .eraser:
                     eraserTopConstraint.constant = defaultTopConstant
                     break
                 }
@@ -54,21 +54,21 @@ class SketchSettingsViewController: SettingsBaseViewController {
                 
                 // -1 instead of 0 to avoid whitespaces during spring animation
                 switch currentType {
-                case .Pen:
+                case .pen:
                     penTopConstraint.constant = -1
                     object = Pencil()
                     break
-                case .Marker:
+                case .marker:
                     markerTopConstraint.constant = -1
                     object = Marker()
                     break
-                case .Eraser:
+                case .eraser:
                     eraserTopConstraint.constant = -1
                     object = Eraser()
                     break
                 }
 
-                UIView.animateWithDuration(standardAnimationDuration, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 5, options: .CurveEaseInOut, animations: {
+                UIView.animate(withDuration: standardAnimationDuration, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 5, options: UIViewAnimationOptions(), animations: {
                     () -> Void in
                     self.lineWidthCircleView.radius = object?.lineWidth ?? self.lineWidthCircleView.radius
                     self.lineWidthSlider.value = Float(self.lineWidthCircleView.radius)
@@ -89,38 +89,38 @@ class SketchSettingsViewController: SettingsBaseViewController {
 
     // MARK: - Actions
 
-    @IBAction func handlePenButtonPressed(sender: AnyObject) {
-        currentType = .Pen
+    @IBAction func handlePenButtonPressed(_ sender: AnyObject) {
+        currentType = .pen
     }
 
-    @IBAction func handleMarkerButtonPressed(sender: AnyObject) {
-        currentType = .Marker
+    @IBAction func handleMarkerButtonPressed(_ sender: AnyObject) {
+        currentType = .marker
     }
 
-    @IBAction func handleEraserButtonPressed(sender: AnyObject) {
-        currentType = .Eraser
+    @IBAction func handleEraserButtonPressed(_ sender: AnyObject) {
+        currentType = .eraser
     }
 
-    @IBAction func handleClearButtonPressed(sender: AnyObject) {
+    @IBAction func handleClearButtonPressed(_ sender: AnyObject) {
         SketchSettingsViewController.delegate?.clearSketch() 
     }
 
-    @IBAction func handleDeleteButtonPressed(sender: AnyObject) {
+    @IBAction func handleDeleteButtonPressed(_ sender: AnyObject) {
         SketchSettingsViewController.delegate?.removeLayer()
     }
 
-    @IBAction func handleLineWidthSliderValueChanged(sender: UISlider) {
+    @IBAction func handleLineWidthSliderValueChanged(_ sender: UISlider) {
         lineWidthCircleView.radius = CGFloat(sender.value)
         SketchSettingsViewController.delegate?.didSelectLineWidth(lineWidthCircleView.radius)
     }
 
     // MARK: - ColorPickerDelegate 
 
-    override func didSelectColor(colorPicker: ColorPickerViewController, color: UIColor) {
+    override func didSelectColor(_ colorPicker: ColorPickerViewController, color: UIColor) {
         SketchSettingsViewController.delegate?.didSelectColor(color)
     }
     
-    override func canSelectClearColor(colorPicker: ColorPickerViewController) -> Bool {
+    override func canSelectClearColor(_ colorPicker: ColorPickerViewController) -> Bool {
         return false
     }
 }

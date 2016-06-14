@@ -16,35 +16,35 @@ class DocumentTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        let expectation = self.expectationWithDescription("Open Document")
+        let expectation = self.expectation(withDescription: "Open Document")
         
-        let fileURL = NSBundle(forClass: self.dynamicType).URLForResource("test", withExtension: "ProNote")
+        let fileURL = Bundle(for: self.dynamicType).urlForResource("test", withExtension: "ProNote")
         document = Document(fileURL: fileURL!)
         
-        document.openWithCompletionHandler { (success) -> Void in
+        document.open { (success) -> Void in
             XCTAssertTrue(success)
             expectation.fulfill()
         }
         
-        self.waitForExpectationsWithTimeout(0.5, handler: nil)
+        self.waitForExpectations(withTimeout: 0.5, handler: nil)
     }
     
     override func tearDown() {
-        let expectation = self.expectationWithDescription("Open Document")
-        document.closeWithCompletionHandler({ (success) -> Void in
+        let expectation = self.expectation(withDescription: "Open Document")
+        document.close(completionHandler: { (success) -> Void in
             XCTAssertTrue(success)
             expectation.fulfill()
         })
-        self.waitForExpectationsWithTimeout(0.5, handler: nil)
+        self.waitForExpectations(withTimeout: 0.5, handler: nil)
         super.tearDown()
     }
     
     func testOpenDocument() {
         XCTAssertEqual(document.pages.count, pagesCount)
         XCTAssertEqual(document[0]?.layers.count, 3)
-        XCTAssertEqual(document[0]?[0]?.type, DocumentLayerType.Sketch)
-        XCTAssertEqual(document[0]?[1]?.type, DocumentLayerType.Image)
-        XCTAssertEqual(document[0]?[2]?.type, DocumentLayerType.Sketch)
+        XCTAssertEqual(document[0]?[0]?.type, DocumentLayerType.sketch)
+        XCTAssertEqual(document[0]?[1]?.type, DocumentLayerType.image)
+        XCTAssertEqual(document[0]?[2]?.type, DocumentLayerType.sketch)
     }
     
     func testAddPage() {
@@ -56,7 +56,7 @@ class DocumentTests: XCTestCase {
     }
     
     func testAddPDF() {
-        let pdfURL = NSBundle(forClass: self.dynamicType).URLForResource("test", withExtension: "pdf")!
+        let pdfURL = Bundle(for: self.dynamicType).urlForResource("test", withExtension: "pdf")!
         document.addPDF(pdfURL)
         
         pagesCount += 3
@@ -65,9 +65,9 @@ class DocumentTests: XCTestCase {
         XCTAssertEqual(document.pages[pagesCount-2].layers.count, 1)
         XCTAssertEqual(document.pages[pagesCount-3].layers.count, 1)
         
-        XCTAssertEqual(document.pages.last?.layers.first?.type, DocumentLayerType.PDF)
-        XCTAssertEqual(document.pages[pagesCount-2].layers.first?.type, DocumentLayerType.PDF)
-        XCTAssertEqual(document.pages[pagesCount-3].layers.first?.type, DocumentLayerType.PDF)
+        XCTAssertEqual(document.pages.last?.layers.first?.type, DocumentLayerType.pdf)
+        XCTAssertEqual(document.pages[pagesCount-2].layers.first?.type, DocumentLayerType.pdf)
+        XCTAssertEqual(document.pages[pagesCount-3].layers.first?.type, DocumentLayerType.pdf)
         
         let lastPage = document.pages.last!
         let pdfLayer = lastPage.layers.first as! PDFLayer

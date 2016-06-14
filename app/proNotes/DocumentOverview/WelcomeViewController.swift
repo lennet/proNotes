@@ -28,7 +28,7 @@ class WelcomeViewController: UIViewController {
         }
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         Preferences.setIsFirstRun(false)
         animateImageViews()
@@ -38,7 +38,7 @@ class WelcomeViewController: UIViewController {
         WelcomeViewController.sharedInstance = self
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         WelcomeViewController.sharedInstance = nil
     }
     
@@ -50,42 +50,42 @@ class WelcomeViewController: UIViewController {
         let backOffset: CGFloat = topImageView.bounds.width/2.1
         backLeftXConstraint.constant = -backOffset
         backRightXConstraint.constant = backOffset
-        UIView.animateWithDuration(1, delay: 0.2, options: .CurveEaseInOut, animations: {
+        UIView.animate(withDuration: 1, delay: 0.2, options: UIViewAnimationOptions(), animations: {
             self.view.layoutIfNeeded()
             }, completion: nil)
     }
 
-    @IBAction func handleContinueButtonPressed(sender: AnyObject) {
+    @IBAction func handleContinueButtonPressed(_ sender: AnyObject) {
         Preferences.setShoudlShowWelcomeScreen(false)
-        presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+        presentingViewController?.dismiss(animated: true, completion: nil)
     }
 
-    @IBAction func handleNotifyButtonPressed(sender: UIButton) {
+    @IBAction func handleNotifyButtonPressed(_ sender: UIButton) {
         if alredyDownloaded {
         
         } else {
-            sender.hidden = true
-            hintLabel.hidden = true
+            sender.isHidden = true
+            hintLabel.isHidden = true
             Preferences.setAllowsNotification(true)
-            UIApplication.sharedApplication().registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil))
+            UIApplication.shared().registerUserNotificationSettings(UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil))
         }
     }
     
     var alredyDownloaded: Bool = false {
         didSet {
-            dispatch_async(dispatch_get_main_queue(),{
+            DispatchQueue.main.async(execute: {
                 if self.alredyDownloaded {
-                    self.notifyButton.hidden = true
+                    self.notifyButton.isHidden = true
                     let attributedString = NSMutableAttributedString(string: "A sample Note has will be been downloaded via CloudKit")
                     
-                    attributedString.addAttributes([NSStrikethroughStyleAttributeName: NSNumber(integer: NSUnderlineStyle.StyleSingle.rawValue)], range: NSRange(location: 18, length: 7))
-                    UIView.transitionWithView(self.hintLabel, duration: standardAnimationDuration, options: [.TransitionCrossDissolve], animations: {
+                    attributedString.addAttributes([NSStrikethroughStyleAttributeName: NSNumber(value: NSUnderlineStyle.styleSingle.rawValue)], range: NSRange(location: 18, length: 7))
+                    UIView.transition(with: self.hintLabel, duration: standardAnimationDuration, options: [.transitionCrossDissolve], animations: {
                         self.hintLabel.attributedText = attributedString
                         }, completion: nil)
                     
                     
                 }
-                self.notifyButton.userInteractionEnabled = !self.alredyDownloaded
+                self.notifyButton.isUserInteractionEnabled = !self.alredyDownloaded
             })
         }
     }

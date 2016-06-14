@@ -13,13 +13,13 @@ protocol TextSettingsDelegate: class {
 
     func removeLayer()
     
-    func changeTextColor(color: UIColor)
+    func changeTextColor(_ color: UIColor)
 
-    func changeBackgroundColor(color: UIColor)
+    func changeBackgroundColor(_ color: UIColor)
 
-    func changeAlignment(textAlignment: NSTextAlignment)
+    func changeAlignment(_ textAlignment: NSTextAlignment)
 
-    func changeFont(font: UIFont)
+    func changeFont(_ font: UIFont)
     
     func getTextLayer() -> TextLayer?
 }
@@ -32,11 +32,11 @@ class TextSettingsViewController: SettingsBaseViewController, UIPickerViewDataSo
     }
     
     private enum FontPickerComponent: Int {
-        case Families
-        case Names
-        case Sizes
+        case families
+        case names
+        case sizes
 
-        static let allValues = [Families, Names, Sizes]
+        static let allValues = [families, names, sizes]
     }
 
     @IBOutlet weak var justifiedAlignmentButton: UIButton!
@@ -66,61 +66,61 @@ class TextSettingsViewController: SettingsBaseViewController, UIPickerViewDataSo
         updateFontNames()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         guard let textLayer = TextSettingsViewController.delegate?.getTextLayer() else {
             return
         }
         for button in alignmentButtons where button.tag == textLayer.alignment.rawValue {
-            button.selected = true
+            button.isSelected = true
         }
         scrollToRowForFont(textLayer.font)
     }
     
     func updateFontNames() {
-        fontNames = UIFont.fontNamesForFamilyName(fontFamilies[selectedRow])
+        fontNames = UIFont.fontNames(forFamilyName: fontFamilies[selectedRow])
     }
 
     // MARK: - UIPickerViewDataSource
 
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return FontPickerComponent.allValues.count
     }
 
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         guard  let fontPickerComponent = FontPickerComponent(rawValue: component) else {
             print("Not supported compontentnumber for Fontpicker: \(component)")
             return 0
         }
         switch fontPickerComponent {
-        case .Families:
+        case .families:
             return fontFamilies.count
-        case .Names:
+        case .names:
             return fontNames.count
-        case .Sizes:
+        case .sizes:
             return fontSizes.count
         }
     }
 
-    func getTitle(row: Int, forComponent component: Int) -> String {
+    func getTitle(_ row: Int, forComponent component: Int) -> String {
         guard let fontPickerComponent = FontPickerComponent(rawValue: component) else {
             print("Not supported compontentnumber for Fontpicker: \(component)")
             return ""
         }
     
         switch fontPickerComponent {
-        case .Families:
+        case .families:
             return fontFamilies[row]
-        case .Names:
+        case .names:
             // parse userfriendly family name
             let fontFamilyName = fontFamilies[selectedRow]
-            var fontNameTitle = fontNames[row].stringByReplacingOccurrencesOfString(fontFamilyName, withString: "")
+            var fontNameTitle = fontNames[row].replacingOccurrences(of: fontFamilyName, with: "")
             guard !fontNameTitle.isEmpty else {
                 return fontFamilyName
             }
             
-            let fontFamilyNameWithoutSpaces = fontFamilyName.stringByReplacingOccurrencesOfString(" ", withString: "")
-            fontNameTitle = fontNameTitle.stringByReplacingOccurrencesOfString(fontFamilyNameWithoutSpaces, withString: "")
+            let fontFamilyNameWithoutSpaces = fontFamilyName.replacingOccurrences(of: " ", with: "")
+            fontNameTitle = fontNameTitle.replacingOccurrences(of: fontFamilyNameWithoutSpaces, with: "")
             guard !fontNameTitle.isEmpty else {
                 return fontNameTitle
             }
@@ -129,30 +129,30 @@ class TextSettingsViewController: SettingsBaseViewController, UIPickerViewDataSo
                 return fontNameTitle
             }
             
-            if NSCharacterSet.letterCharacterSet().invertedSet.longCharacterIsMember(fistLetter.value) {
+            if CharacterSet.letters.inverted.contains(UnicodeScalar(fistLetter.value)) {
                 fontNameTitle = String(fontNameTitle.characters.dropFirst())
             }
         
             return fontNameTitle
-        case .Sizes:
+        case .sizes:
             return String(fontSizes[row])
         }
     }
     
-    func scrollToRowForFont(font: UIFont) {
+    func scrollToRowForFont(_ font: UIFont) {
         delegateEnabled = false
-        for (fontFamilyIndex, currentFont) in fontFamilies.enumerate() {
+        for (fontFamilyIndex, currentFont) in fontFamilies.enumerated() {
             if font.familyName == currentFont {
-                fontPicker.selectRow(fontFamilyIndex, inComponent: FontPickerComponent.Families.rawValue, animated: false)
+                fontPicker.selectRow(fontFamilyIndex, inComponent: FontPickerComponent.families.rawValue, animated: false)
                 selectedRow = fontFamilyIndex
                 updateFontNames()
                 fontPicker.reloadAllComponents()
-                for (fontNameIndex, currentFontName) in fontNames.enumerate() {
+                for (fontNameIndex, currentFontName) in fontNames.enumerated() {
                     if font.fontName == currentFontName {
-                        fontPicker.selectRow(fontNameIndex, inComponent: FontPickerComponent.Names.rawValue, animated: false)
-                        for (sizeIndex, currentSize) in fontSizes.enumerate() {
+                        fontPicker.selectRow(fontNameIndex, inComponent: FontPickerComponent.names.rawValue, animated: false)
+                        for (sizeIndex, currentSize) in fontSizes.enumerated() {
                             if Int(font.pointSize) == currentSize {
-                                fontPicker.selectRow(sizeIndex, inComponent: FontPickerComponent.Sizes.rawValue, animated: false)
+                                fontPicker.selectRow(sizeIndex, inComponent: FontPickerComponent.sizes.rawValue, animated: false)
                                 delegateEnabled = true
                                 return
                             }
@@ -164,35 +164,35 @@ class TextSettingsViewController: SettingsBaseViewController, UIPickerViewDataSo
         delegateEnabled = true
     }
 
-    func getFont(row: Int, forComponent component: Int, fontSize: CGFloat = UIFont.systemFontSize()) -> UIFont {
+    func getFont(_ row: Int, forComponent component: Int, fontSize: CGFloat = UIFont.systemFontSize()) -> UIFont {
         guard let fontPickerComponent = FontPickerComponent(rawValue: component) else {
             print("Not supported compontentnumber for Fontpicker: \(component)")
-            return UIFont.systemFontOfSize(fontSize)
+            return UIFont.systemFont(ofSize: fontSize)
         }
         
         switch fontPickerComponent {
-        case .Families:
+        case .families:
             let fontName = fontFamilies[row]
             return UIFont(name: fontName, size: fontSize)!
-        case .Names:
+        case .names:
             guard fontNames.count > 0 else {
-                return UIFont.systemFontOfSize(UIFont.systemFontSize())
+                return UIFont.systemFont(ofSize: UIFont.systemFontSize())
             }
             let fontName = fontNames[row]
             return UIFont(name: fontName, size: fontSize)!
         default:
-            return UIFont.systemFontOfSize(fontSize)
+            return UIFont.systemFont(ofSize: fontSize)
         }
     }
 
-    func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView?) -> UIView {
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         var pickerLabel = view as? UILabel;
 
         if (pickerLabel == nil) {
             pickerLabel = UILabel()
 
             pickerLabel?.font = getFont(row, forComponent: component)
-            pickerLabel?.textAlignment = .Center
+            pickerLabel?.textAlignment = .center
         }
 
         pickerLabel?.text = getTitle(row, forComponent: component)
@@ -200,30 +200,30 @@ class TextSettingsViewController: SettingsBaseViewController, UIPickerViewDataSo
         return pickerLabel!;
     }
 
-    func pickerView(pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
+    func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
         guard let fontPickerComponent = FontPickerComponent(rawValue: component) else {
             print("Not supported compontentnumber for Fontpicker: \(component)")
             return 0
         }
         let width = pickerView.bounds.width
         switch fontPickerComponent {
-        case .Families:
+        case .families:
             return width / 2.5
-        case .Names:
+        case .names:
             return width / 2.5
-        case .Sizes:
+        case .sizes:
             return width / 5
         }
     }
     
     // MARK: - Actions
     
-    @IBAction func handleAlignmentButtonPressed(sender: UIButton) {
-        for button in alignmentButtons where button != sender && button.selected {
-            button.selected = false
+    @IBAction func handleAlignmentButtonPressed(_ sender: UIButton) {
+        for button in alignmentButtons where button != sender && button.isSelected {
+            button.isSelected = false
         }
         
-        sender.selected = true
+        sender.isSelected = true
         guard let textAlignment = NSTextAlignment(rawValue: sender.tag) else {
             return
         }
@@ -240,25 +240,25 @@ class TextSettingsViewController: SettingsBaseViewController, UIPickerViewDataSo
     
     // MARK: - UIPickerViewDelegate 
 
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         guard let fontPickerComponent = FontPickerComponent(rawValue: component) else {
             print("Not supported compontentnumber for Fontpicker: \(component)")
             return
         }
 
         switch fontPickerComponent {
-        case .Families:
+        case .families:
             if selectedRow != row {
                 selectedRow = row
                 updateFontNames()
-                pickerView.reloadComponent(FontPickerComponent.Names.rawValue)
+                pickerView.reloadComponent(FontPickerComponent.names.rawValue)
             }
         default:
             break
         }
-        let familyRow = pickerView.selectedRowInComponent(FontPickerComponent.Names.rawValue)
-        let fontSize = CGFloat(fontSizes[pickerView.selectedRowInComponent(FontPickerComponent.Sizes.rawValue)])
-        let selectedFont = getFont(familyRow, forComponent: FontPickerComponent.Names.rawValue, fontSize: fontSize)
+        let familyRow = pickerView.selectedRow(inComponent: FontPickerComponent.names.rawValue)
+        let fontSize = CGFloat(fontSizes[pickerView.selectedRow(inComponent: FontPickerComponent.sizes.rawValue)])
+        let selectedFont = getFont(familyRow, forComponent: FontPickerComponent.names.rawValue, fontSize: fontSize)
         if delegateEnabled {
             TextSettingsViewController.delegate?.changeFont(selectedFont)
         }
@@ -266,7 +266,7 @@ class TextSettingsViewController: SettingsBaseViewController, UIPickerViewDataSo
     
     // MARK: - ColorPickerDelegate
     
-    override func didSelectColor(colorPicker: ColorPickerViewController, color: UIColor) {
+    override func didSelectColor(_ colorPicker: ColorPickerViewController, color: UIColor) {
         guard let colorPickerIdentifier = ColorPickerIdentifier(rawValue: colorPicker.identifier ?? "") else {
             return
         }
@@ -280,7 +280,7 @@ class TextSettingsViewController: SettingsBaseViewController, UIPickerViewDataSo
         }
     }
     
-    override func canSelectClearColor(colorPicker: ColorPickerViewController) -> Bool {
+    override func canSelectClearColor(_ colorPicker: ColorPickerViewController) -> Bool {
         guard let colorPickerIdentifier = ColorPickerIdentifier(rawValue: colorPicker.identifier ?? "") else {
             return false
         }
@@ -292,7 +292,7 @@ class TextSettingsViewController: SettingsBaseViewController, UIPickerViewDataSo
         }
     }
     
-    func setupColorPicker(colorPicker: ColorPickerViewController) {
+    func setupColorPicker(_ colorPicker: ColorPickerViewController) {
         guard let textLayer = TextSettingsViewController.delegate?.getTextLayer() else {
             return
         }

@@ -12,7 +12,7 @@ extension UIView {
 
     // MARK - AutoLayout
 
-    func getConstraint(attribute: NSLayoutAttribute) -> NSLayoutConstraint? {
+    func getConstraint(_ attribute: NSLayoutAttribute) -> NSLayoutConstraint? {
         for constraint in constraints {
             if constraint.firstAttribute == attribute {
                 return constraint
@@ -30,12 +30,12 @@ extension UIView {
     // MARK: - UITouch
 
     var forceTouchAvailable: Bool {
-        return traitCollection.forceTouchCapability == .Available
+        return traitCollection.forceTouchCapability == .available
     }
 
     // MARK: - Sub/ Parentviews
 
-    func setSubviewsAlpha(startIndex: Int, alphaValue: CGFloat) {
+    func setSubviewsAlpha(_ startIndex: Int, alphaValue: CGFloat) {
         let transparentSubviews = subviews[startIndex ..< subviews.count]
         for subview in transparentSubviews {
             subview.alpha = alphaValue
@@ -45,7 +45,7 @@ extension UIView {
     var parentViewController: UIViewController? {
         var parentResponder: UIResponder? = self
         while parentResponder != nil {
-            parentResponder = parentResponder!.nextResponder()
+            parentResponder = parentResponder!.next()
             if let viewController = parentResponder as? UIViewController {
                 return viewController
             }
@@ -55,22 +55,22 @@ extension UIView {
 
     // MARK: - Snapshot
 
-    func toImage(opaque: Bool = true) -> UIImage {
+    func toImage(_ opaque: Bool = true) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(self.bounds.size, opaque, 0);
-        self.layer.renderInContext(UIGraphicsGetCurrentContext()!)
+        self.layer.render(in: UIGraphicsGetCurrentContext()!)
         let snapshot = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        return snapshot
+        return snapshot!
     }
     
     func toThumbImage() -> UIImage {
         return toImage().thumbImage()
     }
 
-    func toImageView(opaque: Bool = true) -> UIView {
+    func toImageView(_ opaque: Bool = true) -> UIView {
         let snapshotView = UIImageView(image: toImage(opaque))
         snapshotView.layer.masksToBounds = false
-        snapshotView.layer.shadowOffset = CGSizeMake(-5, 0)
+        snapshotView.layer.shadowOffset = CGSize(width: -5, height: 0)
         snapshotView.layer.shadowRadius = 5
         snapshotView.layer.shadowOpacity = 0.4
         return snapshotView

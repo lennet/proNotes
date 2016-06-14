@@ -21,6 +21,6 @@ extension CGRect {
     }
 
     func getCenter() -> CGPoint {
-        return CGPoint(x: CGRectGetMidX(self), y: CGRectGetMidY(self))
+        return CGPoint(x: self.midX, y: self.midY)
     }
 }

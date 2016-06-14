@@ -30,8 +30,8 @@ class DocumentOverviewCollectionViewCell: UICollectionViewCell {
         thumbImageViewWidthConstraint.constant = 65
         thumbImageViewHeightConstraint.constant = 100
         thumbImageView.image = nil
-        thumbImageView.contentMode = .ScaleToFill
+        thumbImageView.contentMode = .scaleToFill
         activityIndicator.stopAnimating()
-        activityIndicator.hidden = true
+        activityIndicator.isHidden = true
     }
 }

@@ -10,11 +10,11 @@ import UIKit
 
 @objc
 protocol DocumentInstanceDelegate: class {
-    optional func currentPageDidChange(page: DocumentPage)
+    @objc optional func currentPageDidChange(_ page: DocumentPage)
 
-    optional func didAddPage(index: Int)
+    @objc optional func didAddPage(_ index: Int)
     
-    optional func didUpdatePage(index: Int)
+    @objc optional func didUpdatePage(_ index: Int)
 }
 
 class DocumentInstance: NSObject {
@@ -22,7 +22,7 @@ class DocumentInstance: NSObject {
     static let sharedInstance = DocumentInstance()
     var delegates = Set<UIViewController>()
 
-    var undoManager: NSUndoManager? {
+    var undoManager: UndoManager? {
         get {
             let manager = PagesTableViewController.sharedInstance?.undoManager
             manager?.levelsOfUndo = 5
@@ -48,7 +48,7 @@ class DocumentInstance: NSObject {
         }
     }
 
-    func renameDocument(newName: String, forceOverWrite: Bool, viewController: UIViewController?, completion: ((Bool) -> Void)?) {
+    func renameDocument(_ newName: String, forceOverWrite: Bool, viewController: UIViewController?, completion: ((Bool) -> Void)?) {
         guard document != nil else {
             return
         }
@@ -61,35 +61,35 @@ class DocumentInstance: NSObject {
             return
         }
 
-        let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
-        dispatch_async(dispatch_get_global_queue(priority, 0)) {
+        let priority = DispatchQueue.GlobalAttributes.qosDefault
+        DispatchQueue.global(attributes: priority).async {
             FileManager.sharedInstance.renameObject(oldURL, fileName: newName, forceOverWrite: false, completion: {
                 (success, error) -> Void in
                 if success {
                     completion?(true)
                 } else if error != nil {
                     switch error! {
-                    case RenameError.AlreadyExists:
-                        dispatch_async(dispatch_get_main_queue(), {
+                    case RenameError.alreadyExists:
+                        DispatchQueue.main.async(execute: {
                             
-                            let alertView = UIAlertController(title: nil, message: NSLocalizedString("ErrorFileAlreadyExists", comment:"error message if a file with the given name already exists & ask for override"), preferredStyle: .Alert)
-                            alertView.addAction(UIAlertAction(title: NSLocalizedString("Override", comment:""), style: .Destructive, handler: {
+                            let alertView = UIAlertController(title: nil, message: NSLocalizedString("ErrorFileAlreadyExists", comment:"error message if a file with the given name already exists & ask for override"), preferredStyle: .alert)
+                            alertView.addAction(UIAlertAction(title: NSLocalizedString("Override", comment:""), style: .destructive, handler: {
                                 (action) -> Void in
                                 self.renameDocument(newName, forceOverWrite: true, viewController: viewController, completion: completion)
                             }))
-                            alertView.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment:""), style: .Cancel, handler: {
+                            alertView.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment:""), style: .cancel, handler: {
                                 (action) -> Void in
                                 completion?(false)
                             }))
 
-                            viewController?.presentViewController(alertView, animated: true, completion: nil)
+                            viewController?.present(alertView, animated: true, completion: nil)
                         })
                         break
                     default:
-                        dispatch_async(dispatch_get_main_queue(), {
-                            let alertView = UIAlertController(title: nil, message: NSLocalizedString("ErrorUnknown", comment:""), preferredStyle: .Alert)
-                            viewController?.presentViewController(alertView, animated: true, completion: nil)
-                            alertView.addAction(UIAlertAction(title: NSLocalizedString("Ok", comment:""), style: .Default, handler: {
+                        DispatchQueue.main.async(execute: {
+                            let alertView = UIAlertController(title: nil, message: NSLocalizedString("ErrorUnknown", comment:""), preferredStyle: .alert)
+                            viewController?.present(alertView, animated: true, completion: nil)
+                            alertView.addAction(UIAlertAction(title: NSLocalizedString("Ok", comment:""), style: .default, handler: {
                                 (action) -> Void in
                                 completion?(false)
                             }))
@@ -103,26 +103,26 @@ class DocumentInstance: NSObject {
         }
     }
     
-    func didUpdatePage(index: Int) {
-        document?.updateChangeCount(.Done)
+    func didUpdatePage(_ index: Int) {
+        document?.updateChangeCount(.done)
         informDelegateDidUpdatePage(index)
     }
     
-    func save(completionHandler: ((Bool) -> Void)?) {
-        document?.saveToURL(document!.fileURL, forSaveOperation: .ForOverwriting, completionHandler: completionHandler)
+    func save(_ completionHandler: ((Bool) -> Void)?) {
+        document?.save(to: document!.fileURL, for: .forOverwriting, completionHandler: completionHandler)
     }
     
     func flushUndoManager() {
         undoManager?.removeAllActions()
-        NSNotificationCenter.defaultCenter().postNotificationName(NSUndoManagerWillUndoChangeNotification, object: nil)
+        NotificationCenter.default().post(name: NSNotification.Name.NSUndoManagerWillUndoChange, object: nil)
     }
     // MARK: - NSUndoManager
 
-    func registerUndoAction(object: AnyObject?, pageIndex: Int, layerIndex: Int) {
-        undoManager?.prepareWithInvocationTarget(self).undoAction(object, pageIndex: pageIndex, layerIndex: layerIndex)
+    func registerUndoAction(_ object: AnyObject?, pageIndex: Int, layerIndex: Int) {
+        undoManager?.prepare(withInvocationTarget: self).undoAction(object, pageIndex: pageIndex, layerIndex: layerIndex)
     }
 
-    func undoAction(object: AnyObject?, pageIndex: Int, layerIndex: Int) {
+    func undoAction(_ object: AnyObject?, pageIndex: Int, layerIndex: Int) {
         if let pageView = PagesTableViewController.sharedInstance?.currentPageView {
             if pageView.page?.index == pageIndex {
                 if let pageSubView = pageView[layerIndex] {
@@ -138,7 +138,7 @@ class DocumentInstance: NSObject {
 
     // MARK: - Delegate Handling
 
-    func addDelegate(delegate: DocumentInstanceDelegate) {
+    func addDelegate(_ delegate: DocumentInstanceDelegate) {
         if let viewController = delegate as? UIViewController {
             if !delegates.contains(viewController) {
                 delegates.insert(viewController)
@@ -146,7 +146,7 @@ class DocumentInstance: NSObject {
         }
     }
 
-    func removeDelegate(delegate: DocumentInstanceDelegate) {
+    func removeDelegate(_ delegate: DocumentInstanceDelegate) {
         if let viewController = delegate as? UIViewController {
             if delegates.contains(viewController) {
                 delegates.remove(viewController)
@@ -160,19 +160,19 @@ class DocumentInstance: NSObject {
         }
     }
 
-    func informDelegateToUpdateCurrentPage(page: DocumentPage) {
+    func informDelegateToUpdateCurrentPage(_ page: DocumentPage) {
         for case let delegate as DocumentInstanceDelegate  in delegates {
             delegate.currentPageDidChange?(page)
         }
     }
 
-    func informDelegateDidAddPage(index: Int) {
+    func informDelegateDidAddPage(_ index: Int) {
         for case let delegate as DocumentInstanceDelegate  in delegates {
             delegate.didAddPage?(index)
         }
     }
     
-    func informDelegateDidUpdatePage(index: Int) {
+    func informDelegateDidUpdatePage(_ index: Int) {
         for case let delegate as DocumentInstanceDelegate  in delegates {
             delegate.didUpdatePage?(index)
         }

@@ -23,34 +23,34 @@ class DeepTouchGestureRecognizer: UIGestureRecognizer {
         super.init(target: target, action: action)
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {
         guard let touch = touches.first else {
             return
         }
         handleTouch(touch)
     }
     
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent) {
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent) {
         guard let touch = touches.first else {
             return
         }
         handleTouch(touch)
     }
     
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent) {
-        super.touchesEnded(touches, withEvent: event)
-        state = deepPressed ? .Ended : .Failed
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent) {
+        super.touchesEnded(touches, with: event)
+        state = deepPressed ? .ended : .failed
         deepPressed = false
     }
     
-    private func handleTouch(touch: UITouch) {
+    private func handleTouch(_ touch: UITouch) {
         guard touch.force != 0 && touch.maximumPossibleForce != 0 else {
             return
         }
         forceValue = touch.force / touch.maximumPossibleForce
         if !deepPressed && forceValue >= threshold {
             
-            state = .Began
+            state = .began
             
             if vibrate {
                 AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
@@ -58,7 +58,7 @@ class DeepTouchGestureRecognizer: UIGestureRecognizer {
             
             deepPressed = true
         } else if deepPressed && (touch.force / touch.maximumPossibleForce) < threshold {
-            state = UIGestureRecognizerState.Ended
+            state = UIGestureRecognizerState.ended
             
             deepPressed = false
         }

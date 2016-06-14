@@ -29,10 +29,10 @@ class NotificationView: UIView {
     
     override func didMoveToSuperview() {
         translatesAutoresizingMaskIntoConstraints = false
-        let leftConstraint = NSLayoutConstraint(item: self, attribute: .Left, relatedBy: .Equal, toItem: superview, attribute: .Left, multiplier: 1.0, constant: 0)
-        let rightConstraint = NSLayoutConstraint(item: self, attribute: .Right, relatedBy: .Equal, toItem: superview, attribute: .Right, multiplier: 1.0, constant: 0)
-        let topConstraint = NSLayoutConstraint(item: self, attribute: .Top, relatedBy: .Equal, toItem: superview, attribute: .Top, multiplier: 1.0, constant: -64)
-        let heightConstraint = NSLayoutConstraint(item: self, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 64)
+        let leftConstraint = NSLayoutConstraint(item: self, attribute: .left, relatedBy: .equal, toItem: superview, attribute: .left, multiplier: 1.0, constant: 0)
+        let rightConstraint = NSLayoutConstraint(item: self, attribute: .right, relatedBy: .equal, toItem: superview, attribute: .right, multiplier: 1.0, constant: 0)
+        let topConstraint = NSLayoutConstraint(item: self, attribute: .top, relatedBy: .equal, toItem: superview, attribute: .top, multiplier: 1.0, constant: -64)
+        let heightConstraint = NSLayoutConstraint(item: self, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 64)
         superview?.addConstraints([leftConstraint, rightConstraint, topConstraint, heightConstraint])
         self.topConstraint = topConstraint
         
@@ -44,18 +44,18 @@ class NotificationView: UIView {
     func addLabel() {
         let label = UILabel(frame: CGRect.zero)
         label.text = message
-        label.textAlignment = .Center
+        label.textAlignment = .center
         label.numberOfLines = 0
-        label.textColor = UIColor.whiteColor()
+        label.textColor = UIColor.white()
         addSubview(label)
         
         label.translatesAutoresizingMaskIntoConstraints = false
-        let labelCenterX = NSLayoutConstraint(item: label, attribute: .CenterX, relatedBy: .Equal, toItem: self, attribute: .CenterX, multiplier: 1, constant: 0)
-        let labelCenterY = NSLayoutConstraint(item: label, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1, constant: 0)
-        let leftConstraint = NSLayoutConstraint(item: label, attribute: .Left, relatedBy: .Equal, toItem: self, attribute: .Left, multiplier: 1.0, constant: 8)
-        let rightConstraint = NSLayoutConstraint(item: label, attribute: .Right, relatedBy: .Equal, toItem: self, attribute: .Right, multiplier: 1.0, constant: 8)
-        let topConstraint = NSLayoutConstraint(item: label, attribute: .Top, relatedBy: .Equal, toItem: self, attribute: .Top, multiplier: 1.0, constant: -8)
-        let bottomConstraint = NSLayoutConstraint(item: label, attribute: .Bottom, relatedBy: .Equal, toItem: self, attribute: .Bottom, multiplier: 1.0, constant: 8)
+        let labelCenterX = NSLayoutConstraint(item: label, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0)
+        let labelCenterY = NSLayoutConstraint(item: label, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0)
+        let leftConstraint = NSLayoutConstraint(item: label, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1.0, constant: 8)
+        let rightConstraint = NSLayoutConstraint(item: label, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1.0, constant: 8)
+        let topConstraint = NSLayoutConstraint(item: label, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: -8)
+        let bottomConstraint = NSLayoutConstraint(item: label, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: 8)
         addConstraints([labelCenterX, labelCenterY, leftConstraint, topConstraint, rightConstraint, bottomConstraint])
         layoutIfNeeded()
     }
@@ -65,23 +65,23 @@ class NotificationView: UIView {
         animateLayoutChanges { (_) in
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(NotificationView.handleTap))
             let swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(NotificationView.handleSwipe))
-            swipeGestureRecognizer.direction = .Up
+            swipeGestureRecognizer.direction = .up
             self.addGestureRecognizer(swipeGestureRecognizer)
             self.addGestureRecognizer(tapGestureRecognizer)
-            NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: #selector(NotificationView.hide), userInfo: nil, repeats: false)
+            Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(NotificationView.hide), userInfo: nil, repeats: false)
         }
-        UIApplication.sharedApplication().applicationIconBadgeNumber = 0
+        UIApplication.shared().applicationIconBadgeNumber = 0
     }
     
     func hide() {
         topConstraint?.constant = -frame.height
         animateLayoutChanges { (_) in
-            self.hidden = true
+            self.isHidden = true
         }
     }
     
-    func animateLayoutChanges(completion: ((Bool) -> Void)?) {
-        UIView.animateWithDuration((standardAnimationDuration*3), delay: 0, usingSpringWithDamping: 0.85, initialSpringVelocity: 5, options: .CurveEaseInOut, animations: {
+    func animateLayoutChanges(_ completion: ((Bool) -> Void)?) {
+        UIView.animate(withDuration: (standardAnimationDuration*3), delay: 0, usingSpringWithDamping: 0.85, initialSpringVelocity: 5, options: UIViewAnimationOptions(), animations: {
             () -> Void in
             self.layoutIfNeeded()
             self.superview?.layoutIfNeeded()

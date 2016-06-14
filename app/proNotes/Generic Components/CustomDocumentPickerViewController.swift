@@ -12,9 +12,9 @@ class CustomDocumentPickerViewController: UIDocumentPickerViewController {
 
     var documentTypes = [String]()
 
-    override init(documentTypes allowedUTIs: [String], inMode mode: UIDocumentPickerMode) {
+    override init(documentTypes allowedUTIs: [String], in mode: UIDocumentPickerMode) {
         self.documentTypes = allowedUTIs
-        super.init(documentTypes: allowedUTIs, inMode: mode)
+        super.init(documentTypes: allowedUTIs, in: mode)
     }
 
     required init?(coder aDecoder: NSCoder) {

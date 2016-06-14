@@ -11,11 +11,11 @@ import UIKit
 class SketchLayer: DocumentLayer {
     var image: UIImage?
     init(index: Int, image: UIImage?, docPage: DocumentPage) {
-        super.init(index: index, type: .Sketch, docPage: docPage)
+        super.init(index: index, type: .sketch, docPage: docPage)
     }
 
     required init(coder aDecoder: NSCoder) {
-        if let imageData = aDecoder.decodeObjectForKey(imageDataKey) as? NSData {
+        if let imageData = aDecoder.decodeObject(forKey: imageDataKey) as? Data {
             image = UIImage(data: imageData)
         }
         super.init(coder: aDecoder)
@@ -23,18 +23,18 @@ class SketchLayer: DocumentLayer {
 
     private final let imageDataKey = "imageData"
 
-    override func encodeWithCoder(aCoder: NSCoder) {
+    override func encode(with aCoder: NSCoder) {
         if image != nil {
             if let imageData = UIImagePNGRepresentation(image!) {
-                aCoder.encodeObject(imageData, forKey: imageDataKey)
+                aCoder.encode(imageData, forKey: imageDataKey)
             } else {
                 print("Could not save drawing Image")
             }
         }
-        super.encodeWithCoder(aCoder)
+        super.encode(with: aCoder)
     }
 
-    override func undoAction(oldObject: AnyObject?) {
+    override func undoAction(_ oldObject: AnyObject?) {
         if let image = oldObject as? UIImage {
             self.image = image
         } else {
@@ -42,7 +42,7 @@ class SketchLayer: DocumentLayer {
         }
     }
 
-    override func isEqual(object: AnyObject?) -> Bool {
+    override func isEqual(_ object: AnyObject?) -> Bool {
         guard let layer = object as? SketchLayer else {
             return false
         }

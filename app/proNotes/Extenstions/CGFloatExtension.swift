@@ -18,7 +18,7 @@ extension CGFloat {
         return self * π / 180
     }
 
-    func normalized(min: CGFloat, max: CGFloat) -> CGFloat {
+    func normalized(_ min: CGFloat, max: CGFloat) -> CGFloat {
         return (self - min) / (max - min)
     }
 

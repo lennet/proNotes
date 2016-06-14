@@ -9,7 +9,7 @@
 import UIKit
 
 protocol ReordableTableViewDelegate: class {
-    func didSwapElements(firstIndex: Int, secondIndex: Int)
+    func didSwapElements(_ firstIndex: Int, secondIndex: Int)
     func finishedSwappingElements()
 }
 
@@ -17,7 +17,7 @@ class ReordableTableView: UITableView {
 
     weak var reordableDelegate: ReordableTableViewDelegate?
     
-    private var sourceIndexPath: NSIndexPath?
+    private var sourceIndexPath: IndexPath?
     private weak var currentSnapShowView: UIView?
 
     override init(frame: CGRect, style: UITableViewStyle) {
@@ -31,7 +31,7 @@ class ReordableTableView: UITableView {
     
     func setUp() {
         layoutIfNeeded()
-        if (forceTouchAvailable || PagesTableViewController.sharedInstance?.view.forceTouchAvailable ?? false) && UIDevice.currentDevice().userInterfaceIdiom == .Phone {
+        if (forceTouchAvailable || PagesTableViewController.sharedInstance?.view.forceTouchAvailable ?? false) && UIDevice.current().userInterfaceIdiom == .phone {
             let forceTouchRecongizer = DeepTouchGestureRecognizer(target: self, action: #selector(ReordableTableView.handleForceTouch(_:)), threshold: 0.4)
             addGestureRecognizer(forceTouchRecongizer)
         } else {
@@ -40,13 +40,13 @@ class ReordableTableView: UITableView {
         }
     }
     
-    func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
-        let location = gestureRecognizer.locationInView(self)
+    func handleLongPress(_ gestureRecognizer: UILongPressGestureRecognizer) {
+        let location = gestureRecognizer.location(in: self)
         switch gestureRecognizer.state {
-        case .Began:
+        case .began:
             handleTouchBegan(location)
             break
-        case .Changed:
+        case .changed:
             handleTouchChanged(location)
             break
         default:
@@ -55,13 +55,13 @@ class ReordableTableView: UITableView {
         }
     }
     
-    func handleForceTouch(gestureRecognizer: DeepTouchGestureRecognizer) {
-        let location = gestureRecognizer.locationInView(self)
+    func handleForceTouch(_ gestureRecognizer: DeepTouchGestureRecognizer) {
+        let location = gestureRecognizer.location(in: self)
         switch gestureRecognizer.state {
-        case .Began:
+        case .began:
             handleTouchBegan(location, force: gestureRecognizer.forceValue)
             break
-        case .Changed:
+        case .changed:
             handleTouchChanged(location, force: gestureRecognizer.forceValue)
             break
         default:
@@ -70,12 +70,12 @@ class ReordableTableView: UITableView {
         }
     }
     
-    private func handleTouchBegan(touchLocation: CGPoint, force: CGFloat? = nil) {
-        guard let indexPath = indexPathForRowAtPoint(touchLocation) else {
+    private func handleTouchBegan(_ touchLocation: CGPoint, force: CGFloat? = nil) {
+        guard let indexPath = indexPathForRow(at: touchLocation) else {
             return
         }
         
-        guard let cell = cellForRowAtIndexPath(indexPath) else {
+        guard let cell = cellForRow(at: indexPath) else {
             return
         }
         let currentSnapShowView = cell.toImageView(false)
@@ -84,46 +84,46 @@ class ReordableTableView: UITableView {
         addSubview(currentSnapShowView)
         self.currentSnapShowView = currentSnapShowView
         let transformValue: CGFloat = force != nil ? 1 + (0.1 * force!) : 1.05
-        UIView.animateWithDuration(standardAnimationDuration, animations: {
+        UIView.animate(withDuration: standardAnimationDuration, animations: {
             () -> Void in
-            self.currentSnapShowView?.transform = CGAffineTransformMakeScale(transformValue, transformValue)
+            self.currentSnapShowView?.transform = CGAffineTransform(scaleX: transformValue, y: transformValue)
             self.currentSnapShowView?.alpha = 0.98
             cell.alpha = 0
             }, completion: {
                 (Bool) -> Void in
-                cell.hidden = true
+                cell.isHidden = true
         })
         sourceIndexPath = indexPath
     }
     
-    private func handleTouchChanged(touchLocation: CGPoint, force: CGFloat? = nil) {
+    private func handleTouchChanged(_ touchLocation: CGPoint, force: CGFloat? = nil) {
         currentSnapShowView?.center.y = touchLocation.y
-        guard let currentIndexPath = indexPathForRowAtPoint(touchLocation), let oldIndexPath = sourceIndexPath else {
+        guard let currentIndexPath = indexPathForRow(at: touchLocation), let oldIndexPath = sourceIndexPath else {
             return
         }
         if let forceValue = force {
             let transformValue: CGFloat = 1 + (0.1 * forceValue)
-            self.currentSnapShowView?.transform = CGAffineTransformMakeScale(transformValue, transformValue)
+            self.currentSnapShowView?.transform = CGAffineTransform(scaleX: transformValue, y: transformValue)
         }
-        if !currentIndexPath.isEqual(oldIndexPath) {
-            reordableDelegate?.didSwapElements(oldIndexPath.row, secondIndex: currentIndexPath.row)
-            moveRowAtIndexPath(oldIndexPath, toIndexPath: currentIndexPath)
+        if currentIndexPath != oldIndexPath {
+            reordableDelegate?.didSwapElements((oldIndexPath as NSIndexPath).row, secondIndex: (currentIndexPath as NSIndexPath).row)
+            moveRow(at: oldIndexPath, to: currentIndexPath)
             sourceIndexPath = currentIndexPath
         }
     }
     
     private func handleTouchEnded() {
-        guard let indexPath = sourceIndexPath, let cell = cellForRowAtIndexPath(indexPath) else {
+        guard let indexPath = sourceIndexPath, let cell = cellForRow(at: indexPath) else {
             return
         }
         
-        cell.hidden = false
+        cell.isHidden = false
         cell.alpha = 0
         
-        UIView.animateWithDuration(standardAnimationDuration, animations: {
+        UIView.animate(withDuration: standardAnimationDuration, animations: {
             () -> Void in
             self.currentSnapShowView?.center = cell.center
-            self.currentSnapShowView?.transform = CGAffineTransformIdentity
+            self.currentSnapShowView?.transform = CGAffineTransform.identity
             self.currentSnapShowView?.alpha = 0
             cell.alpha = 1
             }, completion: {

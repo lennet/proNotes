@@ -20,9 +20,9 @@ class Document: UIDocument {
         }
     }
 
-    var fileWrapper: NSFileWrapper?
+    var fileWrapper: FileWrapper?
 
-    override init(fileURL url: NSURL) {
+    override init(fileURL url: URL) {
         super.init(fileURL: url)
     }
 
@@ -82,15 +82,15 @@ class Document: UIDocument {
 
     // MARK - Load Document
 
-    override func loadFromContents(contents: AnyObject, ofType typeName: String?) throws {
-        if let wrapper = decodeData(contents as! NSData) as? NSFileWrapper {
+    override func load(fromContents contents: AnyObject, ofType typeName: String?) throws {
+        if let wrapper = decodeData(contents as! Data) as? FileWrapper {
             fileWrapper = wrapper
         } else {
 //            print(contents)
         }
     }
 
-    func decodeObject(fileName: String) -> AnyObject? {
+    func decodeObject(_ fileName: String) -> AnyObject? {
         guard let wrapper = fileWrapper?.fileWrappers?[fileName] else {
             return nil
         }
@@ -101,46 +101,46 @@ class Document: UIDocument {
         return decodeData(data)
     }
 
-    func decodeData(data: NSData) -> AnyObject? {
-        let unarchiver = NSKeyedUnarchiver(forReadingWithData: data)
-        return unarchiver.decodeObjectForKey("data")
+    func decodeData(_ data: Data) -> AnyObject? {
+        let unarchiver = NSKeyedUnarchiver(forReadingWith: data)
+        return unarchiver.decodeObject(forKey: "data")
     }
 
-    override func saveToURL(url: NSURL, forSaveOperation saveOperation: UIDocumentSaveOperation, completionHandler: ((Bool) -> Void)?) {
+    override func save(to url: URL, for saveOperation: UIDocumentSaveOperation, completionHandler: ((Bool) -> Void)?) {
         forceSave = true
-        super.saveToURL(url, forSaveOperation: saveOperation, completionHandler: completionHandler)
+        super.save(to: url, for: saveOperation, completionHandler: completionHandler)
         forceSave = false
     }
         
     // MARK - Store Document
 
-    override func contentsForType(typeName: String) throws -> AnyObject {
+    override func contents(forType typeName: String) throws -> AnyObject {
         if metaData == nil {
-            return NSData()
+            return Data()
         }
 
-        var wrappers = [String: NSFileWrapper]()
+        var wrappers = [String: FileWrapper]()
         metaData?.thumbImage = pages.first?.previewImage
         encodeObject(metaData!, prefferedFileName: metaDataFileName, wrappers: &wrappers)
         encodeObject(pages, prefferedFileName: pagesDataFileName, wrappers: &wrappers)
 
-        let fileWrapper = NSFileWrapper(directoryWithFileWrappers: wrappers)
+        let fileWrapper = FileWrapper(directoryWithFileWrappers: wrappers)
         return encodeObject(fileWrapper)
     }
 
-    func encodeObject(object: NSObject, prefferedFileName: String, inout wrappers: [String:NSFileWrapper]) {
+    func encodeObject(_ object: NSObject, prefferedFileName: String, wrappers: inout [String:FileWrapper]) {
         let data = encodeObject(object)
-        let wrapper = NSFileWrapper(regularFileWithContents: data)
+        let wrapper = FileWrapper(regularFileWithContents: data)
         wrappers[prefferedFileName] = wrapper
     }
 
-    func encodeObject(object: NSObject) -> NSData {
+    func encodeObject(_ object: NSObject) -> Data {
         let data = NSMutableData()
-        let archiver = NSKeyedArchiver(forWritingWithMutableData: data)
-        archiver.encodeObject(object, forKey: "data")
+        let archiver = NSKeyedArchiver(forWritingWith: data)
+        archiver.encode(object, forKey: "data")
         archiver.finishEncoding()
 
-        return data
+        return data as Data
     }
     
     var forceSave: Bool = false
@@ -153,28 +153,28 @@ class Document: UIDocument {
     }
 
     func getMaxWidth() -> CGFloat {
-        return (pages.sort({ $0.size.width > $1.size.width }).first?.size.width ?? 0)
+        return (pages.sorted(isOrderedBefore: { $0.size.width > $1.size.width }).first?.size.width ?? 0)
     }
     
-    override func closeWithCompletionHandler(completionHandler: ((Bool) -> Void)?) {
+    override func close(completionHandler: ((Bool) -> Void)?) {
         if DocumentInstance.sharedInstance.document == self {
             DocumentInstance.sharedInstance.document = nil
         }
-        super.closeWithCompletionHandler(completionHandler)
+        super.close(completionHandler: completionHandler)
     }
 
     // MARK - Pages Manipulation
 
-    func addPDF(url: NSURL) {
-        guard let pdf = CGPDFDocumentCreateWithURL(url as CFURLRef) else {
+    func addPDF(_ url: URL) {
+        guard let pdf = CGPDFDocument(url as CFURL) else {
             return
         }
 
-        let numberOfPages = CGPDFDocumentGetNumberOfPages(pdf)
+        let numberOfPages = pdf.numberOfPages
         for i in 1 ..< numberOfPages + 1 {
             if let pdfData = PDFUtility.getPageAsData(i, document: pdf) {
                 let size = PDFUtility.getPDFRect(pdf, pageIndex: i).size
-                let page = DocumentPage(pdfData: pdfData, index: pages.count, pdfSize: size)
+                let page = DocumentPage(pdfData: pdfData as Data, index: pages.count, pdfSize: size)
                 pages.append(page)
             }
         }
@@ -187,7 +187,7 @@ class Document: UIDocument {
         DocumentInstance.sharedInstance.informDelegateDidAddPage(pages.count - 1)
     }
 
-    func swapPagePositions(firstIndex: Int, secondIndex: Int) {
+    func swapPagePositions(_ firstIndex: Int, secondIndex: Int) {
         guard _pages != nil else {
             return
         }

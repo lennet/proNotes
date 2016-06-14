@@ -23,20 +23,20 @@ class MovableLayer: DocumentLayer {
     }
 
     required init(coder aDecoder: NSCoder) {
-        origin = aDecoder.decodeCGPointForKey(originKey)
-        size = aDecoder.decodeCGSizeForKey(sizeKey)
+        origin = aDecoder.decodeCGPoint(forKey: originKey)
+        size = aDecoder.decodeCGSize(forKey: sizeKey)
         super.init(coder: aDecoder)
     }
 
-    override func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeCGPoint(origin, forKey: originKey)
-        aCoder.encodeCGSize(size, forKey: sizeKey)
-        super.encodeWithCoder(aCoder)
+    override func encode(with aCoder: NSCoder) {
+        aCoder.encode(origin, forKey: originKey)
+        aCoder.encode(size, forKey: sizeKey)
+        super.encode(with: aCoder)
     }
 
-    override func undoAction(oldObject: AnyObject?) {
+    override func undoAction(_ oldObject: AnyObject?) {
         if let value = oldObject as? NSValue {
-            let frame = value.CGRectValue()
+            let frame = value.cgRectValue()
             origin = frame.origin
             size = frame.size
         } else {
@@ -44,7 +44,7 @@ class MovableLayer: DocumentLayer {
         }
     }
 
-    override func isEqual(object: AnyObject?) -> Bool {
+    override func isEqual(_ object: AnyObject?) -> Bool {
         guard let layer = object as? MovableLayer else {
             return false
         }

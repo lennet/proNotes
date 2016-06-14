@@ -13,11 +13,11 @@ class ImageLayer: MovableLayer {
 
     init(index: Int, docPage: DocumentPage, origin: CGPoint, size: CGSize?, image: UIImage) {
         self.image = image
-        super.init(index: index, type: .Image, docPage: docPage, origin: origin, size: size ?? image.size)
+        super.init(index: index, type: .image, docPage: docPage, origin: origin, size: size ?? image.size)
     }
 
     required init(coder aDecoder: NSCoder) {
-        if let imageData = aDecoder.decodeObjectForKey(imageDataKey) as? NSData {
+        if let imageData = aDecoder.decodeObject(forKey: imageDataKey) as? Data {
             image = UIImage(data: imageData)!
         } else {
             image = UIImage()
@@ -28,16 +28,16 @@ class ImageLayer: MovableLayer {
 
     private final let imageDataKey = "imageData"
 
-    override func encodeWithCoder(aCoder: NSCoder) {
+    override func encode(with aCoder: NSCoder) {
         if let imageData = UIImageJPEGRepresentation(image, 1.0) {
-            aCoder.encodeObject(imageData, forKey: imageDataKey)
+            aCoder.encode(imageData, forKey: imageDataKey)
         } else {
             print("Could not save drawing Image")
         }
-        super.encodeWithCoder(aCoder)
+        super.encode(with: aCoder)
     }
 
-    override func undoAction(oldObject: AnyObject?) {
+    override func undoAction(_ oldObject: AnyObject?) {
         if let image = oldObject as? UIImage {
             self.image = image
         } else {
@@ -45,7 +45,7 @@ class ImageLayer: MovableLayer {
         }
     }
 
-    override func isEqual(object: AnyObject?) -> Bool {
+    override func isEqual(_ object: AnyObject?) -> Bool {
         guard object is ImageLayer else {
             return false
         }

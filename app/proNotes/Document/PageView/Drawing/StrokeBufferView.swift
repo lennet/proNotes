@@ -24,7 +24,7 @@ class StrokeBufferView: UIImageView {
         }
     }
     
-    var strokeColor: UIColor = SettingsViewController.sharedInstance?.currentChildViewController?.colorPicker?.getSelectedColor() ?? UIColor.blackColor()
+    var strokeColor: UIColor = SettingsViewController.sharedInstance?.currentChildViewController?.colorPicker?.getSelectedColor() ?? UIColor.black()
             
     private final let minLineWidth: CGFloat = 1
     private var oldLineWidth: CGFloat = 0
@@ -42,7 +42,7 @@ class StrokeBufferView: UIImageView {
     }
     
     func commonInit() {
-        backgroundColor = .clearColor()
+        backgroundColor = .clear()
     }
     
     func reset() {
@@ -51,7 +51,7 @@ class StrokeBufferView: UIImageView {
     
     // MARK Touch Handling
     
-    func handleTouches(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    func handleTouches(_ touches: Set<UITouch>, withEvent event: UIEvent?) {
         guard let touch = touches.first else {
             return
         }
@@ -59,8 +59,8 @@ class StrokeBufferView: UIImageView {
         UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0.0)
         let context = UIGraphicsGetCurrentContext()
         
-        image?.drawInRect(bounds)
-        for touch in event?.coalescedTouchesForTouch(touch) ?? [] {
+        image?.draw(in: bounds)
+        for touch in event?.coalescedTouches(for: touch) ?? [] {
             drawStroke(context, touch: touch)
         }
     
@@ -69,21 +69,21 @@ class StrokeBufferView: UIImageView {
         UIGraphicsEndImageContext()
     }
     
-    private func drawStroke(context: CGContext?, touch: UITouch) {
-        let previousLocation = touch.previousLocationInView(self)
-        let location = touch.locationInView(self)
-        CGContextSetStrokeColorWithColor(context, strokeColor.CGColor)
-        CGContextSetLineWidth(context, getLineWidth(context, touch: touch))
-        CGContextSetLineCap(context, .Round)
-        CGContextSetLineJoin(context, .Round)
-        CGContextMoveToPoint(context, previousLocation.x, previousLocation.y)
-        CGContextAddLineToPoint(context, location.x, location.y)
-        CGContextStrokePath(context)
+    private func drawStroke(_ context: CGContext?, touch: UITouch) {
+        let previousLocation = touch.previousLocation(in: self)
+        let location = touch.location(in: self)
+        context?.setStrokeColor(strokeColor.cgColor)
+        context?.setLineWidth(getLineWidth(context, touch: touch))
+        context?.setLineCap(.round)
+        context?.setLineJoin(.round)
+        context?.moveTo(x: previousLocation.x, y: previousLocation.y)
+        context?.addLineTo(x: location.x, y: location.y)
+        context?.strokePath()
     }
     
-    private func getLineWidth(context: CGContext?, touch: UITouch) -> CGFloat {
+    private func getLineWidth(_ context: CGContext?, touch: UITouch) -> CGFloat {
         var newLineWidth: CGFloat = 0
-        if touch.type == .Stylus  {
+        if touch.type == .stylus  {
             newLineWidth = getLineWidthForStylus(touch)
         } else {
             newLineWidth = getLineWidthForDrawing(touch, defaultLineWidth: nil)
@@ -93,11 +93,11 @@ class StrokeBufferView: UIImageView {
         return newLineWidth
     }
     
-    private func getLineWidthForStylus(touch: UITouch) -> CGFloat {
-        let previousLocation = touch.previousLocationInView(self)
-        let location = touch.locationInView(self)
+    private func getLineWidthForStylus(_ touch: UITouch) -> CGFloat {
+        let previousLocation = touch.previousLocation(in: self)
+        let location = touch.location(in: self)
         
-        let azimuthVector = touch.azimuthUnitVectorInView(self)
+        let azimuthVector = touch.azimuthUnitVector(in: self)
         
         let directionVector = CGVector(dx: location.x - previousLocation.x, dy: location.y - previousLocation.y)
         
@@ -117,8 +117,8 @@ class StrokeBufferView: UIImageView {
         return currentPenObject.enabledShading ? resultLineWidth : getLineWidthForDrawing(touch, defaultLineWidth: resultLineWidth)
     }
     
-    private func getLineWidthForDrawing(touch: UITouch, defaultLineWidth: CGFloat?) -> CGFloat {
-        if forceTouchAvailable || touch.type == .Stylus {
+    private func getLineWidthForDrawing(_ touch: UITouch, defaultLineWidth: CGFloat?) -> CGFloat {
+        if forceTouchAvailable || touch.type == .stylus {
             if touch.force > 0 {
                 return touch.force.normalized(0, max: touch.maximumPossibleForce) * (defaultLineWidth ?? lineWidth) * 2
             }

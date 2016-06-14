@@ -22,14 +22,14 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
     }
 
     enum OverViewSection: Int {
-        case RecentlyUsed = 0
-        case AllDocuments = 1
+        case recentlyUsed = 0
+        case allDocuments = 1
     }
     
     var objects: [DocumentsOverviewObject] {
         get {
-            return fileManager.objects.sort({ (first, second) -> Bool in
-                return first.description.localizedCaseInsensitiveCompare(second.description) == NSComparisonResult.OrderedAscending
+            return fileManager.objects.sorted(isOrderedBefore: { (first, second) -> Bool in
+                return first.description.localizedCaseInsensitiveCompare(second.description) == ComparisonResult.orderedAscending
             })
         }
     }
@@ -37,11 +37,11 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         if Preferences.shouldShowWelcomeScreen() {
-            performSegueWithIdentifier("WelcomSegueIdentifier", sender: nil)
+            performSegue(withIdentifier: "WelcomSegueIdentifier", sender: nil)
         }
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fileManager.downloadFromCloudKit()
         fileManager.delegate = nil
@@ -51,7 +51,7 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
         alreadyOpeningFile = false
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         fileManager.delegate = nil
         alreadyOpeningFile = false
@@ -59,23 +59,23 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
     
     // MARK: - Actions
 
-    @IBAction func handleNewButtonPressed(sender: AnyObject) {
+    @IBAction func handleNewButtonPressed(_ sender: AnyObject) {
         createNewDocument()
     }
     
     func createNewDocument() {
         fileManager.createDocument { (url) in
-            self.openDocument(url)
+            self.openDocument(url as URL)
         }
     }
     
-    func openDocument(url: NSURL) {
-        dispatch_async(dispatch_get_main_queue(),{
-        for (index, object) in self.objects.enumerate() {
+    func openDocument(_ url: URL) {
+        DispatchQueue.main.async(execute: {
+        for (index, object) in self.objects.enumerated() {
             if object.fileURL == url {
-                    let index = NSIndexPath(forItem: index, inSection: 0)
-                    self.documentsCollectionViewController.selectItemAtIndexPath(index, animated: false, scrollPosition: .None)
-                    self.collectionView(self.documentsCollectionViewController, didSelectItemAtIndexPath: index)
+                    let index = IndexPath(item: index, section: 0)
+                    self.documentsCollectionViewController.selectItem(at: index, animated: false, scrollPosition: UICollectionViewScrollPosition())
+                    self.collectionView(self.documentsCollectionViewController, didSelectItemAt: index)
             }
         }
         })
@@ -83,28 +83,28 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
 
     // MARK: - UICollectionViewDataSource
 
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
 
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return fileManager.objects.count
     }
 
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        return CGSize(width: UIDevice.currentDevice().userInterfaceIdiom == .Phone ? 100 : 150 , height: 150)
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
+        return CGSize(width: UIDevice.current().userInterfaceIdiom == .phone ? 100 : 150 , height: 150)
     }
 
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(DocumentOverviewCollectionViewCell.reusableIdentifier, forIndexPath: indexPath) as! DocumentOverviewCollectionViewCell
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DocumentOverviewCollectionViewCell.reusableIdentifier, for: indexPath) as! DocumentOverviewCollectionViewCell
 
-        let object = objects[indexPath.row]
+        let object = objects[(indexPath as NSIndexPath).row]
         cell.nameLabel.text = object.description
         cell.dateLabel.text = object.metaData?.fileModificationDate?.toString()
         
         if !object.downloaded {
             cell.thumbImageView.image = UIImage(named: "cloud")
-            cell.thumbImageView.contentMode = .Center
+            cell.thumbImageView.contentMode = .center
         }
         
         if let thumbImage = object.metaData?.thumbImage {
@@ -119,24 +119,24 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
 
     // MARK: - UICollectionViewDelegate
 
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        guard let cell = collectionView.cellForItemAtIndexPath(indexPath) as? DocumentOverviewCollectionViewCell else {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? DocumentOverviewCollectionViewCell else {
             return
         }
         cell.activityIndicator.startAnimating()
-        cell.activityIndicator.hidden = false
-        let selectedObject = objects[indexPath.row]
+        cell.activityIndicator.isHidden = false
+        let selectedObject = objects[(indexPath as NSIndexPath).row]
         if selectedObject.downloaded {
             guard !alreadyOpeningFile else {
                 return 
             }
             alreadyOpeningFile = true
             let document = Document(fileURL: selectedObject.fileURL)
-            document.openWithCompletionHandler({
+            document.open(completionHandler: {
                 (success) -> Void in
                 if success {
                     DocumentInstance.sharedInstance.document = document
-                    self.performSegueWithIdentifier(self.showDocumentSegueIdentifier, sender: nil)
+                    self.performSegue(withIdentifier: self.showDocumentSegueIdentifier, sender: nil)
                 } else {
                     // TODO show error
                 }
@@ -152,26 +152,26 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
         documentsCollectionViewController.reloadData()
     }
 
-    func reloadObjectAtIndex(index: Int) {
+    func reloadObjectAtIndex(_ index: Int) {
         documentsCollectionViewController.reloadData()
     }
 
-    func insertObjectAtIndex(index: Int) {
+    func insertObjectAtIndex(_ index: Int) {
         documentsCollectionViewController.reloadData()
     }
 
-    func removeObjectAtIndex(index: Int) {
+    func removeObjectAtIndex(_ index: Int) {
         documentsCollectionViewController.reloadData()
     }
     
     // MARK: - Navigation 
     
-    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
-        if identifier == "CCBYAttributionIdentifier" && UIDevice.currentDevice().userInterfaceIdiom == .Phone {
-            let alertViewController = UIAlertController(title: "Creative Commons", message: "The icons are made by Freepik from www.flaticon.com and are licensed under CC BY 3.0.", preferredStyle: .ActionSheet)
-            alertViewController.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: { (_) in
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: AnyObject?) -> Bool {
+        if identifier == "CCBYAttributionIdentifier" && UIDevice.current().userInterfaceIdiom == .phone {
+            let alertViewController = UIAlertController(title: "Creative Commons", message: "The icons are made by Freepik from www.flaticon.com and are licensed under CC BY 3.0.", preferredStyle: .actionSheet)
+            alertViewController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { (_) in
             }))
-            presentViewController(alertViewController, animated: true, completion: nil)
+            present(alertViewController, animated: true, completion: nil)
             return false
         }
         return true

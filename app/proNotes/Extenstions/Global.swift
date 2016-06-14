@@ -8,7 +8,7 @@
 
 import UIKit
 
-func between<T:Comparable>(value: T, min: T, max: T) -> T {
+func between<T:Comparable>(_ value: T, min: T, max: T) -> T {
     if value < min {
         return min
     }

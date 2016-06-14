@@ -42,7 +42,7 @@ class SketchView: UIImageView, PageSubView, SketchSettingsDelegate {
     }
     
     func commonInit() {
-        userInteractionEnabled = false 
+        isUserInteractionEnabled = false 
         image = sketchLayer?.image
     }
     
@@ -59,22 +59,22 @@ class SketchView: UIImageView, PageSubView, SketchSettingsDelegate {
     // MARK: - Touch Handling
 
 
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         undoImage = image
         penObject.isEraser ? eraseForTouches(touches, withEvent: event) : strokeBuffer?.handleTouches(touches, withEvent: event)
     }
 
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         penObject.isEraser ? eraseForTouches(touches, withEvent: event) : strokeBuffer?.handleTouches(touches, withEvent: event)
     }
 
-    override func touchesEnded(touches: Set<UITouch>,
-                               withEvent event: UIEvent?) {
+    override func touchesEnded(_ touches: Set<UITouch>,
+                               with event: UIEvent?) {
         handleTouchesEnded()
     }
 
-    override func touchesCancelled(touches: Set<UITouch>?,
-                                   withEvent event: UIEvent?) {
+    override func touchesCancelled(_ touches: Set<UITouch>,
+                                   with event: UIEvent?) {
         handleTouchesEnded()
     }
 
@@ -82,8 +82,8 @@ class SketchView: UIImageView, PageSubView, SketchSettingsDelegate {
         // merge current Stroke
         if let newStrokeImage = strokeBuffer?.image {
             UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0.0)
-            image?.drawInRect(bounds)
-            newStrokeImage.drawInRect(bounds, blendMode: .Normal, alpha: strokeBuffer?.alpha ?? 1)
+            image?.draw(in: bounds)
+            newStrokeImage.draw(in: bounds, blendMode: .normal, alpha: strokeBuffer?.alpha ?? 1)
             image = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext()
         }
@@ -91,7 +91,7 @@ class SketchView: UIImageView, PageSubView, SketchSettingsDelegate {
         updateImage(image)
     }
 
-    func updateImage(image: UIImage?) {
+    func updateImage(_ image: UIImage?) {
         self.image = image
         if sketchLayer != nil && sketchLayer?.docPage != nil {
             DocumentInstance.sharedInstance.registerUndoAction(undoImage, pageIndex: sketchLayer!.docPage.index, layerIndex: sketchLayer!.index)
@@ -100,29 +100,29 @@ class SketchView: UIImageView, PageSubView, SketchSettingsDelegate {
         saveChanges()
     }
 
-    private func eraseForTouches(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    private func eraseForTouches(_ touches: Set<UITouch>, withEvent event: UIEvent?) {
         guard let touch = touches.first else {
             return
         }
         UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0.0)
         let context = UIGraphicsGetCurrentContext()
-        image?.drawInRect(bounds)
-        for touch in event?.coalescedTouchesForTouch(touch) ?? [touch] {
+        image?.draw(in: bounds)
+        for touch in event?.coalescedTouches(for: touch) ?? [touch] {
             drawEraseStroke(context, touch: touch)
         }
         image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
     }
 
-    private func drawEraseStroke(context: CGContext?, touch: UITouch) {
-        let previousLocation = touch.previousLocationInView(self)
-        let location = touch.locationInView(self)
-        CGContextSetBlendMode(context, .Clear)
-        CGContextSetLineWidth(context, penObject.lineWidth)
-        CGContextSetLineCap(context, .Round)
-        CGContextMoveToPoint(context, previousLocation.x, previousLocation.y)
-        CGContextAddLineToPoint(context, location.x, location.y)
-        CGContextStrokePath(context)
+    private func drawEraseStroke(_ context: CGContext?, touch: UITouch) {
+        let previousLocation = touch.previousLocation(in: self)
+        let location = touch.location(in: self)
+        context?.setBlendMode(.clear)
+        context?.setLineWidth(penObject.lineWidth)
+        context?.setLineCap(.round)
+        context?.moveTo(x: previousLocation.x, y: previousLocation.y)
+        context?.addLineTo(x: location.x, y: location.y)
+        context?.strokePath()
     }
 
     func removeLayer() {
@@ -135,7 +135,7 @@ class SketchView: UIImageView, PageSubView, SketchSettingsDelegate {
 
     // MARK: - PageSubViewProtocol
 
-    func undoAction(oldObject: AnyObject?) {
+    func undoAction(_ oldObject: AnyObject?) {
         if let oldImage = oldObject as? UIImage {
             updateImage(oldImage)
         }
@@ -145,13 +145,13 @@ class SketchView: UIImageView, PageSubView, SketchSettingsDelegate {
         SettingsViewController.sharedInstance?.currentSettingsType = .Sketch
         SketchSettingsViewController.delegate = self
         setUpStrokeBuffer()
-        userInteractionEnabled = true
+        isUserInteractionEnabled = true
     }
     
     func setDeselected() {
         strokeBuffer?.removeFromSuperview()
         strokeBuffer = nil
-        userInteractionEnabled = false
+        isUserInteractionEnabled = false
     }
 
     func saveChanges() {
@@ -165,15 +165,15 @@ class SketchView: UIImageView, PageSubView, SketchSettingsDelegate {
 
     // MARK: - DrawingSettingsDelegate
 
-    func didSelectColor(color: UIColor) {
+    func didSelectColor(_ color: UIColor) {
         strokeBuffer?.strokeColor = color
     }
 
-    func didSelectDrawingObject(object: Pen) {
+    func didSelectDrawingObject(_ object: Pen) {
         penObject = object
     }
     
-    func didSelectLineWidth(width: CGFloat) {
+    func didSelectLineWidth(_ width: CGFloat) {
         penObject.lineWidth = width
     }
 

@@ -48,28 +48,28 @@ class DocumentViewController: UIViewController {
         pageInfoButton.setHidden(true)
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         registerNotifications()
         updateUndoButton()
-        if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
+        if UIDevice.current().userInterfaceIdiom == .phone {
             setUpForIphone()
         }
         isLoadingData = false
     }
 
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         titleTextField.delegate = self
     }
 
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if !isLoadingData {
             titleTextField.delegate = nil
             DocumentInstance.sharedInstance.removeAllDelegates()
             DocumentInstance.sharedInstance.save({ (_) in
-                self.document?.closeWithCompletionHandler(nil)
+                self.document?.close(completionHandler: nil)
             })
             removeNotifications()
             undoManager?.removeAllActions()
@@ -77,7 +77,7 @@ class DocumentViewController: UIViewController {
     }
     
     func setUpForIphone() {
-        titleTextField.hidden = true
+        titleTextField.isHidden = true
     }
     
     override func didReceiveMemoryWarning() {
@@ -95,15 +95,15 @@ class DocumentViewController: UIViewController {
     }
 
     private func registerNotifications() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DocumentViewController.updateUndoButton), name: NSUndoManagerWillUndoChangeNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DocumentViewController.updateUndoButton), name: NSUndoManagerCheckpointNotification, object: nil)
+        NotificationCenter.default().addObserver(self, selector: #selector(DocumentViewController.updateUndoButton), name: NSNotification.Name.NSUndoManagerWillUndoChange, object: nil)
+        NotificationCenter.default().addObserver(self, selector: #selector(DocumentViewController.updateUndoButton), name: NSNotification.Name.NSUndoManagerCheckpoint, object: nil)
     }
 
     private func removeNotifications() {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default().removeObserver(self)
     }
     
-    private func toggleFullScreen(animated: Bool = true) {
+    private func toggleFullScreen(_ animated: Bool = true) {
         if isFullScreen {
             settingsContainerRightConstraint.constant = 0
             pagesOverViewLeftConstraint.constant = 0
@@ -117,7 +117,7 @@ class DocumentViewController: UIViewController {
             isFullScreen = true
             fullScreenButton.image = UIImage(named: "fullscreenOff")
         }
-        UIView.animateWithDuration(animated ? standardAnimationDuration : 0, delay: 0, options: .CurveEaseInOut, animations: {
+        UIView.animate(withDuration: animated ? standardAnimationDuration : 0, delay: 0, options: UIViewAnimationOptions(), animations: {
             self.view.layoutIfNeeded()
             PagesTableViewController.sharedInstance?.setUpScrollView()
             PagesTableViewController.sharedInstance?.layoutDidChange()
@@ -131,7 +131,7 @@ class DocumentViewController: UIViewController {
 
     // MARK: - Actions
 
-    @IBAction func handleSketchButtonPressed(sender: UIBarButtonItem) {
+    @IBAction func handleSketchButtonPressed(_ sender: UIBarButtonItem) {
         isSketchMode = !isSketchMode
         if isSketchMode {
             PagesTableViewController.sharedInstance?.currentPageView?.handleSketchButtonPressed()
@@ -140,7 +140,7 @@ class DocumentViewController: UIViewController {
         }
     }
 
-    @IBAction func handlePageInfoButtonPressed(sender: AnyObject) {
+    @IBAction func handlePageInfoButtonPressed(_ sender: AnyObject) {
         PagesTableViewController.sharedInstance?.currentPageView?.deselectSelectedSubview()
         SettingsViewController.sharedInstance?.currentSettingsType = .PageInfo
         if isFullScreen {
@@ -148,21 +148,21 @@ class DocumentViewController: UIViewController {
         }
     }
 
-    @IBAction func handleFullscreenToggleButtonPressed(sender: UIBarButtonItem) {
+    @IBAction func handleFullscreenToggleButtonPressed(_ sender: UIBarButtonItem) {
         toggleFullScreen()
     }
 
-    @IBAction func handleUndoButtonPressed(sender: AnyObject) {
+    @IBAction func handleUndoButtonPressed(_ sender: AnyObject) {
         undoManager?.undo()
     }
 
     func updateUndoButton() {
-        undoButton.enabled = undoManager?.canUndo ?? false
+        undoButton.isEnabled = undoManager?.canUndo ?? false
     }
     
     // MARK: - Navigation
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
         if let viewController = segue.destinationViewController as? PagesOverviewTableViewController {
             viewController.pagesOverViewDelegate = self
             pagesOverviewController = viewController
@@ -171,7 +171,7 @@ class DocumentViewController: UIViewController {
         } else if let viewController = segue.destinationViewController as? SettingsViewController {
             viewController.delegate = self
         } else if let navigationController = segue.destinationViewController as? UINavigationController {
-            if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
+            if UIDevice.current().userInterfaceIdiom == .phone {
                 isLoadingData = true
             }
             if let viewController = navigationController.visibleViewController as? ImportExportBaseViewController {
@@ -184,8 +184,8 @@ class DocumentViewController: UIViewController {
         }
     }
     
-    @IBAction func unwind(sender: AnyObject) {
-        navigationController?.popViewControllerAnimated(true)
+    @IBAction func unwind(_ sender: AnyObject) {
+        navigationController?.popViewController(animated: true)
     }
 }
 
@@ -193,26 +193,26 @@ class DocumentViewController: UIViewController {
 
 extension DocumentViewController: UITextFieldDelegate {
     
-    func textFieldDidBeginEditing(textField: UITextField) {
-        textField.borderStyle = .RoundedRect
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.borderStyle = .roundedRect
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
     
-    func textFieldDidEndEditing(textField: UITextField) {
+    func textFieldDidEndEditing(_ textField: UITextField) {
         if let newName = textField.text {
             DocumentInstance.sharedInstance.renameDocument(newName, forceOverWrite: false, viewController: self, completion: {
                 (success) -> Void in
                 if !success {
-                    dispatch_async(dispatch_get_main_queue(), {
+                    DispatchQueue.main.async(execute: {
                         self.setUpTitle()
                     })
                 }
             })
-            textField.borderStyle = .None
+            textField.borderStyle = .none
         }
     }
     
@@ -222,7 +222,7 @@ extension DocumentViewController: UITextFieldDelegate {
 
 extension DocumentViewController: SettingsViewControllerDelegate {
     
-    func didChangeSettingsType(newType: SettingsViewControllerType) {
+    func didChangeSettingsType(_ newType: SettingsViewControllerType) {
         pageInfoButton.setHidden(newType == .PageInfo)
         isSketchMode = newType == .Sketch
     }
@@ -253,12 +253,12 @@ extension DocumentViewController: ImportExportDataViewControllerDelgate {
         dismiss()
     }
     
-    func addPDF(url: NSURL) {
+    func addPDF(_ url: URL) {
         document?.addPDF(url)
         dismiss()
     }
     
-    func addImage(image: UIImage) {
+    func addImage(_ image: UIImage) {
         if let imageLayer = DocumentInstance.sharedInstance.currentPage?.addImageLayer(image) {
             if let currentPageView = PagesTableViewController.sharedInstance?.currentPageView {
                 currentPageView.addImageLayer(imageLayer)
@@ -278,23 +278,23 @@ extension DocumentViewController: ImportExportDataViewControllerDelgate {
         dismiss()
     }
     
-    func exportAsPDF(data: NSData) {
+    func exportAsPDF(_ data: Data) {
         dismiss()
         DocumentExporter.presentActivityViewController(self, barbuttonItem: actionBarButtonItem, items: [data])
     }
     
-    func exportAsImages(images: [UIImage]) {
+    func exportAsImages(_ images: [UIImage]) {
         dismiss(false)
         DocumentExporter.presentActivityViewController(self, barbuttonItem: actionBarButtonItem, items: images)
     }
     
-    func exportAsProNote(url: NSURL) {
+    func exportAsProNote(_ url: URL) {
         dismiss()
         DocumentExporter.presentActivityViewController(self, barbuttonItem: actionBarButtonItem, items: [url])
     }
     
-    func dismiss(animated: Bool = true) {
-        importDataNavigationController?.dismissViewControllerAnimated(animated, completion: nil)
+    func dismiss(_ animated: Bool = true) {
+        importDataNavigationController?.dismiss(animated: animated, completion: nil)
         importDataNavigationController?.delegate = nil
         importDataNavigationController = nil
     }
@@ -305,7 +305,7 @@ extension DocumentViewController: ImportExportDataViewControllerDelgate {
 
 extension DocumentViewController: PagesOverviewTableViewCellDelegate {
 
-    func showPage(index: Int) {
+    func showPage(_ index: Int) {
         PagesTableViewController.sharedInstance?.showPage(index)
     }
 
@@ -321,8 +321,8 @@ extension DocumentViewController {
         if let settingsViewController = SettingsViewController.sharedInstance {
             switch settingsViewController.currentSettingsType {
             case .Image:
-                commands.append(UIKeyCommand(input: UIKeyInputRightArrow, modifierFlags: .Control, action: #selector(DocumentViewController.handleRotateImageKeyPressed(_:)), discoverabilityTitle: "Rotate Image Right"))
-                commands.append(UIKeyCommand(input: UIKeyInputLeftArrow, modifierFlags: .Control, action: #selector(DocumentViewController.handleRotateImageKeyPressed(_:)), discoverabilityTitle: "Rotate Image Left"))
+                commands.append(UIKeyCommand(input: UIKeyInputRightArrow, modifierFlags: .control, action: #selector(DocumentViewController.handleRotateImageKeyPressed(_:)), discoverabilityTitle: "Rotate Image Right"))
+                commands.append(UIKeyCommand(input: UIKeyInputLeftArrow, modifierFlags: .control, action: #selector(DocumentViewController.handleRotateImageKeyPressed(_:)), discoverabilityTitle: "Rotate Image Left"))
                 break
             default:
                 break
@@ -330,10 +330,10 @@ extension DocumentViewController {
         }
         
         if let _ = PagesTableViewController.sharedInstance?.currentPageView?.selectedSubView as? MovableView {
-            commands.append(UIKeyCommand(input: UIKeyInputRightArrow, modifierFlags: .Command, action: #selector(DocumentViewController.handleMoveMovableViewKeyPressed(_:)), discoverabilityTitle: "Move Right"))
-            commands.append(UIKeyCommand(input: UIKeyInputLeftArrow, modifierFlags: .Command, action: #selector(DocumentViewController.handleMoveMovableViewKeyPressed(_:)), discoverabilityTitle: "Move Left"))
-            commands.append(UIKeyCommand(input: UIKeyInputUpArrow, modifierFlags: .Command, action: #selector(DocumentViewController.handleMoveMovableViewKeyPressed(_:)), discoverabilityTitle: "Move Up"))
-            commands.append(UIKeyCommand(input: UIKeyInputDownArrow, modifierFlags: .Command, action: #selector(DocumentViewController.handleMoveMovableViewKeyPressed(_:)), discoverabilityTitle: "Move Down"))
+            commands.append(UIKeyCommand(input: UIKeyInputRightArrow, modifierFlags: .command, action: #selector(DocumentViewController.handleMoveMovableViewKeyPressed(_:)), discoverabilityTitle: "Move Right"))
+            commands.append(UIKeyCommand(input: UIKeyInputLeftArrow, modifierFlags: .command, action: #selector(DocumentViewController.handleMoveMovableViewKeyPressed(_:)), discoverabilityTitle: "Move Left"))
+            commands.append(UIKeyCommand(input: UIKeyInputUpArrow, modifierFlags: .command, action: #selector(DocumentViewController.handleMoveMovableViewKeyPressed(_:)), discoverabilityTitle: "Move Up"))
+            commands.append(UIKeyCommand(input: UIKeyInputDownArrow, modifierFlags: .command, action: #selector(DocumentViewController.handleMoveMovableViewKeyPressed(_:)), discoverabilityTitle: "Move Down"))
         } else {
             commands.append(UIKeyCommand(input: UIKeyInputDownArrow, modifierFlags: [], action: #selector(DocumentViewController.handleDownKeyPressed(_:)), discoverabilityTitle: "Scroll Down"))
             commands.append(UIKeyCommand(input: UIKeyInputUpArrow, modifierFlags: [], action: #selector(DocumentViewController.handleUpKeyPressed(_:)), discoverabilityTitle: "Scroll Up"))
@@ -342,26 +342,26 @@ extension DocumentViewController {
         return commands
     }
     
-    func handleRotateImageKeyPressed(sender: UIKeyCommand) {
+    func handleRotateImageKeyPressed(_ sender: UIKeyCommand) {
         if let imageSettingsViewController = SettingsViewController.sharedInstance?.currentChildViewController as? ImageSettingsViewController {
-            imageSettingsViewController.rotateImage(sender.input == UIKeyInputRightArrow ? .Right : .Left)
+            imageSettingsViewController.rotateImage(sender.input == UIKeyInputRightArrow ? .right : .left)
         }
     }
     
-    func handleDownKeyPressed(sender: UIKeyCommand) {
+    func handleDownKeyPressed(_ sender: UIKeyCommand) {
         PagesTableViewController.sharedInstance?.scroll(true)
     }
     
-    func handleUpKeyPressed(sender: UIKeyCommand) {
+    func handleUpKeyPressed(_ sender: UIKeyCommand) {
         PagesTableViewController.sharedInstance?.scroll(false)
     }
     
-    func handleMoveMovableViewKeyPressed(sender: UIKeyCommand) {
+    func handleMoveMovableViewKeyPressed(_ sender: UIKeyCommand) {
         guard let movableView = PagesTableViewController.sharedInstance?.currentPageView?.selectedSubView as? MovableView else {
             return
         }
         let offSet = 10
-        var translation = CGPointZero
+        var translation = CGPoint.zero
         switch sender.input {
         case UIKeyInputRightArrow:
             translation = CGPoint(x: offSet, y: 0)
@@ -378,7 +378,7 @@ extension DocumentViewController {
         default:
             break
         }
-        movableView.selectedTouchControl = .Center
+        movableView.selectedTouchControl = .center
         movableView.handlePanTranslation(translation)
         movableView.handlePanEnded()
     }

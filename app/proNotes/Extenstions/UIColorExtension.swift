@@ -23,28 +23,28 @@ extension UIColor {
     class func clearColorPattern() -> UIColor {
         return UIColor().colorWithPattern({ (i, k) -> UIColor in
             if k % 2 + i % 2 == 1 {
-                return lightGrayColor()
+                return lightGray()
             } else {
-                return whiteColor()
+                return white()
             }
         })
     }
     
-    private func colorWithPattern(fillColorFoRect: (Int, Int) -> UIColor) -> UIColor {
+    private func colorWithPattern(_ fillColorFoRect: (Int, Int) -> UIColor) -> UIColor {
         let size = CGSize(width: 100, height: 100)
         let rectSize = size.width/10
         UIGraphicsBeginImageContext(size)
         let context = UIGraphicsGetCurrentContext()
         for i in 0...Int(rectSize) {
             for k in 0...Int(rectSize) {
-                CGContextSetFillColorWithColor(context, fillColorFoRect(i, k).CGColor)
+                context?.setFillColor(fillColorFoRect(i, k).cgColor)
                 let rect = CGRect(origin: CGPoint(x: CGFloat(k) * rectSize,y: CGFloat(i) * rectSize), size: CGSize(width: rectSize, height: rectSize))
-                CGContextFillRect(context, rect)
+                context?.fill(rect)
             }
         }
         let patternImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        return UIColor(patternImage: patternImage)
+        return UIColor(patternImage: patternImage!)
     }
     
     // MARK Custom Colors

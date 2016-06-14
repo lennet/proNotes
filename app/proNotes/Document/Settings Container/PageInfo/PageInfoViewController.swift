@@ -35,7 +35,7 @@ class PageInfoViewController: SettingsBaseViewController, UITableViewDataSource,
         layerTableView.addGestureRecognizer(doupleTapRecognizer)
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         DocumentInstance.sharedInstance.addDelegate(self)
         layerTableView.setUp()
@@ -43,7 +43,7 @@ class PageInfoViewController: SettingsBaseViewController, UITableViewDataSource,
         layoutTableView()
     }
 
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         DocumentInstance.sharedInstance.removeDelegate(self)
     }
@@ -55,31 +55,31 @@ class PageInfoViewController: SettingsBaseViewController, UITableViewDataSource,
         self.view.layoutIfNeeded()
     }
 
-    func handleDoubleTap(gestureRecognizer: UITapGestureRecognizer) {
-        let location = gestureRecognizer.locationInView(layerTableView)
-        guard let indexPath = layerTableView.indexPathForRowAtPoint(location) else {
+    func handleDoubleTap(_ gestureRecognizer: UITapGestureRecognizer) {
+        let location = gestureRecognizer.location(in: layerTableView)
+        guard let indexPath = layerTableView.indexPathForRow(at: location) else {
             return
         }
 
-        PagesTableViewController.sharedInstance?.currentPageView?.setLayerSelected(indexPath.row)
+        PagesTableViewController.sharedInstance?.currentPageView?.setLayerSelected((indexPath as NSIndexPath).row)
     }
 
     // MARK: - UITableViewDataSource
 
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return page?.layers.count ?? 0
     }
 
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCellWithIdentifier(PageInfoLayerTableViewCell.identifier, forIndexPath: indexPath) as? PageInfoLayerTableViewCell else {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: PageInfoLayerTableViewCell.identifier, for: indexPath) as? PageInfoLayerTableViewCell else {
             return UITableViewCell()
         }
 
-        guard let currentLayer = page?.layers[indexPath.row] else {
+        guard let currentLayer = page?.layers[(indexPath as NSIndexPath).row] else {
             return cell
         }
 
@@ -88,13 +88,13 @@ class PageInfoViewController: SettingsBaseViewController, UITableViewDataSource,
         return cell
     }
 
-    func currentPageDidChange(page: DocumentPage) {
+    func currentPageDidChange(_ page: DocumentPage) {
         self.page = page
     }
 
     // MARK: - ReordableTableViewDelegate
 
-    func didSwapElements(firstIndex: Int, secondIndex: Int) {
+    func didSwapElements(_ firstIndex: Int, secondIndex: Int) {
         page?.swapLayerPositions(firstIndex, secondIndex: secondIndex)
         PagesTableViewController.sharedInstance?.currentPageView?.swapLayerPositions(firstIndex, secondIndex: secondIndex)
         DocumentInstance.sharedInstance.flushUndoManager()
@@ -109,7 +109,7 @@ class PageInfoViewController: SettingsBaseViewController, UITableViewDataSource,
     // MARK: - PageInfoLayerTableViewCellDelegate
 
     func didRemovedLayer() {
-        UIView.animateWithDuration(standardAnimationDuration, delay: 0, options: .CurveEaseInOut, animations: {
+        UIView.animate(withDuration: standardAnimationDuration, delay: 0, options: UIViewAnimationOptions(), animations: {
             () -> Void in
             self.layoutTableView()
         }, completion: nil)

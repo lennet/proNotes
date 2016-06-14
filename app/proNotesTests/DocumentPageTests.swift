@@ -33,7 +33,7 @@ class DocumentPageTests: XCTestCase {
         
         let layerCount = page.layers.count
 
-        let layer = TextLayer(index: 1, docPage: page, origin: CGPointZero, size: CGSizeZero, text: "This ist not the orginal Textlayer")
+        let layer = TextLayer(index: 1, docPage: page, origin: CGPoint.zero, size: CGSize.zero, text: "This ist not the orginal Textlayer")
         page.removeLayer(layer) // nothing should happen because layer is not in layers array
         
         XCTAssertEqual(page.layers.count, layerCount)
@@ -41,7 +41,7 @@ class DocumentPageTests: XCTestCase {
         page.removeLayer(page.layers[0])
         XCTAssertEqual(page.layers.count, layerCount-1)
         
-        XCTAssertEqual(page.layers[0].type, DocumentLayerType.Text)
+        XCTAssertEqual(page.layers[0].type, DocumentLayerType.text)
         
     }
     
@@ -82,18 +82,18 @@ class DocumentPageTests: XCTestCase {
         page.addSketchLayer(nil)
         page.addTextLayer("Text testlayer")
         page.swapLayerPositions(0, secondIndex: 1)
-        let archivedPageData = NSKeyedArchiver.archivedDataWithRootObject(page)
-        let unarchivedPage = NSKeyedUnarchiver.unarchiveObjectWithData(archivedPageData) as? DocumentPage
+        let archivedPageData = NSKeyedArchiver.archivedData(withRootObject: page)
+        let unarchivedPage = NSKeyedUnarchiver.unarchiveObject(with: archivedPageData) as? DocumentPage
         XCTAssertEqual(page, unarchivedPage)
         
         
         let pdfPage =  DocumentPage(index: 0)
-        let pdfURL = NSBundle(forClass: self.dynamicType).URLForResource("test", withExtension: "pdf")!
-        let documentRef = CGPDFDocumentCreateWithURL(pdfURL as CFURLRef)!
+        let pdfURL = Bundle(for: self.dynamicType).urlForResource("test", withExtension: "pdf")!
+        let documentRef = CGPDFDocument(pdfURL as CFURL)!
         pdfPage.addPDFLayer(PDFUtility.getPageAsData(1, document: documentRef)!)
         
-        let archivedPDFPageData = NSKeyedArchiver.archivedDataWithRootObject(pdfPage)
-        let unarchivedPDFPage = NSKeyedUnarchiver.unarchiveObjectWithData(archivedPDFPageData) as? DocumentPage
+        let archivedPDFPageData = NSKeyedArchiver.archivedData(withRootObject: pdfPage)
+        let unarchivedPDFPage = NSKeyedUnarchiver.unarchiveObject(with: archivedPDFPageData) as? DocumentPage
 
         
         XCTAssertEqual(unarchivedPDFPage, pdfPage)

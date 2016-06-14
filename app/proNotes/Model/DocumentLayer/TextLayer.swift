@@ -24,32 +24,32 @@ class TextLayer: MovableLayer {
 
     init(index: Int, docPage: DocumentPage, origin: CGPoint, size: CGSize, text: String) {
         self.text = text
-        self.backgroundColor = UIColor.clearColor()
-        self.textColor = UIColor.blackColor()
-        self.font = UIFont.systemFontOfSize(UIFont.systemFontSize())
-        self.alignment = .Left
-        super.init(index: index, type: .Text, docPage: docPage, origin: origin, size: size)
+        self.backgroundColor = UIColor.clear()
+        self.textColor = UIColor.black()
+        self.font = UIFont.systemFont(ofSize: UIFont.systemFontSize())
+        self.alignment = .left
+        super.init(index: index, type: .text, docPage: docPage, origin: origin, size: size)
     }
 
     required init(coder aDecoder: NSCoder) {
-        text = aDecoder.decodeObjectForKey(textKey) as! String
-        backgroundColor = aDecoder.decodeObjectForKey(backgroundColorKey) as! UIColor
-        textColor = aDecoder.decodeObjectForKey(textColorKey) as! UIColor
-        font = aDecoder.decodeObjectForKey(fontKey) as! UIFont
-        alignment = NSTextAlignment(rawValue: Int(aDecoder.decodeIntForKey(alignmentKey)))!
+        text = aDecoder.decodeObject(forKey: textKey) as! String
+        backgroundColor = aDecoder.decodeObject(forKey: backgroundColorKey) as! UIColor
+        textColor = aDecoder.decodeObject(forKey: textColorKey) as! UIColor
+        font = aDecoder.decodeObject(forKey: fontKey) as! UIFont
+        alignment = NSTextAlignment(rawValue: Int(aDecoder.decodeInteger(forKey:alignmentKey)))!
         super.init(coder: aDecoder)
     }
 
-    override func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(text, forKey: textKey)
-        aCoder.encodeObject(backgroundColor, forKey: backgroundColorKey)
-        aCoder.encodeObject(textColor, forKey: textColorKey)
-        aCoder.encodeObject(font, forKey: fontKey)
-        aCoder.encodeInt(Int32(alignment.rawValue), forKey: alignmentKey)
-        super.encodeWithCoder(aCoder)
+    override func encode(with aCoder: NSCoder) {
+        aCoder.encode(text, forKey: textKey)
+        aCoder.encode(backgroundColor, forKey: backgroundColorKey)
+        aCoder.encode(textColor, forKey: textColorKey)
+        aCoder.encode(font, forKey: fontKey)
+        aCoder.encode(Int32(alignment.rawValue), forKey: alignmentKey)
+        super.encode(with: aCoder)
     }
 
-    override func undoAction(oldObject: AnyObject?) {
+    override func undoAction(_ oldObject: AnyObject?) {
         if let text = oldObject as? String {
             self.text = text
         } else {
@@ -57,7 +57,7 @@ class TextLayer: MovableLayer {
         }
     }
 
-    override func isEqual(object: AnyObject?) -> Bool {
+    override func isEqual(_ object: AnyObject?) -> Bool {
         guard let layer = object as? TextLayer else {
             return false
         }

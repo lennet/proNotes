@@ -29,13 +29,13 @@ class PageInfoLayerTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }
 
-    func setUpCellWithLayer(documentLayer: DocumentLayer) {
+    func setUpCellWithLayer(_ documentLayer: DocumentLayer) {
         self.documentLayer = documentLayer
         indexLabel.text = String(documentLayer.index + 1)
         typeLabel.text = String(documentLayer.type)
@@ -48,15 +48,15 @@ class PageInfoLayerTableViewCell: UITableViewCell {
             return
         }
         let buttonImageName = documentLayer!.hidden ? "invisibleIcon" : "visibleIcon"
-        UIView.animateWithDuration(standardAnimationDuration, delay: 0, options: .CurveEaseInOut, animations: {
+        UIView.animate(withDuration: standardAnimationDuration, delay: 0, options: UIViewAnimationOptions(), animations: {
             () -> Void in
-                self.visibilityButton.setImage(UIImage(named: buttonImageName), forState: .Normal)
+                self.visibilityButton.setImage(UIImage(named: buttonImageName), for: UIControlState())
             }, completion: nil)
     }
 
     // MARK: - Actions
 
-    @IBAction func handleDeleteButtonPressed(sender: AnyObject) {
+    @IBAction func handleDeleteButtonPressed(_ sender: AnyObject) {
         if documentLayer != nil {
             let index = documentLayer!.docPage.index
             PagesTableViewController.sharedInstance?.currentPageView?.removeLayer(documentLayer!)
@@ -65,7 +65,7 @@ class PageInfoLayerTableViewCell: UITableViewCell {
         }
     }
 
-    @IBAction func handleVisibilityButtonPressed(sender: AnyObject) {
+    @IBAction func handleVisibilityButtonPressed(_ sender: AnyObject) {
         if documentLayer != nil {
             let index = documentLayer!.docPage.index
             PagesTableViewController.sharedInstance?.currentPageView?.changeLayerVisibility(documentLayer!)

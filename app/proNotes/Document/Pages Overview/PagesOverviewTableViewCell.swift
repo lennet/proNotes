@@ -9,7 +9,7 @@
 import UIKit
 
 protocol PagesOverviewTableViewCellDelegate: class {
-    func showPage(index: Int)
+    func showPage(_ index: Int)
 }
 
 class PagesOverviewTableViewCell: UITableViewCell {
@@ -32,15 +32,15 @@ class PagesOverviewTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         pageThumbView.layer.setUpDefaultShaddow()
-        backgroundColor = UIColor.clearColor()
+        backgroundColor = UIColor.clear()
     }
 
-    @IBAction func handlePageButtonPressed(sender: AnyObject) {
+    @IBAction func handlePageButtonPressed(_ sender: AnyObject) {
         delegate?.showPage(index)
     }
     
     override func prepareForReuse() {
-        pageThumbView.setBackgroundImage(nil, forState: .Normal)
+        pageThumbView.setBackgroundImage(nil, for: UIControlState())
     }
 
 }

@@ -14,39 +14,44 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject:AnyObject]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject:AnyObject]?) -> Bool {
         application.applicationIconBadgeNumber = 0
         if Preferences.isFirstRun() {
             Preferences.setUpDefaults()
         }
+        let args = ProcessInfo.processInfo().arguments
+        if args.contains("UITEST") {
+            Preferences.setShoudlShowWelcomeScreen(false)
+            Preferences.setAlreadyDownloadedDefaultNote(true)
+        }
         return true
     }
 
-    func applicationWillResignActive(application: UIApplication) {
+    func applicationWillResignActive(_ application: UIApplication) {
         application.applicationIconBadgeNumber = 0    }
 
-    func applicationDidEnterBackground(application: UIApplication) {
+    func applicationDidEnterBackground(_ application: UIApplication) {
         application.applicationIconBadgeNumber = 0
     }
 
-    func applicationWillEnterForeground(application: UIApplication) {
+    func applicationWillEnterForeground(_ application: UIApplication) {
         application.applicationIconBadgeNumber = 0
     }
 
-    func applicationDidBecomeActive(application: UIApplication) {
+    func applicationDidBecomeActive(_ application: UIApplication) {
         application.applicationIconBadgeNumber = 0
     }
 
-    func applicationWillTerminate(application: UIApplication) {
+    func applicationWillTerminate(_ application: UIApplication) {
         application.applicationIconBadgeNumber = 0
         DocumentInstance.sharedInstance.save {
             (success) -> Void in
-            DocumentInstance.sharedInstance.document?.closeWithCompletionHandler(nil)
+            DocumentInstance.sharedInstance.document?.close(completionHandler: nil)
         }
     }
     
-    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
-        if application.applicationState == .Inactive {
+    func application(_ application: UIApplication, didReceive notification: UILocalNotification) {
+        if application.applicationState == .inactive {
             handleTapOnNotification(notification.userInfo)
         } else {
             guard let message = notification.alertBody else {
@@ -60,28 +65,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    func handleTapOnNotification(userInfo: [NSObject : AnyObject]?) {
+    func handleTapOnNotification(_ userInfo: [NSObject : AnyObject]?) {
         let error = userInfo?["error"] as? Bool ?? false
         if error {
-            UIApplication.sharedApplication().openURL(NSURL(string:UIApplicationOpenSettingsURLString)!)
+            UIApplication.shared().openURL(URL(string:UIApplicationOpenSettingsURLString)!)
         } else {
             let overViewController = self.moveToOverViewIfNeeded(true)
             if let path = userInfo?["url"] as? String {
-                let url = NSURL.fileURLWithPath(path)
+                let url = URL(fileURLWithPath: path)
                 overViewController?.openDocument(url)
             }
         }
     }
     
-    func application(application: UIApplication, performActionForShortcutItem shortcutItem: UIApplicationShortcutItem, completionHandler: (Bool) -> Void) {
+    func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: (Bool) -> Void) {
         let overViewController = moveToOverViewIfNeeded(false)
         overViewController?.createNewDocument()
     }
     
-    private func moveToOverViewIfNeeded(animated: Bool) -> DocumentOverviewViewController? {
+    private func moveToOverViewIfNeeded(_ animated: Bool) -> DocumentOverviewViewController? {
         if let navViewController = self.window?.rootViewController as? UINavigationController {
             if navViewController.visibleViewController is DocumentViewController {
-                navViewController.popViewControllerAnimated(animated)
+                navViewController.popViewController(animated: animated)
                 DocumentInstance.sharedInstance.removeAllDelegates()
             }
             return navViewController.viewControllers.first as? DocumentOverviewViewController

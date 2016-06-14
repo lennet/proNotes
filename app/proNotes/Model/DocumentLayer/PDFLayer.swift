@@ -11,28 +11,28 @@ import UIKit
 class PDFLayer: DocumentLayer {
     private final let pdfKey = "pdf"
 
-    var pdfData: NSData?
+    var pdfData: Data?
 
-    init(index: Int, pdfData: NSData, docPage: DocumentPage) {
+    init(index: Int, pdfData: Data, docPage: DocumentPage) {
         self.pdfData = pdfData
-        super.init(index: index, type: .PDF, docPage: docPage)
+        super.init(index: index, type: .pdf, docPage: docPage)
     }
 
     required init(coder aDecoder: NSCoder) {
-        pdfData = aDecoder.decodeObjectForKey(pdfKey) as? NSData
+        pdfData = aDecoder.decodeObject(forKey: pdfKey) as? Data
         super.init(coder: aDecoder)
     }
 
-    override func encodeWithCoder(aCoder: NSCoder) {
+    override func encode(with aCoder: NSCoder) {
 
         if pdfData != nil {
-            aCoder.encodeObject(pdfData, forKey: pdfKey)
+            aCoder.encode(pdfData, forKey: pdfKey)
         }
 
-        super.encodeWithCoder(aCoder)
+        super.encode(with: aCoder)
     }
 
-    override func isEqual(object: AnyObject?) -> Bool {
+    override func isEqual(_ object: AnyObject?) -> Bool {
         guard let layer = object as? PDFLayer else {
             return false
         }

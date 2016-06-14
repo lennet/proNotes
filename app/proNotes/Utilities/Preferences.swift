@@ -25,56 +25,56 @@ class Preferences {
     }
 
     class func iCloudActive() -> Bool {
-        return NSUserDefaults.standardUserDefaults().boolForKey(iCloudActiveKey)
+        return UserDefaults.standard().bool(forKey: iCloudActiveKey)
     }
 
-    class func setiCloudActive(active: Bool) {
-        NSUserDefaults.standardUserDefaults().setBool(active, forKey: iCloudActiveKey)
-        NSUserDefaults.standardUserDefaults().synchronize()
+    class func setiCloudActive(_ active: Bool) {
+        UserDefaults.standard().set(active, forKey: iCloudActiveKey)
+        UserDefaults.standard().synchronize()
     }
 
     class func iCloudWasActive() -> Bool {
-        return NSUserDefaults.standardUserDefaults().boolForKey(iCloudWasActiveKey)
+        return UserDefaults.standard().bool(forKey: iCloudWasActiveKey)
     }
 
-    class func setiCloudWasActive(active: Bool) {
-        NSUserDefaults.standardUserDefaults().setBool(active, forKey: iCloudWasActiveKey)
-        NSUserDefaults.standardUserDefaults().synchronize()
+    class func setiCloudWasActive(_ active: Bool) {
+        UserDefaults.standard().set(active, forKey: iCloudWasActiveKey)
+        UserDefaults.standard().synchronize()
     }
     
     class func AlreadyDownloadedDefaultNote() -> Bool {
-        return NSUserDefaults.standardUserDefaults().boolForKey(DownloadedDefaultNoteKey)
+        return UserDefaults.standard().bool(forKey: DownloadedDefaultNoteKey)
     }
     
-    class func setAlreadyDownloadedDefaultNote(value: Bool) {
-        NSUserDefaults.standardUserDefaults().setBool(value, forKey: DownloadedDefaultNoteKey)
+    class func setAlreadyDownloadedDefaultNote(_ value: Bool) {
+        UserDefaults.standard().set(value, forKey: DownloadedDefaultNoteKey)
     }
     
     class func allowsNotification() -> Bool {
-        return NSUserDefaults.standardUserDefaults().boolForKey(allowsNotificationKey)
+        return UserDefaults.standard().bool(forKey: allowsNotificationKey)
     }
     
-    class func setAllowsNotification(value: Bool) {
-        NSUserDefaults.standardUserDefaults().setBool(value, forKey: allowsNotificationKey)
+    class func setAllowsNotification(_ value: Bool) {
+        UserDefaults.standard().set(value, forKey: allowsNotificationKey)
     }
     
     class func isFirstRun() -> Bool {
-        if NSUserDefaults.standardUserDefaults().valueForKey(isFirstRunKey) != nil {
-            return NSUserDefaults.standardUserDefaults().boolForKey(isFirstRunKey)
+        if UserDefaults.standard().value(forKey: isFirstRunKey) != nil {
+            return UserDefaults.standard().bool(forKey: isFirstRunKey)
         }
         return true
     }
     
-    class func setIsFirstRun(value: Bool) {
-        return NSUserDefaults.standardUserDefaults().setBool(value, forKey: isFirstRunKey)
+    class func setIsFirstRun(_ value: Bool) {
+        return UserDefaults.standard().set(value, forKey: isFirstRunKey)
     }
     
-    class func setShoudlShowWelcomeScreen(value: Bool) {
-        return NSUserDefaults.standardUserDefaults().setBool(value, forKey: shouldShowWelcomeScreenKey)
+    class func setShoudlShowWelcomeScreen(_ value: Bool) {
+        return UserDefaults.standard().set(value, forKey: shouldShowWelcomeScreenKey)
     }
     
     class func shouldShowWelcomeScreen() -> Bool {
-        return NSUserDefaults.standardUserDefaults().boolForKey(shouldShowWelcomeScreenKey)
+        return UserDefaults.standard().bool(forKey: shouldShowWelcomeScreenKey)
     }
 
 }
