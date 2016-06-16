@@ -6,42 +6,56 @@
 //  Copyright © 2016 leonardthomas. All rights reserved.
 //
 
-import UIKit
+import CoreGraphics
 
 class PDFUtility: NSObject {
 
     class func getPageAsPDF(_ pageIndex: Int, document: CGPDFDocument) -> CGPDFDocument? {
-        if let data = getPageAsData(pageIndex, document: document) {
-            return createPDFFromData(data)
+        
+        guard let data = getPageAsData(pageIndex, document: document) else {
+                return nil
         }
-        return nil
+        
+        return createPDFFromData(data: data)
+        
     }
 
-    class func createPDFFromData(_ data: CFData) -> CGPDFDocument? {
+    class func createPDFFromData(data: CFData) -> CGPDFDocument? {
         let dataProvider = CGDataProvider(data: data)
         return CGPDFDocument(dataProvider!)
     }
 
+    
+    
+    @available(iOS, deprecated:1.0, message:"I'm not deprecated, fix it after the next Xcode Beta release")
     class func getPageAsData(_ pageIndex: Int, document: CGPDFDocument) -> CFData? {
-        if let page = document.page(at: pageIndex) {
-            var mediaBox = page.getBoxRect(.cropBox)
-            let data = CFDataCreateMutable(kCFAllocatorDefault, 0)
-            let consumer = CGDataConsumer(data: data!)
-            let context = CGContext(consumer: consumer!, mediaBox: &mediaBox, nil)
-            context?.beginPage(mediaBox: &mediaBox)
-            context?.drawPDFPage(page)
-//            context?.endPage()
-            context?.closePDF()
-            return data
+       
+        guard let page = document.page(at: pageIndex) else {
+            return nil
         }
-        return nil
+        
+        var mediaBox = page.getBoxRect(.cropBox)
+        guard let data = CFDataCreateMutable(kCFAllocatorDefault, 0), let consumer = CGDataConsumer(data: data) else {
+            return nil
+        }
+        
+        guard let context = CGContext(consumer: consumer, mediaBox: &mediaBox, nil) else {
+            return nil
+        }
+        
+        context.beginPage(mediaBox: &mediaBox)
+        context.drawPDFPage(page)
+//        context.endPage()
+        context.closePDF()
+        return data
     }
 
     class func getPDFRect(_ document: CGPDFDocument, pageIndex: Int) -> CGRect {
-        if let page = document.page(at: pageIndex) {
-            return page.getBoxRect(.cropBox)
+        guard let page = document.page(at: pageIndex) else {
+            return CGRect.zero
         }
-        return CGRect.zero
+        
+        return page.getBoxRect(.cropBox)
     }
 
 }

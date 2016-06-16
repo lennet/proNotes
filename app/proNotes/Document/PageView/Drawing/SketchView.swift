@@ -61,11 +61,19 @@ class SketchView: UIImageView, PageSubView, SketchSettingsDelegate {
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         undoImage = image
-        penObject.isEraser ? eraseForTouches(touches, withEvent: event) : strokeBuffer?.handleTouches(touches, withEvent: event)
+        if penObject.isEraser {
+            eraseForTouches(touches, withEvent: event)
+        } else {
+            strokeBuffer?.handleTouches(touches, withEvent: event)
+        }
     }
 
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        penObject.isEraser ? eraseForTouches(touches, withEvent: event) : strokeBuffer?.handleTouches(touches, withEvent: event)
+        if penObject.isEraser {
+            eraseForTouches(touches, withEvent: event)
+        } else {
+            strokeBuffer?.handleTouches(touches, withEvent: event)
+        }
     }
 
     override func touchesEnded(_ touches: Set<UITouch>,

@@ -165,6 +165,7 @@ class TouchControlView: UIView {
         return bounds
     }
 
+    @discardableResult
     func handlePanTranslation(_ translation: CGPoint) -> CGRect {
         var controlableRect = getMovableRect()
         var sizeOffset = CGSize(width: getWidthOffset(translation, control:selectedTouchControl), height: widthResizingOnly ? 0 : getHeightOffset(translation, control: selectedTouchControl))

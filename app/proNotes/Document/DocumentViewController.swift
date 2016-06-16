@@ -185,7 +185,7 @@ class DocumentViewController: UIViewController {
     }
     
     @IBAction func unwind(_ sender: AnyObject) {
-        navigationController?.popViewController(animated: true)
+       _ = navigationController?.popViewController(animated: true)
     }
 }
 
@@ -329,7 +329,7 @@ extension DocumentViewController {
             }
         }
         
-        if let _ = PagesTableViewController.sharedInstance?.currentPageView?.selectedSubView as? MovableView {
+        if PagesTableViewController.sharedInstance?.currentPageView?.selectedSubView is MovableView {
             commands.append(UIKeyCommand(input: UIKeyInputRightArrow, modifierFlags: .command, action: #selector(DocumentViewController.handleMoveMovableViewKeyPressed(_:)), discoverabilityTitle: "Move Right"))
             commands.append(UIKeyCommand(input: UIKeyInputLeftArrow, modifierFlags: .command, action: #selector(DocumentViewController.handleMoveMovableViewKeyPressed(_:)), discoverabilityTitle: "Move Left"))
             commands.append(UIKeyCommand(input: UIKeyInputUpArrow, modifierFlags: .command, action: #selector(DocumentViewController.handleMoveMovableViewKeyPressed(_:)), discoverabilityTitle: "Move Up"))

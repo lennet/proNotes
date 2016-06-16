@@ -77,6 +77,7 @@ class StrokeBufferView: UIImageView {
         context?.setLineCap(.round)
         context?.setLineJoin(.round)
         context?.moveTo(x: previousLocation.x, y: previousLocation.y)
+        context?.setAlpha(touch.force/touch.maximumPossibleForce)
         context?.addLineTo(x: location.x, y: location.y)
         context?.strokePath()
     }

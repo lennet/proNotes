@@ -80,6 +80,7 @@ class DocumentPage: NSObject, NSCoding {
     
     // MARK: - Add Layer
 
+    @discardableResult
     func addSketchLayer(_ image: UIImage?) -> SketchLayer {
         let sketchLayer = SketchLayer(index: layers.count, image: image, docPage: self)
         layers.append(sketchLayer)
@@ -90,7 +91,8 @@ class DocumentPage: NSObject, NSCoding {
         let pdfLayer = PDFLayer(index: layers.count, pdfData: pdfData, docPage: self)
         layers.append(pdfLayer)
     }
-
+    
+    @discardableResult
     func addImageLayer(_ image: UIImage) -> ImageLayer {
         let layerSize = image.size.sizeToFit(size)
         let imageLayer = ImageLayer(index: layers.count, docPage: self, origin: CGPoint.zero, size: layerSize, image: image)
@@ -98,6 +100,7 @@ class DocumentPage: NSObject, NSCoding {
         return imageLayer
     }
 
+    @discardableResult
     func addTextLayer(_ text: String) -> TextLayer {
         let textLayer = TextLayer(index: layers.count, docPage: self, origin: CGPoint.zero, size: CGSize(width: 200, height: 30), text: "")
         layers.append(textLayer)

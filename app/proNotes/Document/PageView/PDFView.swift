@@ -13,7 +13,7 @@ class PDFView: UIView, PageSubView {
     var pdf: CGPDFDocument?
 
     init(pdfData: Data, frame: CGRect) {
-        self.pdf = PDFUtility.createPDFFromData(pdfData as CFData)
+        self.pdf = PDFUtility.createPDFFromData(data: pdfData as CFData)
         super.init(frame: frame)
         isUserInteractionEnabled = false
     }
@@ -27,7 +27,7 @@ class PDFView: UIView, PageSubView {
 
             let context = UIGraphicsGetCurrentContext()
 
-            context?.ctm
+//            context?.ctm.
             context?.scale(x: 1, y: -1)
             context?.translate(x: 0, y: -rect.size.height)
 

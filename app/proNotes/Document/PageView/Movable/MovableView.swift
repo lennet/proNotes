@@ -45,7 +45,8 @@ class MovableView: TouchControlView, PageSubView {
     }
     
     // MARK: - Gesture Recognizer
-
+    
+    @discardableResult
     override func handlePanTranslation(_ translation: CGPoint) -> CGRect {
         frame = super.handlePanTranslation(translation)
         layoutIfNeeded()
