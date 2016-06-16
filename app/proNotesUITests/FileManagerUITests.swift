@@ -31,8 +31,8 @@ class FileManagerUITests: XCTestCase {
     }
 
     func testCreateDocument() {
-        let documentName = UITestsHelper.createAndOpenDocument()
-        UITestsHelper.closeDocument()
+        let documentName = createAndOpenDocument()
+        closeDocument()
         let app = XCUIApplication()
         XCTAssertTrue(app.collectionViews.staticTexts[documentName].exists)
     }

@@ -24,6 +24,7 @@ class test {
     func createAndOpenDocument() -> String {
         let app = XCUIApplication()
         app.navigationBars["proNotes.DocumentOverviewView"].buttons["Add"].tap()
+        sleep(1)
         let pronotesDocumentviewNavigationBar = app.navigationBars["proNotes.DocumentView"]
         let documentName = pronotesDocumentviewNavigationBar.children(matching: .other).element.children(matching: .textField).element.value as! String
         return documentName

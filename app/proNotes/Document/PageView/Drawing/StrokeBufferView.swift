@@ -70,14 +70,14 @@ class StrokeBufferView: UIImageView {
     }
     
     private func drawStroke(_ context: CGContext?, touch: UITouch) {
-        let previousLocation = touch.previousLocation(in: self)
-        let location = touch.location(in: self)
+        let previousLocation = touch.previousLocation(in: self) //touch.previousLocation(in: self)
+        let location = touch.preciseLocation(in: self) //touch.location(in: self)
         context?.setStrokeColor(strokeColor.cgColor)
         context?.setLineWidth(getLineWidth(context, touch: touch))
         context?.setLineCap(.round)
         context?.setLineJoin(.round)
         context?.moveTo(x: previousLocation.x, y: previousLocation.y)
-        context?.setAlpha(touch.force/touch.maximumPossibleForce)
+//        context?.setAlpha(touch.force/touch.maximumPossibleForce)
         context?.addLineTo(x: location.x, y: location.y)
         context?.strokePath()
     }
