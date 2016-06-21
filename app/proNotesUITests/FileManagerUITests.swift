@@ -12,21 +12,13 @@ class FileManagerUITests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-       
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-        
-        // In UI tests it is usually best to stop immediately when a failure occurs.
         continueAfterFailure = false
-        // UI tests must launch the application that they test. Doing this in setup will make sure it happens for each test method.
         let app = XCUIApplication()
         app.launchArguments = ["UITEST"]
         app.launch()
-
-        // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
 
@@ -38,30 +30,18 @@ class FileManagerUITests: XCTestCase {
     }
     
     func testForDuplicates() {
-        let app = XCUIApplication()
-        app.navigationBars["proNotes.DocumentOverviewView"].buttons["Add"].tap()
-        let pronotesDocumentviewNavigationBar = app.navigationBars["proNotes.DocumentView"]
-        let documentName = pronotesDocumentviewNavigationBar.children(matching: .other).element.children(matching: .textField).element.value as! String
-        pronotesDocumentviewNavigationBar.buttons["Documents"].tap()
-        sleep(1)
-        app.navigationBars["proNotes.DocumentOverviewView"].buttons["Add"].tap()
-        let newDocumentName = pronotesDocumentviewNavigationBar.children(matching: .other).element.children(matching: .textField).element.value as! String
-        
+        let documentName = createAndOpenDocument()
+        closeDocument()
+        let newDocumentName = createAndOpenDocument()
         XCTAssertTrue(newDocumentName != documentName)
     }
     
     func testRename() {
         let app = XCUIApplication()
-        app.navigationBars["proNotes.DocumentOverviewView"].buttons["Add"].tap()
-        let pronotesDocumentviewNavigationBar = app.navigationBars["proNotes.DocumentView"]
-        let textField = pronotesDocumentviewNavigationBar.children(matching: .other).element.children(matching: .textField).element
-        textField.tap()
-        let documentName = textField.value as! String
+        let documentName = createAndOpenDocument()
         let newName = UUID().uuidString
-        textField.clearAndEnterText(newName)
-        app.buttons["Return"].tap()
-        pronotesDocumentviewNavigationBar.buttons["Documents"].tap()
-        sleep(1)
+        renameDocument(newName: newName)
+        closeDocument()
         XCTAssertTrue(app.collectionViews.staticTexts[newName].exists)
         XCTAssertFalse(app.collectionViews.staticTexts[documentName].exists)
     }

@@ -43,7 +43,6 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        fileManager.downloadFromCloudKit()
         fileManager.delegate = nil
         documentsCollectionViewController.reloadData()
         fileManager.reload()

@@ -187,11 +187,11 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
    }
    
    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-      return document?.getNumberOfPages() ?? 0
+      return document?.numberOfPages ?? 0
    }
    
    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-      let pageHeight = (document?[(indexPath as NSIndexPath).row]?.size.height ?? 0)
+      let pageHeight = (document?[indexPath.row]?.size.height ?? 0)
       return pageHeight + 2 * defaultMargin
    }
    

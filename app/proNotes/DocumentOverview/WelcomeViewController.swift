@@ -32,13 +32,11 @@ class WelcomeViewController: UIViewController {
         super.viewDidAppear(animated)
         Preferences.setIsFirstRun(false)
         animateImageViews()
-        if Preferences.AlreadyDownloadedDefaultNote() {
-            alredyDownloaded = true
-        }
         WelcomeViewController.sharedInstance = self
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         WelcomeViewController.sharedInstance = nil
     }
     
@@ -61,32 +59,10 @@ class WelcomeViewController: UIViewController {
     }
 
     @IBAction func handleNotifyButtonPressed(_ sender: UIButton) {
-        if alredyDownloaded {
-        
-        } else {
-            sender.isHidden = true
-            hintLabel.isHidden = true
-            Preferences.setAllowsNotification(true)
-            UIApplication.shared().registerUserNotificationSettings(UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil))
-        }
+        sender.isHidden = true
+        hintLabel.isHidden = true
+        Preferences.setAllowsNotification(true)
+        UIApplication.shared().registerUserNotificationSettings(UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil))
     }
     
-    var alredyDownloaded: Bool = false {
-        didSet {
-            DispatchQueue.main.async(execute: {
-                if self.alredyDownloaded {
-                    self.notifyButton.isHidden = true
-                    let attributedString = NSMutableAttributedString(string: "A sample Note has will be been downloaded via CloudKit")
-                    
-                    attributedString.addAttributes([NSStrikethroughStyleAttributeName: NSNumber(value: NSUnderlineStyle.styleSingle.rawValue)], range: NSRange(location: 18, length: 7))
-                    UIView.transition(with: self.hintLabel, duration: standardAnimationDuration, options: [.transitionCrossDissolve], animations: {
-                        self.hintLabel.attributedText = attributedString
-                        }, completion: nil)
-                    
-                    
-                }
-                self.notifyButton.isUserInteractionEnabled = !self.alredyDownloaded
-            })
-        }
-    }
 }

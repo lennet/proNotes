@@ -9,13 +9,6 @@
 import XCTest
 
 
-class test {
-    
-    func foo8(){
-    }
-    
-}
-
     /**
         Creates and opens a document if the app is currently in the document overview
         - Return Value: the name of the new created document
@@ -39,6 +32,19 @@ class test {
         let pronotesDocumentviewNavigationBar = app.navigationBars["proNotes.DocumentView"]
         pronotesDocumentviewNavigationBar.buttons["Documents"].tap()
         sleep(1)
+    }
+
+
+    /**
+        Renames the document if the document editor is currently opened
+    */
+    func renameDocument(newName: String) {
+        let app = XCUIApplication()
+        let pronotesDocumentviewNavigationBar = app.navigationBars["proNotes.DocumentView"]
+        let textField = pronotesDocumentviewNavigationBar.children(matching: .other).element.children(matching: .textField).element
+        textField.tap()
+        textField.clearAndEnterText(newName)
+        app.buttons["Return"].tap()
     }
 
 

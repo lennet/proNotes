@@ -28,11 +28,11 @@ protocol FileManagerDelegate: class {
 
 }
 
-class FileManager: NSObject {
+class FileManager {
 
     static let sharedInstance = FileManager()
 
-    private final let fileExtension = "ProNote"
+    private final let fileExtension = "proNote"
     private final let defaultName = NSLocalizedString("Note", comment: "default file name")
 
     weak var delegate: FileManagerDelegate?
@@ -59,40 +59,8 @@ class FileManager: NSObject {
 
     var iCloudRootURL: URL?
 
-    override init() {
-        super.init()
+    init() {
         reload()
-    }
-    
-    var alreadyDownloadingFromCloudKit = false
-    
-    func downloadFromCloudKit() {
-        guard !Preferences.AlreadyDownloadedDefaultNote() && !alreadyDownloadingFromCloudKit else {
-            return 
-        }
-        alreadyDownloadingFromCloudKit = true
-        let taskID = UIApplication.shared().beginBackgroundTask(expirationHandler: nil)
-        let container = CKContainer.default()
-        let publicDataBase = container.publicCloudDatabase
-        let predicate = Predicate(value: true)
-    
-        let query = CKQuery(recordType: "Document", predicate: predicate)
-        publicDataBase.perform(query, inZoneWith: nil) { (records, error) in
-            self.alreadyDownloadingFromCloudKit = false
-            if let record = records?.first {
-                if let asset = record.object(forKey: "data") as? CKAsset {
-                    let newURL = self.getDocumentURL("Hello🦄", uniqueFileName: true)
-                    try!  Foundation.FileManager.default().copyItem(at: asset.fileURL, to: newURL)
-                    self.checkForLocalFiles()
-                    NotifyHelper.fireNotification(false, url: newURL)
-                    Preferences.setAlreadyDownloadedDefaultNote(true)
-                    WelcomeViewController.sharedInstance?.alredyDownloaded = true
-                }
-            } else {
-                NotifyHelper.fireNotification(true)
-            }
-            UIApplication.shared().endBackgroundTask(taskID)
-        }
     }
 
     func reload() {
@@ -409,8 +377,8 @@ class FileManager: NSObject {
         stopQuery()
 
         query = documentQuery
-        NotificationCenter.default().addObserver(self, selector: #selector(FileManager.handleQueryNotification(_:)), name: NSNotification.Name.NSMetadataQueryDidFinishGathering, object: nil)
-        NotificationCenter.default().addObserver(self, selector: #selector(FileManager.handleQueryNotification(_:)), name: NSNotification.Name.NSMetadataQueryDidUpdate, object: nil)
+        NotificationCenter.default().addObserver(self, selector: #selector(handleQueryNotification(_:)), name: NSNotification.Name.NSMetadataQueryDidFinishGathering, object: nil)
+        NotificationCenter.default().addObserver(self, selector: #selector(handleQueryNotification(_:)), name: NSNotification.Name.NSMetadataQueryDidUpdate, object: nil)
         query?.start()
 
     }
@@ -423,7 +391,7 @@ class FileManager: NSObject {
         query = nil
     }
 
-    func handleQueryNotification(_ notification: Notification) {
+    dynamic func handleQueryNotification(_ notification: Notification) {
         if let userInfo = (notification as NSNotification).userInfo {
             guard let items = userInfo[NSMetadataQueryUpdateRemovedItemsKey] as? [NSMetadataItem] where items.count > 0 else {
                 checkFiles()

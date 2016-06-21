@@ -10,7 +10,6 @@ import UIKit
 
 class Document: UIDocument {
 
-    private final let fileExtension = "ProNote"
     private final let metaDataFileName = "note.metaData"
     private final let pagesDataFileName = "note.pagesData"
 
@@ -79,14 +78,20 @@ class Document: UIDocument {
             return nil
         }
     }
+    
+    var numberOfPages: Int {
+        get {
+            return pages.count
+        }
+    }
 
     // MARK - Load Document
 
     override func load(fromContents contents: AnyObject, ofType typeName: String?) throws {
-        if let wrapper = decodeData(contents as! Data) as? FileWrapper {
+        if let wrapper = contents as? FileWrapper {
             fileWrapper = wrapper
-        } else {
-//            print(contents)
+        } else if let wrapper = decodeData(contents as! Data) as? FileWrapper {
+            fileWrapper = wrapper
         }
     }
 
@@ -107,9 +112,7 @@ class Document: UIDocument {
     }
 
     override func save(to url: URL, for saveOperation: UIDocumentSaveOperation, completionHandler: ((Bool) -> Void)?) {
-        forceSave = true
         super.save(to: url, for: saveOperation, completionHandler: completionHandler)
-        forceSave = false
     }
         
     // MARK - Store Document
@@ -123,9 +126,8 @@ class Document: UIDocument {
         metaData?.thumbImage = pages.first?.previewImage
         encodeObject(metaData!, prefferedFileName: metaDataFileName, wrappers: &wrappers)
         encodeObject(pages, prefferedFileName: pagesDataFileName, wrappers: &wrappers)
-
         let fileWrapper = FileWrapper(directoryWithFileWrappers: wrappers)
-        return encodeObject(fileWrapper)
+        return fileWrapper
     }
 
     func encodeObject(_ object: NSObject, prefferedFileName: String, wrappers: inout [String:FileWrapper]) {
@@ -143,15 +145,6 @@ class Document: UIDocument {
         return data as Data
     }
     
-    var forceSave: Bool = false
-    override func hasUnsavedChanges() -> Bool {
-        return forceSave
-    }
-
-    func getNumberOfPages() -> Int {
-        return pages.count;
-    }
-
     func getMaxWidth() -> CGFloat {
         return (pages.sorted(isOrderedBefore: { $0.size.width > $1.size.width }).first?.size.width ?? 0)
     }

@@ -41,15 +41,7 @@ class Preferences {
         UserDefaults.standard().set(active, forKey: iCloudWasActiveKey)
         UserDefaults.standard().synchronize()
     }
-    
-    class func AlreadyDownloadedDefaultNote() -> Bool {
-        return UserDefaults.standard().bool(forKey: DownloadedDefaultNoteKey)
-    }
-    
-    class func setAlreadyDownloadedDefaultNote(_ value: Bool) {
-        UserDefaults.standard().set(value, forKey: DownloadedDefaultNoteKey)
-    }
-    
+        
     class func allowsNotification() -> Bool {
         return UserDefaults.standard().bool(forKey: allowsNotificationKey)
     }

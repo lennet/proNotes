@@ -36,7 +36,6 @@
 		983B24CD1CA70EB600F4F3AE /* NoScrollingTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983B24CC1CA70EB600F4F3AE /* NoScrollingTextView.swift */; };
 		984242AB1C3EDD0900F90455 /* TouchControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984242AA1C3EDD0900F90455 /* TouchControlView.swift */; };
 		984242AD1C3EE79900F90455 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984242AC1C3EE79900F90455 /* UIColorExtension.swift */; };
-		9844C9581CCFFD3500D15921 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9844C9571CCFFD3500D15921 /* CloudKit.framework */; };
 		9851B85F1CD0BDAC00112BDB /* NotifyHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9851B85E1CD0BDAC00112BDB /* NotifyHelper.swift */; };
 		9851B8611CD0C12000112BDB /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9851B8601CD0C12000112BDB /* NotificationView.swift */; };
 		9851B86C1CD140F500112BDB /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9851B86B1CD140F500112BDB /* WelcomeViewController.swift */; };
@@ -147,7 +146,6 @@
 		983B24CC1CA70EB600F4F3AE /* NoScrollingTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoScrollingTextView.swift; sourceTree = "<group>"; };
 		984242AA1C3EDD0900F90455 /* TouchControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchControlView.swift; sourceTree = "<group>"; };
 		984242AC1C3EE79900F90455 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
-		9844C9571CCFFD3500D15921 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		9851B85E1CD0BDAC00112BDB /* NotifyHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotifyHelper.swift; sourceTree = "<group>"; };
 		9851B8601CD0C12000112BDB /* NotificationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 		9851B86B1CD140F500112BDB /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
@@ -231,7 +229,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9844C9581CCFFD3500D15921 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -448,7 +445,6 @@
 		98D2DA831C6BDE7200B3C76C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				9844C9571CCFFD3500D15921 /* CloudKit.framework */,
 				98DBAA131C0799CB007EFFE5 /* Assets.xcassets */,
 				98DBAA181C0799CB007EFFE5 /* Info.plist */,
 				98D8C0BE1C0B16610026EECE /* proNotes.entitlements */,
@@ -600,7 +596,7 @@
 						LastSwiftMigration = 0800;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
-								enabled = 1;
+								enabled = 0;
 							};
 							com.apple.iCloud = {
 								enabled = 1;
