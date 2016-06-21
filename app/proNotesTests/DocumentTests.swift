@@ -26,7 +26,7 @@ class DocumentTests: XCTestCase {
             expectation.fulfill()
         }
         
-        self.waitForExpectations(withTimeout: 0.5, handler: nil)
+        self.waitForExpectations(withTimeout: 1, handler: nil)
     }
     
     override func tearDown() {
@@ -35,7 +35,7 @@ class DocumentTests: XCTestCase {
             XCTAssertTrue(success)
             expectation.fulfill()
         })
-        self.waitForExpectations(withTimeout: 0.5, handler: nil)
+        self.waitForExpectations(withTimeout: 1, handler: nil)
         super.tearDown()
     }
     

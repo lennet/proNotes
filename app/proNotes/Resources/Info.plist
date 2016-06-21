@@ -9,7 +9,7 @@
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
-				<string>studentDoc</string>
+				<string>proNotes</string>
 			</array>
 			<key>CFBundleTypeIconFiles</key>
 			<array/>
@@ -36,7 +36,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>12</string>
+	<string>14</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSUbiquitousContainers</key>
@@ -94,30 +94,16 @@
 			<string>Owner</string>
 			<key>LSTypelsPackage</key>
 			<string>YES</string>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>com.apple.package</string>
+				<string>public.composite-content</string>
+				<string>public.item</string>
+			</array>
 			<key>UTTypeDescription</key>
 			<string>proNotes</string>
 			<key>UTTypeIdentifier</key>
 			<string>lt.com.proNotes.doc</string>
-		</dict>
-	</array>
-	<key>UTImportedTypeDeclarations</key>
-	<array>
-		<dict>
-			<key>UTTypeConformsTo</key>
-			<array>
-				<string>com.apple.package</string>
-			</array>
-			<key>UTTypeDescription</key>
-			<string>Pro Notes</string>
-			<key>UTTypeIdentifier</key>
-			<string>com.lt.pronotes.doc</string>
-			<key>UTTypeTagSpecification</key>
-			<dict>
-				<key>public.filename-exteions</key>
-				<array>
-					<string>proNote</string>
-				</array>
-			</dict>
 		</dict>
 	</array>
 </dict>
