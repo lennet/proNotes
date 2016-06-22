@@ -15,9 +15,6 @@ class WelcomeViewController: UIViewController {
     @IBOutlet weak var middleLeftXConstraint: NSLayoutConstraint!
     @IBOutlet weak var middleRightXConstraint: NSLayoutConstraint!
     @IBOutlet weak var topImageView: UIImageView!
-    @IBOutlet weak var hintLabel: UILabel!
-    @IBOutlet weak var notifyButton: UIButton!
-    
     static weak var sharedInstance: WelcomeViewController?
     
     override func viewDidLoad() {
@@ -58,11 +55,4 @@ class WelcomeViewController: UIViewController {
         presentingViewController?.dismiss(animated: true, completion: nil)
     }
 
-    @IBAction func handleNotifyButtonPressed(_ sender: UIButton) {
-        sender.isHidden = true
-        hintLabel.isHidden = true
-        Preferences.setAllowsNotification(true)
-        UIApplication.shared().registerUserNotificationSettings(UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil))
-    }
-    
 }
