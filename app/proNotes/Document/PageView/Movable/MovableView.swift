@@ -20,6 +20,7 @@ class MovableView: TouchControlView, PageSubView {
 
         super.init(frame: CGRect(origin: frame.origin, size: CGSize(width: frame.size.width + newControlLength, height: frame.size.height + newControlLength)))
         controlLength = newControlLength
+        userInteractionEnabled = false
         self.renderMode = renderMode
         backgroundColor = UIColor.clearColor()
     }
@@ -97,8 +98,10 @@ class MovableView: TouchControlView, PageSubView {
 
     func setSelected() {
         isEditing = true
+        userInteractionEnabled = true
         setUpSettingsViewController()
         for view in subviews {
+            view.userInteractionEnabled = true
             view.layer.borderColor = UIColor.lightGrayColor().CGColor
             view.layer.borderWidth = 1
         }
@@ -107,7 +110,9 @@ class MovableView: TouchControlView, PageSubView {
     
     func setDeselected() {
         isEditing = false
+        userInteractionEnabled = false
         for view in subviews {
+            view.userInteractionEnabled = true
             view.layer.borderWidth = 0
         }
         SettingsViewController.sharedInstance?.currentSettingsType = .PageInfo
