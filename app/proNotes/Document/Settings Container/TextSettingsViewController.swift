@@ -280,4 +280,33 @@ class TextSettingsViewController: SettingsBaseViewController, UIPickerViewDataSo
         }
     }
     
+    override func canSelectClearColor(colorPicker: ColorPickerViewController) -> Bool {
+        guard let colorPickerIdentifier = ColorPickerIdentifier(rawValue: colorPicker.identifier ?? "") else {
+            return false
+        }
+        switch colorPickerIdentifier {
+        case .BackgroundColor:
+            return true
+        case .TextColor:
+            return false
+        }
+    }
+    
+    func setupColorPicker(colorPicker: ColorPickerViewController) {
+        guard let textLayer = TextSettingsViewController.delegate?.getTextLayer() else {
+            return
+        }
+        
+        guard let colorPickerIdentifier = ColorPickerIdentifier(rawValue: colorPicker.identifier ?? "") else {
+            return
+        }
+        switch colorPickerIdentifier {
+        case .BackgroundColor:
+            colorPicker.setColorSelected(textLayer.backgroundColor)
+            break
+        case .TextColor:
+            colorPicker.setColorSelected(textLayer.textColor)
+            break
+        }
+    }
 }

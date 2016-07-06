@@ -13,19 +13,15 @@ class PageTableViewCell: UITableViewCell {
     static let identifier = "PageTableViewCellIdentifier"
 
     @IBOutlet weak var pageView: PageView!
-    weak var tableView: UITableView?
 
     var heightConstraint: NSLayoutConstraint?
     var widthConstraint: NSLayoutConstraint?
 
     override func awakeFromNib() {
         super.awakeFromNib()
-
-        backgroundColor = UIColor.clearColor()
-
         heightConstraint = pageView.getConstraint(.Height)
         widthConstraint = pageView.getConstraint(.Width)
-
+        pageView.layer.setUpDefaultShaddow()
         deactivateDelaysContentTouches()
     }
 

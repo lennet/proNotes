@@ -8,12 +8,13 @@
 
 import UIKit
 
-class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIDocumentPickerDelegate, FileManagerDelegate {
+class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, FileManagerDelegate {
     
     @IBOutlet weak var documentsCollectionViewController: UICollectionView!
     
     private final let showDocumentSegueIdentifier = "showDocumentSegue"
-
+    private var alreadyOpeningFile = false
+    
     var fileManager: FileManager {
         get {
             return FileManager.sharedInstance
@@ -24,31 +25,60 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
         case RecentlyUsed = 0
         case AllDocuments = 1
     }
+    
+    var objects: [DocumentsOverviewObject] {
+        get {
+            return fileManager.objects.sort({ (first, second) -> Bool in
+                return first.description.localizedCaseInsensitiveCompare(second.description) == NSComparisonResult.OrderedAscending
+            })
+        }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        if Preferences.shouldShowWelcomeScreen() {
+            performSegueWithIdentifier("WelcomSegueIdentifier", sender: nil)
+        }
+    }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        fileManager.downloadFromCloudKit()
         fileManager.delegate = nil
-        fileManager.reload()
         documentsCollectionViewController.reloadData()
+        fileManager.reload()
         fileManager.delegate = self
+        alreadyOpeningFile = false
     }
-
+    
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         fileManager.delegate = nil
+        alreadyOpeningFile = false
     }
-
+    
     // MARK: - Actions
 
-    @IBAction func handleImportButtonPressed(sender: AnyObject) {
-        let documentPicker = UIDocumentPickerViewController(documentTypes: ["com.adobe.pdf"], inMode: .Import)
-        documentPicker.delegate = self;
-        documentPicker.modalPresentationStyle = .PageSheet
-        self.presentViewController(documentPicker, animated: true, completion: nil)
-    }
-
     @IBAction func handleNewButtonPressed(sender: AnyObject) {
-        fileManager.createDocument()
+        createNewDocument()
+    }
+    
+    func createNewDocument() {
+        fileManager.createDocument { (url) in
+            self.openDocument(url)
+        }
+    }
+    
+    func openDocument(url: NSURL) {
+        dispatch_async(dispatch_get_main_queue(),{
+        for (index, object) in self.objects.enumerate() {
+            if object.fileURL == url {
+                    let index = NSIndexPath(forItem: index, inSection: 0)
+                    self.documentsCollectionViewController.selectItemAtIndexPath(index, animated: false, scrollPosition: .None)
+                    self.collectionView(self.documentsCollectionViewController, didSelectItemAtIndexPath: index)
+            }
+        }
+        })
     }
 
     // MARK: - UICollectionViewDataSource
@@ -62,16 +92,21 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
     }
 
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        return CGSize(width: 200, height: 200)
+        return CGSize(width: UIDevice.currentDevice().userInterfaceIdiom == .Phone ? 100 : 150 , height: 150)
     }
 
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(DocumentOverviewCollectionViewCell.reusableIdentifier, forIndexPath: indexPath) as! DocumentOverviewCollectionViewCell
 
-        let object = fileManager.objects[indexPath.row]
+        let object = objects[indexPath.row]
         cell.nameLabel.text = object.description
         cell.dateLabel.text = object.metaData?.fileModificationDate?.toString()
-        cell.downloadIndicator.hidden = object.downloaded
+        
+        if !object.downloaded {
+            cell.thumbImageView.image = UIImage(named: "cloud")
+            cell.thumbImageView.contentMode = .Center
+        }
+        
         if let thumbImage = object.metaData?.thumbImage {
             cell.thumbImageView.image = thumbImage
             cell.thumbImageViewHeightConstraint.constant = thumbImage.size.height
@@ -85,8 +120,17 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
     // MARK: - UICollectionViewDelegate
 
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let selectedObject = fileManager.objects[indexPath.row]
+        guard let cell = collectionView.cellForItemAtIndexPath(indexPath) as? DocumentOverviewCollectionViewCell else {
+            return
+        }
+        cell.activityIndicator.startAnimating()
+        cell.activityIndicator.hidden = false
+        let selectedObject = objects[indexPath.row]
         if selectedObject.downloaded {
+            guard !alreadyOpeningFile else {
+                return 
+            }
+            alreadyOpeningFile = true
             let document = Document(fileURL: selectedObject.fileURL)
             document.openWithCompletionHandler({
                 (success) -> Void in
@@ -102,18 +146,6 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
         }
     }
 
-    //  MARK: - UIDocumenPicker
-
-    func documentPicker(controller: UIDocumentPickerViewController, didPickDocumentAtURL url: NSURL) {
-        let documentUrl = try! NSFileManager().URLForDirectory(.DocumentDirectory, inDomain: .UserDomainMask, appropriateForURL: nil, create: true)
-        let fileExtension = String(NSDate().timeIntervalSinceReferenceDate) + "test.studentDoc"
-        let fileURL = documentUrl.URLByAppendingPathComponent(fileExtension)
-        let document = Document(fileURL: fileURL)
-        document.addPDF(url)
-        DocumentInstance.sharedInstance.document = document
-        performSegueWithIdentifier(showDocumentSegueIdentifier, sender: nil)
-    }
-
     // MARK: - FileManagerDelegate 
 
     func reloadObjects() {
@@ -121,23 +153,27 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
     }
 
     func reloadObjectAtIndex(index: Int) {
-        let indexPath = NSIndexPath(forItem: index, inSection: 0)
-
-        guard indexPath.row + 1 > documentsCollectionViewController.numberOfItemsInSection(0) else {
-            reloadObjects()
-            return
-        }
-
-        documentsCollectionViewController.reloadItemsAtIndexPaths([indexPath])
+        documentsCollectionViewController.reloadData()
     }
 
     func insertObjectAtIndex(index: Int) {
-        let indexPath = NSIndexPath(forItem: index, inSection: 0)
-        documentsCollectionViewController.insertItemsAtIndexPaths([indexPath])
+        documentsCollectionViewController.reloadData()
     }
 
     func removeObjectAtIndex(index: Int) {
-        reloadObjectAtIndex(index)
+        documentsCollectionViewController.reloadData()
     }
-
+    
+    // MARK: - Navigation 
+    
+    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+        if identifier == "CCBYAttributionIdentifier" && UIDevice.currentDevice().userInterfaceIdiom == .Phone {
+            let alertViewController = UIAlertController(title: "Creative Commons", message: "The icons are made by Freepik from www.flaticon.com and are licensed under CC BY 3.0.", preferredStyle: .ActionSheet)
+            alertViewController.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: { (_) in
+            }))
+            presentViewController(alertViewController, animated: true, completion: nil)
+            return false
+        }
+        return true
+    }
 }

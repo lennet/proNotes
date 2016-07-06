@@ -8,20 +8,33 @@
 
 import UIKit
 
-class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelegate, UITextFieldDelegate, ImportDataViewControllerDelgate {
+class DocumentViewController: UIViewController {
 
-    @IBOutlet weak var settingsWidthConstraint: NSLayoutConstraint!
-    @IBOutlet weak var pagesOverviewWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var settingsContainerRightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var pagesOverViewLeftConstraint: NSLayoutConstraint!
     @IBOutlet weak var titleTextField: UITextField!
+    @IBOutlet weak var pageInfoButton: UIBarButtonItem!
     @IBOutlet weak var undoButton: UIBarButtonItem!
-    @IBOutlet weak var redoButton: UIBarButtonItem!
-
-    private final let defaultSettingsWidth: CGFloat = 280
-    private final let defaultPagesOverViewWidth: CGFloat = 180
+    @IBOutlet weak var sketchButton: UIBarButtonItem!
+    @IBOutlet weak var fullScreenButton: UIBarButtonItem!
+    @IBOutlet weak var actionBarButtonItem: UIBarButtonItem!
+    
+    @IBOutlet var bottomConstraints: [NSLayoutConstraint]!
 
     weak var pagesOverviewController: PagesOverviewTableViewController?
+    weak var importDataNavigationController: UINavigationController?
+    
     var isFullScreen = false
-    var isLoadingImage = false
+    var isSketchMode = false {
+        didSet {
+            if isSketchMode {
+                sketchButton.image = UIImage(named: "sketchIconActive")
+            } else {
+                sketchButton.image = UIImage(named: "sketchIcon")
+            }
+        }
+    }
+    var isLoadingData = false
 
     var document: Document? {
         get {
@@ -32,13 +45,17 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpTitle()
+        pageInfoButton.setHidden(true)
     }
-
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         registerNotifications()
-        updateUndoRedoButtons()
-        isLoadingImage = false
+        updateUndoButton()
+        if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
+            setUpForIphone()
+        }
+        isLoadingData = false
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -48,113 +65,259 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
 
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        if !isLoadingImage {
+        if !isLoadingData {
             titleTextField.delegate = nil
-            DocumentInstance.sharedInstance.save(nil)
-            document?.closeWithCompletionHandler({
-                (Bool) -> Void in
+            DocumentInstance.sharedInstance.removeAllDelegates()
+            DocumentInstance.sharedInstance.save({ (_) in
+                self.document?.closeWithCompletionHandler(nil)
             })
             removeNotifications()
             undoManager?.removeAllActions()
         }
-        
+    }
+    
+    func setUpForIphone() {
+        titleTextField.hidden = true
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        DocumentInstance.sharedInstance.flushUndoManager()
     }
 
     override func canBecomeFirstResponder() -> Bool {
         return true
     }
 
-    func setUpTitle() {
+    private func setUpTitle() {
         titleTextField.text = document?.name
         titleTextField.sizeToFit()
     }
 
-    func registerNotifications() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DocumentViewController.updateUndoRedoButtons), name: NSUndoManagerWillUndoChangeNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DocumentViewController.updateUndoRedoButtons), name: NSUndoManagerDidRedoChangeNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DocumentViewController.updateUndoRedoButtons), name: NSUndoManagerCheckpointNotification, object: nil)
+    private func registerNotifications() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DocumentViewController.updateUndoButton), name: NSUndoManagerWillUndoChangeNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DocumentViewController.updateUndoButton), name: NSUndoManagerCheckpointNotification, object: nil)
     }
 
-    func removeNotifications() {
+    private func removeNotifications() {
         NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    private func toggleFullScreen(animated: Bool = true) {
+        if isFullScreen {
+            settingsContainerRightConstraint.constant = 0
+            pagesOverViewLeftConstraint.constant = 0
+            isFullScreen = false
+            SettingsViewController.sharedInstance?.view.alpha = 1
+            pagesOverviewController?.view.alpha = 1
+            fullScreenButton.image = UIImage(named: "fullscreenOn")
+        } else {
+            settingsContainerRightConstraint.constant = -SettingsViewController.sharedInstance!.view.bounds.width
+            pagesOverViewLeftConstraint.constant = -pagesOverviewController!.view.bounds.width
+            isFullScreen = true
+            fullScreenButton.image = UIImage(named: "fullscreenOff")
+        }
+        UIView.animateWithDuration(animated ? standardAnimationDuration : 0, delay: 0, options: .CurveEaseInOut, animations: {
+            self.view.layoutIfNeeded()
+            PagesTableViewController.sharedInstance?.setUpScrollView()
+            PagesTableViewController.sharedInstance?.layoutDidChange()
+            }, completion: { (_) in
+                if self.isFullScreen {
+                    SettingsViewController.sharedInstance?.view.alpha = 0
+                    self.pagesOverviewController?.view.alpha = 0
+                }
+        })
     }
 
     // MARK: - Actions
 
-    @IBAction func handleSketchButtonPressed(sender: AnyObject) {
-        PagesTableViewController.sharedInstance?.currentPageView()?.handleSketchButtonPressed()
+    @IBAction func handleSketchButtonPressed(sender: UIBarButtonItem) {
+        isSketchMode = !isSketchMode
+        if isSketchMode {
+            PagesTableViewController.sharedInstance?.currentPageView?.handleSketchButtonPressed()
+        } else {
+            PagesTableViewController.sharedInstance?.currentPageView?.deselectSelectedSubview()
+        }
     }
 
     @IBAction func handlePageInfoButtonPressed(sender: AnyObject) {
-        PagesTableViewController.sharedInstance?.currentPageView()?.deselectSelectedSubview()
+        PagesTableViewController.sharedInstance?.currentPageView?.deselectSelectedSubview()
         SettingsViewController.sharedInstance?.currentSettingsType = .PageInfo
+        if isFullScreen {
+            toggleFullScreen()
+        }
     }
 
     @IBAction func handleFullscreenToggleButtonPressed(sender: UIBarButtonItem) {
-        if isFullScreen {
-            settingsWidthConstraint.constant = defaultSettingsWidth
-            pagesOverviewWidthConstraint.constant = defaultPagesOverViewWidth
-            isFullScreen = false
-            sender.image = UIImage(named: "fullscreenOn")
-        } else {
-            settingsWidthConstraint.constant = 0
-            pagesOverviewWidthConstraint.constant = 0
-            isFullScreen = true
-            sender.image = UIImage(named: "fullscreenOff")
-        }
-
-        UIView.animateWithDuration(standardAnimationDuration, delay: 0, usingSpringWithDamping: 0.85, initialSpringVelocity: 5, options: .CurveEaseInOut, animations: {
-            () -> Void in
-            self.view.layoutIfNeeded()
-            PagesTableViewController.sharedInstance?.layoutDidChange()
-        }, completion: nil)
-
+        toggleFullScreen()
     }
 
     @IBAction func handleUndoButtonPressed(sender: AnyObject) {
         undoManager?.undo()
     }
 
-    @IBAction func handleRedoButtonPressed(sender: AnyObject) {
-        undoManager?.redo()
-    }
-
-    func updateUndoRedoButtons() {
-        redoButton.enabled = undoManager?.canRedo ?? false
+    func updateUndoButton() {
         undoButton.enabled = undoManager?.canUndo ?? false
     }
-
+    
     // MARK: - Navigation
-
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let viewController = segue.destinationViewController as? PagesOverviewTableViewController {
             viewController.pagesOverViewDelegate = self
             pagesOverviewController = viewController
         } else if let viewController = segue.destinationViewController as? PagesTableViewController {
             PagesTableViewController.sharedInstance = viewController
+        } else if let viewController = segue.destinationViewController as? SettingsViewController {
+            viewController.delegate = self
         } else if let navigationController = segue.destinationViewController as? UINavigationController {
-            if let viewController = navigationController.visibleViewController as? ImportDataViewController {
+            if UIDevice.currentDevice().userInterfaceIdiom == .Phone {
+                isLoadingData = true
+            }
+            if let viewController = navigationController.visibleViewController as? ImportExportBaseViewController {
                 viewController.delegate = self
             }
+            if importDataNavigationController != nil {
+                dismiss()
+            }
+            importDataNavigationController = navigationController
         }
     }
-
+    
     @IBAction func unwind(sender: AnyObject) {
         navigationController?.popViewControllerAnimated(true)
     }
+}
 
-    // MARK: - PagesOverViewDelegate
+// MARK: - UITextfieldDelegate
+
+extension DocumentViewController: UITextFieldDelegate {
+    
+    func textFieldDidBeginEditing(textField: UITextField) {
+        textField.borderStyle = .RoundedRect
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func textFieldDidEndEditing(textField: UITextField) {
+        if let newName = textField.text {
+            DocumentInstance.sharedInstance.renameDocument(newName, forceOverWrite: false, viewController: self, completion: {
+                (success) -> Void in
+                if !success {
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.setUpTitle()
+                    })
+                }
+            })
+            textField.borderStyle = .None
+        }
+    }
+    
+}
+
+// MARK: - SettingsViewControllerDelegate
+
+extension DocumentViewController: SettingsViewControllerDelegate {
+    
+    func didChangeSettingsType(newType: SettingsViewControllerType) {
+        pageInfoButton.setHidden(newType == .PageInfo)
+        isSketchMode = newType == .Sketch
+    }
+    
+}
+
+// MARK: - ImportDataViewControllerDelegate
+
+extension DocumentViewController: ImportExportDataViewControllerDelgate {
+    
+    func addEmptyPage() {
+        document?.addEmptyPage()
+        dismiss()
+    }
+    
+    func addTextField() {
+        if let textLayer = DocumentInstance.sharedInstance.currentPage?.addTextLayer("") {
+            if let currentPageView = PagesTableViewController.sharedInstance?.currentPageView {
+                currentPageView.addTextLayer(textLayer)
+                currentPageView.page = DocumentInstance.sharedInstance.currentPage
+                currentPageView.setLayerSelected(currentPageView.subviews.count - 1)
+                if let pageIndex = currentPageView.page?.index {
+                    DocumentInstance.sharedInstance.didUpdatePage(pageIndex)
+                    showPage(pageIndex)
+                }
+            }
+        }
+        dismiss()
+    }
+    
+    func addPDF(url: NSURL) {
+        document?.addPDF(url)
+        dismiss()
+    }
+    
+    func addImage(image: UIImage) {
+        if let imageLayer = DocumentInstance.sharedInstance.currentPage?.addImageLayer(image) {
+            if let currentPageView = PagesTableViewController.sharedInstance?.currentPageView {
+                currentPageView.addImageLayer(imageLayer)
+                currentPageView.page = DocumentInstance.sharedInstance.currentPage
+                currentPageView.setLayerSelected(currentPageView.subviews.count - 1)
+                if let pageIndex = currentPageView.page?.index {
+                    DocumentInstance.sharedInstance.didUpdatePage(pageIndex)
+                    showPage(pageIndex)
+                }
+            }
+        }
+        dismiss()
+    }
+    
+    func addSketchLayer() {
+        PagesTableViewController.sharedInstance?.currentPageView?.addSketchLayer()
+        dismiss()
+    }
+    
+    func exportAsPDF(data: NSData) {
+        dismiss()
+        DocumentExporter.presentActivityViewController(self, barbuttonItem: actionBarButtonItem, items: [data])
+    }
+    
+    func exportAsImages(images: [UIImage]) {
+        dismiss(false)
+        DocumentExporter.presentActivityViewController(self, barbuttonItem: actionBarButtonItem, items: images)
+    }
+    
+    func exportAsProNote(url: NSURL) {
+        dismiss()
+        DocumentExporter.presentActivityViewController(self, barbuttonItem: actionBarButtonItem, items: [url])
+    }
+    
+    func dismiss(animated: Bool = true) {
+        importDataNavigationController?.dismissViewControllerAnimated(animated, completion: nil)
+        importDataNavigationController?.delegate = nil
+        importDataNavigationController = nil
+    }
+    
+}
+
+// MARK: - PagesOverViewDelegate
+
+extension DocumentViewController: PagesOverviewTableViewCellDelegate {
 
     func showPage(index: Int) {
         PagesTableViewController.sharedInstance?.showPage(index)
-        SettingsViewController.sharedInstance?.currentSettingsType = .PageInfo
     }
 
-    // MARK: - UIKeyCommands
+}
 
+// MARK: - UIKeyCommands
+
+extension DocumentViewController {
+    
     override var keyCommands: [UIKeyCommand]? {
         var commands = [UIKeyCommand]()
-
+        
         if let settingsViewController = SettingsViewController.sharedInstance {
             switch settingsViewController.currentSettingsType {
             case .Image:
@@ -165,8 +328,8 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
                 break
             }
         }
-
-        if let _ = PagesTableViewController.sharedInstance?.currentPageView()?.selectedSubView as? MovableView {
+        
+        if let _ = PagesTableViewController.sharedInstance?.currentPageView?.selectedSubView as? MovableView {
             commands.append(UIKeyCommand(input: UIKeyInputRightArrow, modifierFlags: .Command, action: #selector(DocumentViewController.handleMoveMovableViewKeyPressed(_:)), discoverabilityTitle: "Move Right"))
             commands.append(UIKeyCommand(input: UIKeyInputLeftArrow, modifierFlags: .Command, action: #selector(DocumentViewController.handleMoveMovableViewKeyPressed(_:)), discoverabilityTitle: "Move Left"))
             commands.append(UIKeyCommand(input: UIKeyInputUpArrow, modifierFlags: .Command, action: #selector(DocumentViewController.handleMoveMovableViewKeyPressed(_:)), discoverabilityTitle: "Move Up"))
@@ -175,26 +338,26 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
             commands.append(UIKeyCommand(input: UIKeyInputDownArrow, modifierFlags: [], action: #selector(DocumentViewController.handleDownKeyPressed(_:)), discoverabilityTitle: "Scroll Down"))
             commands.append(UIKeyCommand(input: UIKeyInputUpArrow, modifierFlags: [], action: #selector(DocumentViewController.handleUpKeyPressed(_:)), discoverabilityTitle: "Scroll Up"))
         }
-
+        
         return commands
     }
-
+    
     func handleRotateImageKeyPressed(sender: UIKeyCommand) {
         if let imageSettingsViewController = SettingsViewController.sharedInstance?.currentChildViewController as? ImageSettingsViewController {
             imageSettingsViewController.rotateImage(sender.input == UIKeyInputRightArrow ? .Right : .Left)
         }
     }
-
+    
     func handleDownKeyPressed(sender: UIKeyCommand) {
         PagesTableViewController.sharedInstance?.scroll(true)
     }
-
+    
     func handleUpKeyPressed(sender: UIKeyCommand) {
         PagesTableViewController.sharedInstance?.scroll(false)
     }
-
+    
     func handleMoveMovableViewKeyPressed(sender: UIKeyCommand) {
-        guard let movableView = PagesTableViewController.sharedInstance?.currentPageView()?.selectedSubView as? MovableView else {
+        guard let movableView = PagesTableViewController.sharedInstance?.currentPageView?.selectedSubView as? MovableView else {
             return
         }
         let offSet = 10
@@ -218,79 +381,5 @@ class DocumentViewController: UIViewController, PagesOverviewTableViewCellDelega
         movableView.selectedTouchControl = .Center
         movableView.handlePanTranslation(translation)
         movableView.handlePanEnded()
-    }
-
-    // MARK: - UITextfieldDelegate
-
-    func textFieldDidBeginEditing(textField: UITextField) {
-        textField.borderStyle = .RoundedRect
-    }
-
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-
-    func textFieldDidEndEditing(textField: UITextField) {
-        if let newName = textField.text {
-            DocumentInstance.sharedInstance.renameDocument(newName, forceOverWrite: false, viewController: self, completion: {
-                (success) -> Void in
-                if !success {
-                    dispatch_async(dispatch_get_main_queue(), {
-                        self.setUpTitle()
-                    })
-                }
-            })
-            textField.borderStyle = .None
-        }
-    }
-
-    // MARK: - ImportDataViewControllerDelegate
-
-    func addEmptyPage() {
-        document?.addEmptyPage()
-
-        navigationController?.dismissViewControllerAnimated(true, completion: nil)
-    }
-
-    func addTextField() {
-        if let textLayer = DocumentInstance.sharedInstance.currentPage?.addTextLayer("") {
-            if let currentPageView = PagesTableViewController.sharedInstance?.currentPageView() {
-                currentPageView.addTextLayer(textLayer)
-                currentPageView.page = DocumentInstance.sharedInstance.currentPage
-                currentPageView.setLayerSelected(currentPageView.subviews.count - 1)
-                if let pageIndex = currentPageView.page?.index {
-                    DocumentInstance.sharedInstance.didUpdatePage(pageIndex)
-                }
-            }
-        }
-        navigationController?.dismissViewControllerAnimated(true, completion: nil)
-    }
-
-    func addPDF(url: NSURL) {
-        document?.addPDF(url)
-        navigationController?.dismissViewControllerAnimated(true, completion: nil)
-    }
-
-    func addImage(image: UIImage) {
-        if let imageLayer = DocumentInstance.sharedInstance.currentPage?.addImageLayer(image) {
-            if let currentPageView = PagesTableViewController.sharedInstance?.currentPageView() {
-                currentPageView.addImageLayer(imageLayer)
-                currentPageView.page = DocumentInstance.sharedInstance.currentPage
-                currentPageView.setLayerSelected(currentPageView.subviews.count - 1)
-                if let pageIndex = currentPageView.page?.index {
-                    DocumentInstance.sharedInstance.didUpdatePage(pageIndex)
-                }
-            }
-        }
-        navigationController?.dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    func addSketchLayer() {
-        // TODO
-    }
-
-    func dismiss() {
-        navigationController?.dismissViewControllerAnimated(true, completion: nil)
     }
 }

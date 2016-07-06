@@ -55,8 +55,8 @@ extension UIView {
 
     // MARK: - Snapshot
 
-    func toImage() -> UIImage {
-        UIGraphicsBeginImageContextWithOptions(self.bounds.size, true, 0);
+    func toImage(opaque: Bool = true) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(self.bounds.size, opaque, 0);
         self.layer.renderInContext(UIGraphicsGetCurrentContext()!)
         let snapshot = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
@@ -67,8 +67,8 @@ extension UIView {
         return toImage().thumbImage()
     }
 
-    func toImageView() -> UIView {
-        let snapshotView = UIImageView(image: toImage())
+    func toImageView(opaque: Bool = true) -> UIView {
+        let snapshotView = UIImageView(image: toImage(opaque))
         snapshotView.layer.masksToBounds = false
         snapshotView.layer.shadowOffset = CGSizeMake(-5, 0)
         snapshotView.layer.shadowRadius = 5

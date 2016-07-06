@@ -42,9 +42,9 @@ class DocumentTests: XCTestCase {
     func testOpenDocument() {
         XCTAssertEqual(document.pages.count, pagesCount)
         XCTAssertEqual(document[0]?.layers.count, 3)
-        XCTAssertEqual(document[0]?[0]?.type, DocumentLayerType.Drawing)
+        XCTAssertEqual(document[0]?[0]?.type, DocumentLayerType.Sketch)
         XCTAssertEqual(document[0]?[1]?.type, DocumentLayerType.Image)
-        XCTAssertEqual(document[0]?[2]?.type, DocumentLayerType.Drawing)
+        XCTAssertEqual(document[0]?[2]?.type, DocumentLayerType.Sketch)
     }
     
     func testAddPage() {

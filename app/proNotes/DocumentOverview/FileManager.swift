@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import CloudKit
 
 enum RenameError: ErrorType {
     case AlreadyExists
@@ -33,7 +33,7 @@ class FileManager: NSObject {
     static let sharedInstance = FileManager()
 
     private final let fileExtension = "ProNote"
-    private final let defaultName = "Note"
+    private final let defaultName = NSLocalizedString("Note", comment: "default file name")
 
     weak var delegate: FileManagerDelegate?
 
@@ -63,6 +63,37 @@ class FileManager: NSObject {
         super.init()
         reload()
     }
+    
+    var alreadyDownloadingFromCloudKit = false
+    
+    func downloadFromCloudKit() {
+        guard !Preferences.AlreadyDownloadedDefaultNote() && !alreadyDownloadingFromCloudKit else {
+            return 
+        }
+        alreadyDownloadingFromCloudKit = true
+        let taskID = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler(nil)
+        let container = CKContainer.defaultContainer()
+        let publicDataBase = container.publicCloudDatabase
+        let predicate = NSPredicate(value: true)
+    
+        let query = CKQuery(recordType: "Document", predicate: predicate)
+        publicDataBase.performQuery(query, inZoneWithID: nil) { (records, error) in
+            self.alreadyDownloadingFromCloudKit = false
+            if let record = records?.first {
+                if let asset = record.objectForKey("data") as? CKAsset {
+                    let newURL = self.getDocumentURL("Hello🦄", uniqueFileName: true)
+                    try!  NSFileManager.defaultManager().copyItemAtURL(asset.fileURL, toURL: newURL)
+                    self.checkForLocalFiles()
+                    NotifyHelper.fireNotification(false, url: newURL)
+                    Preferences.setAlreadyDownloadedDefaultNote(true)
+                    WelcomeViewController.sharedInstance?.alredyDownloaded = true
+                }
+            } else {
+                NotifyHelper.fireNotification(true)
+            }
+            UIApplication.sharedApplication().endBackgroundTask(taskID)
+        }
+    }
 
     func reload() {
         objects.removeAll()
@@ -74,11 +105,11 @@ class FileManager: NSObject {
                 self.startQuery()
             }
         }
+        checkForLocalFiles()
     }
 
     func checkFiles() {
         query?.disableUpdates()
-
         guard let results = query?.results as? [NSMetadataItem] else {
             query?.enableUpdates()
             return
@@ -105,6 +136,19 @@ class FileManager: NSObject {
             }
         }
         query?.enableUpdates()
+    }
+    
+    func checkForLocalFiles() {
+        do {
+            let allFilesArray = try NSFileManager.defaultManager().contentsOfDirectoryAtPath(documentsRootURL.path!)
+            for fileName in allFilesArray {
+                let fileURL = NSURL(fileURLWithPath: documentsRootURL.path! + "/" + fileName)
+                updateMetadata(fileURL)
+            }
+        } catch {
+            print("Error occured while fetching local files: \(error)")
+        }
+
     }
 
     func useiCloud() -> Bool {
@@ -178,10 +222,11 @@ class FileManager: NSObject {
 
     }
 
-    func createDocument() {
+    func createDocument(completionHandler: (NSURL) -> Void) {
         let fileUrl = getDocumentURL(defaultName, uniqueFileName: true)
-
+        print(fileUrl)
         let document = Document(fileURL: fileUrl)
+        document.addEmptyPage()
         document.saveToURL(fileUrl, forSaveOperation: .ForCreating) {
             (success) -> Void in
             if !success {
@@ -193,12 +238,13 @@ class FileManager: NSObject {
             let fileURL = document.fileURL
             let state = document.documentState
             let version = NSFileVersion.currentVersionOfItemAtURL(fileURL)
-            document.addEmptyPage()
+
 
             document.closeWithCompletionHandler({
                 (sucess) -> Void in
                 dispatch_async(dispatch_get_main_queue(), {
                     self.updateObject(fileURL, metaData: metaData, state: state, version: version, downloaded: true)
+                    completionHandler(fileURL)
                 })
             })
         }
@@ -379,7 +425,7 @@ class FileManager: NSObject {
 
     func handleQueryNotification(notification: NSNotification) {
         if let userInfo = notification.userInfo {
-            guard let items = userInfo[NSMetadataQueryUpdateRemovedItemsKey] as? [NSMetadataItem] else {
+            guard let items = userInfo[NSMetadataQueryUpdateRemovedItemsKey] as? [NSMetadataItem] where items.count > 0 else {
                 checkFiles()
                 return
             }

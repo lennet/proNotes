@@ -18,7 +18,7 @@ class MovableImageView: MovableView, ImageSettingsDelegate {
         }
     }
 
-    init(image: UIImage, frame: CGRect, movableLayer: MovableLayer, renderMode: Bool = false) {
+    override init(frame: CGRect, movableLayer: MovableLayer, renderMode: Bool = false) {
         super.init(frame: frame, movableLayer: movableLayer, renderMode: renderMode)
         proportionalResize = true
     }
@@ -83,8 +83,8 @@ class MovableImageView: MovableView, ImageSettingsDelegate {
         imageView?.image = image
         imageLayer?.image = image
         
-        frame.size.height = (image.size.height * heightRatio) + 2 * controlLength
-        frame.size.width = (image.size.width * widthRatio) + 2 * controlLength
+        frame.size.height = (image.size.height * heightRatio) + controlLength
+        frame.size.width = (image.size.width * widthRatio) + controlLength
         movableLayer?.size = frame.size
         layoutIfNeeded()
         setNeedsDisplay()

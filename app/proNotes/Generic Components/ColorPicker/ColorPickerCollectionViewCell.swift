@@ -11,21 +11,14 @@ import UIKit
 class ColorPickerCollectionViewCell: UICollectionViewCell {
     static let identifier = "ColorPickerCollectionViewCellIdentifier"
 
-    var isSelectedColor = false
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        layer.setUpDefaultShaddow()
-    }
-
-    override func drawRect(rect: CGRect) {
-        super.drawRect(rect)
-        let context = UIGraphicsGetCurrentContext()
-
-        if isSelectedColor {
-            CGContextSetStrokeColorWithColor(context, UIColor.blackColor().CGColor)
-            CGContextSetLineWidth(context, 4)
+    var isSelectedColor = false {
+        didSet {
+            if isSelectedColor {
+                layer.setUpHighlitedShadow()
+            } else {
+                layer.setUpDefaultShaddow()
+            }
         }
-        CGContextStrokeRect(context, self.bounds)
     }
+
 }

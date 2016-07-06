@@ -58,15 +58,19 @@ class PageInfoLayerTableViewCell: UITableViewCell {
 
     @IBAction func handleDeleteButtonPressed(sender: AnyObject) {
         if documentLayer != nil {
-            PagesTableViewController.sharedInstance?.currentPageView()?.removeLayer(documentLayer!)
+            let index = documentLayer!.docPage.index
+            PagesTableViewController.sharedInstance?.currentPageView?.removeLayer(documentLayer!)
             delegate?.didRemovedLayer()
+            DocumentInstance.sharedInstance.didUpdatePage(index)
         }
     }
 
     @IBAction func handleVisibilityButtonPressed(sender: AnyObject) {
         if documentLayer != nil {
-            PagesTableViewController.sharedInstance?.currentPageView()?.changeLayerVisibility(documentLayer!)
+            let index = documentLayer!.docPage.index
+            PagesTableViewController.sharedInstance?.currentPageView?.changeLayerVisibility(documentLayer!)
             updateVisibilityButton()
+            DocumentInstance.sharedInstance.didUpdatePage(index)
         }
 
     }

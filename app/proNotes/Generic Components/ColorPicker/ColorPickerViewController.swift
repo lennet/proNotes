@@ -8,8 +8,11 @@
 
 import UIKit
 
+@objc
 protocol ColorPickerDelegate: class {
     func didSelectColor(colorPicker: ColorPickerViewController, color: UIColor)
+    func canSelectClearColor(colorPicker: ColorPickerViewController) -> Bool
+    optional func setupColorPicker(colorPicker: ColorPickerViewController)
 }
 
 class ColorPickerViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
@@ -21,36 +24,94 @@ class ColorPickerViewController: UIViewController, UICollectionViewDataSource, U
     
     @IBOutlet weak var colorCollectionView: UICollectionView!
     
-    let colors = [ColorPickerElement(pickerColor: UIColor.clearColorPattern(), resultColor: UIColor.clearColor()),
+    private let allColors = [ColorPickerElement(pickerColor: UIColor.clearColorPattern(), resultColor: UIColor.clearColor()),
                   ColorPickerElement(pickerColor: nil, resultColor: UIColor.blackColor()),
-                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.darkGrayColor()),
-                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.lightGrayColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNAsbestonsColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNConcreteColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNSilverColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNCloudsColor()),
                   ColorPickerElement(pickerColor: nil, resultColor: UIColor.whiteColor()),
-                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.grayColor()),
-                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.redColor()),
-                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.greenColor()),
-                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.blueColor()),
-                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.cyanColor()),
-                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.yellowColor()),
-                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.magentaColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNMidnightBlueColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNWetAsphaltColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNAmethystColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNWisteriaColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNBelizeHoleColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNPeterRiverColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNNephritisColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNEmeraldColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNGreenSeaColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNTurqoiseColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNRedColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNPomegranateColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNRedColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNAlizarinColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNPumpkinColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNCarrotColor()),
                   ColorPickerElement(pickerColor: nil, resultColor: UIColor.orangeColor()),
-                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.purpleColor())]
-    var selectedIndex = 0
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.SunFlowerColor()),
+                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNYellowColor())]
+    
+    private var colors : [ColorPickerElement] {
+        get {
+            if delegate?.canSelectClearColor(self) ?? true {
+                return allColors
+            } else {
+                return allColors.filter({ (element) -> Bool in
+                    return element.resultColor != .clearColor()
+                })
+            }
+        }
+    }
+    
+    private var selectedIndex = 0 {
+        didSet {
+            if oldValue != selectedIndex {
+                let selectedIndexPath = NSIndexPath(forItem: self.selectedIndex, inSection: 0)
+                UIView.performWithoutAnimation({
+                    self.colorCollectionView.reloadItemsAtIndexPaths([selectedIndexPath, NSIndexPath(forItem: oldValue, inSection: 0)])
+                    self.colorCollectionView.scrollToItemAtIndexPath(selectedIndexPath, atScrollPosition: .CenteredHorizontally, animated: true)
+                })
+                
+            }
+        }
+    }
+    
+    private var shouldScrollToSelectedIndex = false
+    
     var identifier: String?
-    
-    
     weak var delegate: ColorPickerDelegate?
 
-    static func getColorPicker() -> ColorPickerViewController {
-        let storyboard = UIStoryboard.documentStoryboard()
-        return storyboard.instantiateViewControllerWithIdentifier("ColorPickerViewControllerIdentifier") as! ColorPickerViewController
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        delegate?.setupColorPicker?(self)
     }
-
-    func getRect() -> CGRect {
-        colorCollectionView.layoutIfNeeded()
-        return colorCollectionView.bounds
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        shouldScrollToSelectedIndex = true
     }
-
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if shouldScrollToSelectedIndex {
+            colorCollectionView.scrollToItemAtIndexPath(NSIndexPath(forItem: selectedIndex, inSection: 0), atScrollPosition: .CenteredHorizontally, animated: false)
+            shouldScrollToSelectedIndex = false
+        }
+    }
+    
+    func setColorSelected(color: UIColor) {
+        for (index, colorElement) in colors.enumerate() {
+            if color == colorElement.resultColor {
+                selectedIndex = index
+                return
+            }
+        }
+    }
+    
+    func getSelectedColor() -> UIColor {
+        return colors[selectedIndex].resultColor
+    }
+    
     // MARK: - UICollectionViewDataSource
 
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -62,23 +123,20 @@ class ColorPickerViewController: UIViewController, UICollectionViewDataSource, U
         let colorPickerElement = colors[indexPath.row]
         cell?.backgroundColor = colorPickerElement.pickerColor ?? colorPickerElement.resultColor
         cell?.isSelectedColor = indexPath.row == selectedIndex
-        cell?.setNeedsDisplay()
+
         return cell!
     }
 
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        return CGSizeMake(collectionView.bounds.height / 1.5, collectionView.bounds.height / 1.5)
+        let isSelected = indexPath.row == selectedIndex
+        return CGSizeMake(collectionView.bounds.height / (isSelected ? 1.35 : 1.5), collectionView.bounds.height / (isSelected ? 1.35 : 1.5))
     }
 
     // MARK: - UICollectionViewDelegate
 
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         delegate?.didSelectColor(self, color: colors[indexPath.row].resultColor)
-        let lastSelectedIndex = selectedIndex
         selectedIndex = indexPath.row
-        if lastSelectedIndex != lastSelectedIndex {
-            collectionView.reloadItemsAtIndexPaths([NSIndexPath(forItem: selectedIndex, inSection: 0), NSIndexPath(forItem: lastSelectedIndex, inSection: 0)])
-        }
         self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
     }
 }

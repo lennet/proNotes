@@ -24,13 +24,15 @@ class DocumentInstance: NSObject {
 
     var undoManager: NSUndoManager? {
         get {
-            return PagesTableViewController.sharedInstance?.undoManager
+            let manager = PagesTableViewController.sharedInstance?.undoManager
+            manager?.levelsOfUndo = 5
+            return manager
         }
     }
 
     weak var currentPage: DocumentPage? {
         didSet {
-            if currentPage != nil {
+            if currentPage != nil && oldValue != currentPage {
                 informDelegateToUpdateCurrentPage(currentPage!)
             }
         }
@@ -69,12 +71,13 @@ class DocumentInstance: NSObject {
                     switch error! {
                     case RenameError.AlreadyExists:
                         dispatch_async(dispatch_get_main_queue(), {
-                            let alertView = UIAlertController(title: nil, message: "Filename already exists", preferredStyle: .Alert)
-                            alertView.addAction(UIAlertAction(title: "Override", style: .Destructive, handler: {
+                            
+                            let alertView = UIAlertController(title: nil, message: NSLocalizedString("ErrorFileAlreadyExists", comment:"error message if a file with the given name already exists & ask for override"), preferredStyle: .Alert)
+                            alertView.addAction(UIAlertAction(title: NSLocalizedString("Override", comment:""), style: .Destructive, handler: {
                                 (action) -> Void in
                                 self.renameDocument(newName, forceOverWrite: true, viewController: viewController, completion: completion)
                             }))
-                            alertView.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: {
+                            alertView.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment:""), style: .Cancel, handler: {
                                 (action) -> Void in
                                 completion?(false)
                             }))
@@ -84,9 +87,9 @@ class DocumentInstance: NSObject {
                         break
                     default:
                         dispatch_async(dispatch_get_main_queue(), {
-                            let alertView = UIAlertController(title: nil, message: "Try again later", preferredStyle: .Alert)
+                            let alertView = UIAlertController(title: nil, message: NSLocalizedString("ErrorUnknown", comment:""), preferredStyle: .Alert)
                             viewController?.presentViewController(alertView, animated: true, completion: nil)
-                            alertView.addAction(UIAlertAction(title: "Ok", style: .Default, handler: {
+                            alertView.addAction(UIAlertAction(title: NSLocalizedString("Ok", comment:""), style: .Default, handler: {
                                 (action) -> Void in
                                 completion?(false)
                             }))
@@ -104,11 +107,15 @@ class DocumentInstance: NSObject {
         document?.updateChangeCount(.Done)
         informDelegateDidUpdatePage(index)
     }
-
+    
     func save(completionHandler: ((Bool) -> Void)?) {
         document?.saveToURL(document!.fileURL, forSaveOperation: .ForOverwriting, completionHandler: completionHandler)
     }
-
+    
+    func flushUndoManager() {
+        undoManager?.removeAllActions()
+        NSNotificationCenter.defaultCenter().postNotificationName(NSUndoManagerWillUndoChangeNotification, object: nil)
+    }
     // MARK: - NSUndoManager
 
     func registerUndoAction(object: AnyObject?, pageIndex: Int, layerIndex: Int) {
@@ -116,7 +123,7 @@ class DocumentInstance: NSObject {
     }
 
     func undoAction(object: AnyObject?, pageIndex: Int, layerIndex: Int) {
-        if let pageView = PagesTableViewController.sharedInstance?.currentPageView() {
+        if let pageView = PagesTableViewController.sharedInstance?.currentPageView {
             if pageView.page?.index == pageIndex {
                 if let pageSubView = pageView[layerIndex] {
                     pageSubView.undoAction?(object)
@@ -127,7 +134,6 @@ class DocumentInstance: NSObject {
 
         // Swift 😍
         document?[pageIndex]?[layerIndex]?.undoAction(object)
-
     }
 
     // MARK: - Delegate Handling
@@ -145,6 +151,12 @@ class DocumentInstance: NSObject {
             if delegates.contains(viewController) {
                 delegates.remove(viewController)
             }
+        }
+    }
+    
+    func removeAllDelegates() {
+        for case let delegate as DocumentInstanceDelegate in delegates {
+            removeDelegate(delegate)
         }
     }
 

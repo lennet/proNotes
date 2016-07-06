@@ -12,9 +12,17 @@ class Preferences {
 
     static private let iCloudActiveKey = "iCloudActive"
     static private let iCloudWasActiveKey = "iCloudWasActive"
-
+    static private let DownloadedDefaultNoteKey = "DownloadedDefaultNote"
+    static private let allowsNotificationKey = "allowsNotification"
+    static private let isFirstRunKey = "isFirstRun"
+    static private let shouldShowWelcomeScreenKey = "shouldShowWelcomeScreen"
 
     //MARK - iCloud Handling
+    
+    class func setUpDefaults() {
+        setShoudlShowWelcomeScreen(true)
+        setIsFirstRun(false)
+    }
 
     class func iCloudActive() -> Bool {
         return NSUserDefaults.standardUserDefaults().boolForKey(iCloudActiveKey)
@@ -32,6 +40,41 @@ class Preferences {
     class func setiCloudWasActive(active: Bool) {
         NSUserDefaults.standardUserDefaults().setBool(active, forKey: iCloudWasActiveKey)
         NSUserDefaults.standardUserDefaults().synchronize()
+    }
+    
+    class func AlreadyDownloadedDefaultNote() -> Bool {
+        return NSUserDefaults.standardUserDefaults().boolForKey(DownloadedDefaultNoteKey)
+    }
+    
+    class func setAlreadyDownloadedDefaultNote(value: Bool) {
+        NSUserDefaults.standardUserDefaults().setBool(value, forKey: DownloadedDefaultNoteKey)
+    }
+    
+    class func allowsNotification() -> Bool {
+        return NSUserDefaults.standardUserDefaults().boolForKey(allowsNotificationKey)
+    }
+    
+    class func setAllowsNotification(value: Bool) {
+        NSUserDefaults.standardUserDefaults().setBool(value, forKey: allowsNotificationKey)
+    }
+    
+    class func isFirstRun() -> Bool {
+        if NSUserDefaults.standardUserDefaults().valueForKey(isFirstRunKey) != nil {
+            return NSUserDefaults.standardUserDefaults().boolForKey(isFirstRunKey)
+        }
+        return true
+    }
+    
+    class func setIsFirstRun(value: Bool) {
+        return NSUserDefaults.standardUserDefaults().setBool(value, forKey: isFirstRunKey)
+    }
+    
+    class func setShoudlShowWelcomeScreen(value: Bool) {
+        return NSUserDefaults.standardUserDefaults().setBool(value, forKey: shouldShowWelcomeScreenKey)
+    }
+    
+    class func shouldShowWelcomeScreen() -> Bool {
+        return NSUserDefaults.standardUserDefaults().boolForKey(shouldShowWelcomeScreenKey)
     }
 
 }

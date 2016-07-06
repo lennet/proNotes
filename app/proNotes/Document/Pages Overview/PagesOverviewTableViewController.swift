@@ -15,6 +15,14 @@ class PagesOverviewTableViewController: UITableViewController, DocumentInstanceD
             return DocumentInstance.sharedInstance.document
         }
     }
+    
+    var currentVisibleIndex = 0 {
+        didSet {
+            let oldIndexPath = NSIndexPath(forRow: oldValue, inSection: 0)
+            let newIndexPath = NSIndexPath(forRow: currentVisibleIndex, inSection: 0)
+            tableView.reloadRowsAtIndexPaths([newIndexPath, oldIndexPath], withRowAnimation: .None)
+        }
+    }
 
     weak var pagesOverViewDelegate: PagesOverviewTableViewCellDelegate?
 
@@ -22,10 +30,10 @@ class PagesOverviewTableViewController: UITableViewController, DocumentInstanceD
         super.viewDidLoad()
         (tableView as? ReordableTableView)?.reordableDelegate = self
     }
-
-
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        (tableView as? ReordableTableView)?.setUp()
         DocumentInstance.sharedInstance.addDelegate(self)
         tableView.reloadData()
     }
@@ -35,16 +43,16 @@ class PagesOverviewTableViewController: UITableViewController, DocumentInstanceD
         DocumentInstance.sharedInstance.removeDelegate(self)
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
     // MARK: - ReordableTableViewDelegate
 
     func didSwapElements(firstIndex: Int, secondIndex: Int) {
         document?.swapPagePositions(firstIndex, secondIndex: secondIndex)
         PagesTableViewController.sharedInstance?.swapPagePositions(firstIndex, secondIndex: secondIndex)
+        DocumentInstance.sharedInstance.flushUndoManager()
+    }
+    
+    func finishedSwappingElements() {
+        document?.updateChangeCount(.Done)
     }
 
     // MARK: - Table view data source
@@ -57,26 +65,30 @@ class PagesOverviewTableViewController: UITableViewController, DocumentInstanceD
         return document?.getNumberOfPages() ?? 0
     }
 
-
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(PagesOverviewTableViewCell.identifier, forIndexPath: indexPath) as! PagesOverviewTableViewCell
-
-        cell.numberLabel.text = String(indexPath.row + 1)
+        let highlighted = indexPath.row == currentVisibleIndex
+        cell.numberLabel.textColor = highlighted ? UIColor.blackColor() : UIColor.lightGrayColor()
         cell.index = indexPath.row
         cell.delegate = pagesOverViewDelegate
         if let page = document?[indexPath.row] {
             let thumbSize = page.size.sizeToFit(CGSize(width: 100, height: 100))
-            cell.pageThumbViewHeightConstraint.constant = thumbSize.height
-            cell.pageThumbViewWidthConstraint.constant = thumbSize.width
+            cell.pageThumbViewHeightConstraint.constant = thumbSize.height * (highlighted ? 1.1 : 1)
+            cell.pageThumbViewWidthConstraint.constant = thumbSize.width * (highlighted ? 1.1 : 1)
             let image = page.previewImage
             cell.pageThumbView.setBackgroundImage(image, forState: .Normal)
         }
         
-        cell.layoutIfNeeded()
+        if highlighted {
+            cell.pageThumbView.layer.setUpHighlitedShadow()
+        } else {
+            cell.pageThumbView.layer.setUpDefaultShaddow()
+        }
+        
         return cell
     }
 
-    // MARK: - DocumentSynchronizerDelegate
+    // MARK: - DocumentInstanceDelegate
 
     func didAddPage(index: Int) {
         if index < tableView.numberOfRowsInSection(0) {
@@ -91,8 +103,12 @@ class PagesOverviewTableViewController: UITableViewController, DocumentInstanceD
         document?.pages[index].removePreviewImage()
         if index < tableView.numberOfRowsInSection(0) {
             let indexPath = NSIndexPath(forRow: index, inSection: 0)
-            tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .None)
         }
+    }
+    
+    func currentPageDidChange(page: DocumentPage) {
+        currentVisibleIndex = page.index
     }
 
 }

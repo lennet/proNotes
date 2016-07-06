@@ -11,17 +11,20 @@ import UIKit
 class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
     
     weak var textView: UITextView?
+    var renderMode: Bool
     
     var textLayer: TextLayer? {
         return movableLayer as? TextLayer
     }
 
     override init(frame: CGRect, movableLayer: MovableLayer, renderMode: Bool = false) {
+        self.renderMode = renderMode
         super.init(frame: frame, movableLayer: movableLayer, renderMode: renderMode)
         widthResizingOnly = true
     }
 
     required init?(coder aDecoder: NSCoder) {
+        renderMode = false
         super.init(coder: aDecoder)
         widthResizingOnly = true
     }
@@ -30,12 +33,11 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
         clipsToBounds = true
         if self.textView == nil {
             let textView = NoScrollingTextView()
+            
             textView.userInteractionEnabled = false
-            textView.backgroundColor = UIColor.clearColor()
+            textView.scrollEnabled = !renderMode
             textView.delegate = self
-            textView.clipsToBounds = true
             addSubview(textView)
-
             self.textView = textView
         }
         
@@ -53,10 +55,6 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
         return rect
     }
 
-    func handleDoubleTap(tapGestureRecognizer: UITapGestureRecognizer) {
-        textView?.becomeFirstResponder()
-    }
-
     override func setUpSettingsViewController() {
         TextSettingsViewController.delegate = self
         SettingsViewController.sharedInstance?.currentSettingsType = .Text
@@ -65,10 +63,13 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
     override func setSelected() {
         super.setSelected()
         textView?.becomeFirstResponder()
+        textView?.userInteractionEnabled = true
     }
 
     override func setDeselected() {
+        super.setDeselected()
         textView?.resignFirstResponder()
+        textView?.userInteractionEnabled = false
     }
 
     // MARK: - TextSettingsDelegate 
@@ -136,7 +137,7 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
     }
     
     override func saveChanges() {
-        textLayer?.size = bounds.size
+        textLayer?.size = textView?.bounds.size ?? bounds.size
         super.saveChanges()
     }
 

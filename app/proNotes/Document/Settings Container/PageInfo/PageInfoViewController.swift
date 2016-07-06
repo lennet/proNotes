@@ -8,12 +8,10 @@
 
 import UIKit
 
-class PageInfoViewController: SettingsBaseViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, DocumentInstanceDelegate, ReordableTableViewDelegate, PageInfoLayerTableViewCellDelegate {
+class PageInfoViewController: SettingsBaseViewController, UITableViewDataSource, UITableViewDelegate, DocumentInstanceDelegate, ReordableTableViewDelegate, PageInfoLayerTableViewCellDelegate {
 
-    @IBOutlet weak var backgroundSelectionCollectionView: UICollectionView!
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var layerTableView: ReordableTableView!
-
-    @IBOutlet weak var formatSelectionCollectionView: UICollectionView!
     @IBOutlet weak var layerTableViewHeightConstraint: NSLayoutConstraint!
 
     private final let collectionViewCellIdentifier = "UICollectionViewCellIdentifier"
@@ -24,6 +22,7 @@ class PageInfoViewController: SettingsBaseViewController, UITableViewDataSource,
         didSet {
             layerTableView.reloadData()
             layoutTableView()
+            titleLabel.text = String(format:NSLocalizedString("PageInfoTitle", comment: ""), (page?.index ?? 0) + 1)
         }
     }
 
@@ -39,6 +38,8 @@ class PageInfoViewController: SettingsBaseViewController, UITableViewDataSource,
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         DocumentInstance.sharedInstance.addDelegate(self)
+        layerTableView.setUp()
+        layerTableView.deactivateDelaysContentTouches()
         layoutTableView()
     }
 
@@ -60,7 +61,7 @@ class PageInfoViewController: SettingsBaseViewController, UITableViewDataSource,
             return
         }
 
-        PagesTableViewController.sharedInstance?.currentPageView()?.setLayerSelected(indexPath.row)
+        PagesTableViewController.sharedInstance?.currentPageView?.setLayerSelected(indexPath.row)
     }
 
     // MARK: - UITableViewDataSource
@@ -91,39 +92,20 @@ class PageInfoViewController: SettingsBaseViewController, UITableViewDataSource,
         self.page = page
     }
 
-    // MARK: - UICollectionViewDataSource
-
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == backgroundSelectionCollectionView {
-            return 2
-        } else {
-            return paperSizes.count
-        }
-    }
-
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(collectionViewCellIdentifier, forIndexPath: indexPath)
-        return cell
-    }
-
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        if collectionView == backgroundSelectionCollectionView {
-            return CGSizeMake(collectionView.bounds.height / 1.5, collectionView.bounds.height / 1.5)
-        } else {
-            var size = paperSizes[indexPath.row]
-            let maxRatio = collectionView.bounds.height / paperSizes[0].height * 0.8
-            size.multiplySize(maxRatio)
-            return size
-        }
-    }
-
     // MARK: - ReordableTableViewDelegate
 
     func didSwapElements(firstIndex: Int, secondIndex: Int) {
         page?.swapLayerPositions(firstIndex, secondIndex: secondIndex)
-        PagesTableViewController.sharedInstance?.currentPageView()?.swapLayerPositions(firstIndex, secondIndex: secondIndex)
+        PagesTableViewController.sharedInstance?.currentPageView?.swapLayerPositions(firstIndex, secondIndex: secondIndex)
+        DocumentInstance.sharedInstance.flushUndoManager()
     }
 
+    func finishedSwappingElements() {
+        if let pageIndex = page?.index {
+            DocumentInstance.sharedInstance.didUpdatePage(pageIndex)
+        }
+    }
+    
     // MARK: - PageInfoLayerTableViewCellDelegate
 
     func didRemovedLayer() {

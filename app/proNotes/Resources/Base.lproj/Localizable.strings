@@ -1,0 +1,39 @@
+/* add image from camera button */
+"Camera" = "Camera";
+
+/* add empty page button */
+"EmptyPage" = "Empty Page";
+
+/* add file from iCloud drive button */
+"iCloudDrive" = "iCloud Drive";
+
+/* add image button */
+"Image" = "Image";
+
+/* add pdf button */
+"PDF" = "PDF";
+
+/* add image from Photos library */
+"Photos" = "Photos";
+
+/* add sketch canvas button */
+"SketchCanvas" = "Sketch Canvas";
+
+/* add textfield button */
+"Textfield" = "Textfield";
+
+/* default file name */
+"Note" = "Note";
+
+/* Title PageInfoViewController */
+"PageInfoTitle" = "Page %i";
+
+"As Images" = "As Images";
+
+"As PDF" = "As PDF";
+
+"As ProNote" = "As ProNote file";
+
+"downloaddata.success" = "The Download is finished. Tap here to open it";
+
+"downloaddata.error" = "Oups! Something wen't wrong. Please check your internet connection";

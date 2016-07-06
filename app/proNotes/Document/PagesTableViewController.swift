@@ -10,13 +10,37 @@ import UIKit
 
 class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UIScrollViewDelegate, UITableViewDelegate, UITableViewDataSource {
    
-   weak static var sharedInstance: PagesTableViewController?
-   
-   private let defaultMargin: CGFloat = 10
-   
+   // MARK: - Outlets
    @IBOutlet weak var tableView: UITableView!
    @IBOutlet weak var scrollView: UIScrollView!
    @IBOutlet weak var tableViewWidth: NSLayoutConstraint!
+   
+   weak static var sharedInstance: PagesTableViewController?
+   
+   private let defaultMargin: CGFloat = 10
+   private var pageUpdateEnabled = true
+   private var documentViewController: DocumentViewController? {
+      get {
+         return parentViewController as? DocumentViewController
+      }
+   }
+
+   weak var currentPageView: PageView? {
+      didSet {
+         guard oldValue?.page != currentPageView?.page || forcePageUpdate else {
+            return
+         }
+         let isSketchMode = documentViewController?.isSketchMode ?? false
+
+         oldValue?.selectedSubView = nil
+         if isSketchMode {
+            currentPageView?.handleSketchButtonPressed()
+         }
+         
+         DocumentInstance.sharedInstance.currentPage = currentPageView?.page
+         forcePageUpdate = false
+      }
+   }
    
    var twoTouchesForScrollingRequired = false {
       didSet {
@@ -38,7 +62,6 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
    
    override func viewDidLoad() {
       super.viewDidLoad()
-      
       setUpTableView()
       loadTableView()
    }
@@ -46,6 +69,7 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
    override func viewWillAppear(animated: Bool) {
       super.viewWillAppear(animated)
       DocumentInstance.sharedInstance.addDelegate(self)
+      updateCurrentPageView()
    }
    
    override func viewDidAppear(animated: Bool) {
@@ -58,7 +82,7 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
       DocumentInstance.sharedInstance.removeDelegate(self)
    }
    
-   func loadTableView() {
+   private func loadTableView() {
       tableView.reloadData()
       tableView.setNeedsLayout()
       tableView.layoutIfNeeded()
@@ -77,22 +101,14 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
       scrollView.zoomScale = minZoomScale
       scrollView.deactivateDelaysContentTouches()
       scrollView.showsVerticalScrollIndicator = false
-      UIView.animateWithDuration(standardAnimationDuration, delay: 0, usingSpringWithDamping: 0.85, initialSpringVelocity: 5, options: .CurveEaseInOut, animations: {
-         () -> Void in
-         self.scrollView.alpha = 1
-         }, completion: nil)
+      scrollView.alpha = 1
    }
    
-   func setUpTableView() {
+   private func setUpTableView() {
       tableViewWidth?.constant = (document?.getMaxWidth() ?? 0) + 2 * defaultMargin
       tableView.deactivateDelaysContentTouches()
       
       view.layoutSubviews()
-   }
-   
-   override func didReceiveMemoryWarning() {
-      super.didReceiveMemoryWarning()
-      // Dispose of any resources that can be recreated.
    }
    
    func scroll(down: Bool) {
@@ -111,36 +127,48 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
       coordinator.animateAlongsideTransition({
          (context) -> Void in
+         self.setUpScrollView()
          self.layoutDidChange()
       }) {
          (context) -> Void in
       }
    }
    
-   override func willTransitionToTraitCollection(newCollection: UITraitCollection, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-      
-   }
-   
    // MARK: - Page Handling
    
    func showPage(pageNumber: Int) {
       if pageNumber < tableView.numberOfRowsInSection(0) {
+         pageUpdateEnabled = false
          let indexPath = NSIndexPath(forRow: pageNumber, inSection: 0)
          DocumentInstance.sharedInstance.currentPage = document?[pageNumber]
          tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
       }
    }
    
-   func currentPageView() -> PageView? {
+   private func updateCurrentPageView(force: Bool = false) {
+      if pageUpdateEnabled || force {
+         currentPageView = getVisiblePageView()
+      }
+   }
+   
+   private func getVisiblePageView() -> PageView? {
+      var visiblePageView: PageView? = nil
       if let indexPaths = tableView.indexPathsForVisibleRows {
+         let visibleRect = CGRect(origin: tableView.contentOffset, size: tableView.bounds.size)
+         var maxSize = CGSize.zero
          for indexPath in indexPaths {
-            if let cell = tableView.cellForRowAtIndexPath(indexPath) as? PageTableViewCell {
-               return cell.pageView
+            let cellRect = tableView.rectForRowAtIndexPath(indexPath)
+            let intersectionSize = CGRectIntersection(visibleRect, cellRect).size
+            if intersectionSize.height > maxSize.height {
+               maxSize = intersectionSize
+               if let cell = tableView.cellForRowAtIndexPath(indexPath) as? PageTableViewCell {
+                  visiblePageView = cell.pageView
+               }
             }
          }
       }
       
-      return nil
+      return visiblePageView
    }
    
    func swapPagePositions(firstIndex: Int, secondIndex: Int) {
@@ -168,22 +196,24 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
    }
    
    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-      let cell = tableView.dequeueReusableCellWithIdentifier(PageTableViewCell.identifier, forIndexPath: indexPath) as! PageTableViewCell
-      
-      cell.layer.setUpDefaultShaddow()
-      
-      if let currentPage = document?[indexPath.row] {
-         cell.widthConstraint?.constant = currentPage.size.width
-         cell.heightConstraint?.constant = currentPage.size.height
-         cell.pageView.page = currentPage
-         cell.pageView.setUpLayer()
-         cell.tableView = tableView
+      return tableView.dequeueReusableCellWithIdentifier(PageTableViewCell.identifier, forIndexPath: indexPath)
+   }
+   
+   func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+      guard let pageCell = cell as? PageTableViewCell else {
+         return
       }
       
-      cell.layoutIfNeeded()
+      guard let currentPage = document?[indexPath.row] else {
+         return
+      }
       
-      return cell
+      pageCell.widthConstraint?.constant = currentPage.size.width
+      pageCell.heightConstraint?.constant = currentPage.size.height
+      pageCell.pageView.page = currentPage
+      pageCell.pageView.setUpLayer()
       
+      pageCell.layoutIfNeeded()
    }
    
    func layoutTableView() {
@@ -203,7 +233,7 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
       var frame = tableView.frame
       frame.size.height = max(scrollView.bounds.height, scrollView.contentSize.height)
       tableView.frame = frame
-      scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: tableView.bounds.height)
+      scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: frame.height)
    }
    
    func layoutDidChange() {
@@ -211,7 +241,6 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
       var frame = tableView.frame
       frame.origin = CGPoint(x: frame.origin.x, y: 0)
       tableView.frame = frame
-      
    }
    
    // MARK: - UIScrollViewDelegate
@@ -225,6 +254,7 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
    }
    
    func scrollViewDidScroll(scrollView: UIScrollView) {
+      
       // only update tableview height if scrollview is'nt bouncing
       if !(scrollView.contentOffset.y > scrollView.contentSize.height - scrollView.bounds.height
          && scrollView.contentSize.height > scrollView.bounds.height) && !(scrollView.contentOffset.y < 0) {
@@ -234,6 +264,18 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
       if (self.scrollView.contentOffset.y != 0) {
          self.scrollView.contentOffset = CGPoint(x: self.scrollView.contentOffset.x, y: 0);
       }
+      
+      updateCurrentPageView()
+   }
+   
+   var forcePageUpdate = false
+   func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
+      if !pageUpdateEnabled {
+         pageUpdateEnabled = true
+         forcePageUpdate = true
+         updateCurrentPageView()
+      }
+      
    }
    
    // MARK: - DocumentSynchronizerDelegate

@@ -86,7 +86,7 @@ class Document: UIDocument {
         if let wrapper = decodeData(contents as! NSData) as? NSFileWrapper {
             fileWrapper = wrapper
         } else {
-            print(contents)
+//            print(contents)
         }
     }
 
@@ -106,6 +106,12 @@ class Document: UIDocument {
         return unarchiver.decodeObjectForKey("data")
     }
 
+    override func saveToURL(url: NSURL, forSaveOperation saveOperation: UIDocumentSaveOperation, completionHandler: ((Bool) -> Void)?) {
+        forceSave = true
+        super.saveToURL(url, forSaveOperation: saveOperation, completionHandler: completionHandler)
+        forceSave = false
+    }
+        
     // MARK - Store Document
 
     override func contentsForType(typeName: String) throws -> AnyObject {
@@ -135,6 +141,11 @@ class Document: UIDocument {
         archiver.finishEncoding()
 
         return data
+    }
+    
+    var forceSave: Bool = false
+    override func hasUnsavedChanges() -> Bool {
+        return forceSave
     }
 
     func getNumberOfPages() -> Int {

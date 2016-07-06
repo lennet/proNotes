@@ -16,6 +16,13 @@ extension CALayer {
         self.shadowRadius = 1.5
         self.shadowOpacity = 0.6
     }
+    
+    func setUpHighlitedShadow() {
+        self.masksToBounds = false
+        self.shadowOffset = CGSize(width: 0, height: 2)
+        self.shadowRadius = 3
+        self.shadowOpacity = 0.6
+    }
 
     func setUpDefaultBorder() {
         self.masksToBounds = false

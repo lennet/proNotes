@@ -20,6 +20,7 @@ class MovableView: TouchControlView, PageSubView {
 
         super.init(frame: CGRect(origin: frame.origin, size: CGSize(width: frame.size.width + newControlLength, height: frame.size.height + newControlLength)))
         controlLength = newControlLength
+        userInteractionEnabled = false
         self.renderMode = renderMode
         backgroundColor = UIColor.clearColor()
     }
@@ -39,35 +40,11 @@ class MovableView: TouchControlView, PageSubView {
             addConstraints([leftConstraint, rightConstraint, bottomConstraint, topConstraint])
             layoutIfNeeded()
         } else {
-            subview.frame = CGRect(origin: CGPoint(x: controlLength, y: controlLength), size: CGSize(width: movableLayer.size.width, height: movableLayer.size.height))
+            subview.frame = CGRect(origin: CGPoint(x: controlLength/2, y: controlLength/2), size: CGSize(width: movableLayer.size.width, height: movableLayer.size.height))
         }
-    }
-
-    func setSelected() {
-        handleTap(nil)
     }
     
     // MARK: - Gesture Recognizer
-
-    func handleTap(recognizer: UITapGestureRecognizer?) {
-        isEditing = !isEditing
-
-        if isEditing {
-            setUpSettingsViewController()
-            for view in subviews {
-                view.layer.borderColor = UIColor.lightGrayColor().CGColor
-                view.layer.borderWidth = 1
-            }
-        } else {
-            for view in subviews {
-                view.layer.borderWidth = 0
-            }
-            setDeselected()
-            SettingsViewController.sharedInstance?.currentSettingsType = .PageInfo
-        }
-
-        setNeedsDisplay()
-    }
 
     override func handlePanTranslation(translation: CGPoint) -> CGRect {
         frame = super.handlePanTranslation(translation)
@@ -83,7 +60,7 @@ class MovableView: TouchControlView, PageSubView {
         }
 
         var newSize = frame.size
-        movableLayer.size = newSize.increaseSize(controlLength * (-2))
+        movableLayer.size = newSize.increaseSize(controlLength * (-1))
         saveChanges()
     }
 
@@ -119,8 +96,27 @@ class MovableView: TouchControlView, PageSubView {
         // empty Base implementation
     }
 
+    func setSelected() {
+        isEditing = true
+        userInteractionEnabled = true
+        setUpSettingsViewController()
+        for view in subviews {
+            view.userInteractionEnabled = true
+            view.layer.borderColor = UIColor.lightGrayColor().CGColor
+            view.layer.borderWidth = 1
+        }
+        setNeedsDisplay()
+    }
+    
     func setDeselected() {
-
+        isEditing = false
+        userInteractionEnabled = false
+        for view in subviews {
+            view.userInteractionEnabled = true
+            view.layer.borderWidth = 0
+        }
+        SettingsViewController.sharedInstance?.currentSettingsType = .PageInfo
+        setNeedsDisplay()
     }
 
     func undoAction(oldObject: AnyObject?) {

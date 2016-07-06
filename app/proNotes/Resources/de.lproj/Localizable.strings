@@ -1,0 +1,36 @@
+/* add image from camera button */
+"Camera" = "Kamera";
+
+/* add empty page button */
+"EmptyPage" = "Leere Seite";
+
+/* add file from iCloud drive button */
+"iCloudDrive" = "iCloud Drive";
+
+/* add image button */
+"Image" = "Bild";
+
+/* add pdf button */
+"PDF" = "PDF";
+
+/* add image from Photos library */
+"Photos" = "Fotos";
+
+/* add sketch canvas button */
+"SketchCanvas" = "Zeichenebene";
+
+/* add textfield button */
+"Textfield" = "Textfeld";
+
+/* default file name */
+"Note" = "Notiz";
+
+/* Title PageInfoViewController */
+"PageInfoTitle" = "Seite %i";
+
+"As Images" = "Als Bilder";
+
+"As PDF" = "Als PDF";
+
+"As ProNote" = "Als ProNote Datei";
+

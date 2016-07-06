@@ -55,9 +55,9 @@ class SketchLayer: DocumentLayer {
             return false
         }
 
-        guard layer.image == image else {
-            return false
-        }
+//        guard layer.image == image else {
+//            return false
+//        }
 
         return true
     }

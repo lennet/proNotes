@@ -29,7 +29,7 @@ class ImageLayer: MovableLayer {
     private final let imageDataKey = "imageData"
 
     override func encodeWithCoder(aCoder: NSCoder) {
-        if let imageData = UIImagePNGRepresentation(image) {
+        if let imageData = UIImageJPEGRepresentation(image, 1.0) {
             aCoder.encodeObject(imageData, forKey: imageDataKey)
         } else {
             print("Could not save drawing Image")
@@ -46,7 +46,7 @@ class ImageLayer: MovableLayer {
     }
 
     override func isEqual(object: AnyObject?) -> Bool {
-        guard let layer = object as? ImageLayer else {
+        guard object is ImageLayer else {
             return false
         }
 
@@ -54,7 +54,7 @@ class ImageLayer: MovableLayer {
             return false
         }
 
-        return layer.image == image
+        return true
     }
 
 }
