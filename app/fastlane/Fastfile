@@ -17,6 +17,7 @@ default_platform :ios
 
 platform :ios do
   before_all do
+    ensure_git_status_clean
     increment_build_number
   end
 
@@ -48,12 +49,14 @@ platform :ios do
   # You can define as many lanes as you want
 
   after_all do |lane|
-    
+
     build = Actions.lane_context[Actions::SharedValues::BUILD_NUMBER]
+    clean_build_artifacts
     commit_version_bump(
           message: "Build #{build}"
         )
-
+    push_to_git_remote
+    reset_git_repo
     notification(message: "Fastlane finished '#{lane}' successfully")
   end
 

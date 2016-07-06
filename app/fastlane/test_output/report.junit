@@ -2,19 +2,19 @@
 <testsuites tests='11' failures='0'>
   <testsuite name='proNotesTests.DocumentPageTests' tests='4' failures='0'>
     <testcase classname='proNotesTests.DocumentPageTests' name='testEncodeDecode' time='0.013'/>
-    <testcase classname='proNotesTests.DocumentPageTests' name='testEquals' time='0.001'/>
-    <testcase classname='proNotesTests.DocumentPageTests' name='testRemoveLayer' time='0.005'/>
-    <testcase classname='proNotesTests.DocumentPageTests' name='testSwapLayer' time='0.002'/>
+    <testcase classname='proNotesTests.DocumentPageTests' name='testEquals' time='0.000'/>
+    <testcase classname='proNotesTests.DocumentPageTests' name='testRemoveLayer' time='0.002'/>
+    <testcase classname='proNotesTests.DocumentPageTests' name='testSwapLayer' time='0.001'/>
   </testsuite>
   <testsuite name='proNotesTests.DocumentTests' tests='4' failures='0'>
-    <testcase classname='proNotesTests.DocumentTests' name='testAddPage' time='0.026'/>
+    <testcase classname='proNotesTests.DocumentTests' name='testAddPage' time='0.021'/>
     <testcase classname='proNotesTests.DocumentTests' name='testAddPDF' time='0.022'/>
-    <testcase classname='proNotesTests.DocumentTests' name='testOpenDocument' time='0.012'/>
-    <testcase classname='proNotesTests.DocumentTests' name='testSwapPages' time='0.012'/>
+    <testcase classname='proNotesTests.DocumentTests' name='testOpenDocument' time='0.011'/>
+    <testcase classname='proNotesTests.DocumentTests' name='testSwapPages' time='0.019'/>
   </testsuite>
   <testsuite name='proNotesTests.TouchControlViewTests' tests='3' failures='0'>
     <testcase classname='proNotesTests.TouchControlViewTests' name='testProportionalResize' time='0.001'/>
     <testcase classname='proNotesTests.TouchControlViewTests' name='testResizeWidthOnly' time='0.001'/>
-    <testcase classname='proNotesTests.TouchControlViewTests' name='testTouchedControlView' time='0.002'/>
+    <testcase classname='proNotesTests.TouchControlViewTests' name='testTouchedControlView' time='0.001'/>
   </testsuite>
 </testsuites>
