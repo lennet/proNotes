@@ -23,30 +23,16 @@ class PageInfoLayerTableViewCell: UITableViewCell {
     weak var documentLayer: DocumentLayer?
     weak var delegate: PageInfoLayerTableViewCellDelegate?
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
-    func setUpCellWithLayer(_ documentLayer: DocumentLayer) {
+    func setUpCell(with documentLayer: DocumentLayer) {
         self.documentLayer = documentLayer
         indexLabel.text = String(documentLayer.index + 1)
-        typeLabel.text = String(documentLayer.type)
+        typeLabel.text = documentLayer.name
 
         updateVisibilityButton()
     }
     
     func updateVisibilityButton() {
-        guard documentLayer != nil else {
-            return
-        }
+        guard documentLayer != nil else { return }
         let buttonImageName = documentLayer!.hidden ? "invisibleIcon" : "visibleIcon"
         UIView.animate(withDuration: standardAnimationDuration, delay: 0, options: UIViewAnimationOptions(), animations: {
             () -> Void in
@@ -57,22 +43,19 @@ class PageInfoLayerTableViewCell: UITableViewCell {
     // MARK: - Actions
 
     @IBAction func handleDeleteButtonPressed(_ sender: AnyObject) {
-        if documentLayer != nil {
-            let index = documentLayer!.docPage.index
-            PagesTableViewController.sharedInstance?.currentPageView?.removeLayer(documentLayer!)
-            delegate?.didRemovedLayer()
-            DocumentInstance.sharedInstance.didUpdatePage(index)
-        }
+        guard documentLayer != nil else { return }
+        let index = documentLayer!.docPage.index
+        PagesTableViewController.sharedInstance?.currentPageView?.removeLayer(documentLayer!)
+        delegate?.didRemovedLayer()
+        DocumentInstance.sharedInstance.didUpdatePage(index)
     }
 
     @IBAction func handleVisibilityButtonPressed(_ sender: AnyObject) {
-        if documentLayer != nil {
-            let index = documentLayer!.docPage.index
-            PagesTableViewController.sharedInstance?.currentPageView?.changeLayerVisibility(documentLayer!)
-            updateVisibilityButton()
-            DocumentInstance.sharedInstance.didUpdatePage(index)
-        }
-
+        guard documentLayer != nil else { return }
+        let index = documentLayer!.docPage.index
+        PagesTableViewController.sharedInstance?.currentPageView?.changeLayerVisibility(documentLayer!)
+        updateVisibilityButton()
+        DocumentInstance.sharedInstance.didUpdatePage(index)
     }
 
 }

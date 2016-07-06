@@ -19,9 +19,11 @@ class DocumentLayer: NSObject, NSCoding {
     private final let indexKey = "index"
     private final let typeRawValueKey = "type"
     private final let hiddenKey = "key"
+    private final let nameKey = "name"
 
     var index: Int
     var type: DocumentLayerType
+    var name: String
     weak var docPage: DocumentPage!
     var hidden = false
 
@@ -29,17 +31,21 @@ class DocumentLayer: NSObject, NSCoding {
         self.index = index
         self.type = type
         self.docPage = docPage
+        self.name = String(type)
     }
 
     init(fileWrapper: FileWrapper, index: Int, docPage: DocumentPage) {
         self.index = index
         self.type = .sketch
         self.docPage = docPage
+        self.name = String(type)
     }
 
     required init(coder aDecoder: NSCoder) {
         self.index = aDecoder.decodeInteger(forKey: indexKey)
-        self.type = DocumentLayerType(rawValue: aDecoder.decodeInteger(forKey: typeRawValueKey))!
+        let type = DocumentLayerType(rawValue: aDecoder.decodeInteger(forKey: typeRawValueKey))!
+        self.name = (aDecoder.decodeObject(forKey: nameKey) as? String) ?? String(type)
+        self.type = type
         self.hidden = aDecoder.decodeBool(forKey: hiddenKey)
         super.init()
     }
@@ -48,6 +54,7 @@ class DocumentLayer: NSObject, NSCoding {
         aCoder.encode(index, forKey: indexKey)
         aCoder.encode(type.rawValue, forKey: typeRawValueKey)
         aCoder.encode(hidden, forKey: hiddenKey)
+        aCoder.encode(name, forKey: nameKey)
     }
 
     func removeFromPage() {
@@ -68,6 +75,10 @@ class DocumentLayer: NSObject, NSCoding {
         }
 
         guard layer.index == index else {
+            return false
+        }
+        
+        guard layer.name == name else {
             return false
         }
 

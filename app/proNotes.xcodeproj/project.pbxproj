@@ -63,6 +63,7 @@
 		98A57C3D1C1DB2A400E6C5DF /* DocumentLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A57C3C1C1DB2A400E6C5DF /* DocumentLayer.swift */; };
 		98A57C3F1C1DB2BC00E6C5DF /* DocumentPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A57C3E1C1DB2BC00E6C5DF /* DocumentPage.swift */; };
 		98A6072F1CCA0D7C00DB3A13 /* ExportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A6072E1CCA0D7C00DB3A13 /* ExportViewController.swift */; };
+		98A681571D2D90410024DC52 /* DocumentLayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A681561D2D90410024DC52 /* DocumentLayerTests.swift */; };
 		98AD15E91C49BBDC00EE94A1 /* ReordableTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98AD15E81C49BBDC00EE94A1 /* ReordableTableView.swift */; };
 		98AF47091D1201100015417C /* UITestsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98AF47081D1201100015417C /* UITestsHelper.swift */; };
 		98BABB8D1C1B142C00D9C938 /* PageInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98BABB8C1C1B142C00D9C938 /* PageInfoViewController.swift */; };
@@ -179,6 +180,7 @@
 		98A57C3C1C1DB2A400E6C5DF /* DocumentLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentLayer.swift; sourceTree = "<group>"; };
 		98A57C3E1C1DB2BC00E6C5DF /* DocumentPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentPage.swift; sourceTree = "<group>"; };
 		98A6072E1CCA0D7C00DB3A13 /* ExportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExportViewController.swift; sourceTree = "<group>"; };
+		98A681561D2D90410024DC52 /* DocumentLayerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentLayerTests.swift; sourceTree = "<group>"; };
 		98AD15E81C49BBDC00EE94A1 /* ReordableTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReordableTableView.swift; sourceTree = "<group>"; };
 		98AF47081D1201100015417C /* UITestsHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITestsHelper.swift; sourceTree = "<group>"; };
 		98BABB8C1C1B142C00D9C938 /* PageInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageInfoViewController.swift; sourceTree = "<group>"; };
@@ -497,6 +499,7 @@
 				98E4688C1C6E11AD00AC0E0A /* DocumentPageTests.swift */,
 				98EB1B501C6D319C00D104A4 /* DocumentTests.swift */,
 				9816186E1C834AF700E1D5EA /* TouchControlViewTests.swift */,
+				98A681561D2D90410024DC52 /* DocumentLayerTests.swift */,
 			);
 			path = proNotesTests;
 			sourceTree = "<group>";
@@ -762,6 +765,7 @@
 			files = (
 				9816186F1C834AF700E1D5EA /* TouchControlViewTests.swift in Sources */,
 				98EB1B511C6D319C00D104A4 /* DocumentTests.swift in Sources */,
+				98A681571D2D90410024DC52 /* DocumentLayerTests.swift in Sources */,
 				98E4688D1C6E11AD00AC0E0A /* DocumentPageTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -76,9 +76,6 @@ class DocumentPageTests: XCTestCase {
         
         XCTAssertEqual(oldPage, page)
     }
-    
-    /*
-     not working for swift 3 on Xcode 8 Beta 1
      
     func testEncodeDecode() {
         let page = DocumentPage(index: 0)
@@ -101,6 +98,5 @@ class DocumentPageTests: XCTestCase {
         
         XCTAssertEqual(unarchivedPDFPage, pdfPage)
     }
-    */
     
 }

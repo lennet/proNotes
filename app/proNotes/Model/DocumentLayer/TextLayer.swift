@@ -16,11 +16,27 @@ class TextLayer: MovableLayer {
     private final let fontKey = "font"
     private final let alignmentKey = "alignment"
     
-    var text: String
+    var text: String {
+        didSet {
+            // only ovverride automated generated names
+            if (name == String(type) || oldValue.contains(name)) && !text.isEmpty {
+                name = text
+            }
+        }
+    }
+    
+    override var name: String {
+        didSet {
+            guard name.isEmpty else { return }
+            name = text.isEmpty ? String(type) : text            
+        }
+    }
+    
     var backgroundColor: UIColor
     var textColor: UIColor
     var font: UIFont
     var alignment: NSTextAlignment
+    
 
     init(index: Int, docPage: DocumentPage, origin: CGPoint, size: CGSize, text: String) {
         self.text = text

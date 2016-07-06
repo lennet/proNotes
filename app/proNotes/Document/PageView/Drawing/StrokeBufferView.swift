@@ -51,6 +51,7 @@ class StrokeBufferView: UIImageView {
     
     // MARK Touch Handling
     
+    
     func handleTouches(_ touches: Set<UITouch>, withEvent event: UIEvent?) {
         guard let touch = touches.first else {
             return
@@ -69,32 +70,32 @@ class StrokeBufferView: UIImageView {
         UIGraphicsEndImageContext()
     }
     
+    
     private func drawStroke(_ context: CGContext?, touch: UITouch) {
         let previousLocation = touch.previousLocation(in: self) //touch.previousLocation(in: self)
         let location = touch.preciseLocation(in: self) //touch.location(in: self)
         context?.setStrokeColor(strokeColor.cgColor)
-        context?.setLineWidth(getLineWidth(context, touch: touch))
+        context?.setLineWidth(getLineWidth(for: touch))
         context?.setLineCap(.round)
         context?.setLineJoin(.round)
         context?.moveTo(x: previousLocation.x, y: previousLocation.y)
-//        context?.setAlpha(touch.force/touch.maximumPossibleForce)
         context?.addLineTo(x: location.x, y: location.y)
         context?.strokePath()
     }
     
-    private func getLineWidth(_ context: CGContext?, touch: UITouch) -> CGFloat {
+    private func getLineWidth(for touch: UITouch) -> CGFloat {
         var newLineWidth: CGFloat = 0
         if touch.type == .stylus  {
-            newLineWidth = getLineWidthForStylus(touch)
+            newLineWidth = getLineWidthForStylus(for: touch)
         } else {
-            newLineWidth = getLineWidthForDrawing(touch, defaultLineWidth: nil)
+            newLineWidth = getLineWidthForDrawing(for: touch, defaultLineWidth: nil)
         }
         newLineWidth = (newLineWidth + oldLineWidth) / 2
         oldLineWidth = newLineWidth
         return newLineWidth
     }
     
-    private func getLineWidthForStylus(_ touch: UITouch) -> CGFloat {
+    private func getLineWidthForStylus(for touch: UITouch) -> CGFloat {
         let previousLocation = touch.previousLocation(in: self)
         let location = touch.location(in: self)
         
@@ -115,10 +116,10 @@ class StrokeBufferView: UIImageView {
         let normalizedAngle = angle.normalized(0, max: CGFloat(90).toRadians())
         let resultLineWidth = (normalizedAngle * (2/3) + normalizedAltitude * (1/3)) * lineWidth * 2
         
-        return currentPenObject.enabledShading ? resultLineWidth : getLineWidthForDrawing(touch, defaultLineWidth: resultLineWidth)
+        return currentPenObject.enabledShading ? resultLineWidth : getLineWidthForDrawing(for: touch, defaultLineWidth: resultLineWidth)
     }
     
-    private func getLineWidthForDrawing(_ touch: UITouch, defaultLineWidth: CGFloat?) -> CGFloat {
+    private func getLineWidthForDrawing(for touch: UITouch, defaultLineWidth: CGFloat?) -> CGFloat {
         if forceTouchAvailable || touch.type == .stylus {
             if touch.force > 0 {
                 return touch.force.normalized(0, max: touch.maximumPossibleForce) * (defaultLineWidth ?? lineWidth) * 2

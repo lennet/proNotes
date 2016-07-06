@@ -83,7 +83,7 @@ class PageInfoViewController: SettingsBaseViewController, UITableViewDataSource,
             return cell
         }
 
-        cell.setUpCellWithLayer(currentLayer)
+        cell.setUpCell(with: currentLayer)
         cell.delegate = self
         return cell
     }
