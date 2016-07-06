@@ -90,7 +90,11 @@ class ImportDataViewController: ImportExportBaseViewController, UIImagePickerCon
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         dismiss(animated: false, completion: nil)
-//        delegate?.addImage(image.resetRoation())
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            delegate?.addImage(image.resetRoation())
+        } else {
+            delegate?.dismiss(true)
+        }
     }
 
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {

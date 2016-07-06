@@ -36,9 +36,11 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>28</string>
+	<string>29</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Add Images to your Documents</string>
 	<key>NSUbiquitousContainers</key>
 	<dict>
 		<key>iCloud.lt.com.proNotes</key>
