@@ -114,7 +114,7 @@ class DocumentInstance: NSObject {
     
     func flushUndoManager() {
         undoManager?.removeAllActions()
-        NotificationCenter.default().post(name: NSNotification.Name.NSUndoManagerWillUndoChange, object: nil)
+        NotificationCenter.default.post(name: NSNotification.Name.NSUndoManagerWillUndoChange, object: nil)
     }
     // MARK: - NSUndoManager
 

@@ -37,7 +37,6 @@
 		984242AB1C3EDD0900F90455 /* TouchControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984242AA1C3EDD0900F90455 /* TouchControlView.swift */; };
 		984242AD1C3EE79900F90455 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984242AC1C3EE79900F90455 /* UIColorExtension.swift */; };
 		9851B85F1CD0BDAC00112BDB /* NotifyHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9851B85E1CD0BDAC00112BDB /* NotifyHelper.swift */; };
-		9851B8611CD0C12000112BDB /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9851B8601CD0C12000112BDB /* NotificationView.swift */; };
 		9851B86C1CD140F500112BDB /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9851B86B1CD140F500112BDB /* WelcomeViewController.swift */; };
 		9851B86E1CD141DF00112BDB /* NoAnimationSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9851B86D1CD141DF00112BDB /* NoAnimationSegue.swift */; };
 		9854310D1C52C00F0098DAC1 /* NSMetadataItemExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9854310C1C52C00F0098DAC1 /* NSMetadataItemExtension.swift */; };
@@ -147,7 +146,6 @@
 		984242AA1C3EDD0900F90455 /* TouchControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchControlView.swift; sourceTree = "<group>"; };
 		984242AC1C3EE79900F90455 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		9851B85E1CD0BDAC00112BDB /* NotifyHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotifyHelper.swift; sourceTree = "<group>"; };
-		9851B8601CD0C12000112BDB /* NotificationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 		9851B86B1CD140F500112BDB /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		9851B86D1CD141DF00112BDB /* NoAnimationSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoAnimationSegue.swift; sourceTree = "<group>"; };
 		9854310C1C52C00F0098DAC1 /* NSMetadataItemExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSMetadataItemExtension.swift; sourceTree = "<group>"; };
@@ -359,7 +357,6 @@
 				98AD15E81C49BBDC00EE94A1 /* ReordableTableView.swift */,
 				984242AA1C3EDD0900F90455 /* TouchControlView.swift */,
 				9851B85E1CD0BDAC00112BDB /* NotifyHelper.swift */,
-				9851B8601CD0C12000112BDB /* NotificationView.swift */,
 				9851B86D1CD141DF00112BDB /* NoAnimationSegue.swift */,
 				9815CD8A1CD4BFC500191495 /* 3DTouchGestureRecognizer.swift */,
 			);
@@ -689,7 +686,6 @@
 				98F2E3EE1C1A1EF1008A5C6C /* MovableImageView.swift in Sources */,
 				9829ECD61C791EF500A64009 /* TextLayer.swift in Sources */,
 				9829ECD41C791ED400A64009 /* ImageLayer.swift in Sources */,
-				9851B8611CD0C12000112BDB /* NotificationView.swift in Sources */,
 				98D2DA821C6BDE4500B3C76C /* DocumentExporter.swift in Sources */,
 				984242AB1C3EDD0900F90455 /* TouchControlView.swift in Sources */,
 				9873094F1CB176E40034A2B1 /* StrokeBufferView.swift in Sources */,

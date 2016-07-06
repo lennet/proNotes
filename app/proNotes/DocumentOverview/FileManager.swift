@@ -46,7 +46,7 @@ class FileManager {
     var documentsRootURL: URL! {
         get {
             if _documentsRootUrl == nil {
-                let paths = Foundation.FileManager.default().urlsForDirectory(.documentDirectory, inDomains: .userDomainMask)
+                let paths = Foundation.FileManager.default.urlsForDirectory(.documentDirectory, inDomains: .userDomainMask)
                 _documentsRootUrl = paths.first
             }
             return _documentsRootUrl
@@ -108,7 +108,7 @@ class FileManager {
     
     func checkForLocalFiles() {
         do {
-            let allFilesArray = try Foundation.FileManager.default().contentsOfDirectory(atPath: documentsRootURL.path!)
+            let allFilesArray = try Foundation.FileManager.default.contentsOfDirectory(atPath: documentsRootURL.path!)
             for fileName in allFilesArray {
                 let fileURL = URL(fileURLWithPath: documentsRootURL.path! + "/" + fileName)
                 updateMetadata(fileURL)
@@ -125,7 +125,7 @@ class FileManager {
 
     func downloadObject(_ object: DocumentsOverviewObject) {
         do {
-            try Foundation.FileManager.default().startDownloadingUbiquitousItem(at: object.fileURL as URL)
+            try Foundation.FileManager.default.startDownloadingUbiquitousItem(at: object.fileURL as URL)
         } catch {
             print("Error: \(error)")
         }
@@ -173,7 +173,7 @@ class FileManager {
             (newURL1, newURL2) -> Void in
             fileCoordinator.item(at: fileURL, willMoveTo: newURL)
             do {
-                try Foundation.FileManager.default().moveItem(at: fileURL, to: newURL)
+                try Foundation.FileManager.default.moveItem(at: fileURL, to: newURL)
             } catch {
                 completion?(false, error)
             }
@@ -222,7 +222,7 @@ class FileManager {
         guard let path = fileURL.path else {
             return
         }
-        if Foundation.FileManager.default().fileExists(atPath: path) {
+        if Foundation.FileManager.default.fileExists(atPath: path) {
             let document = Document(fileURL: fileURL)
             document.open {
                 (success) -> Void in
@@ -360,7 +360,7 @@ class FileManager {
     private func initializeiCLoud(_ completion: (success:Bool) -> ()) {
         DispatchQueue.global(attributes: DispatchQueue.GlobalAttributes.qosDefault).async {
             () -> Void in
-            self.iCloudRootURL = Foundation.FileManager.default().urlForUbiquityContainerIdentifier(nil)
+            self.iCloudRootURL = Foundation.FileManager.default.urlForUbiquityContainerIdentifier(nil)
             if self.iCloudRootURL != nil {
                 DispatchQueue.main.async(execute: {
                     completion(success: true)
@@ -377,15 +377,15 @@ class FileManager {
         stopQuery()
 
         query = documentQuery
-        NotificationCenter.default().addObserver(self, selector: #selector(handleQueryNotification(_:)), name: NSNotification.Name.NSMetadataQueryDidFinishGathering, object: nil)
-        NotificationCenter.default().addObserver(self, selector: #selector(handleQueryNotification(_:)), name: NSNotification.Name.NSMetadataQueryDidUpdate, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleQueryNotification(_:)), name: NSNotification.Name.NSMetadataQueryDidFinishGathering, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleQueryNotification(_:)), name: NSNotification.Name.NSMetadataQueryDidUpdate, object: nil)
         query?.start()
 
     }
 
     private func stopQuery() {
-        NotificationCenter.default().removeObserver(self, name: NSNotification.Name.NSMetadataQueryDidFinishGathering, object: nil)
-        NotificationCenter.default().removeObserver(self, name: NSNotification.Name.NSMetadataQueryDidUpdate, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.NSMetadataQueryDidFinishGathering, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.NSMetadataQueryDidUpdate, object: nil)
 
         query?.stop()
         query = nil

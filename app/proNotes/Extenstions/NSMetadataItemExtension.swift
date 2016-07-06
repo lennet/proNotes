@@ -26,6 +26,6 @@ extension NSMetadataItem {
         guard let path = fileURL?.path else {
             return false
         }
-        return Foundation.FileManager.default().fileExists(atPath: path)
+        return Foundation.FileManager.default.fileExists(atPath: path)
     }
 }

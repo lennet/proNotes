@@ -95,12 +95,12 @@ class DocumentViewController: UIViewController {
     }
 
     private func registerNotifications() {
-        NotificationCenter.default().addObserver(self, selector: #selector(DocumentViewController.updateUndoButton), name: NSNotification.Name.NSUndoManagerWillUndoChange, object: nil)
-        NotificationCenter.default().addObserver(self, selector: #selector(DocumentViewController.updateUndoButton), name: NSNotification.Name.NSUndoManagerCheckpoint, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(DocumentViewController.updateUndoButton), name: NSNotification.Name.NSUndoManagerWillUndoChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(DocumentViewController.updateUndoButton), name: NSNotification.Name.NSUndoManagerCheckpoint, object: nil)
     }
 
     private func removeNotifications() {
-        NotificationCenter.default().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
     
     private func toggleFullScreen(_ animated: Bool = true) {

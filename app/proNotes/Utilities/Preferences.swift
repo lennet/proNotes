@@ -25,48 +25,48 @@ class Preferences {
     }
 
     class func iCloudActive() -> Bool {
-        return UserDefaults.standard().bool(forKey: iCloudActiveKey)
+        return UserDefaults.standard.bool(forKey: iCloudActiveKey)
     }
 
     class func setiCloudActive(_ active: Bool) {
-        UserDefaults.standard().set(active, forKey: iCloudActiveKey)
-        UserDefaults.standard().synchronize()
+        UserDefaults.standard.set(active, forKey: iCloudActiveKey)
+        UserDefaults.standard.synchronize()
     }
 
     class func iCloudWasActive() -> Bool {
-        return UserDefaults.standard().bool(forKey: iCloudWasActiveKey)
+        return UserDefaults.standard.bool(forKey: iCloudWasActiveKey)
     }
 
     class func setiCloudWasActive(_ active: Bool) {
-        UserDefaults.standard().set(active, forKey: iCloudWasActiveKey)
-        UserDefaults.standard().synchronize()
+        UserDefaults.standard.set(active, forKey: iCloudWasActiveKey)
+        UserDefaults.standard.synchronize()
     }
         
     class func allowsNotification() -> Bool {
-        return UserDefaults.standard().bool(forKey: allowsNotificationKey)
+        return UserDefaults.standard.bool(forKey: allowsNotificationKey)
     }
     
     class func setAllowsNotification(_ value: Bool) {
-        UserDefaults.standard().set(value, forKey: allowsNotificationKey)
+        UserDefaults.standard.set(value, forKey: allowsNotificationKey)
     }
     
     class func isFirstRun() -> Bool {
-        if UserDefaults.standard().value(forKey: isFirstRunKey) != nil {
-            return UserDefaults.standard().bool(forKey: isFirstRunKey)
+        if UserDefaults.standard.value(forKey: isFirstRunKey) != nil {
+            return UserDefaults.standard.bool(forKey: isFirstRunKey)
         }
         return true
     }
     
     class func setIsFirstRun(_ value: Bool) {
-        return UserDefaults.standard().set(value, forKey: isFirstRunKey)
+        return UserDefaults.standard.set(value, forKey: isFirstRunKey)
     }
     
     class func setShoudlShowWelcomeScreen(_ value: Bool) {
-        return UserDefaults.standard().set(value, forKey: shouldShowWelcomeScreenKey)
+        return UserDefaults.standard.set(value, forKey: shouldShowWelcomeScreenKey)
     }
     
     class func shouldShowWelcomeScreen() -> Bool {
-        return UserDefaults.standard().bool(forKey: shouldShowWelcomeScreenKey)
+        return UserDefaults.standard.bool(forKey: shouldShowWelcomeScreenKey)
     }
 
 }

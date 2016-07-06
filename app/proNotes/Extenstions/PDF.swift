@@ -25,9 +25,6 @@ class PDFUtility: NSObject {
         return CGPDFDocument(dataProvider!)
     }
 
-    
-    
-    @available(iOS, deprecated:1.0, message:"I'm not deprecated, fix it after the next Xcode Beta release")
     class func getPageAsData(_ pageIndex: Int, document: CGPDFDocument) -> CFData? {
        
         guard let page = document.page(at: pageIndex) else {
@@ -45,7 +42,7 @@ class PDFUtility: NSObject {
         
         context.beginPage(mediaBox: &mediaBox)
         context.drawPDFPage(page)
-//        context.endPage()
+        context.endPage()
         context.closePDF()
         return data
     }
