@@ -54,6 +54,7 @@ platform :ios do
     clean_build_artifacts
     commit_version_bump(
           message: "Build #{build}"
+          force: true
         )
     push_to_git_remote
     reset_git_repo
