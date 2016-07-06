@@ -8,12 +8,9 @@
 
 import XCTest
 
-
-    /**
-        Creates and opens a document if the app is currently in the document overview
-        - Return Value: the name of the new created document
-    */
-
+    /// Creates and opens a document if the app is currently in the document overview
+    ///
+    /// - returns: the name of the new created document
     func createAndOpenDocument() -> String {
         let app = XCUIApplication()
         app.navigationBars["proNotes.DocumentOverviewView"].buttons["Add"].tap()
@@ -23,10 +20,8 @@ import XCTest
         return documentName
     }
 
-    /**
-        Closes the document if the document editor is currently opened
-    */
 
+    /// Closes the document if the document editor is currently opened
     func closeDocument() {
         let app = XCUIApplication()
         let pronotesDocumentviewNavigationBar = app.navigationBars["proNotes.DocumentView"]
@@ -34,10 +29,9 @@ import XCTest
         sleep(1)
     }
 
-
-    /**
-        Renames the document if the document editor is currently opened
-    */
+    /// Renames the document if the document editor is currently opened
+    ///
+    /// - parameter newName: of the document
     func renameDocument(newName: String) {
         let app = XCUIApplication()
         let pronotesDocumentviewNavigationBar = app.navigationBars["proNotes.DocumentView"]
@@ -51,10 +45,10 @@ import XCTest
 // From StackOverflow User bay.phillips http://stackoverflow.com/a/32894080
 
 extension XCUIElement {
-    /**
-     Removes any current text in the field before typing in the new value
-     - Parameter text: the text to enter into the field
-     */
+    
+    /// Removes any current text in the field before typing in the new value
+    ///
+    /// - parameter text: the text to enter into the field
     func clearAndEnterText(_ text: String) -> Void {
         guard let stringValue = self.value as? String else {
             XCTFail("Tried to clear and enter text into a non string value")
