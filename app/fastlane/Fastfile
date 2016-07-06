@@ -48,15 +48,17 @@ platform :ios do
   # You can define as many lanes as you want
 
   after_all do |lane|
+    
+    build = Actions.lane_context[Actions::SharedValues::BUILD_NUMBER]
     commit_version_bump(
           message: "Build #{build}"
         )
 
-    notify "Fastlane finished '#{lane}' successfully"
+    notification(message: "Fastlane finished '#{lane}' successfully")
   end
 
   error do |lane, exception|
-    notify "Fastlane finished '#{lane}' with error '#{exception.message}'"
+    notification(message: "Fastlane finished '#{lane}' with error '#{exception.message}'")
   end
 end
 
