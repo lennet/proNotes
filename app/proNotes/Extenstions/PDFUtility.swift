@@ -1,5 +1,5 @@
 //
-//  PDF.swift
+//  PDFUtility.swift
 //  proNotes
 //
 //  Created by Leo Thomas on 16/02/16.
@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-class PDFUtility: NSObject {
+class PDFUtility {
 
     class func getPageAsPDF(_ pageIndex: Int, document: CGPDFDocument) -> CGPDFDocument? {
         

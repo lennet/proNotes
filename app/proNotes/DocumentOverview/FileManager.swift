@@ -28,6 +28,8 @@ protocol FileManagerDelegate: class {
 
 }
 
+// todo rename class!
+
 class FileManager {
 
     static let sharedInstance = FileManager()

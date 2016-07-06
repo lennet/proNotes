@@ -83,6 +83,7 @@ class DocumentViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         DocumentInstance.sharedInstance.flushUndoManager()
+        ImageCache.sharedInstance.clearCache()
     }
 
     override func canBecomeFirstResponder() -> Bool {

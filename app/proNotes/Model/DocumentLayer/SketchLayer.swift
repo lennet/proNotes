@@ -9,16 +9,27 @@
 import UIKit
 
 class SketchLayer: DocumentLayer {
-    var image: UIImage?
+    var image: UIImage? {
+        get {
+            return ImageCache.sharedInstance[imageKey]
+        }
+        
+        set {
+            ImageCache.sharedInstance[imageKey] = newValue
+        }
+    }
+    
+    let imageKey = UUID().uuidString
+    
     init(index: Int, image: UIImage?, docPage: DocumentPage) {
         super.init(index: index, type: .sketch, docPage: docPage)
     }
 
     required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
         if let imageData = aDecoder.decodeObject(forKey: imageDataKey) as? Data {
             image = UIImage(data: imageData)
         }
-        super.init(coder: aDecoder)
     }
 
     private final let imageDataKey = "imageData"
