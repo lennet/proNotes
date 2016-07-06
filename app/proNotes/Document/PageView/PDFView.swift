@@ -23,20 +23,18 @@ class PDFView: UIView, PageSubView {
     }
 
     override func draw(_ rect: CGRect) {
-        if let page = pdf?.page(at: 1) {
+        guard let page = pdf?.page(at: 1) else { return }
 
-            let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()
+            
+        context?.scale(x: 1, y: -1)
+        context?.translate(x: 0, y: -rect.size.height)
 
-//            context?.ctm.
-            context?.scale(x: 1, y: -1)
-            context?.translate(x: 0, y: -rect.size.height)
+        let mediaRect = page.getBoxRect(CGPDFBox.cropBox)
 
-            let mediaRect = page.getBoxRect(CGPDFBox.cropBox)
+        context?.translate(x: -mediaRect.origin.x, y: -mediaRect.origin.y)
 
-            context?.translate(x: -mediaRect.origin.x, y: -mediaRect.origin.y)
-
-            context?.drawPDFPage(page);
-        }
+        context?.drawPDFPage(page);
     }
 
 }

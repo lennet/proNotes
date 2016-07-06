@@ -8,16 +8,16 @@
 
 import UIKit
 
-class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, FileManagerDelegate {
+class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, DocumentManagerDelegate {
     
     @IBOutlet weak var documentsCollectionViewController: UICollectionView!
     
     private final let showDocumentSegueIdentifier = "showDocumentSegue"
     private var alreadyOpeningFile = false
     
-    var fileManager: FileManager {
+    var documentManager: DocumentManager {
         get {
-            return FileManager.sharedInstance
+            return DocumentManager.sharedInstance
         }
     }
 
@@ -28,7 +28,7 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
     
     var objects: [DocumentsOverviewObject] {
         get {
-            return fileManager.objects.sorted(isOrderedBefore: { (first, second) -> Bool in
+            return documentManager.objects.sorted(isOrderedBefore: { (first, second) -> Bool in
                 return first.description.localizedCaseInsensitiveCompare(second.description) == ComparisonResult.orderedAscending
             })
         }
@@ -43,16 +43,16 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        fileManager.delegate = nil
+        documentManager.delegate = nil
         documentsCollectionViewController.reloadData()
-        fileManager.reload()
-        fileManager.delegate = self
+        documentManager.reload()
+        documentManager.delegate = self
         alreadyOpeningFile = false
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        fileManager.delegate = nil
+        documentManager.delegate = nil
         alreadyOpeningFile = false
     }
     
@@ -63,7 +63,7 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
     }
     
     func createNewDocument() {
-        fileManager.createDocument { (url) in
+        documentManager.createDocument { (url) in
             self.openDocument(url as URL)
         }
     }
@@ -87,7 +87,7 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return fileManager.objects.count
+        return documentManager.objects.count
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
@@ -141,7 +141,7 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
                 }
             })
         } else {
-            fileManager.downloadObject(selectedObject)
+            documentManager.downloadObject(selectedObject)
         }
     }
 

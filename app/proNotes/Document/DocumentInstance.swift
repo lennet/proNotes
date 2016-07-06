@@ -60,10 +60,12 @@ class DocumentInstance: NSObject {
         guard let oldURL = document?.fileURL else {
             return
         }
+        
+        // TODO: Refactor!
 
         let priority = DispatchQueue.GlobalAttributes.qosDefault
         DispatchQueue.global(attributes: priority).async {
-            FileManager.sharedInstance.renameObject(oldURL, fileName: newName, forceOverWrite: false, completion: {
+            DocumentManager.sharedInstance.renameObject(oldURL, fileName: newName, forceOverWrite: false, completion: {
                 (success, error) -> Void in
                 if success {
                     completion?(true)

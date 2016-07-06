@@ -16,7 +16,7 @@ enum RenameError: ErrorProtocol {
     case overwritingError
 }
 
-protocol FileManagerDelegate: class {
+protocol DocumentManagerDelegate: class {
 
     func reloadObjects()
 
@@ -28,16 +28,14 @@ protocol FileManagerDelegate: class {
 
 }
 
-// todo rename class!
+class DocumentManager {
 
-class FileManager {
-
-    static let sharedInstance = FileManager()
+    static let sharedInstance = DocumentManager()
 
     private final let fileExtension = "proNote"
     private final let defaultName = NSLocalizedString("Note", comment: "default file name")
 
-    weak var delegate: FileManagerDelegate?
+    weak var delegate: DocumentManagerDelegate?
 
     var objects = [DocumentsOverviewObject]()
     var query: NSMetadataQuery?
