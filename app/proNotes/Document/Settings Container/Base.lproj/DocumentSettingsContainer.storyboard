@@ -51,12 +51,15 @@
                                                             <frame key="frameInset" width="375" height="58"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xdq-er-zpW">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xdq-er-zpW">
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="22" id="nmv-nB-5EA"/>
+                                                                    </constraints>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AaV-6U-vyc">
+                                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AaV-6U-vyc">
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
@@ -101,7 +104,7 @@
                                                                 <constraint firstItem="AaV-6U-vyc" firstAttribute="leading" secondItem="xdq-er-zpW" secondAttribute="trailing" constant="8" id="hE0-vu-608"/>
                                                                 <constraint firstItem="8px-Qx-gdR" firstAttribute="centerY" secondItem="w8a-U6-igW" secondAttribute="centerY" id="krY-jg-DWh"/>
                                                                 <constraint firstItem="xdq-er-zpW" firstAttribute="centerY" secondItem="w8a-U6-igW" secondAttribute="centerY" id="sHQ-Ys-QBW"/>
-                                                                <constraint firstItem="xdq-er-zpW" firstAttribute="leading" secondItem="w8a-U6-igW" secondAttribute="leadingMargin" id="uJf-LO-zsr"/>
+                                                                <constraint firstItem="xdq-er-zpW" firstAttribute="leading" secondItem="w8a-U6-igW" secondAttribute="leading" constant="8" id="uJf-LO-zsr"/>
                                                                 <constraint firstItem="4Dc-44-01l" firstAttribute="leading" secondItem="w8a-U6-igW" secondAttribute="leading" id="wyO-Kb-Rxh"/>
                                                             </constraints>
                                                             <variation key="default">
@@ -494,8 +497,8 @@
                                         </constraints>
                                         <variation key="default">
                                             <mask key="constraints">
-                                                <exclude reference="pDZ-EZ-HmD"/>
                                                 <exclude reference="51K-Xt-7jG"/>
+                                                <exclude reference="pDZ-EZ-HmD"/>
                                             </mask>
                                         </variation>
                                     </view>

@@ -67,10 +67,10 @@
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="constraints">
-                                                    <exclude reference="Uev-Fd-rmk"/>
                                                     <exclude reference="Fnb-gc-8C6"/>
                                                     <exclude reference="i3b-FU-dap"/>
                                                     <exclude reference="iVz-sd-DxD"/>
+                                                    <exclude reference="Uev-Fd-rmk"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -575,7 +575,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z7e-Sm-UAb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5430" y="-654"/>
+            <point key="canvasLocation" x="5402" y="-739"/>
         </scene>
         <!--DocumentSettingsContainer-->
         <scene sceneID="yOi-cj-7tz">
@@ -632,8 +632,8 @@
                                     </constraints>
                                     <variation key="default">
                                         <mask key="constraints">
-                                            <exclude reference="ihy-d3-Nbv"/>
                                             <exclude reference="ypf-sn-EQ7"/>
+                                            <exclude reference="ihy-d3-Nbv"/>
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
@@ -691,7 +691,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r2b-iI-ShW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4506" y="-742.5"/>
+            <point key="canvasLocation" x="4575" y="-740"/>
         </scene>
     </scenes>
     <resources>

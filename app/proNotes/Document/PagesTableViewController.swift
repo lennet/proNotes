@@ -62,7 +62,7 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
    
    override func viewDidLoad() {
       super.viewDidLoad()
-      setUpTableView()
+      configureTableView()
       loadTableView()
    }
    
@@ -104,7 +104,7 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
       scrollView.alpha = 1
    }
    
-   private func setUpTableView() {
+   private func configureTableView() {
       tableViewWidth?.constant = (document?.getMaxWidth() ?? 0) + 2 * defaultMargin
       tableView.deactivateDelaysContentTouches()
       
@@ -145,17 +145,23 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
       }
    }
    
+   
+   /// Updates the global var currentPageView to the current visible Page if pageUpdate enabled
+   ///
+   /// - parameter force: ignores pageUpdateEnabled
    private func updateCurrentPageView(_ force: Bool = false) {
       if pageUpdateEnabled || force {
          currentPageView = getVisiblePageView()
       }
    }
    
+   
+   /// - returns: The PageView witch uses the most screensize at the moment
    private func getVisiblePageView() -> PageView? {
       var visiblePageView: PageView? = nil
       if let indexPaths = tableView.indexPathsForVisibleRows {
          let visibleRect = CGRect(origin: tableView.contentOffset, size: tableView.bounds.size)
-         var maxSize = CGSize.zero
+         var maxSize = CGSize(width: -1, height: -1)
          for indexPath in indexPaths {
             let cellRect = tableView.rectForRow(at: indexPath)
             let intersectionSize = visibleRect.intersection(cellRect).size
@@ -171,7 +177,12 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
       return visiblePageView
    }
    
-   func swapPagePositions(_ firstIndex: Int, secondIndex: Int) {
+   
+   /// Swaps the order in the UITableView of two pages. **This method doesn't change anything in th document Model!**
+   ///
+   /// - parameter firstIndex:  Int Value of the index of the first Page
+   /// - parameter secondIndex: Int Value of the index of the second Page
+   func swapPages(withfirstIndex firstIndex: Int, secondIndex: Int) {
       let pagesCount = document?.pages.count ?? 0
       if firstIndex != secondIndex && firstIndex >= 0 && secondIndex >= 0 && firstIndex < pagesCount && secondIndex < pagesCount {
          tableView.reloadRows(at: [IndexPath(row: firstIndex, section: 0), IndexPath(row: secondIndex, section: 0)], with: .automatic)
@@ -229,6 +240,7 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
       updateTableViewHeight()
    }
    
+   /// updates the frame & contentsize of the tableview depending on the max size. Should be called after contentsize or framesize changes (zoomning, new Pages, ..)
    func updateTableViewHeight() {
       var frame = tableView.frame
       frame.size.height = max(scrollView.bounds.height, scrollView.contentSize.height)
@@ -270,6 +282,7 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
    
    var forcePageUpdate = false
    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+      // only update current PageView at the end of the animation after selecting a specific page in the PagesSelection
       if !pageUpdateEnabled {
          pageUpdateEnabled = true
          forcePageUpdate = true
