@@ -22,6 +22,7 @@ class Preferences {
     class func setUpDefaults() {
         setShoudlShowWelcomeScreen(true)
         setIsFirstRun(false)
+        setiCloudActive(true)
     }
 
     class func iCloudActive() -> Bool {

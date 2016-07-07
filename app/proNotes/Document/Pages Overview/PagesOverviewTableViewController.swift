@@ -28,6 +28,8 @@ class PagesOverviewTableViewController: UITableViewController, DocumentInstanceD
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.accessibilityIdentifier = "PagesOverViewTableView"
+        
         (tableView as? ReordableTableView)?.reordableDelegate = self
     }
     

@@ -29,6 +29,8 @@ class PageInfoLayerTableViewCell: UITableViewCell {
         typeLabel.text = documentLayer.name
 
         updateVisibilityButton()
+        
+        accessibilityIdentifier = "LayerTableViewCell"
     }
     
     func updateVisibilityButton() {

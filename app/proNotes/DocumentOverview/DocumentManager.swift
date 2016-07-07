@@ -358,6 +358,10 @@ class DocumentManager {
     // MARK - iCloud Query
 
     private func initializeiCLoud(_ completion: (success:Bool) -> ()) {
+        guard Preferences.iCloudActive() else {
+            completion(success: false)
+            return
+        }
         DispatchQueue.global(attributes: DispatchQueue.GlobalAttributes.qosDefault).async {
             () -> Void in
             self.iCloudRootURL = Foundation.FileManager.default.urlForUbiquityContainerIdentifier(nil)

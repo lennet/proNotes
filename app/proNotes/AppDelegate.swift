@@ -22,6 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let args = ProcessInfo.processInfo.arguments
         if args.contains("UITEST") {
             Preferences.setShoudlShowWelcomeScreen(false)
+            Preferences.setiCloudActive(false)
         }
         return true
     }

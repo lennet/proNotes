@@ -53,6 +53,7 @@
 		987F6A211C74AA0800572C2F /* ImportDataSubTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987F6A201C74AA0800572C2F /* ImportDataSubTableViewCell.swift */; };
 		9889AE6F1CB4368A0014F451 /* test.ProNote in Resources */ = {isa = PBXBuildFile; fileRef = 9889AE6E1CB4368A0014F451 /* test.ProNote */; };
 		9896A6871C77906700061986 /* CustomDocumentPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896A6861C77906700061986 /* CustomDocumentPickerViewController.swift */; };
+		9897E5741D2EB6E8000F1AF3 /* AddLayerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9897E5731D2EB6E8000F1AF3 /* AddLayerUITests.swift */; };
 		989C51821CB2F709007D3DCE /* UIBarButtonItemExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989C51811CB2F709007D3DCE /* UIBarButtonItemExtension.swift */; };
 		989C51851CB30AC3007D3DCE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 989C51871CB30AC3007D3DCE /* Localizable.strings */; };
 		989C518C1CB30BAE007D3DCE /* DocumentSettingsContainer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 989C518E1CB30BAE007D3DCE /* DocumentSettingsContainer.storyboard */; };
@@ -164,6 +165,7 @@
 		987F6A201C74AA0800572C2F /* ImportDataSubTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImportDataSubTableViewCell.swift; sourceTree = "<group>"; };
 		9889AE6E1CB4368A0014F451 /* test.ProNote */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = test.ProNote; sourceTree = "<group>"; };
 		9896A6861C77906700061986 /* CustomDocumentPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDocumentPickerViewController.swift; sourceTree = "<group>"; };
+		9897E5731D2EB6E8000F1AF3 /* AddLayerUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddLayerUITests.swift; sourceTree = "<group>"; };
 		989C51811CB2F709007D3DCE /* UIBarButtonItemExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIBarButtonItemExtension.swift; sourceTree = "<group>"; };
 		989C51861CB30AC3007D3DCE /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		989C518A1CB30B08007D3DCE /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -297,6 +299,7 @@
 				9822F8FB1D022C1200002688 /* DocumentManagerUITests.swift */,
 				9822F8F51D022BD300002688 /* Info.plist */,
 				98AF47081D1201100015417C /* UITestsHelper.swift */,
+				9897E5731D2EB6E8000F1AF3 /* AddLayerUITests.swift */,
 			);
 			path = proNotesUITests;
 			sourceTree = "<group>";
@@ -673,6 +676,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9897E5741D2EB6E8000F1AF3 /* AddLayerUITests.swift in Sources */,
 				9822F8FC1D022C1200002688 /* DocumentManagerUITests.swift in Sources */,
 				98AF47091D1201100015417C /* UITestsHelper.swift in Sources */,
 			);
