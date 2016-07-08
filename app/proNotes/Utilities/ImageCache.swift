@@ -66,7 +66,7 @@ class ImageCache: NSObject {
     private func storeImageToDisk(image: UIImage, key: String) {
         guard let fullPath = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(key)?.absoluteString else { return }
         let data = UIImageJPEGRepresentation(image, 1)
-        Foundation.FileManager.default.createFile(atPath: fullPath, contents: data, attributes: nil)
+        FileManager.default.createFile(atPath: fullPath, contents: data, attributes: nil)
     }
     
 }

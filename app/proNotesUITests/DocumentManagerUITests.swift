@@ -26,7 +26,7 @@ class FileManagerUITests: XCTestCase {
         let documentName = createAndOpenDocument()
         closeDocument()
         let app = XCUIApplication()
-        XCTAssertTrue(app.collectionViews.staticTexts[documentName].exists)
+        XCTAssertTrue(app.collectionViews.textFields[documentName].exists)
     }
     
     func testForDuplicates() {
@@ -42,8 +42,8 @@ class FileManagerUITests: XCTestCase {
         let newName = UUID().uuidString
         renameDocument(newName: newName)
         closeDocument()
-        XCTAssertTrue(app.collectionViews.staticTexts[newName].exists)
-        XCTAssertFalse(app.collectionViews.staticTexts[documentName].exists)
+        XCTAssertTrue(app.collectionViews.textFields[newName].exists)
+        XCTAssertFalse(app.collectionViews.textFields[documentName].exists)
     }
     
     func testRenameOverride() {
@@ -53,43 +53,45 @@ class FileManagerUITests: XCTestCase {
         let documentName = pronotesDocumentviewNavigationBar.children(matching: .other).element.children(matching: .textField).element.value as! String
         pronotesDocumentviewNavigationBar.buttons["Documents"].tap()
         sleep(1)
-        XCTAssertTrue(app.collectionViews.staticTexts[documentName].exists)
+        XCTAssertTrue(app.collectionViews.textFields[documentName].exists)
         
         
         app.navigationBars["proNotes.DocumentOverviewView"].buttons["Add"].tap()
         let newName = pronotesDocumentviewNavigationBar.children(matching: .other).element.children(matching: .textField).element.value as! String
         pronotesDocumentviewNavigationBar.buttons["Documents"].tap()
         sleep(1)
-        XCTAssertTrue(app.collectionViews.staticTexts[newName].exists)
-        app.collectionViews.staticTexts[newName].tap()
+        XCTAssertTrue(app.collectionViews.textFields[newName].exists)
+        app.collectionViews.textFields[newName].tap()
         
         let textField = pronotesDocumentviewNavigationBar.children(matching: .other).element.children(matching: .textField).element
         textField.tap()
         textField.clearAndEnterText(documentName)
         app.buttons["Return"].tap()
-        app.alerts.collectionViews.buttons["CANCEL"].tap()
+        app.alerts.buttons["Cancel"].tap()
         XCTAssertEqual(textField.value as? String, newName)
         
         pronotesDocumentviewNavigationBar.buttons["Documents"].tap()
         sleep(1)
         
-        XCTAssertTrue(app.collectionViews.staticTexts[newName].exists)
-        XCTAssertTrue(app.collectionViews.staticTexts[documentName].exists)
+        XCTAssertTrue(app.collectionViews.textFields[newName].exists)
+        XCTAssertTrue(app.collectionViews.textFields[documentName].exists)
         
-        app.collectionViews.staticTexts[newName].tap()
+        app.collectionViews.textFields[newName].tap()
         
         textField.tap()
         textField.clearAndEnterText(documentName)
         app.buttons["Return"].tap()
-        app.alerts.collectionViews.buttons["OVERRIDE"].tap()
-    
+        app.alerts.buttons["Override"].tap()
+        sleep(1)
+        
         XCTAssertEqual(documentName, textField.value as? String)
         
         pronotesDocumentviewNavigationBar.buttons["Documents"].tap()
         sleep(1)
         
-        XCTAssertFalse(app.collectionViews.staticTexts[newName].exists)
-        XCTAssertTrue(app.collectionViews.staticTexts[documentName].exists)
+        XCTAssertFalse(app.collectionViews.textFields[newName].exists)
+        XCTAssertTrue(app.collectionViews.textFields[documentName].exists)
+        
     }
     
 }

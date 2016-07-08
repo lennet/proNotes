@@ -44,8 +44,8 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         documentManager.delegate = nil
-        documentsCollectionViewController.reloadData()
         documentManager.reload()
+        documentsCollectionViewController.reloadData()
         documentManager.delegate = self
         alreadyOpeningFile = false
     }
@@ -207,11 +207,18 @@ extension DocumentOverviewViewController: DocumentOverviewCollectionViewCellDele
     func didRenamedDocument(forCell cell: DocumentOverviewCollectionViewCell, newName: String) {
         guard let index = documentsCollectionViewController.indexPath(for: cell) else { return }
         let object = objects[index.row]
-        documentManager.renameObject(object.fileURL, fileName: newName, forceOverWrite: false) { [weak self ] (success, error) in
-            if !success {
-                self?.alert(message: "Error Ocurred. Please Try again")
-                // todo force overrice
-            }
+        documentManager.delegate = nil
+        documentManager.renameDocument(withurl: object.fileURL, newName: newName, forceOverWrite: false, viewController: self) { (success, _) in
+            DispatchQueue.main.async(execute: {
+                self.documentManager.reload()
+                self.documentsCollectionViewController.reloadData()
+                
+                self.documentManager.delegate = self
+                if !success {
+                    // reset title to old name
+                    self.alert(message: "Error Ocurred. Please Try again")
+                }
+            })
         }
     }
 

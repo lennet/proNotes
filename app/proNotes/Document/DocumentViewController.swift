@@ -204,17 +204,27 @@ extension DocumentViewController: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if let newName = textField.text {
-            DocumentInstance.sharedInstance.renameDocument(newName, forceOverWrite: false, viewController: self, completion: {
-                (success) -> Void in
+        guard let newName = textField.text else { return }
+        guard let fileUrl = document?.fileURL else { return }
+        
+        document?.close(completionHandler: { [weak self](_) in
+            DocumentManager.sharedInstance.renameDocument(withurl: fileUrl, newName: newName, forceOverWrite: false, viewController: self) { (success, url) in
                 if !success {
                     DispatchQueue.main.async(execute: {
-                        self.setUpTitle()
+                        // reset title to old name
+                        self?.setUpTitle()
+                        self?.alert(message: "Error Ocurred. Please Try again")
+                    })
+                } else if let url = url {
+                    let document = Document(fileURL: url)
+                    document.open(completionHandler: { (_) in
+                        DocumentInstance.sharedInstance.document = document
                     })
                 }
-            })
-            textField.borderStyle = .none
-        }
+            }
+        })
+
+        textField.borderStyle = .none
     }
     
 }

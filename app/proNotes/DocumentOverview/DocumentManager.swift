@@ -46,7 +46,7 @@ class DocumentManager {
     var documentsRootURL: URL! {
         get {
             if _documentsRootUrl == nil {
-                let paths = Foundation.FileManager.default.urlsForDirectory(.documentDirectory, inDomains: .userDomainMask)
+                let paths = FileManager.default.urlsForDirectory(.documentDirectory, inDomains: .userDomainMask)
                 _documentsRootUrl = paths.first
             }
             return _documentsRootUrl
@@ -108,7 +108,7 @@ class DocumentManager {
     
     func checkForLocalFiles() {
         do {
-            let allFilesArray = try Foundation.FileManager.default.contentsOfDirectory(atPath: documentsRootURL.path!)
+            let allFilesArray = try FileManager.default.contentsOfDirectory(atPath: documentsRootURL.path!)
             for fileName in allFilesArray {
                 let fileURL = URL(fileURLWithPath: documentsRootURL.path! + "/" + fileName)
                 updateMetadata(fileURL)
@@ -125,7 +125,7 @@ class DocumentManager {
 
     func downloadObject(_ object: DocumentsOverviewObject) {
         do {
-            try Foundation.FileManager.default.startDownloadingUbiquitousItem(at: object.fileURL as URL)
+            try FileManager.default.startDownloadingUbiquitousItem(at: object.fileURL as URL)
         } catch {
             print("Error: \(error)")
         }
@@ -133,49 +133,50 @@ class DocumentManager {
 
     // MARK: - CRUD
 
-    func renameObject(_ fileURL: URL, fileName: String, forceOverWrite: Bool, completion: ((Bool, ErrorProtocol?) -> Void)?) {
+    func renameObject(_ fileURL: URL, fileName: String, forceOverWrite: Bool, completion: ((Bool, ErrorProtocol?, URL?) -> Void)?) {
         guard let index = indexOf(fileURL) else {
-            completion?(false, RenameError.objectNotFound)
+            completion?(false, RenameError.objectNotFound, nil)
             return
         }
         let object = objects[index]
 
         if object.description == fileName {
-            // nothing changed
+            completion?(true, nil, nil)
             return
         }
 
         let newURL = getDocumentURL(fileName, uniqueFileName: false)
 
-        if fileNameExistsInObjects(fileName) {
+        if let object = objectForURL(newURL) {
+            // file already exists
             if forceOverWrite {
-                if let object = objectForURL(newURL) {
-                    deleteObject(object, completion: {
-                        (success, error) -> Void in
-                        if success {
-                            // set forceOverWrite false to avoid endless recursive loops
-                            self.renameObject(fileURL, fileName: fileName, forceOverWrite: false, completion: completion)
-                        } else {
-                            completion?(false, error)
-                        }
-                    })
-                }
+                deleteObject(object, completion: { (success, error) in
+                    if success {
+                        // set forceOverWrite false to avoid endless recursive loops
+                        self.renameObject(fileURL, fileName: fileName, forceOverWrite: false, completion: completion)
+
+                    } else {
+                        completion?(false, error, nil)
+                    }
+                })
+                return
             } else {
-                completion?(false, RenameError.alreadyExists)
+                completion?(false, RenameError.alreadyExists, nil)
                 return
             }
         }
 
         let fileCoordinator = NSFileCoordinator(filePresenter: nil)
         var error: NSError?
-
+        
         fileCoordinator.coordinate(writingItemAt: fileURL, options: .forMoving, writingItemAt: newURL, options: .forReplacing, error: &error) {
             (newURL1, newURL2) -> Void in
             fileCoordinator.item(at: fileURL, willMoveTo: newURL)
             do {
-                try Foundation.FileManager.default.moveItem(at: fileURL, to: newURL)
+                try FileManager.default.moveItem(at: fileURL, to: newURL)
             } catch {
-                completion?(false, error)
+                completion?(false, error, newURL)
+                return
             }
             fileCoordinator.item(at: fileURL, didMoveTo: newURL)
         }
@@ -183,11 +184,55 @@ class DocumentManager {
         if error == nil {
             removeObjectFromArray(fileURL)
             updateObject(newURL, metaData: object.metaData, state: object.state, version: object.version, downloaded: object.downloaded)
-            completion?(true, nil)
+            completion?(true, nil, newURL)
         } else {
-            completion?(false, RenameError.writingError)
+            completion?(false, RenameError.writingError, nil)
         }
 
+    }
+    
+    func renameDocument(withurl oldURL: URL, newName: String, forceOverWrite: Bool, viewController: UIViewController?, completion: ((Bool, URL?) -> Void)?) {
+        
+        let priority = DispatchQueue.GlobalAttributes.qosDefault
+        DispatchQueue.global(attributes: priority).async {
+            self.renameObject(oldURL, fileName: newName, forceOverWrite: forceOverWrite, completion: {
+                (success, error, url) -> Void in
+                if success {
+                    completion?(true, url)
+                } else if error != nil {
+                    switch error! {
+                    case RenameError.alreadyExists:
+                        DispatchQueue.main.async(execute: {
+                            
+                            let alertView = UIAlertController(title: nil, message: NSLocalizedString("ErrorFileAlreadyExists", comment:"error message if a file with the given name already exists & ask for override"), preferredStyle: .alert)
+                            alertView.addAction(UIAlertAction(title: NSLocalizedString("Override", comment:""), style: .destructive, handler: {
+                                (action) -> Void in
+                                self.renameDocument(withurl: oldURL, newName: newName, forceOverWrite: true, viewController: viewController, completion: completion)
+                            }))
+                            alertView.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment:""), style: .cancel, handler: {
+                                (action) -> Void in
+                                completion?(false, nil)
+                            }))
+                            
+                            viewController?.present(alertView, animated: true, completion: nil)
+                        })
+                        break
+                    default:
+                        DispatchQueue.main.async(execute: {
+                            let alertView = UIAlertController(title: nil, message: NSLocalizedString("ErrorUnknown", comment:""), preferredStyle: .alert)
+                            viewController?.present(alertView, animated: true, completion: nil)
+                            alertView.addAction(UIAlertAction(title: NSLocalizedString("Ok", comment:""), style: .default, handler: {
+                                (action) -> Void in
+                                completion?(false, nil)
+                            }))
+                        })
+                        break
+                    }
+                } else {
+                    completion?(false, nil)
+                }
+            })
+        }
     }
 
     func createDocument(_ completionHandler: (URL) -> Void) {
@@ -222,7 +267,7 @@ class DocumentManager {
         guard let path = fileURL.path else {
             return
         }
-        if Foundation.FileManager.default.fileExists(atPath: path) {
+        if FileManager.default.fileExists(atPath: path) {
             let document = Document(fileURL: fileURL)
             document.open {
                 (success) -> Void in
@@ -257,7 +302,7 @@ class DocumentManager {
             var error: NSError?
             fileCoordinator.coordinate(writingItemAt: object.fileURL as URL, options: .forDeleting, error: &error, byAccessor: {
                 (url) -> Void in
-                let fileManager = Foundation.FileManager()
+                let fileManager = FileManager()
                 do {
                     try fileManager.removeItem(at: object.fileURL as URL)
                     completion?(true, nil)
@@ -364,7 +409,7 @@ class DocumentManager {
         }
         DispatchQueue.global(attributes: DispatchQueue.GlobalAttributes.qosDefault).async {
             () -> Void in
-            self.iCloudRootURL = Foundation.FileManager.default.urlForUbiquityContainerIdentifier(nil)
+            self.iCloudRootURL = FileManager.default.urlForUbiquityContainerIdentifier(nil)
             if self.iCloudRootURL != nil {
                 DispatchQueue.main.async(execute: {
                     completion(success: true)

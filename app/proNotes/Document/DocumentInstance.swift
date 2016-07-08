@@ -47,63 +47,6 @@ class DocumentInstance: NSObject {
             }
         }
     }
-
-    func renameDocument(_ newName: String, forceOverWrite: Bool, viewController: UIViewController?, completion: ((Bool) -> Void)?) {
-        guard document != nil else {
-            return
-        }
-
-        guard newName != document?.name else {
-            return
-        }
-
-        guard let oldURL = document?.fileURL else {
-            return
-        }
-        
-        // TODO: Refactor!
-
-        let priority = DispatchQueue.GlobalAttributes.qosDefault
-        DispatchQueue.global(attributes: priority).async {
-            DocumentManager.sharedInstance.renameObject(oldURL, fileName: newName, forceOverWrite: false, completion: {
-                (success, error) -> Void in
-                if success {
-                    completion?(true)
-                } else if error != nil {
-                    switch error! {
-                    case RenameError.alreadyExists:
-                        DispatchQueue.main.async(execute: {
-                            
-                            let alertView = UIAlertController(title: nil, message: NSLocalizedString("ErrorFileAlreadyExists", comment:"error message if a file with the given name already exists & ask for override"), preferredStyle: .alert)
-                            alertView.addAction(UIAlertAction(title: NSLocalizedString("Override", comment:""), style: .destructive, handler: {
-                                (action) -> Void in
-                                self.renameDocument(newName, forceOverWrite: true, viewController: viewController, completion: completion)
-                            }))
-                            alertView.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment:""), style: .cancel, handler: {
-                                (action) -> Void in
-                                completion?(false)
-                            }))
-
-                            viewController?.present(alertView, animated: true, completion: nil)
-                        })
-                        break
-                    default:
-                        DispatchQueue.main.async(execute: {
-                            let alertView = UIAlertController(title: nil, message: NSLocalizedString("ErrorUnknown", comment:""), preferredStyle: .alert)
-                            viewController?.present(alertView, animated: true, completion: nil)
-                            alertView.addAction(UIAlertAction(title: NSLocalizedString("Ok", comment:""), style: .default, handler: {
-                                (action) -> Void in
-                                completion?(false)
-                            }))
-                        })
-                        break
-                    }
-                } else {
-                    completion?(false)
-                }
-            })
-        }
-    }
     
     func didUpdatePage(_ index: Int) {
         document?.updateChangeCount(.done)

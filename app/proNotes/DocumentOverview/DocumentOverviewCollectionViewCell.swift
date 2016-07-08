@@ -72,14 +72,17 @@ class DocumentOverviewCollectionViewCell: UICollectionViewCell {
 extension DocumentOverviewCollectionViewCell: UITextFieldDelegate {
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        guard let text = textField.text else { return false }
+        
+        nameTextField.isUserInteractionEnabled = false
+        nameTextField.borderStyle = .none
+
+        delegate?.didRenamedDocument(forCell: self, newName: text)
         textField.resignFirstResponder()
+        
         return true
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        nameTextField.isUserInteractionEnabled = false
-        nameTextField.borderStyle = .none
-        guard let text = textField.text else { return }
-        delegate?.didRenamedDocument(forCell: self, newName: text)
-    }
+
 }
