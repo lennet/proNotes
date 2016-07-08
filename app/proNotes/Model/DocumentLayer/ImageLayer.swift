@@ -28,12 +28,17 @@ class ImageLayer: MovableLayer {
     }
 
     required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        super.init(coder: aDecoder, type: .image)
+        type  = .image
         if let imageData = aDecoder.decodeObject(forKey: imageDataKey) as? Data {
             image = UIImage(data: imageData)!
         } else {
             image = UIImage()
         }
+    }
+    
+    required init(coder aDecoder: NSCoder, type: DocumentLayerType) {
+        fatalError("init(coder:type:) has not been implemented")
     }
 
     private final let imageDataKey = "imageData"

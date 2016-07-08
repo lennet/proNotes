@@ -22,10 +22,14 @@ class MovableLayer: DocumentLayer {
         super.init(index: index, type: type, docPage: docPage)
     }
 
-    required init(coder aDecoder: NSCoder) {
+    required init(coder aDecoder: NSCoder, type: DocumentLayerType) {
         origin = aDecoder.decodeCGPoint(forKey: originKey)
         size = aDecoder.decodeCGSize(forKey: sizeKey)
-        super.init(coder: aDecoder)
+        super.init(coder: aDecoder, type: type)
+    }
+    
+    required init(coder aDecor: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     override func encode(with aCoder: NSCoder) {

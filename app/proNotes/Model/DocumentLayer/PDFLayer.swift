@@ -20,7 +20,11 @@ class PDFLayer: DocumentLayer {
 
     required init(coder aDecoder: NSCoder) {
         pdfData = aDecoder.decodeObject(forKey: pdfKey) as? Data
-        super.init(coder: aDecoder)
+        super.init(coder: aDecoder, type: .pdf)
+    }
+    
+    required init(coder aDecoder: NSCoder, type: DocumentLayerType) {
+        fatalError("init(coder:type:) has not been implemented")
     }
 
     override func encode(with aCoder: NSCoder) {

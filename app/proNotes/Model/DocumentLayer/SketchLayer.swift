@@ -26,10 +26,14 @@ class SketchLayer: DocumentLayer {
     }
 
     required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        super.init(coder: aDecoder, type: .sketch)
         if let imageData = aDecoder.decodeObject(forKey: imageDataKey) as? Data {
             image = UIImage(data: imageData)
         }
+    }
+    
+    required init(coder aDecoder: NSCoder, type: DocumentLayerType) {
+        fatalError("init(coder:type:) has not been implemented")
     }
 
     private final let imageDataKey = "imageData"

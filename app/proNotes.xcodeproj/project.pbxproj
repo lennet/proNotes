@@ -30,6 +30,7 @@
 		9829ECD61C791EF500A64009 /* TextLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9829ECD51C791EF500A64009 /* TextLayer.swift */; };
 		9829ECD81C791F0C00A64009 /* PDFLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9829ECD71C791F0C00A64009 /* PDFLayer.swift */; };
 		9829ECDA1C791F2700A64009 /* SketchLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9829ECD91C791F2700A64009 /* SketchLayer.swift */; };
+		982E3AE61D2F042000105BE9 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982E3AE51D2F042000105BE9 /* UIViewControllerExtension.swift */; };
 		98312D661C0B65E500F3B1CB /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98312D651C0B65E500F3B1CB /* PageView.swift */; };
 		98312D691C0B79F200F3B1CB /* DocumentInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98312D681C0B79F200F3B1CB /* DocumentInstance.swift */; };
 		983B24CD1CA70EB600F4F3AE /* NoScrollingTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983B24CC1CA70EB600F4F3AE /* NoScrollingTextView.swift */; };
@@ -54,6 +55,7 @@
 		9889AE6F1CB4368A0014F451 /* test.ProNote in Resources */ = {isa = PBXBuildFile; fileRef = 9889AE6E1CB4368A0014F451 /* test.ProNote */; };
 		9896A6871C77906700061986 /* CustomDocumentPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9896A6861C77906700061986 /* CustomDocumentPickerViewController.swift */; };
 		9897E5741D2EB6E8000F1AF3 /* AddLayerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9897E5731D2EB6E8000F1AF3 /* AddLayerUITests.swift */; };
+		9897E5761D2EE291000F1AF3 /* LayerTableViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9897E5751D2EE291000F1AF3 /* LayerTableViewUITests.swift */; };
 		989C51821CB2F709007D3DCE /* UIBarButtonItemExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989C51811CB2F709007D3DCE /* UIBarButtonItemExtension.swift */; };
 		989C51851CB30AC3007D3DCE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 989C51871CB30AC3007D3DCE /* Localizable.strings */; };
 		989C518C1CB30BAE007D3DCE /* DocumentSettingsContainer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 989C518E1CB30BAE007D3DCE /* DocumentSettingsContainer.storyboard */; };
@@ -142,6 +144,7 @@
 		9829ECD51C791EF500A64009 /* TextLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextLayer.swift; sourceTree = "<group>"; };
 		9829ECD71C791F0C00A64009 /* PDFLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFLayer.swift; sourceTree = "<group>"; };
 		9829ECD91C791F2700A64009 /* SketchLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SketchLayer.swift; sourceTree = "<group>"; };
+		982E3AE51D2F042000105BE9 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		98312D651C0B65E500F3B1CB /* PageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
 		98312D681C0B79F200F3B1CB /* DocumentInstance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentInstance.swift; sourceTree = "<group>"; };
 		983B24CC1CA70EB600F4F3AE /* NoScrollingTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoScrollingTextView.swift; sourceTree = "<group>"; };
@@ -166,6 +169,7 @@
 		9889AE6E1CB4368A0014F451 /* test.ProNote */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = test.ProNote; sourceTree = "<group>"; };
 		9896A6861C77906700061986 /* CustomDocumentPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDocumentPickerViewController.swift; sourceTree = "<group>"; };
 		9897E5731D2EB6E8000F1AF3 /* AddLayerUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddLayerUITests.swift; sourceTree = "<group>"; };
+		9897E5751D2EE291000F1AF3 /* LayerTableViewUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayerTableViewUITests.swift; sourceTree = "<group>"; };
 		989C51811CB2F709007D3DCE /* UIBarButtonItemExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIBarButtonItemExtension.swift; sourceTree = "<group>"; };
 		989C51861CB30AC3007D3DCE /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		989C518A1CB30B08007D3DCE /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -300,6 +304,7 @@
 				9822F8F51D022BD300002688 /* Info.plist */,
 				98AF47081D1201100015417C /* UITestsHelper.swift */,
 				9897E5731D2EB6E8000F1AF3 /* AddLayerUITests.swift */,
+				9897E5751D2EE291000F1AF3 /* LayerTableViewUITests.swift */,
 			);
 			path = proNotesUITests;
 			sourceTree = "<group>";
@@ -424,6 +429,7 @@
 				987B570F1C3B139700141EA5 /* UIImageExtension.swift */,
 				98F2E3E61C1A1ED2008A5C6C /* UIStoryboardExtension.swift */,
 				98BABB911C1B4D9300D9C938 /* UIViewExtension.swift */,
+				982E3AE51D2F042000105BE9 /* UIViewControllerExtension.swift */,
 			);
 			path = Extenstions;
 			sourceTree = "<group>";
@@ -679,6 +685,7 @@
 				9897E5741D2EB6E8000F1AF3 /* AddLayerUITests.swift in Sources */,
 				9822F8FC1D022C1200002688 /* DocumentManagerUITests.swift in Sources */,
 				98AF47091D1201100015417C /* UITestsHelper.swift in Sources */,
+				9897E5761D2EE291000F1AF3 /* LayerTableViewUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -688,6 +695,7 @@
 			files = (
 				989C51821CB2F709007D3DCE /* UIBarButtonItemExtension.swift in Sources */,
 				98262C101C22C29A00B420A8 /* SettingsBaseViewController.swift in Sources */,
+				982E3AE61D2F042000105BE9 /* UIViewControllerExtension.swift in Sources */,
 				98E1FF1C1CA840C800368EAF /* PenProtocoll.swift in Sources */,
 				98BABB921C1B4D9300D9C938 /* UIViewExtension.swift in Sources */,
 				98BABB901C1B16A400D9C938 /* PageInfoLayerTableViewCell.swift in Sources */,
@@ -955,7 +963,7 @@
 				CODE_SIGN_ENTITLEMENTS = proNotes/Resources/proNotes.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				DEFINES_MODULE = NO;
 				ENABLE_BITCODE = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -984,7 +992,7 @@
 				CODE_SIGN_ENTITLEMENTS = proNotes/Resources/proNotes.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				DEFINES_MODULE = NO;
 				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = proNotes/Resources/Info.plist;

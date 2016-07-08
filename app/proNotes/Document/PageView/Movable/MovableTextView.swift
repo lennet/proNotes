@@ -39,6 +39,7 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
             textView.delegate = self
             addSubview(textView)
             self.textView = textView
+            accessibilityIdentifier = "MovableTextView"
         }
         
         textView?.backgroundColor = textLayer?.backgroundColor

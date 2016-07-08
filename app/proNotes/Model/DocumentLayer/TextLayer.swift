@@ -53,7 +53,11 @@ class TextLayer: MovableLayer {
         textColor = aDecoder.decodeObject(forKey: textColorKey) as! UIColor
         font = aDecoder.decodeObject(forKey: fontKey) as! UIFont
         alignment = NSTextAlignment(rawValue: Int(aDecoder.decodeInteger(forKey:alignmentKey)))!
-        super.init(coder: aDecoder)
+        super.init(coder: aDecoder, type: .text)
+    }
+    
+    required init(coder aDecoder: NSCoder, type: DocumentLayerType) {
+        fatalError("init(coder:type:) has not been implemented")
     }
 
     override func encode(with aCoder: NSCoder) {

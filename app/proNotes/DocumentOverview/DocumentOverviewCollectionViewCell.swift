@@ -8,22 +8,35 @@
 
 import UIKit
 
+protocol DocumentOverviewCollectionViewCellDelegate: class {
+    
+    func didPressedDeleteButton(forCell cell: DocumentOverviewCollectionViewCell)
+    
+    func didRenamedDocument(forCell cell: DocumentOverviewCollectionViewCell, newName: String)
+    
+}
+
 class DocumentOverviewCollectionViewCell: UICollectionViewCell {
 
     static let reusableIdentifier = "DocumentOverviewCollectionViewCellIdentifier"
 
     @IBOutlet weak var thumbImageView: UIImageView!
-    @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
-
+    @IBOutlet weak var nameTextField: UITextField!
+    
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var thumbImageViewWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var thumbImageViewHeightConstraint: NSLayoutConstraint!
     
+    weak var delegate: DocumentOverviewCollectionViewCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         thumbImageView.layer.setUpDefaultShaddow()
+        
+        let renameMenutItem = UIMenuItem(title: "Rename", action: #selector(rename))
+        UIMenuController.shared().menuItems = [renameMenutItem]
+        
     }
     
     override func prepareForReuse() {
@@ -33,5 +46,40 @@ class DocumentOverviewCollectionViewCell: UICollectionViewCell {
         thumbImageView.contentMode = .scaleToFill
         activityIndicator.stopAnimating()
         activityIndicator.isHidden = true
+    }
+    
+    override func canBecomeFirstResponder() -> Bool {
+        return true
+    }
+    
+    override func canPerformAction(_ action: Selector, withSender sender: AnyObject?) -> Bool {
+        let actionString = NSStringFromSelector(action)
+        return  actionString == "delete:" || actionString == "rename:"
+    }
+    
+    override func delete(_ sender: AnyObject?) {
+        delegate?.didPressedDeleteButton(forCell: self)
+    }
+    
+    func rename(_ sender: AnyObject?) {
+        nameTextField.isUserInteractionEnabled = true
+        nameTextField.becomeFirstResponder()
+        nameTextField.borderStyle = .roundedRect
+    }
+    
+}
+
+extension DocumentOverviewCollectionViewCell: UITextFieldDelegate {
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        nameTextField.isUserInteractionEnabled = false
+        nameTextField.borderStyle = .none
+        guard let text = textField.text else { return }
+        delegate?.didRenamedDocument(forCell: self, newName: text)
     }
 }

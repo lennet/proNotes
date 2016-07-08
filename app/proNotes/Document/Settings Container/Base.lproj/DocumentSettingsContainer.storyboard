@@ -65,6 +65,7 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8px-Qx-gdR">
+                                                                    <accessibility key="accessibilityConfiguration" identifier="hideLayerButton"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="22" id="2Ij-zT-Z9t"/>
                                                                         <constraint firstAttribute="width" constant="21" id="hkh-vw-fgi"/>
@@ -75,6 +76,7 @@
                                                                     </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7dR-ur-2lS">
+                                                                    <accessibility key="accessibilityConfiguration" identifier="deleteLayerButton"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="22" id="9Ny-Xx-PCC"/>
                                                                         <constraint firstAttribute="width" constant="12" id="9uy-25-3vf"/>
@@ -760,7 +762,7 @@
                         <viewControllerLayoutGuide type="bottom" id="S2L-Cm-dO8"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="MHw-o1-1Tb">
-                        <rect key="frame" x="0.0" y="0.0" width="560" height="90"/>
+                        <rect key="frame" x="0.0" y="0.0" width="335" height="90"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="G5s-qq-xby">
@@ -855,6 +857,6 @@
         <image name="visibleIcon" width="21" height="14"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="gSt-lA-RPr"/>
+        <segue reference="NYT-wt-p6C"/>
     </inferredMetricsTieBreakers>
 </document>

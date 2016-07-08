@@ -40,7 +40,7 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
             performSegue(withIdentifier: "WelcomSegueIdentifier", sender: nil)
         }
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         documentManager.delegate = nil
@@ -96,9 +96,10 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DocumentOverviewCollectionViewCell.reusableIdentifier, for: indexPath) as! DocumentOverviewCollectionViewCell
+        cell.delegate = self
 
         let object = objects[(indexPath as NSIndexPath).row]
-        cell.nameLabel.text = object.description
+        cell.nameTextField.text = object.description
         cell.dateLabel.text = object.metaData?.fileModificationDate?.toString()
         
         if !object.downloaded {
@@ -117,7 +118,19 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
     }
 
     // MARK: - UICollectionViewDelegate
-
+    
+    func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: AnyObject?) -> Bool {
+        return true
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: AnyObject?) {
+        
+    }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? DocumentOverviewCollectionViewCell else {
             return
@@ -137,7 +150,7 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
                     DocumentInstance.sharedInstance.document = document
                     self.performSegue(withIdentifier: self.showDocumentSegueIdentifier, sender: nil)
                 } else {
-                    // TODO show error
+                    self.alert(message: "Error Occured. Please try again")
                 }
             })
         } else {
@@ -175,4 +188,31 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
         }
         return true
     }
+}
+
+extension DocumentOverviewViewController: DocumentOverviewCollectionViewCellDelegate {
+    
+    func didPressedDeleteButton(forCell cell: DocumentOverviewCollectionViewCell) {
+        guard let index = documentsCollectionViewController.indexPath(for: cell) else { return }
+        let object = objects[index.row]
+        documentManager.deleteObject(object) { [weak self ] (success, error) in
+            DispatchQueue.main.async {
+                if !success {
+                    self?.alert(message: "Error Ocurred. Please Try again")
+                }
+            }
+        }
+    }
+    
+    func didRenamedDocument(forCell cell: DocumentOverviewCollectionViewCell, newName: String) {
+        guard let index = documentsCollectionViewController.indexPath(for: cell) else { return }
+        let object = objects[index.row]
+        documentManager.renameObject(object.fileURL, fileName: newName, forceOverWrite: false) { [weak self ] (success, error) in
+            if !success {
+                self?.alert(message: "Error Ocurred. Please Try again")
+                // todo force overrice
+            }
+        }
+    }
+
 }

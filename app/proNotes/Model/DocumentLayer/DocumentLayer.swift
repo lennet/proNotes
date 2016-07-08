@@ -17,7 +17,6 @@ enum DocumentLayerType: Int {
 
 class DocumentLayer: NSObject, NSCoding {
     private final let indexKey = "index"
-    private final let typeRawValueKey = "type"
     private final let hiddenKey = "key"
     private final let nameKey = "name"
 
@@ -40,19 +39,20 @@ class DocumentLayer: NSObject, NSCoding {
         self.docPage = docPage
         self.name = String(type)
     }
+    
+    required init(coder aDecor: NSCoder) {
+        fatalError("init(coder:type:) has not been implemented")
+    }
 
-    required init(coder aDecoder: NSCoder) {
+    required init(coder aDecoder: NSCoder, type: DocumentLayerType) {
         self.index = aDecoder.decodeInteger(forKey: indexKey)
-        let type = DocumentLayerType(rawValue: aDecoder.decodeInteger(forKey: typeRawValueKey))!
         self.name = (aDecoder.decodeObject(forKey: nameKey) as? String) ?? String(type)
-        self.type = type
         self.hidden = aDecoder.decodeBool(forKey: hiddenKey)
-        super.init()
+        self.type = type
     }
 
     func encode(with aCoder: NSCoder) {
         aCoder.encode(index, forKey: indexKey)
-        aCoder.encode(type.rawValue, forKey: typeRawValueKey)
         aCoder.encode(hidden, forKey: hiddenKey)
         aCoder.encode(name, forKey: nameKey)
     }

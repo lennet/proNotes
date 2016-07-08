@@ -240,6 +240,7 @@ extension DocumentViewController: ImportExportDataViewControllerDelgate {
     }
     
     func addTextField() {
+        dismiss()
         if let textLayer = DocumentInstance.sharedInstance.currentPage?.addTextLayer("") {
             if let currentPageView = PagesTableViewController.sharedInstance?.currentPageView {
                 currentPageView.addTextLayer(textLayer)
@@ -251,7 +252,6 @@ extension DocumentViewController: ImportExportDataViewControllerDelgate {
                 }
             }
         }
-        dismiss()
     }
     
     func addPDF(_ url: URL) {
