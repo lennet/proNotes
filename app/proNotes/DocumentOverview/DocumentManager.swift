@@ -120,7 +120,7 @@ class DocumentManager {
     }
 
     func useiCloud() -> Bool {
-        return true
+        return Preferences.iCloudActive()
     }
 
     func downloadObject(_ object: DocumentsOverviewObject) {
@@ -168,6 +168,8 @@ class DocumentManager {
 
         let fileCoordinator = NSFileCoordinator(filePresenter: nil)
         var error: NSError?
+        
+        
         
         fileCoordinator.coordinate(writingItemAt: fileURL, options: .forMoving, writingItemAt: newURL, options: .forReplacing, error: &error) {
             (newURL1, newURL2) -> Void in
@@ -310,7 +312,6 @@ class DocumentManager {
                     completion?(false, error)
                 }
             })
-
         }
 
         removeObjectFromArray(object.fileURL as URL)
