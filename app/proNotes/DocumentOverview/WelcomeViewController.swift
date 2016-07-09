@@ -15,9 +15,6 @@ class WelcomeViewController: UIViewController {
     @IBOutlet weak var middleLeftXConstraint: NSLayoutConstraint!
     @IBOutlet weak var middleRightXConstraint: NSLayoutConstraint!
     @IBOutlet weak var topImageView: UIImageView!
-    @IBOutlet weak var hintLabel: UILabel!
-    @IBOutlet weak var notifyButton: UIButton!
-    
     static weak var sharedInstance: WelcomeViewController?
     
     override func viewDidLoad() {
@@ -28,17 +25,15 @@ class WelcomeViewController: UIViewController {
         }
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         Preferences.setIsFirstRun(false)
         animateImageViews()
-        if Preferences.AlreadyDownloadedDefaultNote() {
-            alredyDownloaded = true
-        }
         WelcomeViewController.sharedInstance = self
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         WelcomeViewController.sharedInstance = nil
     }
     
@@ -50,43 +45,14 @@ class WelcomeViewController: UIViewController {
         let backOffset: CGFloat = topImageView.bounds.width/2.1
         backLeftXConstraint.constant = -backOffset
         backRightXConstraint.constant = backOffset
-        UIView.animateWithDuration(1, delay: 0.2, options: .CurveEaseInOut, animations: {
+        UIView.animate(withDuration: 1, delay: 0.2, options: UIViewAnimationOptions(), animations: {
             self.view.layoutIfNeeded()
             }, completion: nil)
     }
 
-    @IBAction func handleContinueButtonPressed(sender: AnyObject) {
+    @IBAction func handleContinueButtonPressed(_ sender: AnyObject) {
         Preferences.setShoudlShowWelcomeScreen(false)
-        presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+        presentingViewController?.dismiss(animated: true, completion: nil)
     }
 
-    @IBAction func handleNotifyButtonPressed(sender: UIButton) {
-        if alredyDownloaded {
-        
-        } else {
-            sender.hidden = true
-            hintLabel.hidden = true
-            Preferences.setAllowsNotification(true)
-            UIApplication.sharedApplication().registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil))
-        }
-    }
-    
-    var alredyDownloaded: Bool = false {
-        didSet {
-            dispatch_async(dispatch_get_main_queue(),{
-                if self.alredyDownloaded {
-                    self.notifyButton.hidden = true
-                    let attributedString = NSMutableAttributedString(string: "A sample Note has will be been downloaded via CloudKit")
-                    
-                    attributedString.addAttributes([NSStrikethroughStyleAttributeName: NSNumber(integer: NSUnderlineStyle.StyleSingle.rawValue)], range: NSRange(location: 18, length: 7))
-                    UIView.transitionWithView(self.hintLabel, duration: standardAnimationDuration, options: [.TransitionCrossDissolve], animations: {
-                        self.hintLabel.attributedText = attributedString
-                        }, completion: nil)
-                    
-                    
-                }
-                self.notifyButton.userInteractionEnabled = !self.alredyDownloaded
-            })
-        }
-    }
 }

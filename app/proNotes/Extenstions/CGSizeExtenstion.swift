@@ -10,18 +10,18 @@ import UIKit
 
 extension CGSize {
 
-    mutating func increaseSize(float: CGFloat) -> CGSize {
+    mutating func increaseSize(_ float: CGFloat) -> CGSize {
         self.width += float
         self.height += float
         return self
     }
 
-    mutating func multiplySize(factor: CGFloat) {
+    mutating func multiplySize(_ factor: CGFloat) {
         self.width *= factor
         self.height *= factor
     }
 
-    func sizeToFit(size: CGSize) -> CGSize {
+    func sizeToFit(_ size: CGSize) -> CGSize {
         let widthRatio = self.width / size.width
         let heightRatio = self.height / size.height
         

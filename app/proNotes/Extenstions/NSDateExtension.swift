@@ -8,12 +8,13 @@
 
 import UIKit
 
-extension NSDate {
+extension Date {
 
     func toString() -> String {
-        let formatter = NSDateFormatter()
-        formatter.dateStyle = NSDateFormatterStyle.ShortStyle
-        formatter.timeStyle = .NoStyle
-        return formatter.stringFromDate(self)
+        let formatter = DateFormatter()
+        
+        formatter.dateStyle = DateFormatter.Style.short
+        formatter.timeStyle = .none
+        return formatter.string(from: self)
     }
 }

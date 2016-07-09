@@ -1,1 +1,18 @@
-[![Build Status](https://travis-ci.com/lennet/proNotes.svg?token=yqRWkSdBrNTyS3kfVzGW&branch=master)](https://travis-ci.com/lennet/proNotes)
+
+
+<img alt="App Icon" src="resources/icon.png" width="150">
+
+# proNotes
+proNotes is a powerful Note app for iPad written in Swift 3.  
+
+<img alt="Screenshot" src="resources/screenshot.jpg" width = "400">
+
+#Known issues
+
+- overriding Files is currently broken
+
+#Awards
+WWDC Scholarship winner 2016
+
+# Acknowledgements
+The icons are made by Freepik from www.flaticon.com and are licensed under CC BY 3.0.

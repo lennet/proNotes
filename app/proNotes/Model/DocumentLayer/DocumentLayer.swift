@@ -9,19 +9,20 @@
 import UIKit
 
 enum DocumentLayerType: Int {
-    case PDF = 1
-    case Sketch = 2
-    case Image = 3
-    case Text = 4
+    case pdf = 1
+    case sketch = 2
+    case image = 3
+    case text = 4
 }
 
 class DocumentLayer: NSObject, NSCoding {
     private final let indexKey = "index"
-    private final let typeRawValueKey = "type"
     private final let hiddenKey = "key"
+    private final let nameKey = "name"
 
     var index: Int
     var type: DocumentLayerType
+    var name: String
     weak var docPage: DocumentPage!
     var hidden = false
 
@@ -29,36 +30,42 @@ class DocumentLayer: NSObject, NSCoding {
         self.index = index
         self.type = type
         self.docPage = docPage
+        self.name = String(type)
     }
 
-    init(fileWrapper: NSFileWrapper, index: Int, docPage: DocumentPage) {
+    init(fileWrapper: FileWrapper, index: Int, docPage: DocumentPage) {
         self.index = index
-        self.type = .Sketch
+        self.type = .sketch
         self.docPage = docPage
+        self.name = String(type)
+    }
+    
+    required init(coder aDecor: NSCoder) {
+        fatalError("init(coder:type:) has not been implemented")
     }
 
-    required init(coder aDecoder: NSCoder) {
-        self.index = aDecoder.decodeIntegerForKey(indexKey)
-        self.type = DocumentLayerType(rawValue: aDecoder.decodeIntegerForKey(typeRawValueKey))!
-        self.hidden = aDecoder.decodeBoolForKey(hiddenKey)
-        super.init()
+    required init(coder aDecoder: NSCoder, type: DocumentLayerType) {
+        self.index = aDecoder.decodeInteger(forKey: indexKey)
+        self.name = (aDecoder.decodeObject(forKey: nameKey) as? String) ?? String(type)
+        self.hidden = aDecoder.decodeBool(forKey: hiddenKey)
+        self.type = type
     }
 
-    func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeInteger(index, forKey: indexKey)
-        aCoder.encodeInteger(type.rawValue, forKey: typeRawValueKey)
-        aCoder.encodeBool(hidden, forKey: hiddenKey)
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(index, forKey: indexKey)
+        aCoder.encode(hidden, forKey: hiddenKey)
+        aCoder.encode(name, forKey: nameKey)
     }
 
     func removeFromPage() {
         self.docPage.removeLayer(self)
     }
 
-    func undoAction(oldObject: AnyObject?) {
+    func undoAction(_ oldObject: AnyObject?) {
         // empty Base Implementation
     }
 
-    override func isEqual(object: AnyObject?) -> Bool {
+    override func isEqual(_ object: AnyObject?) -> Bool {
         guard let layer = object as? DocumentLayer else {
             return false
         }
@@ -68,6 +75,10 @@ class DocumentLayer: NSObject, NSCoding {
         }
 
         guard layer.index == index else {
+            return false
+        }
+        
+        guard layer.name == name else {
             return false
         }
 

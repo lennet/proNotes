@@ -34,11 +34,12 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
         if self.textView == nil {
             let textView = NoScrollingTextView()
             
-            textView.userInteractionEnabled = false
-            textView.scrollEnabled = !renderMode
+            textView.isUserInteractionEnabled = false
+            textView.isScrollEnabled = !renderMode
             textView.delegate = self
             addSubview(textView)
             self.textView = textView
+            accessibilityIdentifier = "MovableTextView"
         }
         
         textView?.backgroundColor = textLayer?.backgroundColor
@@ -46,10 +47,10 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
         textView?.textColor = textLayer?.textColor
         textView?.text = textLayer?.text
         textView?.font = textLayer?.font
-        textView?.textAlignment = textLayer?.alignment ?? .Left
+        textView?.textAlignment = textLayer?.alignment ?? .left
     }
 
-    override func handlePanTranslation(translation: CGPoint) -> CGRect {
+    override func handlePanTranslation(_ translation: CGPoint) -> CGRect {
         let rect = super.handlePanTranslation(translation)
         updateTextView()
         return rect
@@ -63,37 +64,37 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
     override func setSelected() {
         super.setSelected()
         textView?.becomeFirstResponder()
-        textView?.userInteractionEnabled = true
+        textView?.isUserInteractionEnabled = true
     }
 
     override func setDeselected() {
         super.setDeselected()
         textView?.resignFirstResponder()
-        textView?.userInteractionEnabled = false
+        textView?.isUserInteractionEnabled = false
     }
 
     // MARK: - TextSettingsDelegate 
 
-    func changeTextColor(color: UIColor) {
+    func changeTextColor(_ color: UIColor) {
         textLayer?.textColor = color
         textView?.textColor = color
         saveChanges()
     }
 
-    func changeBackgroundColor(color: UIColor) {
+    func changeBackgroundColor(_ color: UIColor) {
         textLayer?.backgroundColor = color
         textView?.backgroundColor = color
         saveChanges()
     }
 
-    func changeAlignment(textAlignment: NSTextAlignment) {
+    func changeAlignment(_ textAlignment: NSTextAlignment) {
         textLayer?.alignment = textAlignment
         textView?.textAlignment = textAlignment
         updateTextView()
         saveChanges()
     }
 
-    func changeFont(font: UIFont) {
+    func changeFont(_ font: UIFont) {
         textLayer?.font = font
         textView?.font = font
         updateTextView()
@@ -116,7 +117,7 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
         return textLayer
     }
 
-    override func undoAction(oldObject: AnyObject?) {
+    override func undoAction(_ oldObject: AnyObject?) {
         guard let text = oldObject as? String else {
             super.undoAction(oldObject)
             return
@@ -125,7 +126,7 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
         updateText(text)
     }
 
-    func updateText(newText: String) {
+    func updateText(_ newText: String) {
         if let textLayer = movableLayer as? TextLayer {
             if textLayer.docPage != nil {
                 DocumentInstance.sharedInstance.registerUndoAction(textLayer.text, pageIndex: textLayer.docPage.index, layerIndex: textLayer.index)
@@ -158,11 +159,11 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
 
     // MARK: - UITextViewDelegate
 
-    func textViewDidChange(textView: UITextView) {
+    func textViewDidChange(_ textView: UITextView) {
         updateTextView()
     }
 
-    func textViewDidEndEditing(textView: UITextView) {
+    func textViewDidEndEditing(_ textView: UITextView) {
         updateText(textView.text)
     }
 

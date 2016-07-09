@@ -18,17 +18,17 @@ class SettingsBaseViewController: UIViewController, ColorPickerDelegate {
 
     // MARK: - ColorPickerDelegate
 
-    func didSelectColor(colorPicker: ColorPickerViewController, color: UIColor) {
+    func didSelectColor(_ colorPicker: ColorPickerViewController, color: UIColor) {
         // empty base Implementation
     }
     
-    func canSelectClearColor(colorPicker: ColorPickerViewController) -> Bool {
+    func canSelectClearColor(_ colorPicker: ColorPickerViewController) -> Bool {
         return true
     }
 
     // MARK: - Navigation
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
         if let colorPickerViewController = segue.destinationViewController as? ColorPickerViewController {
             colorPickerViewController.delegate = self
             colorPickerViewController.identifier = segue.identifier

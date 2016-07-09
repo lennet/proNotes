@@ -21,9 +21,9 @@ class ExportViewController: ImportExportBaseViewController {
     func handleExportImages() {
         animateProgressBarIn()
         
-        let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
-        dispatch_async(dispatch_get_global_queue(priority, 0)) {
-            dispatch_async(dispatch_get_main_queue()) {
+        let priority = DispatchQueue.GlobalAttributes.qosDefault
+        DispatchQueue.global(attributes: priority).async {
+            DispatchQueue.main.async {
                 let images = DocumentExporter.exportAsImages { (progress) in
                     self.exportProgressView.progress = progress
                 }
@@ -35,9 +35,9 @@ class ExportViewController: ImportExportBaseViewController {
     
     func handleExportPDF() {
         animateProgressBarIn()
-        let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
-        dispatch_async(dispatch_get_global_queue(priority, 0)) {
-            dispatch_async(dispatch_get_main_queue()) {
+        let priority = DispatchQueue.GlobalAttributes.qosDefault
+        DispatchQueue.global(attributes: priority).async {
+            DispatchQueue.main.async {
                 guard let data = DocumentExporter.exportAsPDF ({ (progress) in
                     self.exportProgressView.progress = progress
                 }) else {
@@ -51,9 +51,9 @@ class ExportViewController: ImportExportBaseViewController {
     
     func handleExportProNote() {
         animateProgressBarIn()
-        let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
-        dispatch_async(dispatch_get_global_queue(priority, 0)) {
-            dispatch_async(dispatch_get_main_queue()) {
+        let priority = DispatchQueue.GlobalAttributes.qosDefault
+        DispatchQueue.global(attributes: priority).async {
+            DispatchQueue.main.async {
                 DocumentExporter.exportAsProNote({ (progress) in
                     self.exportProgressView.progress = progress
                 }) { (url) in
@@ -67,10 +67,10 @@ class ExportViewController: ImportExportBaseViewController {
     }
     
     func animateProgressBarIn() {
-        dispatch_async(dispatch_get_main_queue(),{
+        DispatchQueue.main.async(execute: {
             self.view.layoutIfNeeded()
             self.progressBarHeight.constant = 44
-            UIView.animateWithDuration(standardAnimationDuration, delay: 0, options: .CurveEaseInOut, animations: { 
+            UIView.animate(withDuration: standardAnimationDuration, delay: 0, options: UIViewAnimationOptions(), animations: { 
                 self.view.layoutIfNeeded()
                 }, completion: nil)
         })

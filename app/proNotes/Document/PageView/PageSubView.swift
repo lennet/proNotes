@@ -11,16 +11,16 @@ import UIKit
 @objc
 protocol PageSubView: class {
 
-    optional func saveChanges()
+    @objc optional func saveChanges()
 
-    optional func handlePan(panGestureRecognizer: UIPanGestureRecognizer)
+    @objc optional func handlePan(_ panGestureRecognizer: UIPanGestureRecognizer)
 
-    optional func setSelected()
+    @objc optional func setSelected()
 
-    optional func setDeselected()
+    @objc optional func setDeselected()
 
-    optional func setUpSettingsViewController()
+    @objc optional func setUpSettingsViewController()
 
-    optional func undoAction(oldObject: AnyObject?)
+    @objc optional func undoAction(_ oldObject: AnyObject?)
 
 }

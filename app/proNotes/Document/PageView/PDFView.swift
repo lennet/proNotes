@@ -12,31 +12,29 @@ class PDFView: UIView, PageSubView {
 
     var pdf: CGPDFDocument?
 
-    init(pdfData: NSData, frame: CGRect) {
-        self.pdf = PDFUtility.createPDFFromData(pdfData as CFData)
+    init(pdfData: Data, frame: CGRect) {
+        self.pdf = PDFUtility.createPDFFromData(data: pdfData as CFData)
         super.init(frame: frame)
-        userInteractionEnabled = false
+        isUserInteractionEnabled = false
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
 
-    override func drawRect(rect: CGRect) {
-        if let page = CGPDFDocumentGetPage(pdf, 1) {
+    override func draw(_ rect: CGRect) {
+        guard let page = pdf?.page(at: 1) else { return }
 
-            let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()
+            
+        context?.scale(x: 1, y: -1)
+        context?.translate(x: 0, y: -rect.size.height)
 
-            CGContextGetCTM(context)
-            CGContextScaleCTM(context, 1, -1)
-            CGContextTranslateCTM(context, 0, -rect.size.height)
+        let mediaRect = page.getBoxRect(CGPDFBox.cropBox)
 
-            let mediaRect = CGPDFPageGetBoxRect(page, CGPDFBox.CropBox)
+        context?.translate(x: -mediaRect.origin.x, y: -mediaRect.origin.y)
 
-            CGContextTranslateCTM(context, -mediaRect.origin.x, -mediaRect.origin.y)
-
-            CGContextDrawPDFPage(context, page);
-        }
+        context?.drawPDFPage(page);
     }
 
 }

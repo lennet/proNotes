@@ -21,7 +21,7 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
    private var pageUpdateEnabled = true
    private var documentViewController: DocumentViewController? {
       get {
-         return parentViewController as? DocumentViewController
+         return parent as? DocumentViewController
       }
    }
 
@@ -62,22 +62,22 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
    
    override func viewDidLoad() {
       super.viewDidLoad()
-      setUpTableView()
+      configureTableView()
       loadTableView()
    }
    
-   override func viewWillAppear(animated: Bool) {
+   override func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(animated)
       DocumentInstance.sharedInstance.addDelegate(self)
       updateCurrentPageView()
    }
    
-   override func viewDidAppear(animated: Bool) {
+   override func viewDidAppear(_ animated: Bool) {
       super.viewDidAppear(animated)
       setUpScrollView()
    }
    
-   override func viewWillDisappear(animated: Bool) {
+   override func viewWillDisappear(_ animated: Bool) {
       super.viewWillDisappear(animated)
       DocumentInstance.sharedInstance.removeDelegate(self)
    }
@@ -104,14 +104,14 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
       scrollView.alpha = 1
    }
    
-   private func setUpTableView() {
+   private func configureTableView() {
       tableViewWidth?.constant = (document?.getMaxWidth() ?? 0) + 2 * defaultMargin
       tableView.deactivateDelaysContentTouches()
       
       view.layoutSubviews()
    }
    
-   func scroll(down: Bool) {
+   func scroll(_ down: Bool) {
       var newYContentOffset = tableView.contentOffset.y + 75 * (down ? 1 : -1)
       newYContentOffset = max(0, newYContentOffset)
       newYContentOffset = min(tableView.contentSize.height - tableView.bounds.height , newYContentOffset)
@@ -120,12 +120,12 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
    
    // MARK: - Screen Rotation
    
-   override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
+   override func didRotate(from fromInterfaceOrientation: UIInterfaceOrientation) {
       layoutDidChange()
    }
    
-   override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-      coordinator.animateAlongsideTransition({
+   override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+      coordinator.animate(alongsideTransition: {
          (context) -> Void in
          self.setUpScrollView()
          self.layoutDidChange()
@@ -136,32 +136,38 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
    
    // MARK: - Page Handling
    
-   func showPage(pageNumber: Int) {
-      if pageNumber < tableView.numberOfRowsInSection(0) {
+   func showPage(_ pageNumber: Int) {
+      if pageNumber < tableView.numberOfRows(inSection: 0) {
          pageUpdateEnabled = false
-         let indexPath = NSIndexPath(forRow: pageNumber, inSection: 0)
+         let indexPath = IndexPath(row: pageNumber, section: 0)
          DocumentInstance.sharedInstance.currentPage = document?[pageNumber]
-         tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
+         tableView.scrollToRow(at: indexPath, at: .top, animated: true)
       }
    }
    
-   private func updateCurrentPageView(force: Bool = false) {
+   
+   /// Updates the global var currentPageView to the current visible Page if pageUpdate enabled
+   ///
+   /// - parameter force: ignores pageUpdateEnabled
+   private func updateCurrentPageView(_ force: Bool = false) {
       if pageUpdateEnabled || force {
          currentPageView = getVisiblePageView()
       }
    }
    
+   
+   /// - returns: The PageView witch uses the most screensize at the moment
    private func getVisiblePageView() -> PageView? {
       var visiblePageView: PageView? = nil
       if let indexPaths = tableView.indexPathsForVisibleRows {
          let visibleRect = CGRect(origin: tableView.contentOffset, size: tableView.bounds.size)
-         var maxSize = CGSize.zero
+         var maxSize = CGSize(width: -1, height: -1)
          for indexPath in indexPaths {
-            let cellRect = tableView.rectForRowAtIndexPath(indexPath)
-            let intersectionSize = CGRectIntersection(visibleRect, cellRect).size
+            let cellRect = tableView.rectForRow(at: indexPath)
+            let intersectionSize = visibleRect.intersection(cellRect).size
             if intersectionSize.height > maxSize.height {
                maxSize = intersectionSize
-               if let cell = tableView.cellForRowAtIndexPath(indexPath) as? PageTableViewCell {
+               if let cell = tableView.cellForRow(at: indexPath) as? PageTableViewCell {
                   visiblePageView = cell.pageView
                }
             }
@@ -171,10 +177,15 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
       return visiblePageView
    }
    
-   func swapPagePositions(firstIndex: Int, secondIndex: Int) {
+   
+   /// Swaps the order in the UITableView of two pages. **This method doesn't change anything in th document Model!**
+   ///
+   /// - parameter firstIndex:  Int Value of the index of the first Page
+   /// - parameter secondIndex: Int Value of the index of the second Page
+   func swapPages(withfirstIndex firstIndex: Int, secondIndex: Int) {
       let pagesCount = document?.pages.count ?? 0
       if firstIndex != secondIndex && firstIndex >= 0 && secondIndex >= 0 && firstIndex < pagesCount && secondIndex < pagesCount {
-         tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: firstIndex, inSection: 0), NSIndexPath(forRow: secondIndex, inSection: 0)], withRowAnimation: .Automatic)
+         tableView.reloadRows(at: [IndexPath(row: firstIndex, section: 0), IndexPath(row: secondIndex, section: 0)], with: .automatic)
       } else {
          print("Swap Layerpositions failed with firstIndex:\(firstIndex) and secondIndex\(secondIndex) and pagesCount \(pagesCount)")
       }
@@ -182,29 +193,29 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
    
    // MARK: - Table view data source
    
-   func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+   func numberOfSections(in tableView: UITableView) -> Int {
       return 1
    }
    
-   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-      return document?.getNumberOfPages() ?? 0
+   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+      return document?.numberOfPages ?? 0
    }
    
-   func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
       let pageHeight = (document?[indexPath.row]?.size.height ?? 0)
       return pageHeight + 2 * defaultMargin
    }
    
-   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-      return tableView.dequeueReusableCellWithIdentifier(PageTableViewCell.identifier, forIndexPath: indexPath)
+   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+      return tableView.dequeueReusableCell(withIdentifier: PageTableViewCell.identifier, for: indexPath)
    }
    
-   func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+   func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
       guard let pageCell = cell as? PageTableViewCell else {
          return
       }
       
-      guard let currentPage = document?[indexPath.row] else {
+      guard let currentPage = document?[(indexPath as NSIndexPath).row] else {
          return
       }
       
@@ -229,6 +240,7 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
       updateTableViewHeight()
    }
    
+   /// updates the frame & contentsize of the tableview depending on the max size. Should be called after contentsize or framesize changes (zoomning, new Pages, ..)
    func updateTableViewHeight() {
       var frame = tableView.frame
       frame.size.height = max(scrollView.bounds.height, scrollView.contentSize.height)
@@ -245,15 +257,15 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
    
    // MARK: - UIScrollViewDelegate
    
-   func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+   func viewForZooming(in scrollView: UIScrollView) -> UIView? {
       return tableView
    }
    
-   func scrollViewDidZoom(scrollView: UIScrollView) {
+   func scrollViewDidZoom(_ scrollView: UIScrollView) {
       layoutDidChange()
    }
    
-   func scrollViewDidScroll(scrollView: UIScrollView) {
+   func scrollViewDidScroll(_ scrollView: UIScrollView) {
       
       // only update tableview height if scrollview is'nt bouncing
       if !(scrollView.contentOffset.y > scrollView.contentSize.height - scrollView.bounds.height
@@ -269,7 +281,8 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
    }
    
    var forcePageUpdate = false
-   func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
+   func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+      // only update current PageView at the end of the animation after selecting a specific page in the PagesSelection
       if !pageUpdateEnabled {
          pageUpdateEnabled = true
          forcePageUpdate = true
@@ -280,10 +293,10 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
    
    // MARK: - DocumentSynchronizerDelegate
    
-   func didAddPage(index: NSInteger) {
-      if index < tableView.numberOfRowsInSection(0) {
-         let indexPath = NSIndexPath(forRow: index, inSection: 0)
-         tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+   func didAddPage(_ index: NSInteger) {
+      if index < tableView.numberOfRows(inSection: 0) {
+         let indexPath = IndexPath(row: index, section: 0)
+         tableView.insertRows(at: [indexPath], with: .fade)
       } else {
          tableView.reloadData()
       }

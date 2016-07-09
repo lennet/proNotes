@@ -19,8 +19,8 @@ class PageTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        heightConstraint = pageView.getConstraint(.Height)
-        widthConstraint = pageView.getConstraint(.Width)
+        heightConstraint = pageView.getConstraint(.height)
+        widthConstraint = pageView.getConstraint(.width)
         pageView.layer.setUpDefaultShaddow()
         deactivateDelaysContentTouches()
     }

@@ -10,7 +10,7 @@ import UIKit
 
 extension CGVector {
 
-    static func angleBetween(firstVector: CGVector, secondVector: CGVector) -> CGFloat {
+    static func angleBetween(_ firstVector: CGVector, secondVector: CGVector) -> CGFloat {
         return abs(atan2(secondVector.dy, secondVector.dx)
                 - atan2(firstVector.dy, firstVector.dx))
     }

@@ -11,23 +11,23 @@ import UIKit
 class TouchControlView: UIView {
 
     enum TouchControl {
-        case TopLeftCorner
-        case TopRightCorner
-        case BottomLeftCorner
-        case BottomRightCorner
-        case TopSide
-        case LeftSide
-        case RightSide
-        case BottomSide
-        case Center
-        case None
+        case topLeftCorner
+        case topRightCorner
+        case bottomLeftCorner
+        case bottomRightCorner
+        case topSide
+        case leftSide
+        case rightSide
+        case bottomSide
+        case center
+        case none
         
         func isRight() -> Bool {
-            return self == .TopRightCorner || self == .RightSide || self == .BottomRightCorner
+            return self == .topRightCorner || self == .rightSide || self == .bottomRightCorner
         }
         
         func isBottom() -> Bool {
-            return self == .BottomSide || self == .BottomLeftCorner || self == .BottomRightCorner
+            return self == .bottomSide || self == .bottomLeftCorner || self == .bottomRightCorner
         }
     }
 
@@ -80,7 +80,7 @@ class TouchControlView: UIView {
     }
 
     var oldFrame: CGRect?
-    var selectedTouchControl = TouchControl.None
+    var selectedTouchControl = TouchControl.none
 
     override func awakeFromNib() {
         clearsContextBeforeDrawing = true
@@ -90,16 +90,16 @@ class TouchControlView: UIView {
         // empty base Implementation
     }
 
-    func handlePan(panGestureRecognizer: UIPanGestureRecognizer) {
+    func handlePan(_ panGestureRecognizer: UIPanGestureRecognizer) {
         if isEditing {
             switch panGestureRecognizer.state {
-            case .Began:
+            case .began:
                 oldFrame = frame
-                selectedTouchControl = touchedControlRect(panGestureRecognizer.locationInView(self))
+                selectedTouchControl = touchedControlRect(panGestureRecognizer.location(in: self))
                 break
-            case .Changed:
-                let translation = panGestureRecognizer.translationInView(self)
-                panGestureRecognizer.setTranslation(CGPointZero, inView: self)
+            case .changed:
+                let translation = panGestureRecognizer.translation(in: self)
+                panGestureRecognizer.setTranslation(CGPoint.zero, in: self)
                 handlePanTranslation(translation)
                 break
             default:
@@ -109,14 +109,14 @@ class TouchControlView: UIView {
         }
     }
 
-    func touchedControlRect(touchLocation: CGPoint) -> TouchControl {
+    func touchedControlRect(_ touchLocation: CGPoint) -> TouchControl {
         for (touchControl, rect) in getControlRects() where rect.contains(touchLocation) {
-            if widthResizingOnly && (touchControl == .TopSide || touchControl == .BottomSide) {
-                return .Center
+            if widthResizingOnly && (touchControl == .topSide || touchControl == .bottomSide) {
+                return .center
             }
             return touchControl
         }
-        return .None
+        return .none
     }
 
     func getControlRects() -> Dictionary<TouchControl, CGRect> {
@@ -124,31 +124,31 @@ class TouchControlView: UIView {
         let mainRect = getControllableRect()
 
         let topLeftRect = CGRect(center: mainRect.origin, width: controlLength * 2, height: controlLength * 2)
-        rects[.TopLeftCorner] = topLeftRect
+        rects[.topLeftCorner] = topLeftRect
 
-        let topRightRect = CGRect(center: CGPoint(x: CGRectGetMaxX(mainRect), y: mainRect.origin.y), width: controlLength * 2, height: controlLength * 2)
-        rects[.TopRightCorner] = topRightRect
+        let topRightRect = CGRect(center: CGPoint(x: mainRect.maxX, y: mainRect.origin.y), width: controlLength * 2, height: controlLength * 2)
+        rects[.topRightCorner] = topRightRect
 
-        let bottomLeftRect = CGRect(center: CGPoint(x: mainRect.origin.x, y: CGRectGetMaxY(mainRect)), width: controlLength * 2, height: controlLength * 2)
-        rects[.BottomLeftCorner] = bottomLeftRect
+        let bottomLeftRect = CGRect(center: CGPoint(x: mainRect.origin.x, y: mainRect.maxY), width: controlLength * 2, height: controlLength * 2)
+        rects[.bottomLeftCorner] = bottomLeftRect
 
-        let bottomRightRect = CGRect(center: CGPoint(x: CGRectGetMaxX(mainRect), y: CGRectGetMaxY(mainRect)), width: controlLength * 2, height: controlLength * 2)
-        rects[.BottomRightCorner] = bottomRightRect
+        let bottomRightRect = CGRect(center: CGPoint(x: mainRect.maxX, y: mainRect.maxY), width: controlLength * 2, height: controlLength * 2)
+        rects[.bottomRightCorner] = bottomRightRect
 
-        let topSideRect = CGRect(center: CGPoint(x: CGRectGetMidX(mainRect), y: CGRectGetMidY(topLeftRect)), width: mainRect.width - (2 * controlLength), height: 2 * controlLength)
-        rects[.TopSide] = topSideRect
+        let topSideRect = CGRect(center: CGPoint(x: mainRect.midX, y: topLeftRect.midY), width: mainRect.width - (2 * controlLength), height: 2 * controlLength)
+        rects[.topSide] = topSideRect
 
-        let leftSideRect = CGRect(center: CGPoint(x: CGRectGetMidX(topLeftRect), y: CGRectGetMidY(mainRect)), width: 2 * controlLength, height: mainRect.height - (2 * controlLength))
-        rects[.LeftSide] = leftSideRect
+        let leftSideRect = CGRect(center: CGPoint(x: topLeftRect.midX, y: mainRect.midY), width: 2 * controlLength, height: mainRect.height - (2 * controlLength))
+        rects[.leftSide] = leftSideRect
 
-        let rightSideRect = CGRect(center: CGPoint(x: CGRectGetMidX(topRightRect), y: CGRectGetMidY(mainRect)), width: 2 * controlLength, height: mainRect.height - (2 * controlLength))
-        rects[.RightSide] = rightSideRect
+        let rightSideRect = CGRect(center: CGPoint(x: topRightRect.midX, y: mainRect.midY), width: 2 * controlLength, height: mainRect.height - (2 * controlLength))
+        rects[.rightSide] = rightSideRect
 
-        let bottomSideRect = CGRect(center: CGPoint(x: CGRectGetMidX(topSideRect), y: CGRectGetMidY(bottomLeftRect)), width: topSideRect.width, height: topSideRect.height)
-        rects[.BottomSide] = bottomSideRect
+        let bottomSideRect = CGRect(center: CGPoint(x: topSideRect.midX, y: bottomLeftRect.midY), width: topSideRect.width, height: topSideRect.height)
+        rects[.bottomSide] = bottomSideRect
 
         let centerRect = CGRect(center: mainRect.getCenter(), width: mainRect.width - 2 * controlLength, height: mainRect.height - 2 * controlLength)
-        rects[.Center] = centerRect
+        rects[.center] = centerRect
 
         return rects
     }
@@ -165,7 +165,8 @@ class TouchControlView: UIView {
         return bounds
     }
 
-    func handlePanTranslation(translation: CGPoint) -> CGRect {
+    @discardableResult
+    func handlePanTranslation(_ translation: CGPoint) -> CGRect {
         var controlableRect = getMovableRect()
         var sizeOffset = CGSize(width: getWidthOffset(translation, control:selectedTouchControl), height: widthResizingOnly ? 0 : getHeightOffset(translation, control: selectedTouchControl))
 
@@ -179,29 +180,29 @@ class TouchControlView: UIView {
         return controlableRect
     }
     
-    private func getHeightOffset(translation: CGPoint, control: TouchControl) -> CGFloat {
+    private func getHeightOffset(_ translation: CGPoint, control: TouchControl) -> CGFloat {
         switch control {
-        case .TopLeftCorner, .TopRightCorner, .TopSide:
+        case .topLeftCorner, .topRightCorner, .topSide:
             return -translation.y
-        case .BottomLeftCorner, .BottomRightCorner, .BottomSide:
+        case .bottomLeftCorner, .bottomRightCorner, .bottomSide:
             return translation.y
         default:
             return 0
         }
     }
     
-    private func getWidthOffset(translation: CGPoint, control: TouchControl) -> CGFloat {
+    private func getWidthOffset(_ translation: CGPoint, control: TouchControl) -> CGFloat {
         switch control {
-        case .TopLeftCorner, .BottomLeftCorner, .LeftSide:
+        case .topLeftCorner, .bottomLeftCorner, .leftSide:
             return -translation.x
-        case .TopRightCorner, .BottomRightCorner, .RightSide:
+        case .topRightCorner, .bottomRightCorner, .rightSide:
             return translation.x
         default:
             return 0
         }
     }
     
-    private func calculateProportionalSizeChange(inout sizeChange: CGSize, originalSize: CGSize) {
+    private func calculateProportionalSizeChange(_ sizeChange: inout CGSize, originalSize: CGSize) {
         var ratio: CGFloat = 1
         if sizeChange.width != 0 && sizeChange.height != 0 {
             ratio = min(sizeChange.width / originalSize.width, sizeChange.width / originalSize.height)
@@ -218,18 +219,18 @@ class TouchControlView: UIView {
     
     }
     
-    private func getOriginOffset(sizeChange: CGSize, translation: CGPoint, control: TouchControl, proportional: Bool) -> CGPoint {
+    private func getOriginOffset(_ sizeChange: CGSize, translation: CGPoint, control: TouchControl, proportional: Bool) -> CGPoint {
         
         var xOffset = control.isRight() ? 0 : -sizeChange.width
         var yOffset = control.isBottom() ? 0 : -sizeChange.height
 
         switch control {
-        case .Center:
+        case .center:
             return movable ? translation : .zero
-        case .TopSide, .BottomSide:
+        case .topSide, .bottomSide:
             xOffset /= 2
             break
-        case .LeftSide, .RightSide:
+        case .leftSide, .rightSide:
             yOffset /= 2
             break
         default:
@@ -240,44 +241,44 @@ class TouchControlView: UIView {
     }
     
     func handlePanEnded() {
-        selectedTouchControl = .None
+        selectedTouchControl = .none
     }
 
-    override func drawRect(rect: CGRect) {
-        UIColor.lightGrayColor().setStroke()
+    override func draw(_ rect: CGRect) {
+        UIColor.lightGray().setStroke()
         let controlPath = UIBezierPath()
         let overlayRect = getDrawRect()
         controlPath.lineWidth = controlLineWidth
         
         if widthResizingOnly {
-            let midY = CGRectGetMidY(overlayRect)
+            let midY = overlayRect.midY
             // Center Left Side
-            controlPath.moveToPoint(CGPoint(x: overlayRect.origin.x, y: midY-controlLength/4))
-            controlPath.addLineToPoint(CGPoint(x: overlayRect.origin.x, y: midY+controlLength/4))
+            controlPath.move(to: CGPoint(x: overlayRect.origin.x, y: midY-controlLength/4))
+            controlPath.addLine(to: CGPoint(x: overlayRect.origin.x, y: midY+controlLength/4))
             
             // Center Right Side
-            controlPath.moveToPoint(CGPoint(x: CGRectGetMaxX(overlayRect), y: midY-controlLength/4))
-            controlPath.addLineToPoint(CGPoint(x: CGRectGetMaxX(overlayRect), y: midY+controlLength/4))
+            controlPath.move(to: CGPoint(x: overlayRect.maxX, y: midY-controlLength/4))
+            controlPath.addLine(to: CGPoint(x: overlayRect.maxX, y: midY+controlLength/4))
         } else {
             // Top Left Corner
-            controlPath.moveToPoint(CGPoint(x: overlayRect.origin.x, y: overlayRect.origin.y + controlLineLength))
-            controlPath.addLineToPoint(overlayRect.origin)
-            controlPath.addLineToPoint(CGPoint(x: overlayRect.origin.x + controlLineLength, y: overlayRect.origin.y))
+            controlPath.move(to: CGPoint(x: overlayRect.origin.x, y: overlayRect.origin.y + controlLineLength))
+            controlPath.addLine(to: overlayRect.origin)
+            controlPath.addLine(to: CGPoint(x: overlayRect.origin.x + controlLineLength, y: overlayRect.origin.y))
             
             // Bottom Left Corner
-            controlPath.moveToPoint(CGPoint(x: overlayRect.origin.x, y: overlayRect.height + overlayRect.origin.y - controlLineLength))
-            controlPath.addLineToPoint(CGPoint(x: overlayRect.origin.x, y: overlayRect.height + overlayRect.origin.y))
-            controlPath.addLineToPoint(CGPoint(x: overlayRect.origin.x + controlLineLength, y: overlayRect.height + overlayRect.origin.y))
+            controlPath.move(to: CGPoint(x: overlayRect.origin.x, y: overlayRect.height + overlayRect.origin.y - controlLineLength))
+            controlPath.addLine(to: CGPoint(x: overlayRect.origin.x, y: overlayRect.height + overlayRect.origin.y))
+            controlPath.addLine(to: CGPoint(x: overlayRect.origin.x + controlLineLength, y: overlayRect.height + overlayRect.origin.y))
             
             // Top Right Corner
-            controlPath.moveToPoint(CGPoint(x: overlayRect.origin.x + overlayRect.width - controlLineLength, y: overlayRect.origin.y))
-            controlPath.addLineToPoint(CGPoint(x: overlayRect.origin.x + overlayRect.width, y: overlayRect.origin.y))
-            controlPath.addLineToPoint(CGPoint(x: overlayRect.origin.x + overlayRect.width, y: overlayRect.origin.y + controlLineLength))
+            controlPath.move(to: CGPoint(x: overlayRect.origin.x + overlayRect.width - controlLineLength, y: overlayRect.origin.y))
+            controlPath.addLine(to: CGPoint(x: overlayRect.origin.x + overlayRect.width, y: overlayRect.origin.y))
+            controlPath.addLine(to: CGPoint(x: overlayRect.origin.x + overlayRect.width, y: overlayRect.origin.y + controlLineLength))
             
             // Bottom Right Corner
-            controlPath.moveToPoint(CGPoint(x: overlayRect.origin.x + overlayRect.width - controlLineLength, y: overlayRect.origin.y + overlayRect.height))
-            controlPath.addLineToPoint(CGPoint(x: overlayRect.origin.x + overlayRect.width, y: overlayRect.origin.y + overlayRect.height))
-            controlPath.addLineToPoint(CGPoint(x: overlayRect.origin.x + overlayRect.width, y: overlayRect.origin.y - controlLineLength + overlayRect.height))
+            controlPath.move(to: CGPoint(x: overlayRect.origin.x + overlayRect.width - controlLineLength, y: overlayRect.origin.y + overlayRect.height))
+            controlPath.addLine(to: CGPoint(x: overlayRect.origin.x + overlayRect.width, y: overlayRect.origin.y + overlayRect.height))
+            controlPath.addLine(to: CGPoint(x: overlayRect.origin.x + overlayRect.width, y: overlayRect.origin.y - controlLineLength + overlayRect.height))
         }
         controlPath.stroke()
     }
