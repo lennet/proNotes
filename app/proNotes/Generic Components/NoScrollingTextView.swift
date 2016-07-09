@@ -10,7 +10,7 @@ import UIKit
 
 class NoScrollingTextView: UITextView {
 
-    override func setContentOffset(contentOffset: CGPoint, animated: Bool) {
+    override func setContentOffset(_ contentOffset: CGPoint, animated: Bool) {
         // Easy workaround to disable Scrolling without seting scrollEnabled to false (contentSize still available)
     }
     

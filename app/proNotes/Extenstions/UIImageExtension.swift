@@ -12,36 +12,36 @@ extension UIImage {
 
     func resetRoation() -> UIImage {
         UIGraphicsBeginImageContext(size)
-        self.drawAtPoint(CGPointZero)
+        self.draw(at: CGPoint.zero)
         let resultImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        return resultImage
+        return resultImage!
     }
     
-    func cropedImage(rect: CGRect) -> UIImage? {
-        if let croppedCGImage = CGImageCreateWithImageInRect(self.CGImage, rect) {
-            return UIImage(CGImage: croppedCGImage)
+    func cropedImage(_ rect: CGRect) -> UIImage? {
+        if let croppedCGImage = self.cgImage?.cropping(to: rect) {
+            return UIImage(cgImage: croppedCGImage)
         }
         return nil
     }
 
-    func rotateImage(rotation: UIImageOrientation) -> UIImage? {
-        guard let CGImage = self.CGImage else {
+    func rotateImage(_ rotation: UIImageOrientation) -> UIImage? {
+        guard let CGImage = self.cgImage else {
             return nil
         }
 
-        let rotatedImage = UIImage(CGImage: CGImage, scale: self.scale, orientation: rotation)
+        let rotatedImage = UIImage(cgImage: CGImage, scale: self.scale, orientation: rotation)
         return rotatedImage.resetRoation()
     }
     
     func thumbImage() -> UIImage {
         let newSize = self.size.sizeToFit(CGSize(width: 100, height: 100))
         UIGraphicsBeginImageContextWithOptions( newSize, true, 1.0)
-        self.drawInRect(CGRect(origin: CGPoint.zero, size: newSize))
+        self.draw(in: CGRect(origin: CGPoint.zero, size: newSize))
         let resultImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
 
-        return resultImage
+        return resultImage!
     }
     
 }

@@ -7,18 +7,18 @@
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
-			<key>CFBundleTypeExtensions</key>
-			<array>
-				<string>studentDoc</string>
-			</array>
 			<key>CFBundleTypeIconFiles</key>
 			<array/>
 			<key>CFBundleTypeName</key>
 			<string>Document</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>lt.com.proNotes.document</string>
+				<string>lt.com.proNotes.doc</string>
 			</array>
+			<key>LSTypeIsPackage</key>
+			<true/>
 		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
@@ -39,9 +39,11 @@
 	<string>12</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Add Images to your Documents</string>
 	<key>NSUbiquitousContainers</key>
 	<dict>
-		<key>iCloud.lt.com.ProNotes</key>
+		<key>iCloud.lt.com.proNotes</key>
 		<dict>
 			<key>NSUbiquitousContainerIsDocumentScopePublic</key>
 			<true/>
@@ -61,10 +63,6 @@
 			<key>UIApplicationShortcutItemType</key>
 			<string>lt.com.proNote.createNote</string>
 		</dict>
-	</array>
-	<key>UIBackgroundModes</key>
-	<array>
-		<string>fetch</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
@@ -90,30 +88,17 @@
 	<key>UTExportedTypeDeclarations</key>
 	<array>
 		<dict>
-			<key>LSHandlerRank</key>
-			<string>Owner</string>
-			<key>LSTypelsPackage</key>
-			<string>YES</string>
-			<key>UTTypeDescription</key>
-			<string>proNotes</string>
-			<key>UTTypeIdentifier</key>
-			<string>lt.com.proNotes.doc</string>
-		</dict>
-	</array>
-	<key>UTImportedTypeDeclarations</key>
-	<array>
-		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>com.apple.package</string>
 			</array>
 			<key>UTTypeDescription</key>
-			<string>Pro Notes</string>
+			<string></string>
 			<key>UTTypeIdentifier</key>
-			<string>com.lt.pronotes.doc</string>
+			<string>lt.com.proNotes.doc</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
-				<key>public.filename-exteions</key>
+				<key>public.filename-extension</key>
 				<array>
 					<string>proNote</string>
 				</array>

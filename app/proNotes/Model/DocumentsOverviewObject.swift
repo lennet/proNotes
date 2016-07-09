@@ -10,13 +10,13 @@ import UIKit
 
 class DocumentsOverviewObject: NSObject {
 
-    var fileURL: NSURL
+    var fileURL: URL
     var state: UIDocumentState?
     var version: NSFileVersion?
     var metaData: DocumentMetaData?
     var downloaded = false
 
-    init(fileURL: NSURL, state: UIDocumentState?, metaData: DocumentMetaData?, version: NSFileVersion?) {
+    init(fileURL: URL, state: UIDocumentState?, metaData: DocumentMetaData?, version: NSFileVersion?) {
         self.fileURL = fileURL
         self.state = state
         self.version = version
@@ -24,7 +24,7 @@ class DocumentsOverviewObject: NSObject {
         super.init()
     }
 
-    init(fileURL: NSURL) {
+    init(fileURL: URL) {
         self.fileURL = fileURL
         super.init()
     }

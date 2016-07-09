@@ -10,7 +10,7 @@ import UIKit
 
 class DocumentExporter: NSObject {
 
-    class func exportAsImages(progress: (Float) -> Void) -> [UIImage]{
+    class func exportAsImages(_ progress: (Float) -> Void) -> [UIImage]{
         guard let document = DocumentInstance.sharedInstance.document else {
             return []
         }
@@ -18,7 +18,7 @@ class DocumentExporter: NSObject {
         return images
     }
 
-    class func exportAsPDF(progress: (Float) -> Void) -> NSData? {
+    class func exportAsPDF(_ progress: (Float) -> Void) -> Data? {
             guard let document = DocumentInstance.sharedInstance.document else {
                 return nil
             }
@@ -29,13 +29,13 @@ class DocumentExporter: NSObject {
             for image in getImageArrayForDocument(document, progress: progress) {
                 let imageRect = CGRect(origin: CGPoint.zero, size: image.size)
                 UIGraphicsBeginPDFPageWithInfo(imageRect, nil)
-                CGContextDrawImage(context, imageRect, image.CGImage!)
+                context?.draw(in: imageRect, image: image.cgImage!)
             }
             UIGraphicsEndPDFContext()
-            return mutableData
+            return mutableData as Data
     }
 
-    class func exportAsProNote(progress: (Float) -> Void, url: (NSURL?) -> Void) {
+    class func exportAsProNote(_ progress: (Float) -> Void, url: (URL?) -> Void) {
         progress(0.5)
         DocumentInstance.sharedInstance.save({ (_) in
         progress(1)
@@ -48,9 +48,9 @@ class DocumentExporter: NSObject {
         
     }
     
-    class func getImageArrayForDocument(document: Document, progress: (Float) -> Void) -> [UIImage] {
+    class func getImageArrayForDocument(_ document: Document, progress: (Float) -> Void) -> [UIImage] {
         var images = [UIImage]()
-        for (index, page) in document.pages.enumerate() {
+        for (index, page) in document.pages.enumerated() {
             let pageView = PageView(page: page, renderMode: true)
             pageView.layoutIfNeeded()
             images.append(pageView.toImage())
@@ -59,10 +59,10 @@ class DocumentExporter: NSObject {
         return images
     }
     
-    class func presentActivityViewController(viewController: UIViewController, barbuttonItem: UIBarButtonItem?, items: [AnyObject] ) {
+    class func presentActivityViewController(_ viewController: UIViewController, barbuttonItem: UIBarButtonItem?, items: [AnyObject] ) {
         let activityViewController = UIActivityViewController(activityItems: items, applicationActivities: nil)
         activityViewController.popoverPresentationController?.barButtonItem = barbuttonItem
-        viewController.presentViewController(activityViewController, animated: true, completion: nil)
+        viewController.present(activityViewController, animated: true, completion: nil)
         
     }
 }

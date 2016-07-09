@@ -9,10 +9,10 @@
 import UIKit
 
 class NotifyHelper {
-    class func fireNotification(error: Bool = false, url: NSURL? = nil) {
+    class func fireNotification(_ error: Bool = false, url: URL? = nil) {
         if Preferences.allowsNotification() {
             let localNotification = UILocalNotification()
-            localNotification.fireDate = NSDate(timeIntervalSinceNow: 2)
+            localNotification.fireDate = Date(timeIntervalSinceNow: 2)
             localNotification.alertBody = error ? NSLocalizedString("downloaddata.error", comment: "") : NSLocalizedString("downloaddata.success", comment: "")
             localNotification.soundName = UILocalNotificationDefaultSoundName
             localNotification.applicationIconBadgeNumber = 1
@@ -21,7 +21,7 @@ class NotifyHelper {
                 userInfo["url"] = path
             }
             localNotification.userInfo = userInfo
-            UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
+            UIApplication.shared().scheduleLocalNotification(localNotification)
         }
     }
 }

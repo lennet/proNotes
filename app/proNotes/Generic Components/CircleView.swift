@@ -13,17 +13,17 @@ class CircleView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = UIColor.clearColor()
+        backgroundColor = UIColor.clear()
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        backgroundColor = UIColor.clearColor()
+        backgroundColor = UIColor.clear()
     }
 
 
     override func prepareForInterfaceBuilder() {
-        backgroundColor = UIColor.clearColor()
+        backgroundColor = UIColor.clear()
     }
 
     @IBInspectable
@@ -34,19 +34,19 @@ class CircleView: UIView {
     }
 
     @IBInspectable
-    var strokeColor: UIColor = UIColor.blackColor() {
+    var strokeColor: UIColor = UIColor.black() {
         didSet {
             setNeedsDisplay()
         }
     }
 
-    override func drawRect(rect: CGRect) {
+    override func draw(_ rect: CGRect) {
         let context = UIGraphicsGetCurrentContext()
         
         let circleRect = CGRect(center: bounds.getCenter(), size: CGSize(width: radius * 2, height: radius * 2))
 
         strokeColor.setStroke()
-        CGContextStrokeEllipseInRect(context, circleRect)
+        context?.strokeEllipse(in: circleRect)
 
     }
 

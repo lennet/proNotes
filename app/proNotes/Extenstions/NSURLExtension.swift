@@ -8,20 +8,20 @@
 
 import UIKit
 
-extension NSURL {
+extension URL {
 
-    func fileName(withExtensionName: Bool) -> String? {
-        guard let lastPathComponent = URLByDeletingPathExtension?.lastPathComponent else {
+    func fileName(_ withExtensionName: Bool) -> String? {
+        guard let lastPathComponent = try! deletingPathExtension().lastPathComponent else {
             return nil
         }
         if withExtensionName {
             return lastPathComponent
         } else {
-            var components = lastPathComponent.componentsSeparatedByString(".")
+            var components = lastPathComponent.components(separatedBy: ".")
             if components.count > 1 {
                 components.removeLast()
             }
-            return components.joinWithSeparator(".")
+            return components.joined(separator: ".")
         }
     }
 

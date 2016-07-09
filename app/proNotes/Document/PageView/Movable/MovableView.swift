@@ -20,22 +20,22 @@ class MovableView: TouchControlView, PageSubView {
 
         super.init(frame: CGRect(origin: frame.origin, size: CGSize(width: frame.size.width + newControlLength, height: frame.size.height + newControlLength)))
         controlLength = newControlLength
-        userInteractionEnabled = false
+        isUserInteractionEnabled = false
         self.renderMode = renderMode
-        backgroundColor = UIColor.clearColor()
+        backgroundColor = UIColor.clear()
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
 
-    override func didAddSubview(subview: UIView) {
+    override func didAddSubview(_ subview: UIView) {
         if !renderMode {
             subview.translatesAutoresizingMaskIntoConstraints = false
-            let leftConstraint = NSLayoutConstraint(item: subview, attribute: .Left, relatedBy: .Equal, toItem: self, attribute: .Left, multiplier: 1.0, constant: controlLength/2)
-            let rightConstraint = NSLayoutConstraint(item: subview, attribute: .Right, relatedBy: .Equal, toItem: self, attribute: .Right, multiplier: 1.0, constant: -controlLength/2)
-            let bottomConstraint = NSLayoutConstraint(item: subview, attribute: .Bottom, relatedBy: .Equal, toItem: self, attribute: .Bottom, multiplier: 1.0, constant: -controlLength/2)
-            let topConstraint = NSLayoutConstraint(item: subview, attribute: .Top, relatedBy: .Equal, toItem: self, attribute: .Top, multiplier: 1.0, constant: controlLength/2)
+            let leftConstraint = NSLayoutConstraint(item: subview, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1.0, constant: controlLength/2)
+            let rightConstraint = NSLayoutConstraint(item: subview, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1.0, constant: -controlLength/2)
+            let bottomConstraint = NSLayoutConstraint(item: subview, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: -controlLength/2)
+            let topConstraint = NSLayoutConstraint(item: subview, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: controlLength/2)
             
             addConstraints([leftConstraint, rightConstraint, bottomConstraint, topConstraint])
             layoutIfNeeded()
@@ -45,8 +45,9 @@ class MovableView: TouchControlView, PageSubView {
     }
     
     // MARK: - Gesture Recognizer
-
-    override func handlePanTranslation(translation: CGPoint) -> CGRect {
+    
+    @discardableResult
+    override func handlePanTranslation(_ translation: CGPoint) -> CGRect {
         frame = super.handlePanTranslation(translation)
         layoutIfNeeded()
         setNeedsDisplay()
@@ -56,7 +57,7 @@ class MovableView: TouchControlView, PageSubView {
     func updateFrameChanges() {
         movableLayer.origin = frame.origin
         if movableLayer.docPage != nil && oldFrame != nil {
-            DocumentInstance.sharedInstance.registerUndoAction(NSValue(CGRect: oldFrame!), pageIndex: movableLayer.docPage.index, layerIndex: movableLayer.index)
+            DocumentInstance.sharedInstance.registerUndoAction(NSValue(cgRect: oldFrame!), pageIndex: movableLayer.docPage.index, layerIndex: movableLayer.index)
         }
 
         var newSize = frame.size
@@ -74,16 +75,16 @@ class MovableView: TouchControlView, PageSubView {
         return subviews.first?.frame ?? bounds
     }
 
-    override func drawRect(rect: CGRect) {
+    override func draw(_ rect: CGRect) {
         if isEditing {
             let context = UIGraphicsGetCurrentContext()
             if debugMode {
                 for touchRect in getControlRects().values {
-                    UIColor.randomColor().colorWithAlphaComponent(0.5).setFill()
-                    CGContextFillRect(context, touchRect)
+                    UIColor.randomColor().withAlphaComponent(0.5).setFill()
+                    context?.fill(touchRect)
                 }
             }
-            super.drawRect(rect)
+            super.draw(rect)
         }
     }
 
@@ -98,11 +99,11 @@ class MovableView: TouchControlView, PageSubView {
 
     func setSelected() {
         isEditing = true
-        userInteractionEnabled = true
+        isUserInteractionEnabled = true
         setUpSettingsViewController()
         for view in subviews {
-            view.userInteractionEnabled = true
-            view.layer.borderColor = UIColor.lightGrayColor().CGColor
+            view.isUserInteractionEnabled = true
+            view.layer.borderColor = UIColor.lightGray().cgColor
             view.layer.borderWidth = 1
         }
         setNeedsDisplay()
@@ -110,22 +111,22 @@ class MovableView: TouchControlView, PageSubView {
     
     func setDeselected() {
         isEditing = false
-        userInteractionEnabled = false
+        isUserInteractionEnabled = false
         for view in subviews {
-            view.userInteractionEnabled = true
+            view.isUserInteractionEnabled = true
             view.layer.borderWidth = 0
         }
         SettingsViewController.sharedInstance?.currentSettingsType = .PageInfo
         setNeedsDisplay()
     }
 
-    func undoAction(oldObject: AnyObject?) {
+    func undoAction(_ oldObject: AnyObject?) {
         guard let value = oldObject as? NSValue else {
             return
         }
-        let frame = value.CGRectValue()
+        let frame = value.cgRectValue()
         oldFrame = self.frame
-        UIView.animateWithDuration(standardAnimationDuration, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .CurveEaseInOut, animations: {
+        UIView.animate(withDuration: standardAnimationDuration, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: UIViewAnimationOptions(), animations: {
             () -> Void in
             self.frame = frame
         }, completion: nil)

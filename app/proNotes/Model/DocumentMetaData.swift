@@ -11,7 +11,7 @@ import UIKit
 class DocumentMetaData: NSObject, NSCoding {
 
     var thumbImage: UIImage?
-    var fileModificationDate: NSDate?
+    var fileModificationDate: Date?
     
     override init() {
         super.init()
@@ -20,14 +20,14 @@ class DocumentMetaData: NSObject, NSCoding {
     private let thumbImageKey = "thumbImage"
 
     required init(coder aDecoder: NSCoder) {
-        if let imageData = aDecoder.decodeObjectForKey(thumbImageKey) as? NSData {
+        if let imageData = aDecoder.decodeObject(forKey: thumbImageKey) as? Data {
             thumbImage = UIImage(data: imageData)
         }
     }
 
-    func encodeWithCoder(aCoder: NSCoder) {
+    func encode(with aCoder: NSCoder) {
         if let image = thumbImage, let imageData = UIImageJPEGRepresentation(image, 1.0) {
-            aCoder.encodeObject(imageData, forKey: thumbImageKey)
+            aCoder.encode(imageData, forKey: thumbImageKey)
         }
     }
 }

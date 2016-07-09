@@ -7,24 +7,27 @@
 //
 
 import Foundation
+import UIKit
 
-class Cache<T: AnyObject>: NSCache {
-    
-    subscript(key: AnyObject) -> T? {
-        get {
-            return objectForKey(key)
-        }
-        set {
-            if let value = newValue {
-                setObject(value, forKey: key)
-            } else {
-                removeObjectForKey(key)
-            }
-        }
-    }
-    
-    func objectForKey(key: AnyObject) -> T? {
-        return super.objectForKey(key) as? T
-    }
-    
-}
+
+
+//class Cache<T: AnyObject>: Cache<AnyObject, AnyObject> {
+//    
+//    subscript(key: AnyObject) -> T? {
+//        get {
+//            return objectForKey(key: key)
+//        }
+//        set {
+//            if let value = newValue {
+//                setObject(value, forKey: key)
+//            } else {
+//                removeObjectForKey(key)
+//            }
+//        }
+//    }
+//    
+//    func objectForKey(key: AnyObject) -> T? {
+//        return super.objectForKey(key) as? T
+//    }
+//    
+//}

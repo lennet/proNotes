@@ -21,22 +21,23 @@ class ImageCacheObject: NSObject {
 class ImageCache: NSObject {
     
     static let sharedInstance = ImageCache()
-    private let cache: Cache<ImageCacheObject>
+    private let cache: Cache<NSString, UIImage>
 
     subscript(key :String) -> UIImage? {
         get {
-            if let imageCacheObject = cache[key] {
-                return imageCacheObject.image
+            if let image = cache.object(forKey: key) {
+                return image
             }
-            if let image = loadImageFromDisk(key) {
-                cache[key] = ImageCacheObject(image: image, key: key)
+            if let image = loadImageFromDisk(key: key) {
+                cache.setObject(image, forKey: key)
+                return image
             }
             return nil
         }
         
         set {
             if let image = newValue {
-                cache[key] = ImageCacheObject(image: image, key: key)
+                cache.setObject(image, forKey: key)
             }
         }
     }
@@ -53,7 +54,7 @@ class ImageCache: NSObject {
     }
     
     private func loadImageFromDisk(key: String) -> UIImage? {
-        let fullPath = NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(key).absoluteString
+        guard let fullPath = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(key)?.absoluteString else { return nil }
         
         guard let image = UIImage(contentsOfFile: fullPath) else {
             return nil
@@ -63,18 +64,18 @@ class ImageCache: NSObject {
     }
     
     private func storeImageToDisk(image: UIImage, key: String) {
-        let fullPath = NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(key).absoluteString
+        guard let fullPath = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(key)?.absoluteString else { return }
         let data = UIImageJPEGRepresentation(image, 1)
-        NSFileManager.defaultManager().createFileAtPath(fullPath, contents: data, attributes: nil)
+        FileManager.default.createFile(atPath: fullPath, contents: data, attributes: nil)
     }
     
 }
 
-extension ImageCache: NSCacheDelegate {
+extension ImageCache: CacheDelegate {
    
-    func cache(cache: NSCache, willEvictObject obj: AnyObject) {
+    private func cache(cache: Cache<AnyObject, AnyObject>, willEvictObject obj: AnyObject) {
         if let imageCacheObject = obj as? ImageCacheObject {
-            storeImageToDisk(imageCacheObject.image, key: imageCacheObject.key)
+            storeImageToDisk(image: imageCacheObject.image, key: imageCacheObject.key)
         }
     }
     

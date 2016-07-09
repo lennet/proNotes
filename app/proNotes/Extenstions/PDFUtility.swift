@@ -6,42 +6,53 @@
 //  Copyright © 2016 leonardthomas. All rights reserved.
 //
 
-import UIKit
+import CoreGraphics
 
 class PDFUtility {
 
-    class func getPageAsPDF(pageIndex: Int, document: CGPDFDocument) -> CGPDFDocument? {
-        if let data = getPageAsData(pageIndex, document: document) {
-            return createPDFFromData(data)
+    class func getPageAsPDF(_ pageIndex: Int, document: CGPDFDocument) -> CGPDFDocument? {
+        
+        guard let data = getPageAsData(pageIndex, document: document) else {
+                return nil
         }
-        return nil
+        
+        return createPDFFromData(data: data)
+        
     }
 
     class func createPDFFromData(data: CFData) -> CGPDFDocument? {
-        let dataProvider = CGDataProviderCreateWithCFData(data)
-        return CGPDFDocumentCreateWithProvider(dataProvider)
+        let dataProvider = CGDataProvider(data: data)
+        return CGPDFDocument(dataProvider!)
     }
 
-    class func getPageAsData(pageIndex: Int, document: CGPDFDocument) -> CFData? {
-        if let page = CGPDFDocumentGetPage(document, pageIndex) {
-            var mediaBox = CGPDFPageGetBoxRect(page, .CropBox)
-            let data = CFDataCreateMutable(kCFAllocatorDefault, 0)
-            let consumer = CGDataConsumerCreateWithCFData(data)
-            let context = CGPDFContextCreate(consumer, &mediaBox, nil)
-            CGContextBeginPage(context, &mediaBox)
-            CGContextDrawPDFPage(context, page)
-            CGContextEndPage(context)
-            CGPDFContextClose(context)
-            return data
+    class func getPageAsData(_ pageIndex: Int, document: CGPDFDocument) -> CFData? {
+       
+        guard let page = document.page(at: pageIndex) else {
+            return nil
         }
-        return nil
+        
+        var mediaBox = page.getBoxRect(.cropBox)
+        guard let data = CFDataCreateMutable(kCFAllocatorDefault, 0), let consumer = CGDataConsumer(data: data) else {
+            return nil
+        }
+        
+        guard let context = CGContext(consumer: consumer, mediaBox: &mediaBox, nil) else {
+            return nil
+        }
+        
+        context.beginPage(mediaBox: &mediaBox)
+        context.drawPDFPage(page)
+        context.endPage()
+        context.closePDF()
+        return data
     }
 
-    class func getPDFRect(document: CGPDFDocument, pageIndex: Int) -> CGRect {
-        if let page = CGPDFDocumentGetPage(document, pageIndex) {
-            return CGPDFPageGetBoxRect(page, .CropBox)
+    class func getPDFRect(_ document: CGPDFDocument, pageIndex: Int) -> CGRect {
+        guard let page = document.page(at: pageIndex) else {
+            return CGRect.zero
         }
-        return CGRect.zero
+        
+        return page.getBoxRect(.cropBox)
     }
 
 }

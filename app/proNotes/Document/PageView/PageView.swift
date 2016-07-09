@@ -40,7 +40,7 @@ class PageView: UIView, UIGestureRecognizerDelegate {
      - parameter renderMode: Optional Bool var which disables GestureRecognizers and AutoLayout for better render Perfomance
      */
     init(page: DocumentPage, renderMode: Bool = false) {
-        super.init(frame: CGRect(origin: CGPointZero, size: page.size))
+        super.init(frame: CGRect(origin: CGPoint.zero, size: page.size))
         self.page = page
         commonInit(renderMode)
         setUpLayer(renderMode)
@@ -57,13 +57,13 @@ class PageView: UIView, UIGestureRecognizerDelegate {
         commonInit()
     }
 
-    func commonInit(renderMode: Bool = false) {
+    func commonInit(_ renderMode: Bool = false) {
         if !renderMode {
             setUpTouchRecognizer()
         }
         
         clearsContextBeforeDrawing = true
-        backgroundColor = UIColor.whiteColor()
+        backgroundColor = UIColor.white()
     }
 
     func setUpTouchRecognizer() {
@@ -79,7 +79,7 @@ class PageView: UIView, UIGestureRecognizerDelegate {
         addGestureRecognizer(tapGestureRecognizer!)
     }
 
-    func setUpLayer(renderMode: Bool = false) {
+    func setUpLayer(_ renderMode: Bool = false) {
         for view in subviews {
             view.removeFromSuperview()
         }
@@ -91,48 +91,48 @@ class PageView: UIView, UIGestureRecognizerDelegate {
 
         for layer in page!.layers {
             switch layer.type {
-            case .PDF:
+            case .pdf:
                 addPDFView(layer as! PDFLayer)
                 break
-            case .Sketch:
+            case .sketch:
                 addSketchView(layer as! SketchLayer)
                 break
-            case .Image:
+            case .image:
                 addImageLayer(layer as! ImageLayer, renderMode: renderMode)
                 break
-            case .Text:
+            case .text:
                 addTextLayer(layer as! TextLayer, renderMode: renderMode)
                 break
             }
         }
     }
 
-    func addPDFView(pdfLayer: PDFLayer) {
+    func addPDFView(_ pdfLayer: PDFLayer) {
         let view = PDFView(pdfData: pdfLayer.pdfData!, frame: bounds)
-        view.backgroundColor = UIColor.clearColor()
-        view.hidden = pdfLayer.hidden
+        view.backgroundColor = UIColor.clear()
+        view.isHidden = pdfLayer.hidden
         addSubview(view)
     }
 
-    func addSketchView(sketchLayer: SketchLayer) {
+    func addSketchView(_ sketchLayer: SketchLayer) {
         let view = SketchView(sketchLayer: sketchLayer, frame: bounds)
-        view.backgroundColor = UIColor.clearColor()
-        view.hidden = sketchLayer.hidden
+        view.backgroundColor = UIColor.clear()
+        view.isHidden = sketchLayer.hidden
         addSubview(view)
     }
 
-    func addImageLayer(imageLayer: ImageLayer, renderMode: Bool = false) {
+    func addImageLayer(_ imageLayer: ImageLayer, renderMode: Bool = false) {
         let frame = CGRect(origin: imageLayer.origin, size: imageLayer.size)
         let view = MovableImageView(frame: frame, movableLayer: imageLayer, renderMode: renderMode)
-        view.hidden = imageLayer.hidden
+        view.isHidden = imageLayer.hidden
         addSubview(view)
         view.setUpImageView()
     }
 
-    func addTextLayer(textLayer: TextLayer, renderMode: Bool = false) {
+    func addTextLayer(_ textLayer: TextLayer, renderMode: Bool = false) {
         let frame = CGRect(origin: textLayer.origin, size: textLayer.size)
         let view = MovableTextView(frame: frame, movableLayer: textLayer, renderMode: renderMode)
-        view.hidden = textLayer.hidden
+        view.isHidden = textLayer.hidden
         addSubview(view)
         view.setUpTextView()
     }
@@ -165,7 +165,7 @@ class PageView: UIView, UIGestureRecognizerDelegate {
         }
     }
 
-    func setLayerSelected(index: Int) {
+    func setLayerSelected(_ index: Int) {
         selectedSubView?.setSelected?()
         selectedSubView = nil
         if let subview = self[index] {
@@ -183,23 +183,23 @@ class PageView: UIView, UIGestureRecognizerDelegate {
         setSubviewsAlpha(0, alphaValue: 1)
     }
 
-    func swapLayerPositions(firstIndex: Int, secondIndex: Int) {
+    func swapLayerPositions(_ firstIndex: Int, secondIndex: Int) {
         if firstIndex != secondIndex && firstIndex >= 0 && secondIndex >= 0 && firstIndex < subviews.count && secondIndex < subviews.count {
-            exchangeSubviewAtIndex(firstIndex, withSubviewAtIndex: secondIndex)
+            exchangeSubview(at: firstIndex, withSubviewAt: secondIndex)
         } else {
             print("Swap Layerpositions failed with firstIndex:\(firstIndex) and secondIndex\(secondIndex) and subviewsCount \(subviews.count)")
         }
     }
 
-    func changeLayerVisibility(docLayer: DocumentLayer) {
+    func changeLayerVisibility(_ docLayer: DocumentLayer) {
         let isHidden = !docLayer.hidden
         if let subview = self[docLayer.index] as? UIView {
-            subview.hidden = isHidden
+            subview.isHidden = isHidden
         }
         page?.changeLayerVisibility(isHidden, layer: docLayer)
     }
 
-    func removeLayer(docLayer: DocumentLayer) {
+    func removeLayer(_ docLayer: DocumentLayer) {
         if let subview = self[docLayer.index] as? UIView {
             subview.removeFromSuperview()
         }
@@ -208,36 +208,36 @@ class PageView: UIView, UIGestureRecognizerDelegate {
 
     // MARK: - UIGestureRecognizer
 
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        (selectedSubView as? SketchView)?.touchesBegan(touches, withEvent: event)
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        (selectedSubView as? SketchView)?.touchesBegan(touches, with: event)
     }
 
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        (selectedSubView as? SketchView)?.touchesMoved(touches, withEvent: event)
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        (selectedSubView as? SketchView)?.touchesMoved(touches, with: event)
     }
 
-    override func touchesEnded(touches: Set<UITouch>,
-                               withEvent event: UIEvent?) {
-        (selectedSubView as? SketchView)?.touchesEnded(touches, withEvent: event)
+    override func touchesEnded(_ touches: Set<UITouch>,
+                               with event: UIEvent?) {
+        (selectedSubView as? SketchView)?.touchesEnded(touches, with: event)
     }
 
-    override func touchesCancelled(touches: Set<UITouch>?,
-                                   withEvent event: UIEvent?) {
-        (selectedSubView as? SketchView)?.touchesCancelled(touches, withEvent: event)
+    override func touchesCancelled(_ touches: Set<UITouch>,
+                                   with event: UIEvent?) {
+        (selectedSubView as? SketchView)?.touchesCancelled(touches, with: event)
     }
 
-    func handlePan(panGestureRecognizer: UIPanGestureRecognizer) {
+    func handlePan(_ panGestureRecognizer: UIPanGestureRecognizer) {
         selectedSubView?.handlePan?(panGestureRecognizer)
     }
 
-    func handleTap(tapGestureRecognizer: UITapGestureRecognizer) {
+    func handleTap(_ tapGestureRecognizer: UITapGestureRecognizer) {
         if selectedSubView != nil {
             deselectSelectedSubview()
         } else {
-            let location = tapGestureRecognizer.locationInView(self)
-            for subview in subviews.reverse() where subview.isKindOfClass(MovableView) {
-                let pageSubview = subview as! PageSubView
-                if !subview.hidden && (pageSubview as? UIView)?.frame.contains(location) ?? false {
+            let location = tapGestureRecognizer.location(in: self)
+            for case let subview as MovableView in subviews.reversed() {
+                let pageSubview = subview as PageSubView
+                if !subview.isHidden && (pageSubview as? UIView)?.frame.contains(location) ?? false {
                     selectedSubView = pageSubview
                     return
                 }
@@ -247,15 +247,11 @@ class PageView: UIView, UIGestureRecognizerDelegate {
 
     // MARK: - UIGestureRecognizerDelegate
 
-    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
-        if let _ = selectedSubView as? SketchView {
-            return false
-        }
-        
-        return true
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        return !(selectedSubView is SketchView)
     }
 
-    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         // check if the user is currently selecting text
         if otherGestureRecognizer.view is UITextView {
             return false
@@ -264,7 +260,7 @@ class PageView: UIView, UIGestureRecognizerDelegate {
         
     }
 
-    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailByGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return false
     }
     

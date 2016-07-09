@@ -35,7 +35,7 @@ class DocumentPage: NSObject, NSCoding {
         self.index = index
     }
 
-    init(pdfData: NSData, index: Int, pdfSize: CGSize) {
+    init(pdfData: Data, index: Int, pdfSize: CGSize) {
         layers = [DocumentLayer]()
         self.size = pdfSize
         self.index = index
@@ -44,9 +44,9 @@ class DocumentPage: NSObject, NSCoding {
     }
 
     required init(coder aDecoder: NSCoder) {
-        size = aDecoder.decodeCGSizeForKey(sizeKey)
-        index = aDecoder.decodeIntegerForKey(indexKey)
-        layers = aDecoder.decodeObjectForKey(layersKey) as? [DocumentLayer] ?? [DocumentLayer]()
+        size = aDecoder.decodeCGSize(forKey: sizeKey)
+        index = aDecoder.decodeInteger(forKey: indexKey)
+        layers = aDecoder.decodeObject(forKey: layersKey) as? [DocumentLayer] ?? [DocumentLayer]()
         super.init()
         for layer in layers {
             layer.docPage = self
@@ -62,10 +62,10 @@ class DocumentPage: NSObject, NSCoding {
         }
     }
 
-    func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeInteger(index, forKey: indexKey)
-        aCoder.encodeObject(layers, forKey: layersKey)
-        aCoder.encodeCGSize(size, forKey: sizeKey)
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(index, forKey: indexKey)
+        aCoder.encode(layers, forKey: layersKey)
+        aCoder.encode(size, forKey: sizeKey)
     }
     
     // MARK: - Preview Image Handling
@@ -80,49 +80,52 @@ class DocumentPage: NSObject, NSCoding {
     
     // MARK: - Add Layer
 
-    func addSketchLayer(image: UIImage?) -> SketchLayer {
+    @discardableResult
+    func addSketchLayer(_ image: UIImage?) -> SketchLayer {
         let sketchLayer = SketchLayer(index: layers.count, image: image, docPage: self)
         layers.append(sketchLayer)
         return sketchLayer
     }
 
-    func addPDFLayer(pdfData: NSData) {
+    func addPDFLayer(_ pdfData: Data) {
         let pdfLayer = PDFLayer(index: layers.count, pdfData: pdfData, docPage: self)
         layers.append(pdfLayer)
     }
-
-    func addImageLayer(image: UIImage) -> ImageLayer {
+    
+    @discardableResult
+    func addImageLayer(_ image: UIImage) -> ImageLayer {
         let layerSize = image.size.sizeToFit(size)
-        let imageLayer = ImageLayer(index: layers.count, docPage: self, origin: CGPointZero, size: layerSize, image: image)
+        let imageLayer = ImageLayer(index: layers.count, docPage: self, origin: CGPoint.zero, size: layerSize, image: image)
         layers.append(imageLayer)
         return imageLayer
     }
 
-    func addTextLayer(text: String) -> TextLayer {
-        let textLayer = TextLayer(index: layers.count, docPage: self, origin: CGPointZero, size: CGSize(width: 200, height: 30), text: "")
+    @discardableResult
+    func addTextLayer(_ text: String) -> TextLayer {
+        let textLayer = TextLayer(index: layers.count, docPage: self, origin: CGPoint.zero, size: CGSize(width: 200, height: 30), text: "")
         layers.append(textLayer)
         return textLayer
     }
     
     // MARK: - LayerManipulation
 
-    func changeLayerVisibility(hidden: Bool, layer: DocumentLayer) {
+    func changeLayerVisibility(_ hidden: Bool, layer: DocumentLayer) {
         if layer.index < layers.count {
             layer.hidden = hidden
             layers[layer.index] = layer
         }
     }
 
-    func removeLayer(layer: DocumentLayer) {
+    func removeLayer(_ layer: DocumentLayer) {
         if layer.index < layers.count {
             if layers[layer.index] == layer {
-                layers.removeAtIndex(layer.index)
+                layers.remove(at: layer.index)
                 updateLayerIndex()
             }
         }
     }
 
-    func swapLayerPositions(firstIndex: Int, secondIndex: Int) {
+    func swapLayerPositions(_ firstIndex: Int, secondIndex: Int) {
         if firstIndex != secondIndex && firstIndex >= 0 && secondIndex >= 0 && firstIndex < layers.count && secondIndex < layers.count {
             let tmp = firstIndex
             layers[firstIndex].index = secondIndex
@@ -132,12 +135,12 @@ class DocumentPage: NSObject, NSCoding {
     }
 
     func updateLayerIndex() {
-        for (index, currentLayer) in layers.enumerate() {
+        for (index, currentLayer) in layers.enumerated() {
             currentLayer.index = index
         }
     }
 
-    override func isEqual(object: AnyObject?) -> Bool {
+    override func isEqual(_ object: AnyObject?) -> Bool {
         guard let page = object as? DocumentPage else {
             return false
         }
