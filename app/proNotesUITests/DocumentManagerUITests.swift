@@ -1,5 +1,5 @@
 //
-//  FileManagerUITests.swift
+//  DocumentManagerUITests.swift
 //  proNotes
 //
 //  Created by Leo Thomas on 03/06/16.
@@ -8,7 +8,7 @@
 
 import XCTest
 
-class FileManagerUITests: XCTestCase {
+class DocumentManagerUITests: XCTestCase {
     
     override func setUp() {
         super.setUp()
@@ -22,11 +22,13 @@ class FileManagerUITests: XCTestCase {
         super.tearDown()
     }
 
-    func testCreateDocument() {
+    func testCreateAndDeletDocument() {
         let documentName = createAndOpenDocument()
         closeDocument()
         let app = XCUIApplication()
         XCTAssertTrue(app.collectionViews.textFields[documentName].exists)
+        deleteDocument(name: documentName)
+        XCTAssertFalse(app.collectionViews.textFields[documentName].exists)
     }
     
     func testForDuplicates() {
@@ -34,6 +36,9 @@ class FileManagerUITests: XCTestCase {
         closeDocument()
         let newDocumentName = createAndOpenDocument()
         XCTAssertTrue(newDocumentName != documentName)
+        closeDocument()
+        deleteDocument(name: documentName)
+        deleteDocument(name: newDocumentName)
     }
     
     func testRename() {
@@ -44,6 +49,7 @@ class FileManagerUITests: XCTestCase {
         closeDocument()
         XCTAssertTrue(app.collectionViews.textFields[newName].exists)
         XCTAssertFalse(app.collectionViews.textFields[documentName].exists)
+        deleteDocument(name: newName)
     }
     
     func testRenameOverride() {
@@ -92,6 +98,8 @@ class FileManagerUITests: XCTestCase {
         XCTAssertFalse(app.collectionViews.textFields[newName].exists)
         XCTAssertTrue(app.collectionViews.textFields[documentName].exists)
         
+        deleteDocument(name: newName)
+        deleteDocument(name: documentName)
     }
     
 }

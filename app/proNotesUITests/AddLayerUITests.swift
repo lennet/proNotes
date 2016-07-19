@@ -26,40 +26,46 @@ class AddLayerUITests: XCTestCase {
     
     func testCreateTextLayer() {
         let app = XCUIApplication()
-        createAndOpenDocument()
+        let documentName = createAndOpenDocument()
         let layerTableView = app.scrollViews.otherElements.tables
         XCTAssertEqual(layerTableView.cells.matching(identifier: "LayerTableViewCell").count, 0)
         addTextField()
         pressLayerButton()
         XCTAssertTrue(layerTableView.staticTexts["text"].exists, "Textlayer doesn't exists")
         XCTAssertEqual(layerTableView.cells.matching(identifier: "LayerTableViewCell").count, 1)
+        closeDocument()
+        deleteDocument(name: documentName)
     }
     
     func testCreateImageLayer() {
         let app = XCUIApplication()
-        createAndOpenDocument()
+        let documentName = createAndOpenDocument()
         let layerTableView = app.scrollViews.otherElements.tables
         XCTAssertEqual(layerTableView.cells.matching(identifier: "LayerTableViewCell").count, 0)
         addImage()
         pressLayerButton()
         XCTAssertTrue(layerTableView.staticTexts["image"].exists, "Textlayer doesn't exists")
         XCTAssertEqual(layerTableView.cells.matching(identifier: "LayerTableViewCell").count, 1)
+        closeDocument()
+        deleteDocument(name: documentName)
     }
     
     func testCreateSketchCanvas() {
         let app = XCUIApplication()
-        createAndOpenDocument()
+        let documentName = createAndOpenDocument()
         let layerTableView = app.scrollViews.otherElements.tables
         XCTAssertEqual(layerTableView.cells.matching(identifier: "LayerTableViewCell").count, 0)
         addSketchLayer()
         pressLayerButton()
         XCTAssertTrue(layerTableView.staticTexts["sketch"].exists, "Textlayer doesn't exists")
         XCTAssertEqual(layerTableView.cells.matching(identifier: "LayerTableViewCell").count, 1)
+        closeDocument()
+        deleteDocument(name: documentName)
     }
     
     func testCreatePage() {
         let app = XCUIApplication()
-        createAndOpenDocument()
+        let documentName = createAndOpenDocument()
         let layerTableView = app.scrollViews.otherElements.tables
         XCTAssertEqual(layerTableView.cells.matching(identifier: "LayerTableViewCell").count, 0)
         let tablesQuery = app.tables.matching(identifier: "PagesOverViewTableView")
@@ -70,6 +76,8 @@ class AddLayerUITests: XCTestCase {
         XCTAssertTrue(app.scrollViews.otherElements.staticTexts["Page 2"].exists, "Second Page doesnt exist")
         XCTAssertEqual(layerTableView.cells.matching(identifier: "LayerTableViewCell").count, 0)
         XCTAssertEqual(tablesQuery.cells.count, 2)
+        closeDocument()
+        deleteDocument(name: documentName)
     }
     
 }
