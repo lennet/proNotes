@@ -605,8 +605,8 @@
 					};
 					98DBAA051C0799CB007EFFE5 = {
 						CreatedOnToolsVersion = 7.1.1;
-						DevelopmentTeam = 23Q9KTEYUV;
 						LastSwiftMigration = 0800;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 0;
@@ -991,7 +991,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = proNotes/Resources/proNotes.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 12;
 				DEFINES_MODULE = NO;
 				ENABLE_BITCODE = YES;

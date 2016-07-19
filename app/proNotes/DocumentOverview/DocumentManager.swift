@@ -108,9 +108,10 @@ class DocumentManager {
     
     func checkForLocalFiles() {
         do {
-            let allFilesArray = try FileManager.default.contentsOfDirectory(atPath: documentsRootURL.path!)
+            let documentsPath = documentsRootURL.path!
+            let allFilesArray = try FileManager.default.contentsOfDirectory(atPath: documentsPath)
             for fileName in allFilesArray {
-                let fileURL = URL(fileURLWithPath: documentsRootURL.path! + "/" + fileName)
+                let fileURL = URL(fileURLWithPath: documentsPath + "/" + fileName)
                 updateMetadata(fileURL)
             }
         } catch {
@@ -443,7 +444,7 @@ class DocumentManager {
 
     dynamic func handleQueryNotification(_ notification: Notification) {
         if let userInfo = (notification as NSNotification).userInfo {
-            guard let items = userInfo[NSMetadataQueryUpdateRemovedItemsKey] as? [NSMetadataItem] where items.count > 0 else {
+            guard let items = userInfo[NSMetadataQueryUpdateRemovedItemsKey] as? [NSMetadataItem] , items.count > 0 else {
                 checkFiles()
                 return
             }
