@@ -16,7 +16,7 @@ class DocumentTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        let expectation = self.expectation(withDescription: "Open Document")
+        let expectation = self.expectation(description: "Open Document")
         
         let fileURL = Bundle(for: self.dynamicType).urlForResource("test", withExtension: "ProNote")
         document = Document(fileURL: fileURL!)
@@ -26,16 +26,16 @@ class DocumentTests: XCTestCase {
             expectation.fulfill()
         }
         
-        self.waitForExpectations(withTimeout: 1, handler: nil)
+        self.waitForExpectations(timeout: 1, handler: nil)
     }
     
     override func tearDown() {
-        let expectation = self.expectation(withDescription: "Open Document")
+        let expectation = self.expectation(description: "Open Document")
         document.close(completionHandler: { (success) -> Void in
             XCTAssertTrue(success)
             expectation.fulfill()
         })
-        self.waitForExpectations(withTimeout: 1, handler: nil)
+        self.waitForExpectations(timeout: 1, handler: nil)
         super.tearDown()
     }
     
