@@ -9,7 +9,7 @@
 import UIKit
 import CloudKit
 
-enum RenameError: ErrorProtocol {
+enum RenameError: Error {
     case alreadyExists
     case objectNotFound
     case writingError
@@ -46,7 +46,7 @@ class DocumentManager {
     var documentsRootURL: URL! {
         get {
             if _documentsRootUrl == nil {
-                let paths = FileManager.default.urlsForDirectory(.documentDirectory, inDomains: .userDomainMask)
+                let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
                 _documentsRootUrl = paths.first
             }
             return _documentsRootUrl
@@ -108,7 +108,7 @@ class DocumentManager {
     
     func checkForLocalFiles() {
         do {
-            let documentsPath = documentsRootURL.path!
+            let documentsPath = documentsRootURL.path
             let allFilesArray = try FileManager.default.contentsOfDirectory(atPath: documentsPath)
             for fileName in allFilesArray {
                 let fileURL = URL(fileURLWithPath: documentsPath + "/" + fileName)
@@ -134,7 +134,7 @@ class DocumentManager {
 
     // MARK: - CRUD
 
-    func renameObject(_ fileURL: URL, fileName: String, forceOverWrite: Bool, completion: ((Bool, ErrorProtocol?, URL?) -> Void)?) {
+    func renameObject(_ fileURL: URL, fileName: String, forceOverWrite: Bool, completion: ((Bool, Error?, URL?) -> Void)?) {
         guard let index = indexOf(fileURL) else {
             completion?(false, RenameError.objectNotFound, nil)
             return
@@ -196,8 +196,7 @@ class DocumentManager {
     
     func renameDocument(withurl oldURL: URL, newName: String, forceOverWrite: Bool, viewController: UIViewController?, completion: ((Bool, URL?) -> Void)?) {
         
-        let priority = DispatchQueue.GlobalAttributes.qosDefault
-        DispatchQueue.global(attributes: priority).async {
+        DispatchQueue.global(qos: .background).async {
             self.renameObject(oldURL, fileName: newName, forceOverWrite: forceOverWrite, completion: {
                 (success, error, url) -> Void in
                 if success {
@@ -267,9 +266,8 @@ class DocumentManager {
     }
 
     private func updateMetadata(_ fileURL: URL) {
-        guard let path = fileURL.path else {
-            return
-        }
+        let path = fileURL.path
+        
         if FileManager.default.fileExists(atPath: path) {
             let document = Document(fileURL: fileURL)
             document.open {
@@ -298,8 +296,8 @@ class DocumentManager {
 
     }
 
-    func deleteObject(_ object: DocumentsOverviewObject, completion: ((Bool, ErrorProtocol?) -> Void)?) {
-        DispatchQueue.global(attributes: DispatchQueue.GlobalAttributes.qosDefault).async {
+    func deleteObject(_ object: DocumentsOverviewObject, completion: ((Bool, Error?) -> Void)?) {
+        DispatchQueue.global(qos: .background).async {
             () -> Void in
             let fileCoordinator = NSFileCoordinator(filePresenter: nil)
             var error: NSError?
@@ -374,11 +372,11 @@ class DocumentManager {
         }
 
         if useiCloud() {
-            if let docsDir = try! iCloudRootURL?.appendingPathComponent("Documents", isDirectory: true) {
-                return try! docsDir.appendingPathComponent(newFileName)
+            if let docsDir = iCloudRootURL?.appendingPathComponent("Documents", isDirectory: true) {
+                return docsDir.appendingPathComponent(newFileName)
             }
         }
-        return try! documentsRootURL.appendingPathComponent(newFileName)
+        return documentsRootURL.appendingPathComponent(newFileName)
     }
 
     func getUniqueFileName(_ fileName: String, attempts: Int = 0) -> String {
@@ -409,9 +407,10 @@ class DocumentManager {
             completion(success: false)
             return
         }
-        DispatchQueue.global(attributes: DispatchQueue.GlobalAttributes.qosDefault).async {
+        DispatchQueue.global(qos: .background).async {
             () -> Void in
-            self.iCloudRootURL = FileManager.default.urlForUbiquityContainerIdentifier(nil)
+            
+            self.iCloudRootURL = FileManager.default.url(forUbiquityContainerIdentifier: nil)
             if self.iCloudRootURL != nil {
                 DispatchQueue.main.async(execute: {
                     completion(success: true)
@@ -467,7 +466,7 @@ class DocumentManager {
             let query = NSMetadataQuery()
             query.searchScopes = [NSMetadataQueryUbiquitousDocumentsScope]
             let filePattern = "*." + fileExtension
-            query.predicate = Predicate(format: "%K Like %@", NSMetadataItemFSNameKey, filePattern)
+            query.predicate = NSPredicate(format: "%K Like %@", NSMetadataItemFSNameKey, filePattern)
             return query
         }
     }

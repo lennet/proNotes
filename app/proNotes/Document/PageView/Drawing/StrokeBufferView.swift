@@ -24,7 +24,7 @@ class StrokeBufferView: UIImageView {
         }
     }
     
-    var strokeColor: UIColor = SettingsViewController.sharedInstance?.currentChildViewController?.colorPicker?.getSelectedColor() ?? UIColor.black()
+    var strokeColor: UIColor = SettingsViewController.sharedInstance?.currentChildViewController?.colorPicker?.getSelectedColor() ?? UIColor.black
             
     private final let minLineWidth: CGFloat = 1
     private var oldLineWidth: CGFloat = 0
@@ -42,7 +42,7 @@ class StrokeBufferView: UIImageView {
     }
     
     func commonInit() {
-        backgroundColor = .clear()
+        backgroundColor = .clear
     }
     
     func reset() {

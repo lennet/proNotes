@@ -62,7 +62,7 @@ class TextSettingsViewController: SettingsBaseViewController, UIPickerViewDataSo
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        fontFamilies = UIFont.familyNames()
+        fontFamilies = UIFont.familyNames
         updateFontNames()
     }
     
@@ -164,7 +164,7 @@ class TextSettingsViewController: SettingsBaseViewController, UIPickerViewDataSo
         delegateEnabled = true
     }
 
-    func getFont(_ row: Int, forComponent component: Int, fontSize: CGFloat = UIFont.systemFontSize()) -> UIFont {
+    func getFont(_ row: Int, forComponent component: Int, fontSize: CGFloat = UIFont.systemFontSize) -> UIFont {
         guard let fontPickerComponent = FontPickerComponent(rawValue: component) else {
             print("Not supported compontentnumber for Fontpicker: \(component)")
             return UIFont.systemFont(ofSize: fontSize)
@@ -176,7 +176,7 @@ class TextSettingsViewController: SettingsBaseViewController, UIPickerViewDataSo
             return UIFont(name: fontName, size: fontSize)!
         case .names:
             guard fontNames.count > 0 else {
-                return UIFont.systemFont(ofSize: UIFont.systemFontSize())
+                return UIFont.systemFont(ofSize: UIFont.systemFontSize)
             }
             let fontName = fontNames[row]
             return UIFont(name: fontName, size: fontSize)!

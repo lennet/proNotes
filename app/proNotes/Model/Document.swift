@@ -146,7 +146,7 @@ class Document: UIDocument {
     }
     
     func getMaxWidth() -> CGFloat {
-        return (pages.sorted(isOrderedBefore: { $0.size.width > $1.size.width }).first?.size.width ?? 0)
+        return (pages.sorted(by: { $0.size.width > $1.size.width }).first?.size.width ?? 0)
     }
     
     override func close(completionHandler: ((Bool) -> Void)?) {

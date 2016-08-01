@@ -31,7 +31,7 @@ class ReordableTableView: UITableView {
     
     func setUp() {
         layoutIfNeeded()
-        if (forceTouchAvailable || PagesTableViewController.sharedInstance?.view.forceTouchAvailable ?? false) && UIDevice.current().userInterfaceIdiom == .phone {
+        if (forceTouchAvailable || PagesTableViewController.sharedInstance?.view.forceTouchAvailable ?? false) && UIDevice.current.userInterfaceIdiom == .phone {
             let forceTouchRecongizer = DeepTouchGestureRecognizer(target: self, action: #selector(ReordableTableView.handleForceTouch(_:)), threshold: 0.4)
             addGestureRecognizer(forceTouchRecongizer)
         } else {

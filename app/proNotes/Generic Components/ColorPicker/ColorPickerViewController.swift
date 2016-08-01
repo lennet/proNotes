@@ -24,13 +24,13 @@ class ColorPickerViewController: UIViewController, UICollectionViewDataSource, U
     
     @IBOutlet weak var colorCollectionView: UICollectionView!
     
-    private let allColors = [ColorPickerElement(pickerColor: UIColor.clearColorPattern(), resultColor: UIColor.clear()),
-                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.black()),
+    private let allColors = [ColorPickerElement(pickerColor: UIColor.clearColorPattern(), resultColor: .clear),
+                  ColorPickerElement(pickerColor: nil, resultColor: .black),
                   ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNAsbestonsColor()),
                   ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNConcreteColor()),
                   ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNSilverColor()),
                   ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNCloudsColor()),
-                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.white()),
+                  ColorPickerElement(pickerColor: nil, resultColor: .white),
                   ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNMidnightBlueColor()),
                   ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNWetAsphaltColor()),
                   ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNAmethystColor()),
@@ -47,7 +47,7 @@ class ColorPickerViewController: UIViewController, UICollectionViewDataSource, U
                   ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNAlizarinColor()),
                   ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNPumpkinColor()),
                   ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNCarrotColor()),
-                  ColorPickerElement(pickerColor: nil, resultColor: UIColor.orange()),
+                  ColorPickerElement(pickerColor: nil, resultColor: .orange),
                   ColorPickerElement(pickerColor: nil, resultColor: UIColor.SunFlowerColor()),
                   ColorPickerElement(pickerColor: nil, resultColor: UIColor.PNYellowColor())]
     
@@ -57,7 +57,7 @@ class ColorPickerViewController: UIViewController, UICollectionViewDataSource, U
                 return allColors
             } else {
                 return allColors.filter({ (element) -> Bool in
-                    return element.resultColor != .clear()
+                    return element.resultColor != .clear
                 })
             }
         }

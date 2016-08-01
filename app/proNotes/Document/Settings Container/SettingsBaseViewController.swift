@@ -29,7 +29,7 @@ class SettingsBaseViewController: UIViewController, ColorPickerDelegate {
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let colorPickerViewController = segue.destinationViewController as? ColorPickerViewController {
+        if let colorPickerViewController = segue.destination as? ColorPickerViewController {
             colorPickerViewController.delegate = self
             colorPickerViewController.identifier = segue.identifier
             self.colorPicker = colorPickerViewController

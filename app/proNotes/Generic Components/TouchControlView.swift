@@ -245,7 +245,7 @@ class TouchControlView: UIView {
     }
 
     override func draw(_ rect: CGRect) {
-        UIColor.lightGray().setStroke()
+        UIColor.lightGray.setStroke()
         let controlPath = UIBezierPath()
         let overlayRect = getDrawRect()
         controlPath.lineWidth = controlLineWidth

@@ -28,7 +28,7 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
     
     var objects: [DocumentsOverviewObject] {
         get {
-            return documentManager.objects.sorted(isOrderedBefore: { (first, second) -> Bool in
+            return documentManager.objects.sorted(by: { (first, second) -> Bool in
                 return first.description.localizedCaseInsensitiveCompare(second.description) == ComparisonResult.orderedAscending
             })
         }
@@ -91,7 +91,7 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
-        return CGSize(width: UIDevice.current().userInterfaceIdiom == .phone ? 100 : 150 , height: 150)
+        return CGSize(width: UIDevice.current.userInterfaceIdiom == .phone ? 100 : 150 , height: 150)
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -179,7 +179,7 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
     // MARK: - Navigation 
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: AnyObject?) -> Bool {
-        if identifier == "CCBYAttributionIdentifier" && UIDevice.current().userInterfaceIdiom == .phone {
+        if identifier == "CCBYAttributionIdentifier" && UIDevice.current.userInterfaceIdiom == .phone {
             let alertViewController = UIAlertController(title: "Creative Commons", message: "The icons are made by Freepik from www.flaticon.com and are licensed under CC BY 3.0.", preferredStyle: .actionSheet)
             alertViewController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { (_) in
             }))

@@ -40,7 +40,7 @@ class MovableLayer: DocumentLayer {
 
     override func undoAction(_ oldObject: AnyObject?) {
         if let value = oldObject as? NSValue {
-            let frame = value.cgRectValue()
+            let frame = value.cgRectValue
             origin = frame.origin
             size = frame.size
         } else {

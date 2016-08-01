@@ -23,9 +23,9 @@ extension UIColor {
     class func clearColorPattern() -> UIColor {
         return UIColor().colorWithPattern({ (i, k) -> UIColor in
             if k % 2 + i % 2 == 1 {
-                return lightGray()
+                return lightGray
             } else {
-                return white()
+                return white
             }
         })
     }

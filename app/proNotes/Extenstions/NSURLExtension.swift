@@ -11,9 +11,8 @@ import UIKit
 extension URL {
 
     func fileName(_ withExtensionName: Bool) -> String? {
-        guard let lastPathComponent = try! deletingPathExtension().lastPathComponent else {
-            return nil
-        }
+        let lastPathComponent = deletingPathExtension().lastPathComponent
+        
         if withExtensionName {
             return lastPathComponent
         } else {

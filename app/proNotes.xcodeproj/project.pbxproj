@@ -36,7 +36,6 @@
 		983B24CD1CA70EB600F4F3AE /* NoScrollingTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983B24CC1CA70EB600F4F3AE /* NoScrollingTextView.swift */; };
 		984242AB1C3EDD0900F90455 /* TouchControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984242AA1C3EDD0900F90455 /* TouchControlView.swift */; };
 		984242AD1C3EE79900F90455 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984242AC1C3EE79900F90455 /* UIColorExtension.swift */; };
-		9851B85F1CD0BDAC00112BDB /* NotifyHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9851B85E1CD0BDAC00112BDB /* NotifyHelper.swift */; };
 		9851B86C1CD140F500112BDB /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9851B86B1CD140F500112BDB /* WelcomeViewController.swift */; };
 		9851B86E1CD141DF00112BDB /* NoAnimationSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9851B86D1CD141DF00112BDB /* NoAnimationSegue.swift */; };
 		9854310D1C52C00F0098DAC1 /* NSMetadataItemExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9854310C1C52C00F0098DAC1 /* NSMetadataItemExtension.swift */; };
@@ -98,7 +97,6 @@
 		98F2E3EC1C1A1EE9008A5C6C /* MovableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F2E3EB1C1A1EE9008A5C6C /* MovableView.swift */; };
 		98F2E3EE1C1A1EF1008A5C6C /* MovableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F2E3ED1C1A1EF1008A5C6C /* MovableImageView.swift */; };
 		98F650CA1CFE0B83003443C3 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F650C91CFE0B83003443C3 /* ImageCache.swift */; };
-		98F650CE1CFE273C003443C3 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F650CD1CFE273C003443C3 /* Cache.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -150,7 +148,6 @@
 		983B24CC1CA70EB600F4F3AE /* NoScrollingTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoScrollingTextView.swift; sourceTree = "<group>"; };
 		984242AA1C3EDD0900F90455 /* TouchControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchControlView.swift; sourceTree = "<group>"; };
 		984242AC1C3EE79900F90455 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
-		9851B85E1CD0BDAC00112BDB /* NotifyHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotifyHelper.swift; sourceTree = "<group>"; };
 		9851B86B1CD140F500112BDB /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		9851B86D1CD141DF00112BDB /* NoAnimationSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoAnimationSegue.swift; sourceTree = "<group>"; };
 		9854310C1C52C00F0098DAC1 /* NSMetadataItemExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSMetadataItemExtension.swift; sourceTree = "<group>"; };
@@ -222,7 +219,6 @@
 		98F2E3EB1C1A1EE9008A5C6C /* MovableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovableView.swift; sourceTree = "<group>"; };
 		98F2E3ED1C1A1EF1008A5C6C /* MovableImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovableImageView.swift; sourceTree = "<group>"; };
 		98F650C91CFE0B83003443C3 /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
-		98F650CD1CFE273C003443C3 /* Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -367,10 +363,8 @@
 				983B24CC1CA70EB600F4F3AE /* NoScrollingTextView.swift */,
 				98AD15E81C49BBDC00EE94A1 /* ReordableTableView.swift */,
 				984242AA1C3EDD0900F90455 /* TouchControlView.swift */,
-				9851B85E1CD0BDAC00112BDB /* NotifyHelper.swift */,
 				9851B86D1CD141DF00112BDB /* NoAnimationSegue.swift */,
 				9815CD8A1CD4BFC500191495 /* 3DTouchGestureRecognizer.swift */,
-				98F650CD1CFE273C003443C3 /* Cache.swift */,
 			);
 			name = Components;
 			path = "Generic Components";
@@ -605,6 +599,7 @@
 					};
 					98DBAA051C0799CB007EFFE5 = {
 						CreatedOnToolsVersion = 7.1.1;
+						DevelopmentTeam = 23Q9KTEYUV;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -739,11 +734,9 @@
 				98BABB8D1C1B142C00D9C938 /* PageInfoViewController.swift in Sources */,
 				987B57101C3B139700141EA5 /* UIImageExtension.swift in Sources */,
 				987F6A211C74AA0800572C2F /* ImportDataSubTableViewCell.swift in Sources */,
-				98F650CE1CFE273C003443C3 /* Cache.swift in Sources */,
 				983B24CD1CA70EB600F4F3AE /* NoScrollingTextView.swift in Sources */,
 				987F6A1F1C74A9FC00572C2F /* ImportDataMainTableViewCell.swift in Sources */,
 				98F2E3E81C1A1ED2008A5C6C /* CGPointExtension.swift in Sources */,
-				9851B85F1CD0BDAC00112BDB /* NotifyHelper.swift in Sources */,
 				98006ABB1C1A1E960091E356 /* SettingsViewController.swift in Sources */,
 				98312D691C0B79F200F3B1CB /* DocumentInstance.swift in Sources */,
 				987B570E1C3B10F300141EA5 /* Global.swift in Sources */,
@@ -965,6 +958,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 13;
 				DEFINES_MODULE = NO;
+				DEVELOPMENT_TEAM = 23Q9KTEYUV;
 				ENABLE_BITCODE = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -994,6 +988,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 13;
 				DEFINES_MODULE = NO;
+				DEVELOPMENT_TEAM = 23Q9KTEYUV;
 				ENABLE_BITCODE = YES;
 				INFOPLIST_FILE = proNotes/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;

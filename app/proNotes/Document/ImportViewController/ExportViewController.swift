@@ -20,9 +20,7 @@ class ExportViewController: ImportExportBaseViewController {
     
     func handleExportImages() {
         animateProgressBarIn()
-        
-        let priority = DispatchQueue.GlobalAttributes.qosDefault
-        DispatchQueue.global(attributes: priority).async {
+        DispatchQueue.global(qos: .background).async {
             DispatchQueue.main.async {
                 let images = DocumentExporter.exportAsImages { (progress) in
                     self.exportProgressView.progress = progress
@@ -35,8 +33,7 @@ class ExportViewController: ImportExportBaseViewController {
     
     func handleExportPDF() {
         animateProgressBarIn()
-        let priority = DispatchQueue.GlobalAttributes.qosDefault
-        DispatchQueue.global(attributes: priority).async {
+        DispatchQueue.global(qos: .background).async {
             DispatchQueue.main.async {
                 guard let data = DocumentExporter.exportAsPDF ({ (progress) in
                     self.exportProgressView.progress = progress
@@ -51,8 +48,8 @@ class ExportViewController: ImportExportBaseViewController {
     
     func handleExportProNote() {
         animateProgressBarIn()
-        let priority = DispatchQueue.GlobalAttributes.qosDefault
-        DispatchQueue.global(attributes: priority).async {
+        
+        DispatchQueue.global(qos: .background).async {
             DispatchQueue.main.async {
                 DocumentExporter.exportAsProNote({ (progress) in
                     self.exportProgressView.progress = progress

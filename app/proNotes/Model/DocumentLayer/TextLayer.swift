@@ -40,9 +40,9 @@ class TextLayer: MovableLayer {
 
     init(index: Int, docPage: DocumentPage, origin: CGPoint, size: CGSize, text: String) {
         self.text = text
-        self.backgroundColor = UIColor.clear()
-        self.textColor = UIColor.black()
-        self.font = UIFont.systemFont(ofSize: UIFont.systemFontSize())
+        self.backgroundColor = UIColor.clear
+        self.textColor = UIColor.black
+        self.font = UIFont.systemFont(ofSize: UIFont.systemFontSize)
         self.alignment = .left
         super.init(index: index, type: .text, docPage: docPage, origin: origin, size: size)
     }

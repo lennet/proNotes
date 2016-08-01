@@ -22,7 +22,7 @@ class MovableView: TouchControlView, PageSubView {
         controlLength = newControlLength
         isUserInteractionEnabled = false
         self.renderMode = renderMode
-        backgroundColor = UIColor.clear()
+        backgroundColor = UIColor.clear
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -103,7 +103,7 @@ class MovableView: TouchControlView, PageSubView {
         setUpSettingsViewController()
         for view in subviews {
             view.isUserInteractionEnabled = true
-            view.layer.borderColor = UIColor.lightGray().cgColor
+            view.layer.borderColor = UIColor.lightGray.cgColor
             view.layer.borderWidth = 1
         }
         setNeedsDisplay()
@@ -124,7 +124,7 @@ class MovableView: TouchControlView, PageSubView {
         guard let value = oldObject as? NSValue else {
             return
         }
-        let frame = value.cgRectValue()
+        let frame = value.cgRectValue
         oldFrame = self.frame
         UIView.animate(withDuration: standardAnimationDuration, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: UIViewAnimationOptions(), animations: {
             () -> Void in

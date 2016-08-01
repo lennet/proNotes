@@ -32,7 +32,7 @@ class PagesOverviewTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         pageThumbView.layer.setUpDefaultShaddow()
-        backgroundColor = UIColor.clear()
+        backgroundColor = UIColor.clear
     }
 
     @IBAction func handlePageButtonPressed(_ sender: AnyObject) {

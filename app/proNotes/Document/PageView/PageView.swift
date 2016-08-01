@@ -63,7 +63,7 @@ class PageView: UIView, UIGestureRecognizerDelegate {
         }
         
         clearsContextBeforeDrawing = true
-        backgroundColor = UIColor.white()
+        backgroundColor = UIColor.white
     }
 
     func setUpTouchRecognizer() {
@@ -109,14 +109,14 @@ class PageView: UIView, UIGestureRecognizerDelegate {
 
     func addPDFView(_ pdfLayer: PDFLayer) {
         let view = PDFView(pdfData: pdfLayer.pdfData!, frame: bounds)
-        view.backgroundColor = UIColor.clear()
+        view.backgroundColor = UIColor.clear
         view.isHidden = pdfLayer.hidden
         addSubview(view)
     }
 
     func addSketchView(_ sketchLayer: SketchLayer) {
         let view = SketchView(sketchLayer: sketchLayer, frame: bounds)
-        view.backgroundColor = UIColor.clear()
+        view.backgroundColor = UIColor.clear
         view.isHidden = sketchLayer.hidden
         addSubview(view)
     }

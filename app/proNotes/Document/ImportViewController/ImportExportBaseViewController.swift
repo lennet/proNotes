@@ -49,7 +49,7 @@ class ImportExportBaseViewController: UIViewController,  UITableViewDataSource, 
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpDataSource()
-        if UIDevice.current().userInterfaceIdiom != .phone {
+        if UIDevice.current.userInterfaceIdiom != .phone {
             preferredContentSize = CGSize(width: preferredContentSize.width, height: CGFloat(dataSourceObjects.count * 44))
         }
 
@@ -76,7 +76,7 @@ class ImportExportBaseViewController: UIViewController,  UITableViewDataSource, 
     }
     
     private func addDoneButtonIfNeeded() {
-        if UIDevice.current().userInterfaceIdiom != .pad {
+        if UIDevice.current.userInterfaceIdiom != .pad {
             let doneBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(ImportExportBaseViewController.handleDoneButtonPressed))
             navigationItem.setRightBarButton(doneBarButtonItem, animated: false)
         }

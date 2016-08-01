@@ -52,7 +52,7 @@ class DocumentViewController: UIViewController {
         super.viewWillAppear(animated)
         registerNotifications()
         updateUndoButton()
-        if UIDevice.current().userInterfaceIdiom == .phone {
+        if UIDevice.current.userInterfaceIdiom == .phone {
             setUpForIphone()
         }
         isLoadingData = false
@@ -86,8 +86,10 @@ class DocumentViewController: UIViewController {
         ImageCache.sharedInstance.clearCache()
     }
 
-    override func canBecomeFirstResponder() -> Bool {
-        return true
+    override var canBecomeFirstResponder: Bool {
+        get {
+            return true
+        }
     }
 
     private func setUpTitle() {
@@ -164,15 +166,15 @@ class DocumentViewController: UIViewController {
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let viewController = segue.destinationViewController as? PagesOverviewTableViewController {
+        if let viewController = segue.destination as? PagesOverviewTableViewController {
             viewController.pagesOverViewDelegate = self
             pagesOverviewController = viewController
-        } else if let viewController = segue.destinationViewController as? PagesTableViewController {
+        } else if let viewController = segue.destination as? PagesTableViewController {
             PagesTableViewController.sharedInstance = viewController
-        } else if let viewController = segue.destinationViewController as? SettingsViewController {
+        } else if let viewController = segue.destination as? SettingsViewController {
             viewController.delegate = self
-        } else if let navigationController = segue.destinationViewController as? UINavigationController {
-            if UIDevice.current().userInterfaceIdiom == .phone {
+        } else if let navigationController = segue.destination as? UINavigationController {
+            if UIDevice.current.userInterfaceIdiom == .phone {
                 isLoadingData = true
             }
             if let viewController = navigationController.visibleViewController as? ImportExportBaseViewController {

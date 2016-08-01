@@ -35,7 +35,7 @@ class DocumentOverviewCollectionViewCell: UICollectionViewCell {
         thumbImageView.layer.setUpDefaultShaddow()
         
         let renameMenutItem = UIMenuItem(title: "Rename", action: #selector(rename))
-        UIMenuController.shared().menuItems = [renameMenutItem]
+        UIMenuController.shared.menuItems = [renameMenutItem]
         
     }
     
@@ -48,8 +48,10 @@ class DocumentOverviewCollectionViewCell: UICollectionViewCell {
         activityIndicator.isHidden = true
     }
     
-    override func canBecomeFirstResponder() -> Bool {
-        return true
+    override var canBecomeFirstResponder: Bool {
+        get {
+            return true
+        }
     }
     
     override func canPerformAction(_ action: Selector, withSender sender: AnyObject?) -> Bool {

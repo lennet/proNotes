@@ -26,13 +26,12 @@ class PDFView: UIView, PageSubView {
         guard let page = pdf?.page(at: 1) else { return }
 
         let context = UIGraphicsGetCurrentContext()
-            
-        context?.scale(x: 1, y: -1)
-        context?.translate(x: 0, y: -rect.size.height)
+        context?.scaleBy(x: 1, y: -1)
+        context?.translateBy(x: 0, y: -rect.size.height)
 
         let mediaRect = page.getBoxRect(CGPDFBox.cropBox)
 
-        context?.translate(x: -mediaRect.origin.x, y: -mediaRect.origin.y)
+        context?.translateBy(x: -mediaRect.origin.x, y: -mediaRect.origin.y)
 
         context?.drawPDFPage(page);
     }

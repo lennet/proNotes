@@ -70,7 +70,7 @@ class PagesOverviewTableViewController: UITableViewController, DocumentInstanceD
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: PagesOverviewTableViewCell.identifier, for: indexPath) as! PagesOverviewTableViewCell
         let highlighted = (indexPath as NSIndexPath).row == currentVisibleIndex
-        cell.numberLabel.textColor = highlighted ? UIColor.black() : UIColor.lightGray()
+        cell.numberLabel.textColor = highlighted ? UIColor.black : UIColor.lightGray
         cell.index = (indexPath as NSIndexPath).row
         cell.delegate = pagesOverViewDelegate
         if let page = document?[(indexPath as NSIndexPath).row] {

@@ -21,7 +21,7 @@ class ImageCacheObject: NSObject {
 class ImageCache: NSObject {
     
     static let sharedInstance = ImageCache()
-    private let cache: Cache<NSString, UIImage>
+    private let cache: NSCache<NSString, UIImage>
 
     subscript(key :String) -> UIImage? {
         get {
@@ -43,7 +43,7 @@ class ImageCache: NSObject {
     }
     
     private override init() {
-        cache = Cache()
+        cache = NSCache()
         super.init()
         cache.countLimit = 20
         cache.delegate = self
@@ -71,9 +71,9 @@ class ImageCache: NSObject {
     
 }
 
-extension ImageCache: CacheDelegate {
+extension ImageCache: NSCacheDelegate {
    
-    private func cache(cache: Cache<AnyObject, AnyObject>, willEvictObject obj: AnyObject) {
+    private func cache(cache: NSCache<AnyObject, AnyObject>, willEvictObject obj: AnyObject) {
         if let imageCacheObject = obj as? ImageCacheObject {
             storeImageToDisk(image: imageCacheObject.image, key: imageCacheObject.key)
         }

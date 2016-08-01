@@ -37,7 +37,7 @@ class LayerTableViewUITests: XCTestCase {
     }
     
     /*
-     work in progress
+     not working in current Xcode/ Swift Beta 3
     func testHideLayer() {
         createAndOpenDocument()
         addTextField()

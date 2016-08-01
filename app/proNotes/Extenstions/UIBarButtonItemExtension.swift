@@ -12,7 +12,7 @@ extension UIBarButtonItem {
 
     func setHidden(_ hidden: Bool) {
         isEnabled = !hidden
-        tintColor = !hidden ? nil : .clear()
+        tintColor = !hidden ? nil : .clear
     }
     
 }
