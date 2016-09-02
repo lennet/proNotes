@@ -16,13 +16,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
         application.applicationIconBadgeNumber = 0
-        if Preferences.isFirstRun() {
+        if Preferences.isFirstRun {
             Preferences.setUpDefaults()
         }
         let args = ProcessInfo.processInfo.arguments
         if args.contains("UITEST") {
-            Preferences.setShoudlShowWelcomeScreen(false)
-            Preferences.setiCloudActive(false)
+            Preferences.showWelcomeScreen = false
+            Preferences.iCloudActive =  false
         }
         return true
     }

@@ -36,7 +36,7 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if Preferences.shouldShowWelcomeScreen() {
+        if Preferences.showWelcomeScreen {
             performSegue(withIdentifier: "WelcomSegueIdentifier", sender: nil)
         }
     }

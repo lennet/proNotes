@@ -27,7 +27,7 @@ class WelcomeViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        Preferences.setIsFirstRun(false)
+        Preferences.isFirstRun = false
         animateImageViews()
         WelcomeViewController.sharedInstance = self
     }
@@ -51,7 +51,7 @@ class WelcomeViewController: UIViewController {
     }
 
     @IBAction func handleContinueButtonPressed(_ sender: AnyObject) {
-        Preferences.setShoudlShowWelcomeScreen(false)
+        Preferences.showWelcomeScreen = false
         presentingViewController?.dismiss(animated: true, completion: nil)
     }
 

@@ -121,7 +121,7 @@ class DocumentManager {
     }
 
     func useiCloud() -> Bool {
-        return Preferences.iCloudActive()
+        return Preferences.iCloudActive
     }
 
     func downloadObject(_ object: DocumentsOverviewObject) {
@@ -403,7 +403,7 @@ class DocumentManager {
     // MARK - iCloud Query
 
     private func initializeiCLoud(_ completion: @escaping (_ success:Bool) -> ()) {
-        guard Preferences.iCloudActive() else {
+        guard Preferences.iCloudActive else {
             completion(false)
             return
         }
