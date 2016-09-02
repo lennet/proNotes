@@ -374,7 +374,7 @@ extension DocumentViewController {
             return
         }
         let offSet = 10
-        var translation = CGPoint.zero
+        var translation: CGPoint = .zero
         switch sender.input {
         case UIKeyInputRightArrow:
             translation = CGPoint(x: offSet, y: 0)

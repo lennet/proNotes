@@ -23,7 +23,7 @@ class DocumentLayerTests: XCTestCase {
     
     func testTextLayer() {
         let documentPage = DocumentPage(index: 0)
-        let textLayer = TextLayer(index: 0, docPage: documentPage, origin: CGPoint.zero, size: CGSize.zero, text: "")
+        let textLayer = TextLayer(index: 0, docPage: documentPage, origin: .zero, size: .zero, text: "")
         
         XCTAssertEqual(textLayer.name, String(describing: textLayer.type))
         

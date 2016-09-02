@@ -99,7 +99,7 @@ class TouchControlView: UIView {
                 break
             case .changed:
                 let translation = panGestureRecognizer.translation(in: self)
-                panGestureRecognizer.setTranslation(CGPoint.zero, in: self)
+                panGestureRecognizer.setTranslation(.zero, in: self)
                 handlePanTranslation(translation)
                 break
             default:

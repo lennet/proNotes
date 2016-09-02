@@ -49,7 +49,7 @@ class PDFUtility {
 
     class func getPDFRect(_ document: CGPDFDocument, pageIndex: Int) -> CGRect {
         guard let page = document.page(at: pageIndex) else {
-            return CGRect.zero
+            return .zero
         }
         
         return page.getBoxRect(.cropBox)

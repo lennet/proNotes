@@ -51,7 +51,7 @@ class CropImageView: TouchControlView {
         }
     }
 
-    var overlayRect: CGRect = CGRect.zero
+    var overlayRect: CGRect = .zero
     var animateLayoutChanges = true
     
     override var movable: Bool {

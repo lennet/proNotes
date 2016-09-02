@@ -95,14 +95,14 @@ class DocumentPage: NSObject, NSCoding {
     @discardableResult
     func addImageLayer(_ image: UIImage) -> ImageLayer {
         let layerSize = image.size.sizeToFit(size)
-        let imageLayer = ImageLayer(index: layers.count, docPage: self, origin: CGPoint.zero, size: layerSize, image: image)
+        let imageLayer = ImageLayer(index: layers.count, docPage: self, origin: .zero, size: layerSize, image: image)
         layers.append(imageLayer)
         return imageLayer
     }
 
     @discardableResult
     func addTextLayer(_ text: String) -> TextLayer {
-        let textLayer = TextLayer(index: layers.count, docPage: self, origin: CGPoint.zero, size: CGSize(width: 200, height: 30), text: "")
+        let textLayer = TextLayer(index: layers.count, docPage: self, origin: .zero, size: CGSize(width: 200, height: 30), text: "")
         layers.append(textLayer)
         return textLayer
     }

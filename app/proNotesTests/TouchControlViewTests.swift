@@ -12,13 +12,13 @@ import XCTest
 class TouchControlViewTests: XCTestCase {
     
     func testTouchedControlView() {
-        let touchControlView = TouchControlView(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: 300, height: 300)))
+        let touchControlView = TouchControlView(frame: CGRect(origin: .zero, size: CGSize(width: 300, height: 300)))
         
         let center = touchControlView.frame.getCenter()
         var touchedControl = touchControlView.touchedControlRect(center)
         XCTAssertEqual(touchedControl, TouchControlView.TouchControl.center)
         
-        let topLeft = CGPoint.zero
+        let topLeft: CGPoint = .zero
         touchedControl = touchControlView.touchedControlRect(topLeft)
         XCTAssertEqual(touchedControl, TouchControlView.TouchControl.topLeftCorner)
         
@@ -56,7 +56,7 @@ class TouchControlViewTests: XCTestCase {
     }
     
     func testResizeWidthOnly() {
-        let touchControlView = TouchControlView(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: 100, height: 100)))
+        let touchControlView = TouchControlView(frame: CGRect(origin: .zero, size: CGSize(width: 100, height: 100)))
         touchControlView.widthResizingOnly = true
 
         let translation = CGPoint(x: 20, y: 20)
@@ -84,7 +84,7 @@ class TouchControlViewTests: XCTestCase {
     }
     
     func testProportionalResize() {
-        let touchControlView = TouchControlView(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: 300, height: 200)))
+        let touchControlView = TouchControlView(frame: CGRect(origin: .zero, size: CGSize(width: 300, height: 200)))
         touchControlView.proportionalResize = true
         
         let translation = CGPoint(x: 20, y: 20)

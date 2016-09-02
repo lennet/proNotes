@@ -15,7 +15,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
-        application.applicationIconBadgeNumber = 0
         if Preferences.isFirstRun {
             Preferences.setUpDefaults()
         }
@@ -27,23 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
-    func applicationWillResignActive(_ application: UIApplication) {
-        application.applicationIconBadgeNumber = 0    }
-
-    func applicationDidEnterBackground(_ application: UIApplication) {
-        application.applicationIconBadgeNumber = 0
-    }
-
-    func applicationWillEnterForeground(_ application: UIApplication) {
-        application.applicationIconBadgeNumber = 0
-    }
-
-    func applicationDidBecomeActive(_ application: UIApplication) {
-        application.applicationIconBadgeNumber = 0
-    }
-
     func applicationWillTerminate(_ application: UIApplication) {
-        application.applicationIconBadgeNumber = 0
         DocumentInstance.sharedInstance.save {
             (success) -> Void in
             DocumentInstance.sharedInstance.document?.close(completionHandler: nil)

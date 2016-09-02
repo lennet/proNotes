@@ -23,11 +23,11 @@ class DocumentExporter: NSObject {
                 return nil
             }
             let mutableData = NSMutableData()
-            let rect = CGRect(origin: CGPoint.zero, size: document.pages.first!.size)
+            let rect = CGRect(origin: .zero, size: document.pages.first!.size)
             UIGraphicsBeginPDFContextToData(mutableData, rect, nil)
             let context = UIGraphicsGetCurrentContext()
             for image in getImageArrayForDocument(document, progress: progress) {
-                let imageRect = CGRect(origin: CGPoint.zero, size: image.size)
+                let imageRect = CGRect(origin: .zero, size: image.size)
                 UIGraphicsBeginPDFPageWithInfo(imageRect, nil)
                 context?.draw(image.cgImage!, in: imageRect)
             }

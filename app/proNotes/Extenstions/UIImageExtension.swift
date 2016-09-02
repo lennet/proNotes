@@ -12,7 +12,7 @@ extension UIImage {
 
     func resetRoation() -> UIImage {
         UIGraphicsBeginImageContext(size)
-        self.draw(at: CGPoint.zero)
+        self.draw(at: .zero)
         let resultImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return resultImage!
@@ -37,7 +37,7 @@ extension UIImage {
     func thumbImage() -> UIImage {
         let newSize = self.size.sizeToFit(CGSize(width: 100, height: 100))
         UIGraphicsBeginImageContextWithOptions( newSize, true, 1.0)
-        self.draw(in: CGRect(origin: CGPoint.zero, size: newSize))
+        self.draw(in: CGRect(origin: .zero, size: newSize))
         let resultImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
 
