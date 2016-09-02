@@ -58,7 +58,7 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
 
     override func setUpSettingsViewController() {
         TextSettingsViewController.delegate = self
-        SettingsViewController.sharedInstance?.currentSettingsType = .Text
+        SettingsViewController.sharedInstance?.currentType = .text
     }
     
     override func setSelected() {
@@ -110,7 +110,7 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
         removeFromSuperview()
         textLayer?.removeFromPage()
         movableLayer = nil
-        SettingsViewController.sharedInstance?.currentSettingsType = .PageInfo
+        SettingsViewController.sharedInstance?.currentType = .pageInfo
     }
     
     func getTextLayer() -> TextLayer? {

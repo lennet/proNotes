@@ -38,7 +38,7 @@ class MovableImageView: MovableView, ImageSettingsDelegate {
 
     override func setUpSettingsViewController() {
         ImageSettingsViewController.delegate = self
-        SettingsViewController.sharedInstance?.currentSettingsType = .Image
+        SettingsViewController.sharedInstance?.currentType = .image
     }
 
     // MARK: - ImageSettingsDelegate
@@ -46,7 +46,7 @@ class MovableImageView: MovableView, ImageSettingsDelegate {
     func removeImage() {
         removeFromSuperview()
         movableLayer?.removeFromPage()
-        SettingsViewController.sharedInstance?.currentSettingsType = .PageInfo
+        SettingsViewController.sharedInstance?.currentType = .pageInfo
     }
 
     func getImage() -> UIImage? {
@@ -60,7 +60,7 @@ class MovableImageView: MovableView, ImageSettingsDelegate {
         }
 
         updateImage(image)
-        if SettingsViewController.sharedInstance?.currentSettingsType == .Image {
+        if SettingsViewController.sharedInstance?.currentType == .image {
             SettingsViewController.sharedInstance?.currentChildViewController?.update()
         }
     }

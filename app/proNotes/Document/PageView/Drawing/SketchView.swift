@@ -138,7 +138,7 @@ class SketchView: UIImageView, PageSubView, SketchSettingsDelegate {
         removeFromSuperview()
         sketchLayer?.removeFromPage()
         sketchLayer = nil
-        SettingsViewController.sharedInstance?.currentSettingsType = .PageInfo
+        SettingsViewController.sharedInstance?.currentType = .pageInfo
     }
 
     // MARK: - PageSubViewProtocol
@@ -150,7 +150,7 @@ class SketchView: UIImageView, PageSubView, SketchSettingsDelegate {
     }
 
     func setSelected() {
-        SettingsViewController.sharedInstance?.currentSettingsType = .Sketch
+        SettingsViewController.sharedInstance?.currentType = .sketch
         SketchSettingsViewController.delegate = self
         setUpStrokeBuffer()
         isUserInteractionEnabled = true

@@ -20,7 +20,7 @@ class PageView: UIView, UIGestureRecognizerDelegate {
             oldValue?.setDeselected?()
             selectedSubView?.setSelected?()
             if selectedSubView == nil {
-                SettingsViewController.sharedInstance?.currentSettingsType = .PageInfo
+                SettingsViewController.sharedInstance?.currentType = .pageInfo
             }
             PagesTableViewController.sharedInstance?.twoTouchesForScrollingRequired = selectedSubView != nil
         }

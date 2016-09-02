@@ -116,7 +116,7 @@ class MovableView: TouchControlView, PageSubView {
             view.isUserInteractionEnabled = true
             view.layer.borderWidth = 0
         }
-        SettingsViewController.sharedInstance?.currentSettingsType = .PageInfo
+        SettingsViewController.sharedInstance?.currentType = .pageInfo
         setNeedsDisplay()
     }
 

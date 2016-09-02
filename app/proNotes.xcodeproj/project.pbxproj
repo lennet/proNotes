@@ -24,6 +24,8 @@
 		981CF9AE1C4AC3BE003BA892 /* DocumentOverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981CF9AD1C4AC3BE003BA892 /* DocumentOverviewViewController.swift */; };
 		9822C3441D7A144A00A0D082 /* PreferencesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822C3431D7A144900A0D082 /* PreferencesTests.swift */; };
 		9822C3461D7A178E00A0D082 /* ImageCacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822C3451D7A178E00A0D082 /* ImageCacheTests.swift */; };
+		9822C3481D7A1F8800A0D082 /* SettingTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822C3471D7A1F8800A0D082 /* SettingTypeTests.swift */; };
+		9822C34A1D7A208200A0D082 /* SettingsViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822C3491D7A208200A0D082 /* SettingsViewControllerTests.swift */; };
 		9822F8FC1D022C1200002688 /* DocumentManagerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9822F8FB1D022C1200002688 /* DocumentManagerUITests.swift */; };
 		98262C101C22C29A00B420A8 /* SettingsBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98262C0F1C22C29A00B420A8 /* SettingsBaseViewController.swift */; };
 		98262C121C22D96A00B420A8 /* PageSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98262C111C22D96A00B420A8 /* PageSubView.swift */; };
@@ -136,6 +138,8 @@
 		981CF9AD1C4AC3BE003BA892 /* DocumentOverviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentOverviewViewController.swift; sourceTree = "<group>"; };
 		9822C3431D7A144900A0D082 /* PreferencesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesTests.swift; sourceTree = "<group>"; };
 		9822C3451D7A178E00A0D082 /* ImageCacheTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCacheTests.swift; sourceTree = "<group>"; };
+		9822C3471D7A1F8800A0D082 /* SettingTypeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingTypeTests.swift; sourceTree = "<group>"; };
+		9822C3491D7A208200A0D082 /* SettingsViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewControllerTests.swift; sourceTree = "<group>"; };
 		9822F8F11D022BD300002688 /* proNotesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = proNotesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9822F8F51D022BD300002688 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9822F8FB1D022C1200002688 /* DocumentManagerUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentManagerUITests.swift; sourceTree = "<group>"; };
@@ -509,6 +513,8 @@
 				98A681561D2D90410024DC52 /* DocumentLayerTests.swift */,
 				9822C3431D7A144900A0D082 /* PreferencesTests.swift */,
 				9822C3451D7A178E00A0D082 /* ImageCacheTests.swift */,
+				9822C3471D7A1F8800A0D082 /* SettingTypeTests.swift */,
+				9822C3491D7A208200A0D082 /* SettingsViewControllerTests.swift */,
 			);
 			path = proNotesTests;
 			sourceTree = "<group>";
@@ -775,9 +781,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				9816186F1C834AF700E1D5EA /* TouchControlViewTests.swift in Sources */,
+				9822C3481D7A1F8800A0D082 /* SettingTypeTests.swift in Sources */,
 				98EB1B511C6D319C00D104A4 /* DocumentTests.swift in Sources */,
 				98A681571D2D90410024DC52 /* DocumentLayerTests.swift in Sources */,
 				9822C3441D7A144A00A0D082 /* PreferencesTests.swift in Sources */,
+				9822C34A1D7A208200A0D082 /* SettingsViewControllerTests.swift in Sources */,
 				9822C3461D7A178E00A0D082 /* ImageCacheTests.swift in Sources */,
 				98E4688D1C6E11AD00AC0E0A /* DocumentPageTests.swift in Sources */,
 			);

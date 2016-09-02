@@ -145,7 +145,7 @@ class DocumentViewController: UIViewController {
 
     @IBAction func handlePageInfoButtonPressed(_ sender: AnyObject) {
         PagesTableViewController.sharedInstance?.currentPageView?.deselectSelectedSubview()
-        SettingsViewController.sharedInstance?.currentSettingsType = .PageInfo
+        SettingsViewController.sharedInstance?.currentType = .pageInfo
         if isFullScreen {
             toggleFullScreen()
         }
@@ -235,9 +235,9 @@ extension DocumentViewController: UITextFieldDelegate {
 
 extension DocumentViewController: SettingsViewControllerDelegate {
     
-    func didChangeSettingsType(_ newType: SettingsViewControllerType) {
-        pageInfoButton.setHidden(newType == .PageInfo)
-        isSketchMode = newType == .Sketch
+    func didChangeSettingsType(to newType: SettingsType) {
+        pageInfoButton.setHidden(newType == .pageInfo)
+        isSketchMode = newType == .sketch
     }
     
 }
@@ -331,15 +331,10 @@ extension DocumentViewController {
     override var keyCommands: [UIKeyCommand]? {
         var commands = [UIKeyCommand]()
         
-        if let settingsViewController = SettingsViewController.sharedInstance {
-            switch settingsViewController.currentSettingsType {
-            case .Image:
-                commands.append(UIKeyCommand(input: UIKeyInputRightArrow, modifierFlags: .control, action: #selector(DocumentViewController.handleRotateImageKeyPressed(_:)), discoverabilityTitle: "Rotate Image Right"))
-                commands.append(UIKeyCommand(input: UIKeyInputLeftArrow, modifierFlags: .control, action: #selector(DocumentViewController.handleRotateImageKeyPressed(_:)), discoverabilityTitle: "Rotate Image Left"))
-                break
-            default:
-                break
-            }
+        if let settingsViewController = SettingsViewController.sharedInstance,
+            settingsViewController.currentType == .image{
+            commands.append(UIKeyCommand(input: UIKeyInputRightArrow, modifierFlags: .control, action: #selector(DocumentViewController.handleRotateImageKeyPressed(_:)), discoverabilityTitle: "Rotate Image Right"))
+            commands.append(UIKeyCommand(input: UIKeyInputLeftArrow, modifierFlags: .control, action: #selector(DocumentViewController.handleRotateImageKeyPressed(_:)), discoverabilityTitle: "Rotate Image Left"))
         }
         
         if PagesTableViewController.sharedInstance?.currentPageView?.selectedSubView is MovableView {
