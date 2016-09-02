@@ -6,16 +6,11 @@
 //  Copyright © 2016 leonardthomas. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
-class ImageCacheObject: NSObject {
+struct ImageCacheObject {
     let image: UIImage
     let key: String
-    init(image: UIImage, key: String) {
-        self.image = image
-        self.key = key
-    }
 }
 
 class ImageCache: NSObject {
@@ -63,7 +58,7 @@ class ImageCache: NSObject {
         return image
     }
     
-    func storeImageToDisk(image: UIImage, key: String) {
+    fileprivate func storeImageToDisk(image: UIImage, key: String) {
         guard let fullPath = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(key)?.absoluteString else { return }
         let data = UIImageJPEGRepresentation(image, 1)
         FileManager.default.createFile(atPath: fullPath, contents: data, attributes: nil)
@@ -73,7 +68,7 @@ class ImageCache: NSObject {
 
 extension ImageCache: NSCacheDelegate {
    
-    private func cache(cache: NSCache<AnyObject, AnyObject>, willEvictObject obj: AnyObject) {
+    private func cache(cache: NSCache<AnyObject, AnyObject>, willEvictObject obj: Any) {
         if let imageCacheObject = obj as? ImageCacheObject {
             storeImageToDisk(image: imageCacheObject.image, key: imageCacheObject.key)
         }
