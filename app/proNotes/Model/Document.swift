@@ -87,7 +87,7 @@ class Document: UIDocument {
 
     // MARK - Load Document
 
-    override func load(fromContents contents: AnyObject, ofType typeName: String?) throws {
+    override func load(fromContents contents: Any, ofType typeName: String?) throws {
         if let wrapper = contents as? FileWrapper {
             fileWrapper = wrapper
         } else if let wrapper = decodeData(contents as! Data) as? FileWrapper {
@@ -95,7 +95,7 @@ class Document: UIDocument {
         }
     }
 
-    func decodeObject(_ fileName: String) -> AnyObject? {
+    func decodeObject(_ fileName: String) -> Any? {
         guard let wrapper = fileWrapper?.fileWrappers?[fileName] else {
             return nil
         }
@@ -106,7 +106,7 @@ class Document: UIDocument {
         return decodeData(data)
     }
 
-    func decodeData(_ data: Data) -> AnyObject? {
+    func decodeData(_ data: Data) -> Any? {
         let unarchiver = NSKeyedUnarchiver(forReadingWith: data)
         return unarchiver.decodeObject(forKey: "data")
     }
@@ -117,7 +117,7 @@ class Document: UIDocument {
         
     // MARK - Store Document
 
-    override func contents(forType typeName: String) throws -> AnyObject {
+    override func contents(forType typeName: String) throws -> Any {
         if metaData == nil {
             return Data()
         }
@@ -130,13 +130,13 @@ class Document: UIDocument {
         return fileWrapper
     }
 
-    func encodeObject(_ object: NSObject, prefferedFileName: String, wrappers: inout [String:FileWrapper]) {
+    func encodeObject(_ object: Any, prefferedFileName: String, wrappers: inout [String:FileWrapper]) {
         let data = encodeObject(object)
         let wrapper = FileWrapper(regularFileWithContents: data)
         wrappers[prefferedFileName] = wrapper
     }
 
-    func encodeObject(_ object: NSObject) -> Data {
+    func encodeObject(_ object: Any) -> Data {
         let data = NSMutableData()
         let archiver = NSKeyedArchiver(forWritingWith: data)
         archiver.encode(object, forKey: "data")

@@ -25,11 +25,11 @@ class ImageCache: NSObject {
 
     subscript(key :String) -> UIImage? {
         get {
-            if let image = cache.object(forKey: key) {
+            if let image = cache.object(forKey: key as NSString) {
                 return image
             }
             if let image = loadImageFromDisk(key: key) {
-                cache.setObject(image, forKey: key)
+                cache.setObject(image, forKey: key as NSString)
                 return image
             }
             return nil
@@ -37,7 +37,7 @@ class ImageCache: NSObject {
         
         set {
             if let image = newValue {
-                cache.setObject(image, forKey: key)
+                cache.setObject(image, forKey: key as NSString)
             }
         }
     }
@@ -63,7 +63,7 @@ class ImageCache: NSObject {
         return image
     }
     
-    private func storeImageToDisk(image: UIImage, key: String) {
+    func storeImageToDisk(image: UIImage, key: String) {
         guard let fullPath = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(key)?.absoluteString else { return }
         let data = UIImageJPEGRepresentation(image, 1)
         FileManager.default.createFile(atPath: fullPath, contents: data, attributes: nil)

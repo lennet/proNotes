@@ -21,6 +21,6 @@ protocol PageSubView: class {
 
     @objc optional func setUpSettingsViewController()
 
-    @objc optional func undoAction(_ oldObject: AnyObject?)
+    @objc optional func undoAction(_ oldObject: Any?)
 
 }

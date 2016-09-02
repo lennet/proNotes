@@ -38,7 +38,7 @@ class MovableLayer: DocumentLayer {
         super.encode(with: aCoder)
     }
 
-    override func undoAction(_ oldObject: AnyObject?) {
+    override func undoAction(_ oldObject: Any?) {
         if let value = oldObject as? NSValue {
             let frame = value.cgRectValue
             origin = frame.origin
@@ -48,7 +48,7 @@ class MovableLayer: DocumentLayer {
         }
     }
 
-    override func isEqual(_ object: AnyObject?) -> Bool {
+    override func isEqual(_ object: Any?) -> Bool {
         guard let layer = object as? MovableLayer else {
             return false
         }

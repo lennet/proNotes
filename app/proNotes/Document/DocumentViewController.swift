@@ -92,7 +92,7 @@ class DocumentViewController: UIViewController {
         }
     }
 
-    private func setUpTitle() {
+    func setUpTitle() {
         titleTextField.text = document?.name
         titleTextField.sizeToFit()
     }
@@ -165,7 +165,7 @@ class DocumentViewController: UIViewController {
     
     // MARK: - Navigation
     
-    override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let viewController = segue.destination as? PagesOverviewTableViewController {
             viewController.pagesOverViewDelegate = self
             pagesOverviewController = viewController

@@ -49,7 +49,7 @@ class SketchLayer: DocumentLayer {
         super.encode(with: aCoder)
     }
 
-    override func undoAction(_ oldObject: AnyObject?) {
+    override func undoAction(_ oldObject: Any?) {
         if let image = oldObject as? UIImage {
             self.image = image
         } else {
@@ -57,7 +57,7 @@ class SketchLayer: DocumentLayer {
         }
     }
 
-    override func isEqual(_ object: AnyObject?) -> Bool {
+    override func isEqual(_ object: Any?) -> Bool {
         guard let layer = object as? SketchLayer else {
             return false
         }

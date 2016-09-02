@@ -53,7 +53,7 @@ class MovableImageView: MovableView, ImageSettingsDelegate {
         return imageLayer?.image
     }
 
-    override func undoAction(_ oldObject: AnyObject?) {
+    override func undoAction(_ oldObject: Any?) {
         guard let image = oldObject as? UIImage else {
             super.undoAction(oldObject)
             return

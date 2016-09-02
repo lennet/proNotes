@@ -237,7 +237,7 @@ class DocumentManager {
         }
     }
 
-    func createDocument(_ completionHandler: (URL) -> Void) {
+    func createDocument(_ completionHandler: @escaping (URL) -> Void) {
         let fileUrl = getDocumentURL(defaultName, uniqueFileName: true)
         print(fileUrl)
         let document = Document(fileURL: fileUrl)
@@ -402,9 +402,9 @@ class DocumentManager {
 
     // MARK - iCloud Query
 
-    private func initializeiCLoud(_ completion: (success:Bool) -> ()) {
+    private func initializeiCLoud(_ completion: @escaping (_ success:Bool) -> ()) {
         guard Preferences.iCloudActive() else {
-            completion(success: false)
+            completion(false)
             return
         }
         DispatchQueue.global(qos: .background).async {
@@ -413,11 +413,11 @@ class DocumentManager {
             self.iCloudRootURL = FileManager.default.url(forUbiquityContainerIdentifier: nil)
             if self.iCloudRootURL != nil {
                 DispatchQueue.main.async(execute: {
-                    completion(success: true)
+                    completion(true)
                 })
             } else {
                 DispatchQueue.main.async(execute: {
-                    completion(success: false)
+                    completion(false)
                 })
             }
         }

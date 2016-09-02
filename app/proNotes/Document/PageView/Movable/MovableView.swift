@@ -120,7 +120,7 @@ class MovableView: TouchControlView, PageSubView {
         setNeedsDisplay()
     }
 
-    func undoAction(_ oldObject: AnyObject?) {
+    func undoAction(_ oldObject: Any?) {
         guard let value = oldObject as? NSValue else {
             return
         }

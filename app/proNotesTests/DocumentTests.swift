@@ -17,8 +17,7 @@ class DocumentTests: XCTestCase {
     override func setUp() {
         super.setUp()
         let expectation = self.expectation(description: "Open Document")
-        
-        let fileURL = Bundle(for: self.dynamicType).url(forResource: "test", withExtension: "ProNote")
+        let fileURL = Bundle(for: type(of: self)).url(forResource: "test", withExtension: "ProNote")
         document = Document(fileURL: fileURL!)
         
         document.open { (success) -> Void in

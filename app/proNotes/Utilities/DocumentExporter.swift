@@ -29,13 +29,13 @@ class DocumentExporter: NSObject {
             for image in getImageArrayForDocument(document, progress: progress) {
                 let imageRect = CGRect(origin: CGPoint.zero, size: image.size)
                 UIGraphicsBeginPDFPageWithInfo(imageRect, nil)
-                context?.draw(in: imageRect, image: image.cgImage!)
+                context?.draw(image.cgImage!, in: imageRect)
             }
             UIGraphicsEndPDFContext()
             return mutableData as Data
     }
 
-    class func exportAsProNote(_ progress: (Float) -> Void, url: (URL?) -> Void) {
+    class func exportAsProNote(_ progress:  @escaping (Float) -> Void, url: @escaping (URL?) -> Void) {
         progress(0.5)
         DocumentInstance.sharedInstance.save({ (_) in
         progress(1)
@@ -59,7 +59,7 @@ class DocumentExporter: NSObject {
         return images
     }
     
-    class func presentActivityViewController(_ viewController: UIViewController, barbuttonItem: UIBarButtonItem?, items: [AnyObject] ) {
+    class func presentActivityViewController(_ viewController: UIViewController, barbuttonItem: UIBarButtonItem?, items: [Any] ) {
         let activityViewController = UIActivityViewController(activityItems: items, applicationActivities: nil)
         activityViewController.popoverPresentationController?.barButtonItem = barbuttonItem
         viewController.present(activityViewController, animated: true, completion: nil)

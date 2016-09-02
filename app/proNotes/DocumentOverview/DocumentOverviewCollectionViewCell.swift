@@ -54,12 +54,12 @@ class DocumentOverviewCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    override func canPerformAction(_ action: Selector, withSender sender: AnyObject?) -> Bool {
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         let actionString = NSStringFromSelector(action)
         return  actionString == "delete:" || actionString == "rename:"
     }
     
-    override func delete(_ sender: AnyObject?) {
+    override func delete(_ sender: Any?) {
         delegate?.didPressedDeleteButton(forCell: self)
     }
     

@@ -117,7 +117,7 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
         return textLayer
     }
 
-    override func undoAction(_ oldObject: AnyObject?) {
+    override func undoAction(_ oldObject: Any?) {
         guard let text = oldObject as? String else {
             super.undoAction(oldObject)
             return

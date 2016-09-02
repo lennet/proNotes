@@ -128,8 +128,8 @@ class SketchView: UIImageView, PageSubView, SketchSettingsDelegate {
         context?.setBlendMode(.clear)
         context?.setLineWidth(penObject.lineWidth)
         context?.setLineCap(.round)
-        context?.moveTo(x: previousLocation.x, y: previousLocation.y)
-        context?.addLineTo(x: location.x, y: location.y)
+        context?.move(to: previousLocation)
+        context?.addLine(to: location)
         context?.strokePath()
     }
 
@@ -143,7 +143,7 @@ class SketchView: UIImageView, PageSubView, SketchSettingsDelegate {
 
     // MARK: - PageSubViewProtocol
 
-    func undoAction(_ oldObject: AnyObject?) {
+    func undoAction(_ oldObject: Any?) {
         if let oldImage = oldObject as? UIImage {
             updateImage(oldImage)
         }

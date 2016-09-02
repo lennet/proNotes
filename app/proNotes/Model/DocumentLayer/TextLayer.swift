@@ -19,7 +19,7 @@ class TextLayer: MovableLayer {
     var text: String {
         didSet {
             // only ovverride automated generated names
-            if (name == String(type) || oldValue.contains(name)) && !text.isEmpty {
+            if (name == String(describing: type) || oldValue.contains(name)) && !text.isEmpty {
                 name = text
             }
         }
@@ -28,7 +28,7 @@ class TextLayer: MovableLayer {
     override var name: String {
         didSet {
             guard name.isEmpty else { return }
-            name = text.isEmpty ? String(type) : text            
+            name = text.isEmpty ? String(describing: type) : text            
         }
     }
     
@@ -69,7 +69,7 @@ class TextLayer: MovableLayer {
         super.encode(with: aCoder)
     }
 
-    override func undoAction(_ oldObject: AnyObject?) {
+    override func undoAction(_ oldObject: Any?) {
         if let text = oldObject as? String {
             self.text = text
         } else {
@@ -77,7 +77,7 @@ class TextLayer: MovableLayer {
         }
     }
 
-    override func isEqual(_ object: AnyObject?) -> Bool {
+    override func isEqual(_ object: Any?) -> Bool {
         guard let layer = object as? TextLayer else {
             return false
         }

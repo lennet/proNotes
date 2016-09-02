@@ -55,7 +55,7 @@ class ImageLayer: MovableLayer {
         super.encode(with: aCoder)
     }
 
-    override func undoAction(_ oldObject: AnyObject?) {
+    override func undoAction(_ oldObject: Any?) {
         if let image = oldObject as? UIImage {
             self.image = image
         } else {
@@ -63,7 +63,7 @@ class ImageLayer: MovableLayer {
         }
     }
 
-    override func isEqual(_ object: AnyObject?) -> Bool {
+    override func isEqual(_ object: Any?) -> Bool {
         guard object is ImageLayer else {
             return false
         }

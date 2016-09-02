@@ -13,8 +13,8 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject:AnyObject]?) -> Bool {
+    
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
         application.applicationIconBadgeNumber = 0
         if Preferences.isFirstRun() {
             Preferences.setUpDefaults()
@@ -50,11 +50,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: (Bool) -> Void) {
+    func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> ()) {
         let overViewController = moveToOverViewIfNeeded(false)
         overViewController?.createNewDocument()
+        completionHandler(true)
     }
-    
     
     /// Pops all ViewControllers on the ViewControllers-Stack until the DocumentOverViewController is visible
     ///

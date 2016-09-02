@@ -30,14 +30,14 @@ class DocumentLayer: NSObject, NSCoding {
         self.index = index
         self.type = type
         self.docPage = docPage
-        self.name = String(type)
+        self.name = String(describing: type)
     }
 
     init(fileWrapper: FileWrapper, index: Int, docPage: DocumentPage) {
         self.index = index
         self.type = .sketch
         self.docPage = docPage
-        self.name = String(type)
+        self.name = String(describing: type)
     }
     
     required init(coder aDecor: NSCoder) {
@@ -46,7 +46,7 @@ class DocumentLayer: NSObject, NSCoding {
 
     required init(coder aDecoder: NSCoder, type: DocumentLayerType) {
         self.index = aDecoder.decodeInteger(forKey: indexKey)
-        self.name = (aDecoder.decodeObject(forKey: nameKey) as? String) ?? String(type)
+        self.name = (aDecoder.decodeObject(forKey: nameKey) as? String) ?? String(describing: type)
         self.hidden = aDecoder.decodeBool(forKey: hiddenKey)
         self.type = type
     }
@@ -61,11 +61,11 @@ class DocumentLayer: NSObject, NSCoding {
         self.docPage.removeLayer(self)
     }
 
-    func undoAction(_ oldObject: AnyObject?) {
+    func undoAction(_ oldObject: Any?) {
         // empty Base Implementation
     }
 
-    override func isEqual(_ object: AnyObject?) -> Bool {
+    override func isEqual(_ object: Any?) -> Bool {
         guard let layer = object as? DocumentLayer else {
             return false
         }

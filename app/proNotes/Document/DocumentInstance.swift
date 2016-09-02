@@ -17,7 +17,7 @@ protocol DocumentInstanceDelegate: class {
     @objc optional func didUpdatePage(_ index: Int)
 }
 
-class DocumentInstance: NSObject {
+class DocumentInstance {
 
     static let sharedInstance = DocumentInstance()
     var delegates = Set<UIViewController>()
@@ -63,11 +63,11 @@ class DocumentInstance: NSObject {
     }
     // MARK: - NSUndoManager
 
-    func registerUndoAction(_ object: AnyObject?, pageIndex: Int, layerIndex: Int) {
-        undoManager?.prepare(withInvocationTarget: self).undoAction(object, pageIndex: pageIndex, layerIndex: layerIndex)
+    func registerUndoAction(_ object: Any?, pageIndex: Int, layerIndex: Int) {
+        (undoManager?.prepare(withInvocationTarget: self) as? DocumentInstance)?.undoAction(object, pageIndex: pageIndex, layerIndex: layerIndex)
     }
 
-    func undoAction(_ object: AnyObject?, pageIndex: Int, layerIndex: Int) {
+    func undoAction(_ object: Any?, pageIndex: Int, layerIndex: Int) {
         if let pageView = PagesTableViewController.sharedInstance?.currentPageView {
             if pageView.page?.index == pageIndex {
                 if let pageSubView = pageView[layerIndex] {

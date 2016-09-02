@@ -25,34 +25,34 @@ class DocumentLayerTests: XCTestCase {
         let documentPage = DocumentPage(index: 0)
         let textLayer = TextLayer(index: 0, docPage: documentPage, origin: CGPoint.zero, size: CGSize.zero, text: "")
         
-        XCTAssertEqual(textLayer.name, String(textLayer.type))
+        XCTAssertEqual(textLayer.name, String(describing: textLayer.type))
         
         textLayer.text = "Test 124"
-        XCTAssertNotEqual(textLayer.name, String(textLayer.type))
+        XCTAssertNotEqual(textLayer.name, String(describing: textLayer.type))
         XCTAssert(textLayer.name.contains(textLayer.text))
         
         textLayer.text = "Foo525"
-        XCTAssertNotEqual(textLayer.name, String(textLayer.type))
+        XCTAssertNotEqual(textLayer.name, String(describing: textLayer.type))
         XCTAssert(textLayer.name.contains(textLayer.text))
         
         let newName = "Test Name"
         textLayer.name  = newName
-        XCTAssertNotEqual(textLayer.name, String(textLayer.type))
+        XCTAssertNotEqual(textLayer.name, String(describing: textLayer.type))
         XCTAssertFalse(textLayer.name.contains(textLayer.text))
         XCTAssertEqual(textLayer.name, newName)
         textLayer.text = "Bar 987"
-        XCTAssertNotEqual(textLayer.name, String(textLayer.type))
+        XCTAssertNotEqual(textLayer.name, String(describing: textLayer.type))
         XCTAssertFalse(textLayer.name.contains(textLayer.text))
         XCTAssertEqual(textLayer.name, newName)
         
         textLayer.text = ""
         textLayer.name = ""
-        XCTAssertEqual(textLayer.name, String(textLayer.type))
+        XCTAssertEqual(textLayer.name, String(describing: textLayer.type))
         XCTAssertFalse(textLayer.name.contains(textLayer.text))
         XCTAssertNotEqual(textLayer.name, "")
         
         textLayer.text = "BlaBla"
-        XCTAssertNotEqual(textLayer.name, String(textLayer.type))
+        XCTAssertNotEqual(textLayer.name, String(describing: textLayer.type))
         XCTAssert(textLayer.name.contains(textLayer.text))
         XCTAssertNotEqual(textLayer.name, "")
     }

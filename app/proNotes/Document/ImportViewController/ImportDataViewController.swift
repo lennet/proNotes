@@ -88,7 +88,7 @@ class ImportDataViewController: ImportExportBaseViewController, UIImagePickerCon
     // MARK: - UIImagePickerControllerDelegate
     
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         dismiss(animated: false, completion: nil)
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             delegate?.addImage(image.resetRoation())

@@ -125,11 +125,11 @@ class TextSettingsViewController: SettingsBaseViewController, UIPickerViewDataSo
                 return fontNameTitle
             }
             
-            guard let fistLetter = fontNameTitle.unicodeScalars.first else {
+            guard let fistLetter = fontNameTitle.unicodeScalars.first, let firstScalar = UnicodeScalar(fistLetter.value) else {
                 return fontNameTitle
             }
             
-            if CharacterSet.letters.inverted.contains(UnicodeScalar(fistLetter.value)) {
+            if CharacterSet.letters.inverted.contains(firstScalar) {
                 fontNameTitle = String(fontNameTitle.characters.dropFirst())
             }
         
@@ -140,6 +140,7 @@ class TextSettingsViewController: SettingsBaseViewController, UIPickerViewDataSo
     }
     
     func scrollToRowForFont(_ font: UIFont) {
+        // Refactor!
         delegateEnabled = false
         for (fontFamilyIndex, currentFont) in fontFamilies.enumerated() {
             if font.familyName == currentFont {

@@ -123,11 +123,11 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
         return true
     }
     
-    func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: AnyObject?) -> Bool {
+    func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
         return true
     }
     
-    func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: AnyObject?) {
+    func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
         
     }
     
@@ -178,7 +178,7 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
     
     // MARK: - Navigation 
     
-    override func shouldPerformSegue(withIdentifier identifier: String, sender: AnyObject?) -> Bool {
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         if identifier == "CCBYAttributionIdentifier" && UIDevice.current.userInterfaceIdiom == .phone {
             let alertViewController = UIAlertController(title: "Creative Commons", message: "The icons are made by Freepik from www.flaticon.com and are licensed under CC BY 3.0.", preferredStyle: .actionSheet)
             alertViewController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { (_) in

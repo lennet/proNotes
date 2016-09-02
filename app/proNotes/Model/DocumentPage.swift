@@ -140,7 +140,7 @@ class DocumentPage: NSObject, NSCoding {
         }
     }
 
-    override func isEqual(_ object: AnyObject?) -> Bool {
+    override func isEqual(_ object: Any?) -> Bool {
         guard let page = object as? DocumentPage else {
             return false
         }

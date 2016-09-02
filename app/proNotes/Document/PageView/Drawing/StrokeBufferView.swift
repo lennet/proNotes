@@ -20,7 +20,7 @@ class StrokeBufferView: UIImageView {
     
     private var lineWidth: CGFloat {
         get {
-            return currentPenObject.lineWidth ?? 1
+            return currentPenObject.lineWidth
         }
     }
     
@@ -78,8 +78,8 @@ class StrokeBufferView: UIImageView {
         context?.setLineWidth(getLineWidth(for: touch))
         context?.setLineCap(.round)
         context?.setLineJoin(.round)
-        context?.moveTo(x: previousLocation.x, y: previousLocation.y)
-        context?.addLineTo(x: location.x, y: location.y)
+        context?.move(to: previousLocation)
+        context?.addLine(to: location)
         context?.strokePath()
     }
     

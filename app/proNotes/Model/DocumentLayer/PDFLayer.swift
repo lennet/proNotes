@@ -36,7 +36,7 @@ class PDFLayer: DocumentLayer {
         super.encode(with: aCoder)
     }
 
-    override func isEqual(_ object: AnyObject?) -> Bool {
+    override func isEqual(_ object: Any?) -> Bool {
         guard let layer = object as? PDFLayer else {
             return false
         }

@@ -88,8 +88,9 @@ class DocumentPageTests: XCTestCase {
         
         
         let pdfPage =  DocumentPage(index: 0)
-        let pdfURL = Bundle(for: self.dynamicType).url(forResource: "test", withExtension: "pdf")!
-        let documentRef = CGPDFDocument(pdfURL)!
+        let pdfURL = Bundle(for: type(of: self)).url(forResource: "test", withExtension: "pdf")!
+        
+        let documentRef = CGPDFDocument(pdfURL as CFURL)!
         pdfPage.addPDFLayer(PDFUtility.getPageAsData(1, document: documentRef)! as Data)
         
         let archivedPDFPageData = NSKeyedArchiver.archivedData(withRootObject: pdfPage)
