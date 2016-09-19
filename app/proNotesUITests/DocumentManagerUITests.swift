@@ -22,7 +22,7 @@ class DocumentManagerUITests: XCTestCase {
         super.tearDown()
     }
 
-    func testCreateAndDeletDocument() {
+    func testCreateAndDeleteDocument() {
         let documentName = createAndOpenDocument()
         closeDocument()
         let app = XCUIApplication()

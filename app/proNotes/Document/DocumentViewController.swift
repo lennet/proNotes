@@ -255,7 +255,7 @@ extension DocumentViewController: ImportExportDataViewControllerDelgate {
         dismiss()
         if let textLayer = DocumentInstance.sharedInstance.currentPage?.addTextLayer("") {
             if let currentPageView = PagesTableViewController.sharedInstance?.currentPageView {
-                currentPageView.addTextLayer(textLayer)
+                currentPageView.addTextView(textLayer)
                 currentPageView.page = DocumentInstance.sharedInstance.currentPage
                 currentPageView.setLayerSelected(currentPageView.subviews.count - 1)
                 if let pageIndex = currentPageView.page?.index {
@@ -274,7 +274,7 @@ extension DocumentViewController: ImportExportDataViewControllerDelgate {
     func addImage(_ image: UIImage) {
         if let imageLayer = DocumentInstance.sharedInstance.currentPage?.addImageLayer(image) {
             if let currentPageView = PagesTableViewController.sharedInstance?.currentPageView {
-                currentPageView.addImageLayer(imageLayer)
+                currentPageView.addImageView(imageLayer)
                 currentPageView.page = DocumentInstance.sharedInstance.currentPage
                 currentPageView.setLayerSelected(currentPageView.subviews.count - 1)
                 if let pageIndex = currentPageView.page?.index {

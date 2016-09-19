@@ -9,6 +9,14 @@
 import UIKit
 
 extension UIView {
+    
+    // MARK - SubViews
+    
+    func removeAllSubViews() {
+        for view in subviews {
+            view.removeFromSuperview()
+        }
+    }
 
     // MARK - AutoLayout
 

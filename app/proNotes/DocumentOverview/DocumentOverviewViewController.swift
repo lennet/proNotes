@@ -37,7 +37,7 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         if Preferences.showWelcomeScreen {
-            performSegue(withIdentifier: "WelcomSegueIdentifier", sender: nil)
+            showWelcomeScreen()
         }
     }
     
@@ -54,6 +54,10 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
         super.viewWillDisappear(animated)
         documentManager.delegate = nil
         alreadyOpeningFile = false
+    }
+    
+    func showWelcomeScreen() {
+        performSegue(withIdentifier: "WelcomSegueIdentifier", sender: nil)
     }
     
     // MARK: - Actions

@@ -11,7 +11,8 @@ import UIKit
 extension UIViewController {
 
     func alert(message: String, title: String = "") {
-        // TODO
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        navigationController?.present(alertController, animated: true, completion: nil)
     }
     
 }

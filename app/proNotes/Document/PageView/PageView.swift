@@ -80,30 +80,36 @@ class PageView: UIView, UIGestureRecognizerDelegate {
     }
 
     func setUpLayer(_ renderMode: Bool = false) {
-        for view in subviews {
-            view.removeFromSuperview()
-        }
-        guard page != nil else {
+        removeAllSubViews()
+        
+        guard let page = page else {
             return
         }
 
-        frame.size = page!.size
+        frame.size = page.size
 
-        for layer in page!.layers {
-            switch layer.type {
-            case .pdf:
-                addPDFView(layer as! PDFLayer)
-                break
-            case .sketch:
-                addSketchView(layer as! SketchLayer)
-                break
-            case .image:
-                addImageLayer(layer as! ImageLayer, renderMode: renderMode)
-                break
-            case .text:
-                addTextLayer(layer as! TextLayer, renderMode: renderMode)
-                break
-            }
+        for layer in page.layers {
+            addSubView(for: layer, renderMode: renderMode)
+        }
+        
+    }
+    
+    func addSubView(for layer: DocumentLayer, renderMode: Bool = false) {
+        switch layer {
+        case let pdfLayer as PDFLayer:
+            addPDFView(pdfLayer)
+            break
+        case let sketchLayer as SketchLayer:
+            addSketchView(sketchLayer)
+            break
+        case let imageLayer as ImageLayer:
+            addImageView(imageLayer, renderMode: renderMode)
+            break
+        case let textLayer as TextLayer:
+            addTextView(textLayer, renderMode: renderMode)
+            break
+        default:
+            break
         }
     }
 
@@ -121,7 +127,7 @@ class PageView: UIView, UIGestureRecognizerDelegate {
         addSubview(view)
     }
 
-    func addImageLayer(_ imageLayer: ImageLayer, renderMode: Bool = false) {
+    func addImageView(_ imageLayer: ImageLayer, renderMode: Bool = false) {
         let frame = CGRect(origin: imageLayer.origin, size: imageLayer.size)
         let view = MovableImageView(frame: frame, movableLayer: imageLayer, renderMode: renderMode)
         view.isHidden = imageLayer.hidden
@@ -129,7 +135,7 @@ class PageView: UIView, UIGestureRecognizerDelegate {
         view.setUpImageView()
     }
 
-    func addTextLayer(_ textLayer: TextLayer, renderMode: Bool = false) {
+    func addTextView(_ textLayer: TextLayer, renderMode: Bool = false) {
         let frame = CGRect(origin: textLayer.origin, size: textLayer.size)
         let view = MovableTextView(frame: frame, movableLayer: textLayer, renderMode: renderMode)
         view.isHidden = textLayer.hidden
@@ -139,10 +145,8 @@ class PageView: UIView, UIGestureRecognizerDelegate {
 
     func getSketchViews() -> [SketchView] {
         var result = [SketchView]()
-        for view in subviews {
-            if let sketchView = view as? SketchView {
-                result.append(sketchView)
-            }
+        for case let sketchView as SketchView in subviews {
+            result.append(sketchView)
         }
         return result
     }
@@ -237,7 +241,7 @@ class PageView: UIView, UIGestureRecognizerDelegate {
             let location = tapGestureRecognizer.location(in: self)
             for case let subview as MovableView in subviews.reversed() {
                 let pageSubview = subview as PageSubView
-                if !subview.isHidden && (pageSubview as? UIView)?.frame.contains(location) ?? false {
+                if !subview.isHidden && subview.frame.contains(location) {
                     selectedSubView = pageSubview
                     return
                 }

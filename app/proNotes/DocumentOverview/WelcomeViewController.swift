@@ -15,7 +15,6 @@ class WelcomeViewController: UIViewController {
     @IBOutlet weak var middleLeftXConstraint: NSLayoutConstraint!
     @IBOutlet weak var middleRightXConstraint: NSLayoutConstraint!
     @IBOutlet weak var topImageView: UIImageView!
-    static weak var sharedInstance: WelcomeViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,12 +28,10 @@ class WelcomeViewController: UIViewController {
         super.viewDidAppear(animated)
         Preferences.isFirstRun = false
         animateImageViews()
-        WelcomeViewController.sharedInstance = self
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        WelcomeViewController.sharedInstance = nil
     }
     
     func animateImageViews() {
