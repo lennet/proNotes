@@ -39,6 +39,7 @@
 		98312D661C0B65E500F3B1CB /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98312D651C0B65E500F3B1CB /* PageView.swift */; };
 		98312D691C0B79F200F3B1CB /* DocumentInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98312D681C0B79F200F3B1CB /* DocumentInstance.swift */; };
 		983B24CD1CA70EB600F4F3AE /* NoScrollingTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983B24CC1CA70EB600F4F3AE /* NoScrollingTextView.swift */; };
+		983CB8C41D9055440008C470 /* RenameDocumentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983CB8C31D9055440008C470 /* RenameDocumentManager.swift */; };
 		984242AB1C3EDD0900F90455 /* TouchControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984242AA1C3EDD0900F90455 /* TouchControlView.swift */; };
 		984242AD1C3EE79900F90455 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984242AC1C3EE79900F90455 /* UIColorExtension.swift */; };
 		9851B86C1CD140F500112BDB /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9851B86B1CD140F500112BDB /* WelcomeViewController.swift */; };
@@ -156,6 +157,7 @@
 		98312D651C0B65E500F3B1CB /* PageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
 		98312D681C0B79F200F3B1CB /* DocumentInstance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentInstance.swift; sourceTree = "<group>"; };
 		983B24CC1CA70EB600F4F3AE /* NoScrollingTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoScrollingTextView.swift; sourceTree = "<group>"; };
+		983CB8C31D9055440008C470 /* RenameDocumentManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenameDocumentManager.swift; sourceTree = "<group>"; };
 		984242AA1C3EDD0900F90455 /* TouchControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchControlView.swift; sourceTree = "<group>"; };
 		984242AC1C3EE79900F90455 /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		9851B86B1CD140F500112BDB /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
@@ -299,6 +301,7 @@
 				981CF9AB1C4AC122003BA892 /* DocumentOverviewCollectionViewCell.swift */,
 				981CF9AD1C4AC3BE003BA892 /* DocumentOverviewViewController.swift */,
 				9851B86B1CD140F500112BDB /* WelcomeViewController.swift */,
+				983CB8C31D9055440008C470 /* RenameDocumentManager.swift */,
 			);
 			path = DocumentOverview;
 			sourceTree = "<group>";
@@ -711,6 +714,7 @@
 				9815CD8B1CD4BFC500191495 /* 3DTouchGestureRecognizer.swift in Sources */,
 				98F2E3EE1C1A1EF1008A5C6C /* MovableImageView.swift in Sources */,
 				9829ECD61C791EF500A64009 /* TextLayer.swift in Sources */,
+				983CB8C41D9055440008C470 /* RenameDocumentManager.swift in Sources */,
 				9829ECD41C791ED400A64009 /* ImageLayer.swift in Sources */,
 				98F650CA1CFE0B83003443C3 /* ImageCache.swift in Sources */,
 				98D2DA821C6BDE4500B3C76C /* DocumentExporter.swift in Sources */,

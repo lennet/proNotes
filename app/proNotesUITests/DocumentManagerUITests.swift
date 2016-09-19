@@ -98,7 +98,6 @@ class DocumentManagerUITests: XCTestCase {
         XCTAssertFalse(app.collectionViews.textFields[newName].exists)
         XCTAssertTrue(app.collectionViews.textFields[documentName].exists)
         
-        deleteDocument(name: newName)
         deleteDocument(name: documentName)
     }
     

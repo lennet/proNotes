@@ -149,7 +149,7 @@ class PagesTableViewController: UIViewController, DocumentInstanceDelegate, UISc
    /// Updates the global var currentPageView to the current visible Page if pageUpdate enabled
    ///
    /// - parameter force: ignores pageUpdateEnabled
-   private func updateCurrentPageView(_ force: Bool = false) {
+   func updateCurrentPageView(_ force: Bool = false) {
       if pageUpdateEnabled || force {
          currentPageView = getVisiblePageView()
       }

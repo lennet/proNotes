@@ -133,110 +133,37 @@ class DocumentManager {
     }
 
     // MARK: - CRUD
-
-    func renameObject(_ fileURL: URL, fileName: String, forceOverWrite: Bool, completion: ((Bool, Error?, URL?) -> Void)?) {
-        guard let index = indexOf(fileURL) else {
-            completion?(false, RenameError.objectNotFound, nil)
+    
+    func moveObject(fromURL: URL, to newURL: URL, completion: ((Bool, Error?) -> Void)?) {
+        guard let index = indexOf(fromURL) else {
+            completion?(false, RenameError.objectNotFound)
             return
         }
         let object = objects[index]
-
-        if object.description == fileName {
-            completion?(true, nil, nil)
-            return
-        }
-
-        let newURL = getDocumentURL(fileName, uniqueFileName: false)
-
-        if let object = objectForURL(newURL) {
-            // file already exists
-            if forceOverWrite {
-                deleteObject(object, completion: { (success, error) in
-                    if success {
-                        // set forceOverWrite false to avoid endless recursive loops
-                        self.renameObject(fileURL, fileName: fileName, forceOverWrite: false, completion: completion)
-
-                    } else {
-                        completion?(false, error, nil)
-                    }
-                })
-                return
-            } else {
-                completion?(false, RenameError.alreadyExists, nil)
-                return
-            }
-        }
-
+        
         let fileCoordinator = NSFileCoordinator(filePresenter: nil)
         var error: NSError?
-        
-        
-        
-        fileCoordinator.coordinate(writingItemAt: fileURL, options: .forMoving, writingItemAt: newURL, options: .forReplacing, error: &error) {
+        fileCoordinator.coordinate(writingItemAt: fromURL, options: .forMoving, writingItemAt: newURL, options: .forReplacing, error: &error) {
             (newURL1, newURL2) -> Void in
-            fileCoordinator.item(at: fileURL, willMoveTo: newURL)
+            fileCoordinator.item(at: fromURL, willMoveTo: newURL)
             do {
-                try FileManager.default.moveItem(at: fileURL, to: newURL)
+                try FileManager.default.moveItem(at: fromURL, to: newURL)
             } catch {
-                completion?(false, error, newURL)
+                completion?(false, error)
                 return
             }
-            fileCoordinator.item(at: fileURL, didMoveTo: newURL)
+            fileCoordinator.item(at: fromURL, didMoveTo: newURL)
         }
-
+        
         if error == nil {
-            removeObjectFromArray(fileURL)
+            removeObjectFromArray(fromURL)
             updateObject(newURL, metaData: object.metaData, state: object.state, version: object.version, downloaded: object.downloaded)
-            completion?(true, nil, newURL)
+            completion?(true, nil)
         } else {
-            completion?(false, RenameError.writingError, nil)
+            completion?(false, RenameError.writingError)
         }
-
     }
     
-    func renameDocument(withurl oldURL: URL, newName: String, forceOverWrite: Bool, viewController: UIViewController?, completion: ((Bool, URL?) -> Void)?) {
-        
-        DispatchQueue.global(qos: .background).async {
-            self.renameObject(oldURL, fileName: newName, forceOverWrite: forceOverWrite, completion: {
-                (success, error, url) -> Void in
-                if success {
-                    completion?(true, url)
-                } else if error != nil {
-                    switch error! {
-                    case RenameError.alreadyExists:
-                        DispatchQueue.main.async(execute: {
-                            
-                            let alertView = UIAlertController(title: nil, message: NSLocalizedString("ErrorFileAlreadyExists", comment:"error message if a file with the given name already exists & ask for override"), preferredStyle: .alert)
-                            alertView.addAction(UIAlertAction(title: NSLocalizedString("Override", comment:""), style: .destructive, handler: {
-                                (action) -> Void in
-                                self.renameDocument(withurl: oldURL, newName: newName, forceOverWrite: true, viewController: viewController, completion: completion)
-                            }))
-                            alertView.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment:""), style: .cancel, handler: {
-                                (action) -> Void in
-                                completion?(false, nil)
-                            }))
-                            
-                            viewController?.present(alertView, animated: true, completion: nil)
-                        })
-                        break
-                    default:
-                        DispatchQueue.main.async(execute: {
-                            let alertView = UIAlertController(title: nil, message: NSLocalizedString("ErrorUnknown", comment:""), preferredStyle: .alert)
-                            viewController?.present(alertView, animated: true, completion: nil)
-                            alertView.addAction(UIAlertAction(title: NSLocalizedString("Ok", comment:""), style: .default, handler: {
-                                (action) -> Void in
-                                completion?(false, nil)
-                            }))
-                        })
-                        break
-                    }
-                } else {
-                    completion?(false, nil)
-                }
-            })
-        }
-    }
-
     func createDocument(_ completionHandler: @escaping (URL) -> Void) {
         let fileUrl = getDocumentURL(defaultName, uniqueFileName: true)
         print(fileUrl)
@@ -290,10 +217,7 @@ class DocumentManager {
                     })
                 })
             }
-        } else {
-
         }
-
     }
 
     func deleteObject(_ object: DocumentsOverviewObject, completion: ((Bool, Error?) -> Void)?) {
@@ -312,7 +236,6 @@ class DocumentManager {
                 }
             })
         }
-
         removeObjectFromArray(object.fileURL as URL)
     }
 
@@ -334,7 +257,7 @@ class DocumentManager {
         }
     }
 
-    private func objectForURL(_ fileURL: URL) -> DocumentsOverviewObject? {
+    func objectForURL(_ fileURL: URL) -> DocumentsOverviewObject? {
         guard let index = indexOf(fileURL) else {
             // file does not exists
             return nil

@@ -87,9 +87,7 @@ class DocumentViewController: UIViewController {
     }
 
     override var canBecomeFirstResponder: Bool {
-        get {
-            return true
-        }
+        return true
     }
 
     func setUpTitle() {
@@ -210,20 +208,15 @@ extension DocumentViewController: UITextFieldDelegate {
         guard let fileUrl = document?.fileURL else { return }
         
         document?.close(completionHandler: { [weak self](_) in
-            DocumentManager.sharedInstance.renameDocument(withurl: fileUrl, newName: newName, forceOverWrite: false, viewController: self) { (success, url) in
-                if !success {
-                    DispatchQueue.main.async(execute: {
-                        // reset title to old name
-                        self?.setUpTitle()
-                        self?.alert(message: "Error Ocurred. Please Try again")
-                    })
-                } else if let url = url {
-                    let document = Document(fileURL: url)
-                    document.open(completionHandler: { (_) in
-                        DocumentInstance.sharedInstance.document = document
-                    })
-                }
-            }
+            _ = RenameDocumentManager(oldURL: fileUrl, newName: newName, viewController: self, completion: { (success, url) in
+                let newURL = url ?? fileUrl
+                let newDocument = Document(fileURL: newURL)
+                newDocument.open(completionHandler: { (_) in
+                    DocumentInstance.sharedInstance.document = newDocument
+                    PagesTableViewController.sharedInstance?.tableView.reloadData()
+                    self?.setUpTitle()
+                })
+            }).rename()
         })
 
         textField.borderStyle = .none

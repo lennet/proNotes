@@ -134,7 +134,6 @@ extension XCUIElement {
         self.typeText(text)
     }
     
-    
     func longPress() {
         press(forDuration: 1)
     }

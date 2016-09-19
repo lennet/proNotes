@@ -12,6 +12,7 @@ extension UIViewController {
 
     func alert(message: String, title: String = "") {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: NSLocalizedString("Ok", comment:""), style: .default, handler: nil))
         navigationController?.present(alertController, animated: true, completion: nil)
     }
     

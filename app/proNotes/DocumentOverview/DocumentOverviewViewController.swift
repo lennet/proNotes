@@ -212,18 +212,14 @@ extension DocumentOverviewViewController: DocumentOverviewCollectionViewCellDele
         guard let index = documentsCollectionViewController.indexPath(for: cell) else { return }
         let object = objects[index.row]
         documentManager.delegate = nil
-        documentManager.renameDocument(withurl: object.fileURL, newName: newName, forceOverWrite: false, viewController: self) { (success, _) in
-            DispatchQueue.main.async(execute: {
-                self.documentManager.reload()
-                self.documentsCollectionViewController.reloadData()
-                
-                self.documentManager.delegate = self
-                if !success {
-                    // reset title to old name
-                    self.alert(message: "Error Ocurred. Please Try again")
-                }
-            })
-        }
+        _ = RenameDocumentManager(oldURL: object.fileURL, newName: newName, viewController: self) { (_) in
+            self.documentManager.reload()
+            self.documentsCollectionViewController.reloadData()
+            
+            self.documentManager.delegate = self
+
+        }.rename()
+
     }
 
 }

@@ -37,3 +37,7 @@
 "downloaddata.success" = "The Download is finished. Tap here to open it";
 
 "downloaddata.error" = "Oups! Something wen't wrong. Please check your internet connection";
+
+"ErrorFileAlreadyExists" = "A file with the entered Name already exists";
+
+"ErrorUnknown" = "An Error occured. Please try again";
