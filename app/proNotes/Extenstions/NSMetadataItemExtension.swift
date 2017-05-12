@@ -18,7 +18,7 @@ extension NSMetadataItem {
 
     func printAttributes() {
         for attribute in attributes {
-            print("\(attribute): \(value(forAttribute: attribute))")
+            print("\(attribute): \(String(describing: value(forAttribute: attribute)))")
         }
     }
 

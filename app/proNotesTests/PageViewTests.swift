@@ -66,26 +66,25 @@ class PageViewTests: XCTestCase {
             
             var calledAddSketchView = false
             
-            
-            private override func addSketchView(_ sketchLayer: SketchLayer) {
+            override func addSketchView(_ sketchLayer: SketchLayer) {
                 calledAddSketchView = true
             }
             
             var calledAddTextView = false
             
-            private override func addTextView(_ textLayer: TextLayer, renderMode: Bool) {
+            override func addTextView(_ textLayer: TextLayer, renderMode: Bool) {
                 calledAddTextView = true
             }
             
             var calledAddImageView = false
             
-            private override func addImageView(_ imageLayer: ImageLayer, renderMode: Bool) {
+            override func addImageView(_ imageLayer: ImageLayer, renderMode: Bool) {
                 calledAddImageView = true
             }
             
             var calledAddPdfView = false
             
-            private override func addPDFView(_ pdfLayer: PDFLayer) {
+            override func addPDFView(_ pdfLayer: PDFLayer) {
                 calledAddPdfView = true
             }
             

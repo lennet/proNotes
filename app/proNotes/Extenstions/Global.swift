@@ -20,5 +20,5 @@ func between<T:Comparable>(_ value: T, min: T, max: T) -> T {
     return value
 }
 
-let π = CGFloat(M_PI)
+let π = CGFloat.pi
 let standardAnimationDuration: Double = 0.2
