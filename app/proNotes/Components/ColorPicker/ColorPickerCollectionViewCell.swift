@@ -9,6 +9,7 @@
 import UIKit
 
 class ColorPickerCollectionViewCell: UICollectionViewCell {
+    
     static let identifier = "ColorPickerCollectionViewCellIdentifier"
 
     var isSelectedColor = false {

@@ -16,7 +16,7 @@ class AddLayerUITests: XCTestCase {
         let app = XCUIApplication()
         app.launchArguments = ["UITEST"]
         app.launch()
-        XCUIDevice.shared().orientation = .landscapeLeft
+        XCUIDevice.shared.orientation = .landscapeLeft
     }
     
     override func tearDown() {

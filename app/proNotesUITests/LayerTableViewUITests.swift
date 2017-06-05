@@ -16,7 +16,7 @@ class LayerTableViewUITests: XCTestCase {
         let app = XCUIApplication()
         app.launchArguments = ["UITEST"]
         app.launch()
-        XCUIDevice.shared().orientation = .landscapeLeft
+        XCUIDevice.shared.orientation = .landscapeLeft
     }
     
     override func tearDown() {
@@ -33,17 +33,24 @@ class LayerTableViewUITests: XCTestCase {
         let textFieldCell = layerTableView.cells.matching(identifier: "LayerTableViewCell").element(boundBy: 0)
         textFieldCell.buttons.matching(identifier: "deleteLayerButton").element.tap()
         sleep(1)
+        
         XCTAssertEqual(layerTableView.cells.matching(identifier: "LayerTableViewCell").count, 0)
     }
     
-    /*
-     not working in current Xcode/ Swift Beta 3
+    
+    // not working in current Xcode/ Swift Beta 3
     func testHideLayer() {
         createAndOpenDocument()
         addTextField()
         let app = XCUIApplication()
         let testInput = UUID().uuidString
-        app.typeText(testInput)
+        
+        
+        let textView = app.otherElements.containing(.navigationBar, identifier:"proNotes.DocumentView").children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element(boundBy: 1).scrollViews.otherElements.tables.cells.children(matching: .staticText).element
+        textView.tap()
+        textView.typeText(testInput)
+        
+        
         pressLayerButton()
         XCTAssertTrue(app.otherElements.staticTexts[testInput].exists, "Changed Text exists")
         let layerTableView = app.scrollViews.otherElements.tables
@@ -53,5 +60,5 @@ class LayerTableViewUITests: XCTestCase {
         textFieldCell.buttons.matching(identifier: "hideLayerButton").element.tap()
         XCTAssertTrue(app.otherElements.staticTexts[testInput].exists, "Changed is still hidden")
     }
-     */
+    
 }

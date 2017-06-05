@@ -37,6 +37,8 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
             textView.isUserInteractionEnabled = false
             textView.isScrollEnabled = !renderMode
             textView.delegate = self
+            textView.isAccessibilityElement = true
+            
             addSubview(textView)
             self.textView = textView
             accessibilityIdentifier = "MovableTextView"
@@ -46,6 +48,7 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
         
         textView?.textColor = textLayer?.textColor
         textView?.text = textLayer?.text
+        textView?.accessibilityLabel = textLayer?.text
         textView?.font = textLayer?.font
         textView?.textAlignment = textLayer?.alignment ?? .left
     }
@@ -127,6 +130,7 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
     }
 
     func updateText(_ newText: String) {
+        textView?.accessibilityLabel = newText
         if let textLayer = movableLayer as? TextLayer {
             if textLayer.docPage != nil {
                 DocumentInstance.sharedInstance.registerUndoAction(textLayer.text, pageIndex: textLayer.docPage.index, layerIndex: textLayer.index)
@@ -143,11 +147,11 @@ class MovableTextView: MovableView, UITextViewDelegate, TextSettingsDelegate {
     }
 
     func updateTextView() {
-        guard textView != nil else {
+        guard let textView = textView else {
             return
         }
-        textView?.layoutIfNeeded()
-        let heightOffset = textView!.contentSize.height - textView!.bounds.size.height
+        textView.layoutIfNeeded()
+        let heightOffset = textView.contentSize.height - textView.bounds.size.height
         
         let origin = frame.origin
         var size = bounds.size

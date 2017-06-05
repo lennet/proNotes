@@ -82,7 +82,7 @@ class ImportExportBaseViewController: UIViewController,  UITableViewDataSource, 
         }
     }
 
-    func handleDoneButtonPressed() {
+    @objc func handleDoneButtonPressed() {
         delegate?.dismiss(true)
     }
     

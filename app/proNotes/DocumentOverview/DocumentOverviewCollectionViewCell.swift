@@ -63,7 +63,7 @@ class DocumentOverviewCollectionViewCell: UICollectionViewCell {
         delegate?.didPressedDeleteButton(forCell: self)
     }
     
-    func rename(_ sender: AnyObject?) {
+    @objc func rename(_ sender: AnyObject?) {
         nameTextField.isUserInteractionEnabled = true
         nameTextField.becomeFirstResponder()
         nameTextField.borderStyle = .roundedRect

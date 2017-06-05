@@ -94,9 +94,9 @@ class DocumentOverviewViewController: UIViewController, UICollectionViewDelegate
         return documentManager.objects.count
     }
 
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
-        return CGSize(width: UIDevice.current.userInterfaceIdiom == .phone ? 100 : 150 , height: 150)
-    }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
+//        return CGSize(width: UIDevice.current.userInterfaceIdiom == .phone ? 100 : 150 , height: 150)
+//    }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DocumentOverviewCollectionViewCell.reusableIdentifier, for: indexPath) as! DocumentOverviewCollectionViewCell
@@ -212,7 +212,7 @@ extension DocumentOverviewViewController: DocumentOverviewCollectionViewCellDele
         guard let index = documentsCollectionViewController.indexPath(for: cell) else { return }
         let object = objects[index.row]
         documentManager.delegate = nil
-        _ = RenameDocumentManager(oldURL: object.fileURL, newName: newName, viewController: self) { (_) in
+        _ = RenameDocumentManager(oldURL: object.fileURL, newName: newName, viewController: self) { (_,_) in
             self.documentManager.reload()
             self.documentsCollectionViewController.reloadData()
             

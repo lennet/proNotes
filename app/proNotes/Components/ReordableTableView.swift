@@ -40,7 +40,7 @@ class ReordableTableView: UITableView {
         }
     }
     
-    func handleLongPress(_ gestureRecognizer: UILongPressGestureRecognizer) {
+    @objc func handleLongPress(_ gestureRecognizer: UILongPressGestureRecognizer) {
         let location = gestureRecognizer.location(in: self)
         switch gestureRecognizer.state {
         case .began:
@@ -55,7 +55,7 @@ class ReordableTableView: UITableView {
         }
     }
     
-    func handleForceTouch(_ gestureRecognizer: DeepTouchGestureRecognizer) {
+    @objc func handleForceTouch(_ gestureRecognizer: DeepTouchGestureRecognizer) {
         let location = gestureRecognizer.location(in: self)
         switch gestureRecognizer.state {
         case .began:

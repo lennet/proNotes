@@ -364,7 +364,7 @@ class DocumentManager {
         query = nil
     }
 
-    dynamic func handleQueryNotification(_ notification: Notification) {
+    @objc dynamic func handleQueryNotification(_ notification: Notification) {
         if let userInfo = (notification as NSNotification).userInfo {
             guard let items = userInfo[NSMetadataQueryUpdateRemovedItemsKey] as? [NSMetadataItem] , items.count > 0 else {
                 checkFiles()

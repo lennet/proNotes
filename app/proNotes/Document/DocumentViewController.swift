@@ -70,6 +70,7 @@ class DocumentViewController: UIViewController {
             DocumentInstance.sharedInstance.removeAllDelegates()
             DocumentInstance.sharedInstance.save({ (_) in
                 self.document?.close(completionHandler: nil)
+                ImageCache.sharedInstance.clearCache()
             })
             removeNotifications()
             undoManager?.removeAllActions()
@@ -157,7 +158,7 @@ class DocumentViewController: UIViewController {
         undoManager?.undo()
     }
 
-    func updateUndoButton() {
+    @objc func updateUndoButton() {
         undoButton.isEnabled = undoManager?.canUndo ?? false
     }
     
@@ -343,37 +344,37 @@ extension DocumentViewController {
         return commands
     }
     
-    func handleRotateImageKeyPressed(_ sender: UIKeyCommand) {
+    @objc func handleRotateImageKeyPressed(_ sender: UIKeyCommand) {
         if let imageSettingsViewController = SettingsViewController.sharedInstance?.currentChildViewController as? ImageSettingsViewController {
             imageSettingsViewController.rotateImage(sender.input == UIKeyInputRightArrow ? .right : .left)
         }
     }
     
-    func handleDownKeyPressed(_ sender: UIKeyCommand) {
+    @objc func handleDownKeyPressed(_ sender: UIKeyCommand) {
         PagesTableViewController.sharedInstance?.scroll(true)
     }
     
-    func handleUpKeyPressed(_ sender: UIKeyCommand) {
+    @objc func handleUpKeyPressed(_ sender: UIKeyCommand) {
         PagesTableViewController.sharedInstance?.scroll(false)
     }
     
-    func handleMoveMovableViewKeyPressed(_ sender: UIKeyCommand) {
+    @objc func handleMoveMovableViewKeyPressed(_ sender: UIKeyCommand) {
         guard let movableView = PagesTableViewController.sharedInstance?.currentPageView?.selectedSubView as? MovableView else {
             return
         }
         let offSet = 10
         var translation: CGPoint = .zero
         switch sender.input {
-        case UIKeyInputRightArrow:
+        case UIKeyInputRightArrow?:
             translation = CGPoint(x: offSet, y: 0)
             break
-        case UIKeyInputLeftArrow:
+        case UIKeyInputLeftArrow?:
             translation = CGPoint(x: -offSet, y: 0)
             break
-        case UIKeyInputDownArrow:
+        case UIKeyInputDownArrow?:
             translation = CGPoint(x: 0, y: offSet)
             break
-        case UIKeyInputUpArrow:
+        case UIKeyInputUpArrow?:
             translation = CGPoint(x: 0, y: -offSet)
             break
         default:

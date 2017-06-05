@@ -55,7 +55,7 @@ class PageInfoViewController: SettingsBaseViewController, UITableViewDataSource,
         self.view.layoutIfNeeded()
     }
 
-    func handleDoubleTap(_ gestureRecognizer: UITapGestureRecognizer) {
+    @objc func handleDoubleTap(_ gestureRecognizer: UITapGestureRecognizer) {
         let location = gestureRecognizer.location(in: layerTableView)
         guard let indexPath = layerTableView.indexPathForRow(at: location) else {
             return

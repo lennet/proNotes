@@ -52,7 +52,7 @@ class PageView: UIView, UIGestureRecognizerDelegate {
         commonInit()
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         commonInit()
     }
@@ -212,29 +212,29 @@ class PageView: UIView, UIGestureRecognizerDelegate {
 
     // MARK: - UIGestureRecognizer
 
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         (selectedSubView as? SketchView)?.touchesBegan(touches, with: event)
     }
 
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override open func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         (selectedSubView as? SketchView)?.touchesMoved(touches, with: event)
     }
 
-    override func touchesEnded(_ touches: Set<UITouch>,
+    override open func touchesEnded(_ touches: Set<UITouch>,
                                with event: UIEvent?) {
         (selectedSubView as? SketchView)?.touchesEnded(touches, with: event)
     }
 
-    override func touchesCancelled(_ touches: Set<UITouch>,
+    override open func touchesCancelled(_ touches: Set<UITouch>,
                                    with event: UIEvent?) {
         (selectedSubView as? SketchView)?.touchesCancelled(touches, with: event)
     }
 
-    func handlePan(_ panGestureRecognizer: UIPanGestureRecognizer) {
+    @objc func handlePan(_ panGestureRecognizer: UIPanGestureRecognizer) {
         selectedSubView?.handlePan?(panGestureRecognizer)
     }
 
-    func handleTap(_ tapGestureRecognizer: UITapGestureRecognizer) {
+    @objc func handleTap(_ tapGestureRecognizer: UITapGestureRecognizer) {
         if selectedSubView != nil {
             deselectSelectedSubview()
         } else {
@@ -251,11 +251,11 @@ class PageView: UIView, UIGestureRecognizerDelegate {
 
     // MARK: - UIGestureRecognizerDelegate
 
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         return !(selectedSubView is SketchView)
     }
 
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         // check if the user is currently selecting text
         if otherGestureRecognizer.view is UITextView {
             return false
@@ -264,7 +264,7 @@ class PageView: UIView, UIGestureRecognizerDelegate {
         
     }
 
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return false
     }
     
