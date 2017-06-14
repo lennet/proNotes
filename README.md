@@ -7,12 +7,12 @@ proNotes is a powerful Note app for iPad written in Swift 3.
 
 <img alt="Screenshot" src="resources/screenshot.jpg" width = "400">
 
-#Requirements
+# Requirements
 
 - Xcode 8
 - iOS 9.1
 
-#Awards
+# Awards
 WWDC Scholarship winner 2016
 
 # Acknowledgements
